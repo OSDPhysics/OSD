@@ -1,5 +1,7 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class Teacher(models.Model):
@@ -10,16 +12,25 @@ class Teacher(models.Model):
             ('Mr', 'Mr'),
             ('Dr', 'Dr'),
         )
-    
-    forename = models.CharField(max_length=200)
-    surname = models.CharField(max_length=200)
-    title = models.CharField(max_length=20, choices=TITLES)
-    staffcode = models.CharField(max_length=10)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=20, choices=TITLES, blank=True)
+    staffcode = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         space = ' '
-        fullname = self.title + space + self.forename + space + self.surname + space + '(' + self.staffcode + ')'
+        fullname = self.title + space + self.user.first_name + space + self.user.last_name + space + '(' + self.staffcode + ')'
+        #fullname = 'temporary'
         return fullname
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Teacher.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.teacher.save()
 
 class Group(models.Model):
     groupname = models.CharField(max_length=50)
