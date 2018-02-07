@@ -1,0 +1,9 @@
+h1, h3{ 
+    color: rgb(139, 124, 124);
+    font-family: 'Cuprum';
+}
+
+.center {
+    padding: 70px 0;
+    text-align: center;
+}
