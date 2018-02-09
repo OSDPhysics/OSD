@@ -29,16 +29,13 @@
                         {% endfor %}
                 </table>
 
-<!--
-                <table class="table">
-                    <tr><td>Staff Code</td><td>Name</td><td>Teaches the following groups</td></tr>
-                    <tr><td>JWR</td><td>James Wright</td><td>10Ph/1, 11Ph/2</td></tr>
-                </table>
+            <div class="well">
+                <a href="{% url 'add_teacher' %}">Add new teacher</a>
+            </div>
 
--->
         </div>
         <script type="text/JavaScript">
-    
+
         $(document).ready(function() {
             $('.xeditable').editable();
         });
