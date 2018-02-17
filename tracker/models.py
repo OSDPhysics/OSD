@@ -13,7 +13,7 @@ class Teacher(models.Model):
             ('Dr', 'Dr'),
         )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     title = models.CharField(max_length=20, choices=TITLES, blank=True)
     staffcode = models.CharField(max_length=10, blank=True)
 
@@ -23,14 +23,14 @@ class Teacher(models.Model):
         #fullname = 'temporary'
         return fullname
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Teacher.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.teacher.save()
+    # @receiver(post_save, sender=User)
+    # def create_user_profile(sender, instance, created, **kwargs):
+    #     if created:
+    #         Teacher.objects.create(user=instance)
+    #
+    # @receiver(post_save, sender=User)
+    # def save_user_profile(sender, instance, **kwargs):
+    #     instance.teacher.save()
 
 class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
@@ -53,7 +53,7 @@ class Student(models.Model):
             ('Undisclosed', 'Undisclosed'),
         )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     Gender = models.CharField(max_length=20, choices=GENDER, blank=True)
     idnumber = models.IntegerField(blank=True,null=True)
     tg = models.ForeignKey('tracker.TutorGroup',blank=True, null=True, on_delete=models.SET_NULL)
@@ -64,11 +64,13 @@ class Student(models.Model):
         #fullname = 'temporary'
         return fullname
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Student.objects.create(user=instance)
+    #Currently broken - if we log in any user, it wants to be linked to a student, too!
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.student.save()
+    # @receiver(post_save, sender=User)
+    # def create_user_profile(sender, instance, created, **kwargs):
+    #     if created:
+    #         Student.objects.create(user=instance)
+    #
+    # @receiver(post_save, sender=User)
+    # def save_user_profile(sender, instance, **kwargs):
+    #     instance.student.save()
