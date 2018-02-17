@@ -1,9 +1,16 @@
 from django.conf.urls import url
-from . import views
 from django.urls import path
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from . import views
+
 
 
 urlpatterns = [
-    url(r'^$', views.front_login, name='front_login'),
-    path('teachers', views.teachers)
+    path('',views.splash),
+    path('teachers/', views.teachers),
+    path('students/', views.students),
+    path('signup/', views.signup),
+    path('login/', views.login)
+
 ]

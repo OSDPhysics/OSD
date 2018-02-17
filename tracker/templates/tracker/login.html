@@ -1,0 +1,21 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <body>
+        <div class="center">
+                <h1>Login</h1>
+                <h1>OSD</h1>
+                <h3>Login here</h3>
+        </div>
+        <div class="center">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Login</button>
+                </form>
+        </div>
+    </body>
+{% endblock %}

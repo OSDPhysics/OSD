@@ -1,15 +1,17 @@
 {% load staticfiles %}
-<html>
-    <head>
+
+<head>
         <title>OSD</title>
         <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     </head>
-    <body>
-        <div class="center">
-                <h1>OSD</h1>
-                <h3>here</h3>
+<body>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
         </div>
-        
-    </body>
-</html>
+    </div>
+</body>
