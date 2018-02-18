@@ -74,3 +74,54 @@ class Student(models.Model):
     # @receiver(post_save, sender=User)
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.student.save()
+
+class Examboard(models.Model):
+    board = models.CharField(max_length=20)
+    def __str__(self):
+        return self.board
+
+class Examlevel(models.Model):
+    examtype = models.CharField(max_length=20)
+    def __str__(self):
+        return self.examtype
+
+class Syllabus(models.Model):
+    board = models.ForeignKey(Examboard, on_delete=models.CASCADE)
+    examtype = models.ForeignKey(Examlevel, on_delete=models.CASCADE)
+    syllabusname = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.syllabusname
+
+class Syllabuspoint(models.Model):
+    syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
+    syllabustext = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.syllabustext
+
+class Exam(models.Model):
+    name = models.CharField(max_length=100)
+    level = models.ForeignKey(Examlevel, on_delete=models.CASCADE)
+    syllabus = models.ManyToManyField(Syllabus)
+
+    def __str__(self):
+        return self.name
+
+class Question(models.Model):
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    qnumber = models.CharField(max_length=100)
+    qorder = models.IntegerField()
+    syllabuspoint = models.ForeignKey(Syllabuspoint, on_delete=models.CASCADE, blank=True, null=True)
+    maxscore = models.IntegerField()
+
+    def __str__(self):
+        return self.qnumber
+
+class Mark(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    score = models.IntegerField()
+
+    def __str__(self):
+        return self.score
