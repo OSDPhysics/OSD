@@ -1,6 +1,9 @@
-<html>
-    <head>
-        <title>Teachers</title>
+{% load staticfiles %}
+
+<head>
+        <title>OSD</title>
+        <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
         <meta charset="utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +14,12 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         <link href="{% static 'bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
         <script src="{% static 'bootstrap3-editable/js/bootstrap-editable.js' %}"></script>
-
-    </head>
-
-    <body>
-        {% block content %}
-        {% endblock %}
-
-
-    </body>
-</html>
+</head>
+    
+<body>
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>

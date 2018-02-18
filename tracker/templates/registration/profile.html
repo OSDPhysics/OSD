@@ -1,0 +1,11 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<h1>Profile</h1>
+<h2>You are logged in as: <u>{{ user.username }}</u></h2>
+<a href="logout">Logout</a>
+
+{% endblock %} 
