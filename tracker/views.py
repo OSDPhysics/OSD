@@ -32,6 +32,9 @@ def new_student(request):
 def login(request): 
     return render(request, 'tracker/login.html', {})
 
+def logged_out(request): 
+    return render(request, 'registration/logged_out.html', {})
+
 @login_required
 def teachers(request):
     return render(request, 'tracker/teachers.html', {})
@@ -39,5 +42,8 @@ def teachers(request):
 def students(request):
     return render(request, 'tracker/students.html', {})
     teachers = Teacher.objects.order_by('user__last_name')
-
     return render(request, 'tracker/teachers.html', {'teachers': teachers})
+
+@login_required
+def profile(request):
+    return render(request, 'registration/profile.html',{})
