@@ -1,0 +1,10 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    <h1>New Teacher</h1>
+    <form method="POST" class="teacher-form">{% csrf_token %}
+        {{ form1.as_p }}
+        {{ form2.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
