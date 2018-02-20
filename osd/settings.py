@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tracker',
-    'csvimport.app.CSVImportConf'
+    #'csvimport.app.CSVImportConf'
 ]
 
 MIDDLEWARE = [
