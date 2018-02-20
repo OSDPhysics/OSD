@@ -56,7 +56,8 @@ class Student(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     Gender = models.CharField(max_length=20, choices=GENDER, blank=True)
     idnumber = models.IntegerField(blank=True,null=True)
-    tg = models.ForeignKey('tracker.TutorGroup',blank=True, null=True, on_delete=models.SET_NULL)
+    classgroups = models.ManyToManyField('tracker.ClassGroup')
+    tutorgroup = models.ForeignKey('tracker.TutorGroup',blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         space = ' '
@@ -97,12 +98,18 @@ class Syllabuspoint(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
     syllabustext = models.CharField(max_length=500)
 
+    LEVELS = (
+        ('core', 'core'),
+        ('extended', 'extended')
+    )
+
+    syllabuslevel = models.IntegerField(max_length=10, choices=LEVELS, blank=True, null=True)
+
     def __str__(self):
         return self.syllabustext
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
-    level = models.ForeignKey(Examlevel, on_delete=models.CASCADE)
     syllabus = models.ManyToManyField(Syllabus)
 
     def __str__(self):
@@ -112,7 +119,7 @@ class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     qnumber = models.CharField(max_length=100)
     qorder = models.IntegerField()
-    syllabuspoint = models.ForeignKey(Syllabuspoint, on_delete=models.CASCADE, blank=True, null=True)
+    syllabuspoint = models.ManyToManyField(Syllabuspoint, blank=True, null=True)
     maxscore = models.IntegerField()
 
     def __str__(self):
