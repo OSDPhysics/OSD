@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import StudentForm, TeacherForm, UserForm, UserDetails
 from .models import Teacher, Student
+import csv
+import codecs
 
 # Create your views here.
 def splash(request):
@@ -54,3 +56,15 @@ def profile(request):
 def student_detail(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'tracker/student_detail.html', {'student': student})
+
+@login_required
+def import_students(request):
+    if request.POST and request.FILES:
+        csvfile = request.FILES['csv_file']
+        dialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
+        csvfile.open()
+        reader = csv.reader(codecs.EncodedFile(csvfile, "utf-8"), delimiter=',', dialect=dialect)
+        
+
+
+    return render(request, "tracker/import_students.html", locals())

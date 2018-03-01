@@ -15,5 +15,6 @@ urlpatterns = [
     path('teachers/add', views.add_teacher, name='add_teacher'),
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/logout', views.logged_out, name='logged_out'),
-    path('student_detail/<int:pk>', views.student_detail, name='student_detail')
+    path('student_detail/<int:pk>', views.student_detail, name='student_detail'),
+    path('import_students', views.import_students, name='import_students')
 ]
