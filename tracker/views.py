@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import StudentForm, TeacherForm, UserForm, UserDetails
 from .models import Teacher, Student
+from .functions.adddata import *
 import csv
 import codecs
+import os
 
 # Create your views here.
 def splash(request):
@@ -60,11 +62,17 @@ def student_detail(request, pk):
 @login_required
 def import_students(request):
     if request.POST and request.FILES:
-        csvfile = request.FILES['csv_file']
-        dialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
-        csvfile.open()
-        reader = csv.reader(codecs.EncodedFile(csvfile, "utf-8"), delimiter=',', dialect=dialect)
-        
+        #csvfile = request.FILES['csv_file'].read()
+        settings_dir = os.path.dirname(__file__)
+        PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+
+        STATIC_FOLDER = os.path.join(PROJECT_ROOT, 'tracker/static/')
+        csvfile = open(STATIC_FOLDER + 'input.csv','r')
+        #ndialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
+        #csvfile.open()
+        reader = csv.reader(csvfile,  delimiter=',')
+        processstudent(reader)
+
 
 
     return render(request, "tracker/import_students.html", locals())
