@@ -54,8 +54,8 @@ def addteacher(newteacher):
     newuser = User.objects.create_user(username=newteacher['username'],
                                        email=newteacher['email'],
                                        password=newteacher['password'],
-                                       first_name=newteacher['last_name'],
-                                       last_name=newteacher['first_name']
+                                       first_name=newteacher['first_name'],
+                                       last_name=newteacher['last_name']
                                        )
     teacher = Teacher.objects.create(user=newuser,
                                      staffcode=newteacher['staffcode'],

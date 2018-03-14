@@ -14,7 +14,7 @@ class Teacher(models.Model):
             ('Dr', 'Dr'),
         )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     title = models.CharField(max_length=20, choices=TITLES, blank=True)
     staffcode = models.CharField(max_length=10, blank=True)
 
@@ -113,7 +113,7 @@ class Syllabuspoint(models.Model):
         ('extended', 'extended')
     )
 
-    syllabuslevel = models.IntegerField(max_length=10, choices=LEVELS, blank=True, null=True)
+    syllabuslevel = models.CharField(max_length=10, choices=LEVELS, blank=True, null=True)
 
     def __str__(self):
         return self.syllabustext
@@ -131,7 +131,7 @@ class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     qnumber = models.CharField(max_length=100)
     qorder = models.IntegerField()
-    syllabuspoint = models.ManyToManyField(Syllabuspoint, blank=True, null=True)
+    syllabuspoint = models.ManyToManyField(Syllabuspoint, blank=True)
     maxscore = models.IntegerField()
 
     def __str__(self):

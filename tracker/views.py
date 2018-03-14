@@ -2,7 +2,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import StudentForm, TeacherForm, UserForm, UserDetails
+from django.http import HttpResponseRedirect
+from .forms import StudentForm, TeacherForm, NewExamForm
 from .models import Teacher, Student
 from .functions.adddata import *
 import csv
@@ -22,19 +23,13 @@ def new_teacher(request):
         form = TeacherForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            addteacher(form.cleaned_data)
-            return HttpResponseRedirect('/thanks/')
+            newteacher = addteacher(form.cleaned_data)
+            return HttpResponseRedirect('tracker/teachers/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TeacherForm()
     return render(request, 'tracker/new_teacher.html', {'form': form})
-
-
-def add_teacher(request):
-    form1 = TeacherForm()
-    form2 = UserDetails()
-    return render(request, 'tracker/edit_teacher.html', {'form1': form1, 'form2': form2})
 
 
 def new_student(request):
@@ -54,6 +49,10 @@ def logged_out(request):
 def teachers(request):
     teachers = Teacher.objects.order_by('user__last_name')
     return render(request, 'tracker/teachers.html', {'teachers': teachers})
+
+
+def teacher_details(request):
+    return
 
 
 def students(request):
@@ -87,3 +86,19 @@ def import_students(request):
         processstudent(reader)
 
     return render(request, "tracker/import_students.html", locals())
+
+
+def add_test1(request):
+    '''Take the information for the first stage of a new test record'''
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NewExamForm(request.POST)
+        new_exam = form.save().pk
+
+        return render(request, 'exam/' + str(new_exam), {'form': form,
+                                                          'stage': 1})
+
+    else:
+        form = NewExamForm()
+    return render(request, 'tracker/new_exam1.html', {'form': form})

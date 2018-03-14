@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import User, Teacher, Student
+from .models import User, Teacher, Student, Exam
 
 
 class UserForm(forms.ModelForm):
@@ -10,13 +10,13 @@ class UserForm(forms.ModelForm):
 
 
 class TeacherForm(forms.Form):
-    TITLES = (
-        ('Miss', 'Miss'),
-        ('Mrs', 'Mrs'),
-        ('Ms', 'Ms'),
-        ('Mr', 'Mr'),
-        ('Dr', 'Dr'),
-    )
+    # TITLES = (
+    #     ('Miss', 'Miss'),
+    #     ('Mrs', 'Mrs'),
+    #     ('Ms', 'Ms'),
+    #     ('Mr', 'Mr'),
+    #     ('Dr', 'Dr'),
+    # )
 
     # newteacher = {}
     # newteacher['last_name'] = forms.CharField(label='Surname', max_length=100)
@@ -30,7 +30,7 @@ class TeacherForm(forms.Form):
 
     last_name = forms.CharField(label='Surname', max_length=100)
     first_name = forms.CharField(label='Forename', max_length=100)
-    title = forms.ChoiceField(choices=TITLES, label='Title')
+    title = forms.ChoiceField(choices=Teacher.TITLES, label='Title')
     email = forms.EmailField()
     username = forms.CharField(label='Username', max_length=100)
     staffcode = forms.CharField(label='Staff code', max_length=4)
@@ -47,3 +47,8 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ()
+
+class NewExamForm(forms.ModelForm):
+    class Meta:
+        model = Exam
+        fields = ('name', 'syllabus')
