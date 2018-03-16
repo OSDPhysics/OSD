@@ -1,0 +1,12 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+<h1>Import Students</h1>
+    <form action={% url 'import_students' %} method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        <input type="file" name="csv_file" />
+        <input type="submit" value="Upload" />
+
+    </form>
+{% endblock %}

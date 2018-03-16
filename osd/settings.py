@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tracker',
     'exambuilder',
+    'school',
     #'csvimport.app.CSVImportConf'
 ]
 
