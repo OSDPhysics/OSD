@@ -1,0 +1,15 @@
+from django.urls import path
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from . import views
+
+urlpatterns = [
+    path('teachers/', views.teachers),
+    # not defined yet: path('teachers/<int:pk>', views.teacher_details, name='teacher_details'),
+    path('teachers/new/', views.new_teacher, name='new_teacher'),
+
+    path('students/', views.students, name='list_students'),
+    # not definied: path('students/new_student/', views.new_student, name='new_student'),
+    path('student/<int:pk>', views.student_detail, name='student_detail'),
+
+]

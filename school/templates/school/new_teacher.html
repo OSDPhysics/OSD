@@ -1,0 +1,13 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    <h1>New User</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-striped">
+        {{ form }}
+        </table>
+
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
