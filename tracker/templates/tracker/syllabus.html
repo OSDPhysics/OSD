@@ -1,0 +1,41 @@
+
+
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+        <div class="container">
+                <h1>Syllabus'</h1>
+        </div>
+
+        <div class="container">
+
+                <h3>These are the syllabuses we currently work with:</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Exam Level</th>
+                            <th>Exam Board</th>
+                            <th>Syllabus Name</th>
+                        </tr>
+                    </thead>
+
+                        {% for syllabus in syllabuses%}
+                        <tr>
+                            <td>{{syllabus.examtype}}</td>
+                            <td>{{syllabus.board}}</td>
+                            <td><a href="{% url 'syllabuses' %}/{{ syllabus.pk }}">{{syllabus.syllabusname}}</a></td>
+                        </tr>
+                        {% endfor %}
+                </table>
+
+
+
+        </div>
+        <script type="text/JavaScript">
+
+        $(document).ready(function() {
+            $('.xeditable').editable();
+        });
+        </script>
+{% endblock %}

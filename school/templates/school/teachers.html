@@ -1,0 +1,43 @@
+
+
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+        <div class="container">
+                <h1>Teachers</h1>
+        </div>
+
+        <div class="container">
+
+                <h3>This is a list of all our teachers:</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Forename</th>
+                            <th>Surname</th>
+                            <th>Staff code</th>
+                        </tr>
+                    </thead>
+
+                        {% for teacher in teachers%}
+                        <tr>
+                            <td>{{teacher.user.first_name}}</td>
+                            <td>{{teacher.user.last_name}}</td>
+                            <td><a href="teachers/{{teacher.pk}}" class="xeditable" id="staffcode" data-type="text" data-pk="{{teacher.pk}}" data-url="/post" data-title="Enter staff code">{{teacher.staffcode}}</a></td>
+                        </tr>
+                        {% endfor %}
+                </table>
+
+            <div class="well">
+                <a href="{% url 'new_teacher' %}">Add new teacher</a>
+            </div>
+
+        </div>
+        <script type="text/JavaScript">
+
+        $(document).ready(function() {
+            $('.xeditable').editable();
+        });
+        </script>
+{% endblock %}
