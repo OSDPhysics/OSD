@@ -1,56 +1,30 @@
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import StudentForm, TeacherForm, UserForm, UserDetails
-from .models import Teacher, Student
+#from .forms import NewExamForm
+from .models import Syllabus
 
-# Create your views here.
-def splash(request):
-    return render(request, 'tracker/splash.html', {})
 
-def new_teacher(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            form.save()
-            return redirect('splash')
+def add_test1(request):
+    '''Take the information for the first stage of a new test record'''
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NewExamForm(request.POST)
+        new_exam = form.save().pk
+
+        return render(request, 'exam/' + str(new_exam), {'form': form,
+                                                          'stage': 1})
+
     else:
-       form = UserForm()
-    return render(request, 'tracker/new_teacher.html', {'form': form})
-
-def add_teacher(request):
-    form1 = TeacherForm()
-    form2 = UserDetails()
-    return render(request, 'tracker/edit_teacher.html', {'form1': form1, 'form2': form2})
+        form = NewExamForm()
+    return render(request, 'tracker/new_exam1.html', {'form': form})
 
 
-def new_student(request):
-    form = StudentForm()
-    return render(request, 'tracker/new_student.html', {'form': form})
-
-def login(request):
-    return render(request, 'tracker/login.html', {})
-
-def logged_out(request):
-    return render(request, 'registration/logged_out.html', {})
-
-@login_required
-def teachers(request):
-    teachers = Teacher.objects.order_by('user__last_name')
-    return render(request, 'tracker/teachers.html', {'teachers': teachers})
-
-def students(request):
-    students = Student.objects.order_by('user__last_name').order_by('classgroups__groupname')
-    return render(request, 'tracker/students.html', {'students': students})
+def list_syllabuses(request):
+    syllabuses = Syllabus.objects.order_by('examtype')
+    return render(request, 'tracker/syllabus.html', {'syllabuses': syllabuses})
 
 
-@login_required
-def profile(request):
-    return render(request, 'registration/profile.html',{})
-
-@login_required
-def student_detail(request, pk):
-    student = get_object_or_404(Student, pk=pk)
-    return render(request, 'tracker/student_detail.html', {'student': student})
+def syllabus_detail(request, pk):
+    syllabus = get_object_or_404(Syllabus, pk=pk)
+    return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus})

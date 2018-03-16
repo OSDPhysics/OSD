@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+<html>
 <head>
         <title>OSD</title>
         <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
@@ -15,11 +15,10 @@
         <link href="{% static 'bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
         <script src="{% static 'bootstrap3-editable/js/bootstrap-editable.js' %}"></script>
 </head>
-    
+
 <body>
             {% block content %}
             {% endblock %}
-            </div>
-        </div>
-    </div>
+
 </body>
+</html>
