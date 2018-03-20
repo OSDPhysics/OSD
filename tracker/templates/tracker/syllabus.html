@@ -5,25 +5,26 @@
 {% block content %}
 
         <div class="container">
-                <h1>Teachers</h1>
+                <h1>Syllabus'</h1>
         </div>
 
         <div class="container">
 
-                <h3>This is a list of all our teachers:</h3>
+                <h3>These are the syllabuses we currently work with:</h3>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Forename</th>
-                            <th>Surname</th>
-                            <th>Staff code</th>
+                            <th>Exam Level</th>
+                            <th>Exam Board</th>
+                            <th>Syllabus Name</th>
                         </tr>
                     </thead>
 
-                        {% for teacher in teachers%}
+                        {% for syllabus in syllabuses%}
                         <tr>
-                            <td>{{teacher.user.first_name}}</td>
-                            <td>{{teacher.user.last_name}}</td>
+                            <td>{{syllabus.examtype}}</td>
+                            <td>{{syllabus.board}}</td>
+                            <td><a href="{% url 'syllabuses' %}/{{ syllabus.pk }}">{{syllabus.syllabusname}}</a></td>
                         </tr>
                         {% endfor %}
                 </table>
