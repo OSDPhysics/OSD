@@ -28,6 +28,8 @@ class Syllabus(models.Model):
 
 class Syllabuspoint(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
+    shortpoint = models.CharField(max_length=10, null=True, blank=True)
+    topic = models.CharField(max_length=10, null=True, blank=True)
     syllabustext = models.CharField(max_length=500)
 
     LEVELS = (

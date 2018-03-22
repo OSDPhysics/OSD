@@ -1,0 +1,34 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>{{ syllabus.syllabusname }}</h1>
+
+        <div class="container">
+            <h3>These are the specification points for the syllabus ' {{ syllabus.syllabusname }}':</h3>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Specification point</td>
+                        <td>Topic</td>
+                        <td>Specification text</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for specpoint in specpoints %}
+                    <tr>
+                        <td>{{ specpoint.shortpoint }}</td>
+                        <td>{{ specpoint.topic }}</td>
+                        <td>{{ specpoint.syllabustext }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
