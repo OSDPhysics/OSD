@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c082dac-85a3-4147-b5b7-17124a7d84fc" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/tracker/templates/tracker/syllabusdetail.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/tracker/models.py" afterPath="$PROJECT_DIR$/tracker/models.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/views.py" afterPath="$PROJECT_DIR$/tracker/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -326,6 +323,14 @@
       <option name="presentableId" value="Default" />
       <updated>1521509684201</updated>
     </task>
+    <task id="LOCAL-00001" summary="Now lists specificatoin points.">
+      <created>1521709138091</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1521709138091</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -359,6 +364,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Now lists specificatoin points." />
+    <option name="LAST_COMMIT_MESSAGE" value="Now lists specificatoin points." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
