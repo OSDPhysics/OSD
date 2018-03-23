@@ -11,8 +11,8 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td>Specification point</td>
                         <td>Topic</td>
+                        <td>Point</td>
                         <td>Specification text</td>
                     </tr>
                 </thead>
@@ -20,9 +20,9 @@
 
                 {% for specpoint in specpoints %}
                     <tr>
-                        <td>{{ specpoint.shortpoint }}</td>
                         <td>{{ specpoint.topic }}</td>
-                        <td>{{ specpoint.syllabustext }}</td>
+                        <td>{{ specpoint.number }}</td>
+                        <td>{{ specpoint.syllabusText }}</td>
                     </tr>
                 {% endfor %}
 

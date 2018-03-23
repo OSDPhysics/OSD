@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 #from .forms import NewExamForm
-from .models import Syllabus, Syllabuspoint
+from .models import Syllabus, SyllabusPoint, SyllabusTopic
 import logging
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,14 @@ def list_syllabuses(request):
 
 def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
-    specpoints = Syllabuspoint.objects.filter(syllabus=syllabus)
+    topics = SyllabusTopic.objects.filter(syllabus=syllabus)
+    allpoints = []
+    for topic in topics:
+        # get a list of topics, for each topic get all the syllabus points
+        points = SyllabusPoint.objects.filter(topic=topic)
+        for point in points:
+            allpoints.append(point)
+
 
     return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
-                                                           'specpoints': specpoints})
+                                                           'specpoints': allpoints})
