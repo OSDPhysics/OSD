@@ -1,5 +1,5 @@
 from django.db import models
-from school.models import Student
+from school.models import Student, ClassGroup
 # Create your models here.
 
 
@@ -69,13 +69,19 @@ class Question(models.Model):
         return self.qnumber
 
 
+class Sitting(models.Model):
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    classgroup = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
+    datesat = models.DateField()
+    openForStudentRecording = models.BooleanField()
+
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.IntegerField()
 
     def __str__(self):
-        return self.score
+        return str(self.score)
 
 # CSV Uploads
 
