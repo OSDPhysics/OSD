@@ -57,6 +57,7 @@ class Student(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     Gender = models.CharField(max_length=20, choices=GENDER, blank=True)
     idnumber = models.IntegerField(blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
     classgroups = models.ManyToManyField('school.ClassGroup')
     tutorgroup = models.ForeignKey('school.TutorGroup', blank=True, null=True, on_delete=models.SET_NULL)
 
@@ -65,3 +66,11 @@ class Student(models.Model):
         fullname = self.user.first_name + space + self.user.last_name  # + space + '(' + self.tg.tgname + ')'
         # fullname = 'temporary'
         return fullname
+
+
+# For CSV Imports:
+
+class CSVDoc(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

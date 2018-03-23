@@ -9,7 +9,8 @@ urlpatterns = [
     path('teachers/new/', views.new_teacher, name='new_teacher'),
 
     path('students/', views.students, name='list_students'),
-    # not definied: path('students/new_student/', views.new_student, name='new_student'),
+    path('students/import', views.import_students, name='import_students'),
+    path('students/new_student/', views.new_student, name='new_student'),
     path('student/<int:pk>', views.student_detail, name='student_detail'),
 
 ]

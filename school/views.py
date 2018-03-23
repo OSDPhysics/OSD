@@ -4,12 +4,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
-from .forms import TeacherForm
+from .forms import *
 from .models import Teacher, Student
 from .functions.adddata import *
 import csv
 import codecs
 import os
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def splash(request):
     return render(request, 'tracker/splash.html', {})
@@ -31,6 +35,10 @@ def new_teacher(request):
     return render(request, 'school/new_teacher.html', {'form': form})
 
 
+def new_student(request):
+    return render(request, 'school/404.html')
+
+
 def teachers(request):
     teachers = Teacher.objects.order_by('user__last_name')
     return render(request, 'school/teachers.html', {'teachers': teachers})
@@ -47,19 +55,19 @@ def student_detail(request, pk):
     return render(request, 'school/student_detail.html', {'student': student})
 
 
-# EXPERIMENTAL AND DUMB:
+# Add students in bulk from CSV
 def import_students(request):
-    if request.POST and request.FILES:
-        # csvfile = request.FILES['csv_file'].read()
-        settings_dir = os.path.dirname(__file__)
-        PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+    # Deal with getting a CSV file
 
-        STATIC_FOLDER = os.path.join(PROJECT_ROOT, 'school/static/')
-        csvfile = open(STATIC_FOLDER + 'input.csv', 'r')
-        # ndialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
-        # csvfile.open()
-        reader = csv.reader(csvfile, delimiter=',')
-        processstudent(reader)
+    if request.method == 'POST':
+        csvform = CSVDocForm(request.POST, request.FILES)
+        if csvform.is_valid():
+            file = csvform.save()
+            path = file.document.path
+            logger.error(path)
+            processstudent(path)
 
-    return render(request, "school/import_students.html", locals())
-
+            return redirect('list_students')
+    else:
+        csvform = CSVDocForm()
+    return render(request, 'school/model_form_upload.html', {'csvform': csvform})

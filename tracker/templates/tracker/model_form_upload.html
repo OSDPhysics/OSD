@@ -1,0 +1,12 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      {{ topicform.as_p }}
+      {{ csvform.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+  <p><a href="{% url 'syllabuses' %}">Return to home</a></p>
+{% endblock %}

@@ -1,25 +1,25 @@
 from django.contrib.auth.models import User
-from school.models import Student, Teacher
+from school.models import Student, Teacher, ClassGroup
 import csv
 import codecs
 
 
-def processstudent(reader):
-    # dialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
+def processstudent(path):
+    with open(path, newline='') as csvfile:
+        students = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in students:
+            newstudent = {}
+            newstudent['last_name'] = row[0]
+            newstudent['first_name'] = row[1]
+            newstudent['tutorgroup'] = row[2]
+            newstudent['Gender'] = row[3]
+            newstudent['email'] = row[4]
+            newstudent['username'] = row[5]
+            newstudent['studentid'] = row[6]
+            newstudent['password'] = row[6]
+            newstudent['classgroup'] = row[7]
 
-    for row in reader:
-        newstudent = {}
-        newstudent['last_name'] = row[0]
-        newstudent['first_name'] = row[1]
-        newstudent['tutorgroup'] = row[2]
-        newstudent['Gender'] = row[3]
-        newstudent['email'] = row[4]
-        newstudent['username'] = row[5]
-        newstudent['studentid'] = row[6]
-        newstudent['password'] = row[6]
-        newstudent['class'] = row[7]
-
-        addstudent(newstudent)
+            addstudent(newstudent)
 
 
 def processteacher(reader):
@@ -48,6 +48,11 @@ def addstudent(newstudent):
                                      idnumber=newstudent['studentid']
 
                                      )
+
+    # HACK!!!!#
+    newclassgroup = ClassGroup.objects.get(pk=2)
+
+    student.classgroups.add(newclassgroup)
 
 
 def addteacher(newteacher):
