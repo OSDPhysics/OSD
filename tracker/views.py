@@ -1,8 +1,10 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 #from .forms import NewExamForm
-from .models import Syllabus
+from .models import Syllabus, SyllabusPoint, SyllabusTopic
+import logging
 
+logger = logging.getLogger(__name__)
 
 def add_test1(request):
     '''Take the information for the first stage of a new test record'''
@@ -27,4 +29,14 @@ def list_syllabuses(request):
 
 def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
-    return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus})
+    topics = SyllabusTopic.objects.filter(syllabus=syllabus)
+    allpoints = []
+    for topic in topics:
+        # get a list of topics, for each topic get all the syllabus points
+        points = SyllabusPoint.objects.filter(topic=topic)
+        for point in points:
+            allpoints.append(point)
+
+
+    return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
+                                                           'specpoints': allpoints})

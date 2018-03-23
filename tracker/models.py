@@ -26,19 +26,28 @@ class Syllabus(models.Model):
         return self.syllabusname
 
 
-class Syllabuspoint(models.Model):
+class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
-    syllabustext = models.CharField(max_length=500)
+    topic = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.topic
+
+
+class SyllabusPoint(models.Model):
+    topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
+    number = models.CharField(max_length=10)
+    syllabusText = models.TextField()
 
     LEVELS = (
         ('core', 'core'),
         ('extended', 'extended')
     )
 
-    syllabuslevel = models.CharField(max_length=10, choices=LEVELS, blank=True, null=True)
+    syllabusLevel = models.CharField(max_length=10, choices=LEVELS, blank=True, null=True)
 
     def __str__(self):
-        return self.syllabustext
+        return self.number + " " + self.syllabusText
 
 
 class Exam(models.Model):
@@ -53,7 +62,7 @@ class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     qnumber = models.CharField(max_length=100)
     qorder = models.IntegerField()
-    syllabuspoint = models.ManyToManyField(Syllabuspoint, blank=True)
+    syllabuspoint = models.ManyToManyField(SyllabusPoint)
     maxscore = models.IntegerField()
 
     def __str__(self):
@@ -67,3 +76,5 @@ class Mark(models.Model):
 
     def __str__(self):
         return self.score
+
+# CSV Uploads
