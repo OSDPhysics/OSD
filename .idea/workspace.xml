@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c082dac-85a3-4147-b5b7-17124a7d84fc" name="Default" comment="Re-designed db to have clear topics for each syllabus">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/school/templates/school/404.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/school/templates/school/model_form_upload.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tracker/templates/tracker/model_form_upload.html" />
+    <list default="true" id="9c082dac-85a3-4147-b5b7-17124a7d84fc" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/osd/settings.py" afterPath="$PROJECT_DIR$/osd/settings.py" />
-      <change beforePath="$PROJECT_DIR$/school/forms.py" afterPath="$PROJECT_DIR$/school/forms.py" />
       <change beforePath="$PROJECT_DIR$/school/functions/adddata.py" afterPath="$PROJECT_DIR$/school/functions/adddata.py" />
-      <change beforePath="$PROJECT_DIR$/school/models.py" afterPath="$PROJECT_DIR$/school/models.py" />
-      <change beforePath="$PROJECT_DIR$/school/urls.py" afterPath="$PROJECT_DIR$/school/urls.py" />
       <change beforePath="$PROJECT_DIR$/school/views.py" afterPath="$PROJECT_DIR$/school/views.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/admin.py" afterPath="$PROJECT_DIR$/tracker/admin.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/forms.py" afterPath="$PROJECT_DIR$/tracker/forms.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/models.py" afterPath="$PROJECT_DIR$/tracker/models.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/urls.py" afterPath="$PROJECT_DIR$/tracker/urls.py" />
-      <change beforePath="$PROJECT_DIR$/tracker/views.py" afterPath="$PROJECT_DIR$/tracker/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -85,11 +72,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/school/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="261">
-                  <caret line="67" column="32" lean-forward="false" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+                <state relative-caret-position="915">
+                  <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                   </folding>
@@ -97,7 +84,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="404.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="404.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/school/templates/school/404.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="60">
@@ -130,8 +117,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/school/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="75" column="57" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="75" selection-end-column="57" />
+                <state relative-caret-position="-338">
+                  <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -238,8 +225,8 @@
           <file leaf-file-name="adddata.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="51" column="15" lean-forward="false" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
+                <state relative-caret-position="66">
+                  <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#43#0" expanded="true" />
                   </folding>
@@ -278,8 +265,8 @@
         <option value="$PROJECT_DIR$/school/urls.py" />
         <option value="$PROJECT_DIR$/school/templates/school/students.html" />
         <option value="$PROJECT_DIR$/school/templates/school/404.html" />
-        <option value="$PROJECT_DIR$/school/views.py" />
         <option value="$PROJECT_DIR$/school/functions/adddata.py" />
+        <option value="$PROJECT_DIR$/school/views.py" />
       </list>
     </option>
   </component>
@@ -321,11 +308,6 @@
             <path>
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
               <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="exambuilder" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
               <item name="media" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -333,53 +315,6 @@
               <item name="OSD" type="462c0819:PsiDirectoryNode" />
               <item name="media" type="462c0819:PsiDirectoryNode" />
               <item name="documents" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="osd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="functions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -540,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521768652709</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="CSV uploading of students now works (although you can't assign a student to a group properly yet - this must be added to the code at the moment)">
+      <created>1521776753455</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1521776753455</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -578,7 +520,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Now lists specificatoin points." />
     <MESSAGE value="Re-designed db to have clear topics for each syllabus" />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-designed db to have clear topics for each syllabus" />
+    <MESSAGE value="CSV uploading of students now works (although you can't assign a student to a group properly yet - this must be added to the code at the moment)" />
+    <option name="LAST_COMMIT_MESSAGE" value="CSV uploading of students now works (although you can't assign a student to a group properly yet - this must be added to the code at the moment)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -801,7 +744,7 @@
     <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/model_form_upload.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -826,9 +769,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="8" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="75">
+          <caret line="5" column="15" lean-forward="false" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          <folding>
+            <element signature="e#1#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -842,36 +787,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/school/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="135">
+          <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="49" column="12" lean-forward="false" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+        <state relative-caret-position="261">
+          <caret line="51" column="2" lean-forward="false" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="42" column="3" lean-forward="false" selection-start-line="42" selection-start-column="3" selection-end-line="42" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="67" column="32" lean-forward="false" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -910,10 +837,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="51" column="15" lean-forward="false" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
+        <state relative-caret-position="66">
+          <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-338">
+          <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

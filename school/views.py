@@ -64,9 +64,8 @@ def import_students(request):
         if csvform.is_valid():
             file = csvform.save()
             path = file.document.path
-            logger.error(path)
             processstudent(path)
-
+            os.remove(path)
             return redirect('list_students')
     else:
         csvform = CSVDocForm()

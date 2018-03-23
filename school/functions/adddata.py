@@ -16,8 +16,10 @@ def processstudent(path):
             newstudent['email'] = row[4]
             newstudent['username'] = row[5]
             newstudent['studentid'] = row[6]
-            newstudent['password'] = row[6]
-            newstudent['classgroup'] = row[7]
+            newstudent['password'] = row[7]
+            newstudent['classgroup'] = row[8]
+            newstudent['year'] = row [9]
+
 
             addstudent(newstudent)
 
@@ -45,12 +47,13 @@ def addstudent(newstudent):
                                        )
     student = Student.objects.create(user=newuser,
                                      Gender=newstudent['Gender'],
-                                     idnumber=newstudent['studentid']
+                                     idnumber=newstudent['studentid'],
+                                     year=int(newstudent['year'])
 
                                      )
 
     # HACK!!!!#
-    newclassgroup = ClassGroup.objects.get(pk=2)
+    newclassgroup = ClassGroup.objects.get(pk=3)
 
     student.classgroups.add(newclassgroup)
 
