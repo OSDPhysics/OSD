@@ -19,6 +19,7 @@ def splash(request):
     return render(request, 'tracker/splash.html', {})
 
 
+@login_required
 def new_teacher(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -35,15 +36,18 @@ def new_teacher(request):
     return render(request, 'school/new_teacher.html', {'form': form})
 
 
+@login_required
 def new_student(request):
     return render(request, 'school/404.html')
 
 
+@login_required
 def teachers(request):
     teachers = Teacher.objects.order_by('user__last_name')
     return render(request, 'school/teachers.html', {'teachers': teachers})
 
 
+@login_required
 def students(request):
     students = Student.objects.order_by('user__last_name').order_by('classgroups__groupname')
     return render(request, 'school/students.html', {'students': students})
@@ -56,6 +60,7 @@ def student_detail(request, pk):
 
 
 # Add students in bulk from CSV
+@login_required
 def import_students(request):
     # Deal with getting a CSV file
 
@@ -66,6 +71,7 @@ def import_students(request):
             path = file.document.path
             processstudent(path)
             os.remove(path)
+            file.delete()
             return redirect('list_students')
     else:
         csvform = CSVDocForm()

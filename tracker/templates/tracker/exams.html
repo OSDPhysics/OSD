@@ -1,0 +1,34 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+    <div class="container">
+                <h1>Exams</h1>
+        </div>
+
+        <div class="container">
+
+                <h3>These are the stored exams:</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Exam Syllabus</th>
+                            <th>Exam name</th>
+
+                        </tr>
+                    </thead>
+
+                        {% for exam in exams %}
+                        <tr>
+                            <td>{{exam.syllabus.name}}</td>
+                            <td><a href="{{ exam.pk }}">{{exam.name}}</a></td>
+                        </tr>
+                        {% endfor %}
+                </table>
+
+
+
+        </div>
+
+
+
+
+{% endblock content %}

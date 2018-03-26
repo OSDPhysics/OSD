@@ -1,0 +1,84 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Exam Name</label>
+    {{ newExamForm.name }}
+    {% if newExamForm.name.errors %}
+        {% for error in newExamForm.name.errors %}
+            {{ error|escape }}
+        {% endfor %}
+    {% endif %}
+
+    <label>Syllabus</label>
+    {{ newExamForm.syllabus }}
+    {% if newExamForm.syllabus.errors %}
+        {% for error in newExamForm.syllabus.errors %}
+            {{ error|escape }}
+        {% endfor %}
+    {% endif %}
+
+    {{ questionFormSet.management_form }}
+
+    {% for link_form in questionFormSet %}
+        <div class="link-formset">
+            {{ link_form.qnumber }}
+            {% if link_form.qnumber.errors %}
+                {% for error in link_form.qnumber.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+
+            {{ link_form.qorder }}
+            {% if link_form.qorder.errors %}
+                {% for error in link_form.qorder.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+
+            {{ link_form.syllabuspoint }}
+            {% if link_form.syllabuspoint.errors %}
+                {% for error in link_form.syllabuspoint.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+
+            {{ link_form.maxscore }}
+            {% if link_form.maxscore.errors %}
+                {% for error in link_form.maxscore.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    {% if questionFormSet.non_form_errors %}
+        {% for error in questionFormSet.non_form_errors %}
+            {{ error|escape }}
+        {% endfor %}
+    {% endif %}
+
+    <input type="submit" value="Update Profile" class="button"/>
+</form>
+
+<!-- Include formset plugin - including jQuery dependency -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="{% static 'path_to/jquery.formset.js' %}"></script>
+<script>
+    $('.link-formset').formset({
+        addText: 'add link',
+        deleteText: 'remove'
+    });
+</script>
+{% endblock content %}

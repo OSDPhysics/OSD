@@ -4,6 +4,8 @@ import csv
 import codecs
 
 
+
+
 def processstudent(path):
     with open(path, newline='') as csvfile:
         students = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -53,7 +55,7 @@ def addstudent(newstudent):
                                      )
 
     # HACK!!!!#
-    newclassgroup = ClassGroup.objects.get(pk=3)
+    newclassgroup = ClassGroup.objects.get(pk=1)
 
     student.classgroups.add(newclassgroup)
 

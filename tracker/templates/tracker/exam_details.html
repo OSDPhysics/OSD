@@ -1,0 +1,48 @@
+{% extends 'tracker/base2.html' %}
+
+{% block title %}Exam Details{% endblock title %}
+{% block description %}These are the details of the exam {{ exam.name }}.{% endblock description %}
+
+{%  block content %}
+<h4>Exam Questions</h4>
+ <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Question number</th>
+                            <th>Max score</th>
+
+                        </tr>
+                    </thead>
+
+                        {% for question in questions %}
+                        <tr>
+                            <td>{{question.qnumber}}</td>
+                            <td>{{question.maxscore}}</td>
+
+                        </tr>
+                        {% endfor %}
+                </table>
+
+    <h4>Sittings</h4>
+    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date sat</th>
+                            <th>Class Group</th>
+                            <th>Class Teacher</th>
+
+                        </tr>
+                    </thead>
+
+                        {% for sitting in sittings %}
+                        <tr>
+                            <td>{{sitting.datesat}}</td>
+                            <td><a href="{% url 'sittings' %}{{ sitting.pk }}">{{sitting.classgroup.groupname}}</a></td>
+                            <td>{{ sitting.classgroup.groupteacher }}</td>
+
+                        </tr>
+                        {% endfor %}
+                </table>
+{% endblock content %}
+
+

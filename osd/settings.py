@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'tracker',
     'exambuilder',
     'school',
-    #'csvimport.app.CSVImportConf'
+    'searchableselect'
 ]
 
 MIDDLEWARE = [
