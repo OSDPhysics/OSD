@@ -1,0 +1,7 @@
+chardet==3.0.4
+Django==2.0.1
+django-csvimport==2.11
+django-searchable-select==1.5.0
+django-tables2==1.19.0
+Pillow==5.0.0
+pytz==2017.3
