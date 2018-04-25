@@ -1,5 +1,7 @@
 from django.db import models
 from school.models import Student, ClassGroup
+import numpy
+
 # Create your models here.
 
 
@@ -49,6 +51,10 @@ class SyllabusPoint(models.Model):
     def __str__(self):
         return self.number + " " + self.syllabusText
 
+    def get_student_rating(self, student):
+        scores = Mark.objects.filter(question__syllabuspoint__in=self).filter(question__mark__student=student)
+        numpy.mean(scores.score)
+
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
@@ -79,10 +85,11 @@ class Sitting(models.Model):
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    score = models.IntegerField(blank=True,null=True)
+    score = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return str(self.score)
+
 
 # CSV Uploads
 

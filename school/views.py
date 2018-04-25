@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 def splash(request):
-    return render(request, 'tracker/splash.html', {})
+    return render(request, 'school/splash.html', {})
+
 
 
 @login_required

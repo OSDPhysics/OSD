@@ -1,12 +1,20 @@
-{% extends 'tracker/base.html' %}
+{% extends 'tracker/base2.html' %}
 
-{% block title %}Splash{% endblock %}
+{% block title %}Greenpen{% endblock %}
 
 {% block content %}
 
     <body>
         <div class="center">
-                <h1>OSD</h1>
+                <div class="jumbotron">
+                    <h1 class="display-4">Welcome to Greenpen</h1>
+                         <p class="lead">Greenpen is an assessment management system which allows students, teachers and parents to see an individual student's progress against assessment objectivies.</p>
+                    <hr class="my-4">
+                    <p>It is currently under development by a group of GIS teachers.</p>
+                    <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          </p>
+        </div>
                 <h3> <a href="{% url 'new_teacher' %}">New User? Signup here.</a></h3>
                <!-- <h3> <a href="{% url 'new_student' %}">New Student? Signup here.</a></h3> -->
                 <h3> <a href="login">Login</a></h3>
