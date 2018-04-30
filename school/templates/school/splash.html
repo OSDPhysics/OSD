@@ -1,19 +1,15 @@
 {% extends 'tracker/base2.html' %}
 
-{% block title %}Greenpen{% endblock %}
-
 {% block content %}
 
     <body>
-    <div class="page-header">
+    <div class="align-left">
         {% if user.is_authenticated %}
             <H2>Hi, you are logged in as {{ user.username }}, welcome back.</H2>
             <a href="{% url 'logout' %}?next=/"> Log out </a>
         {% else %}
         {% endif %}
     </div>
-
-
     <div class="center">
                 <div class="jumbotron">
                     <h1 class="display-4">Welcome to Greenpen</h1>
