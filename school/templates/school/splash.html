@@ -5,7 +5,16 @@
 {% block content %}
 
     <body>
-        <div class="center">
+    <div class="page-header">
+        {% if user.is_authenticated %}
+            <H2>Hi, you are logged in as {{ user.username }}, welcome back.</H2>
+            <a href="{% url 'logout' %}?next=/"> Log out </a>
+        {% else %}
+        {% endif %}
+    </div>
+
+
+    <div class="center">
                 <div class="jumbotron">
                     <h1 class="display-4">Welcome to Greenpen</h1>
                          <p class="lead">Greenpen is an assessment management system which allows students, teachers and parents to see an individual student's progress against assessment objectivies.</p>
@@ -15,10 +24,12 @@
                     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </p>
         </div>
-                <h3> <a href="{% url 'new_teacher' %}">New User? Signup here.</a></h3>
+        <h3><a href="{% url 'new_teacher' %}">New Teacher? Signup here.</a></h3>
                <!-- <h3> <a href="{% url 'new_student' %}">New Student? Signup here.</a></h3> -->
                 <h3> <a href="login">Login</a></h3>
 
         </div>
     </body>
-{% endblock %}
+
+
+{% endblock content %}
