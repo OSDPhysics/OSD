@@ -17,4 +17,4 @@ def home(request):
 @login_required
 def profile(request):
     teacher = get_object_or_404(Teacher, pk=pk)
-    return render(request, 'teachnet/profile.html', {'teacher': teacher})
+    return render(request, 'teachnet/profile.html', {'teachers': teachers})
