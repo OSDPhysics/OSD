@@ -15,3 +15,6 @@ class Objective(models.Model):
 
 class Skill(models.Model):
     skill_name = models.TextField()
+
+    def __str__(self):
+        return self.skill_name
