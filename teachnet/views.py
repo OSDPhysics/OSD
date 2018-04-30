@@ -22,3 +22,7 @@ def teacherskills(request):
 @login_required
 def profile(request):
     return render(request, 'teachnet/profile.html')
+
+@login_required:
+def teacherwithskill(request):
+    teachers = Teacher.objects.filter(

@@ -23,7 +23,11 @@
         <tr>
          <td>{{ teacher.user.first_name }}</td>
         <td>{{ teacher.user.last_name }}</td>
-        <td>{{ teacher.skills.all|join:", " }}</td>
+        <td>
+        {% for skill in teacher.skills.all %}
+            <a href="./skills/{{ skill.pk }}">{{ skill }}</a>,
+        {% endfor %}
+        </td>
         <td><a class="btn btn-primary btn-lg" href="mailto:{{ teacher.user.email }}" role="button">Email Teacher</a></td>
          </tr>
     {% endfor %}
@@ -34,10 +38,11 @@
 </div>
 
 <script>
+    // Make the table filterable
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
+    $("#myTable").find("tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
