@@ -15,6 +15,10 @@ def home(request):
     return render(request, 'teachnet/home.html')
 
 @login_required
+def teacherskills(request):
+    teachers = Teacher.objects.all()
+    return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers})
+
+@login_required
 def profile(request):
-    teacher = get_object_or_404(Teacher, pk=pk)
-    return render(request, 'teachnet/profile.html', {'teachers': teachers})
+    return render(request, 'teachnet/profile.html')
