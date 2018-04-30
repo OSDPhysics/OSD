@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'tracker',
     'exambuilder',
     'school',
-    'searchableselect'
+    'searchableselect',
+    'teachnet',
 ]
 
 MIDDLEWARE = [

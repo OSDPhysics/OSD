@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout/', auth_views.logout, name='logout'),
     path('searchableselect/', include('searchableselect.urls')),
     path('', school_views.splash, name='splash'),
+    path('teachnet/', include('teachnet.urls')),
 ]
 
