@@ -18,6 +18,10 @@ logger = logging.getLogger(__name__)
 def splash(request):
     return render(request, 'school/splash.html', {})
 
+@login_required
+def school(request):
+    return render(request, 'school/school.html', {})
+
 def new_teacher(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -64,7 +68,6 @@ def student_detail(request, pk):
 
 def logout_view(request):
     logout(request)
-
 
 # Add students in bulk from CSV
 @login_required
