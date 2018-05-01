@@ -1,0 +1,25 @@
+{% extends 'tracker/base2.html' %}
+
+{% block title %}TeachNet{% endblock %}
+
+{% block content %}
+
+    <body>
+        <div class="center">
+                <div class="jumbotron">
+                    <h1 class="display-4">Welcome to TeachNet</h1>
+                         <p class="lead">TeachNet is an online system designed to allow staff to share and search for professional objectives, skills and knowledge.</p>
+                    <hr class="my-4">
+                    <p>It is currently under development by a group of GIS teachers.</p>
+                    <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          </p>
+        </div>
+                <a class="btn btn-primary btn-lg" href="profile/{{ user.pk }}" role="button">View my profile</a>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Search for a skill</a>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Search for an objective</a>
+                <h3> <a href="login">Login</a></h3>
+
+        </div>
+    </body>
+{% endblock %}

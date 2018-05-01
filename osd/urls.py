@@ -29,6 +29,6 @@ urlpatterns = [
     path('searchableselect/', include('searchableselect.urls')),
     path('', school_views.splash, name='splash'),
     path('accounts/profile/', school_views.accounts_profile, name='accounts_profile'),
-
+    path('teachnet/', include('teachnet.urls')),
 ]
 
