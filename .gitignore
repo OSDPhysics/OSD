@@ -2,3 +2,5 @@
 *__pycache__
 */migrations/*
 db.sqlite3
+osd/settings.py
+osd/wsgi.py

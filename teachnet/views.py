@@ -20,9 +20,11 @@ def teacherskills(request):
     return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers})
 
 @login_required
-def profile(request):
-    return render(request, 'teachnet/profile.html')
+def profile(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    return render(request, 'teachnet/profile.html', {'teacher': teacher})
 
-@login_required:
-def teacherwithskill(request):
-    teachers = Teacher.objects.filter(
+@login_required
+def teacherwithskill(request,pk):
+    teachers = Teacher.objects.filter(skills__in=pk)
+    return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers})
