@@ -1,12 +1,11 @@
-{% extends 'tracker/base2.html' %}
+{% extends 'tracker/base.html' %}
 
 {% block content %}
 
     <body>
     <div class="align-left">
         {% if user.is_authenticated %}
-            <H2>Hi, you are logged in as {{ user.username }}, welcome back.</H2>
-            <a href="{% url 'logout' %}?next=/"> Log out </a>
+            <H2>Hi, {{ user.username }}, welcome back.</H2>
         {% else %}
         {% endif %}
     </div>
@@ -20,10 +19,7 @@
                     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </p>
         </div>
-        <h3><a href="{% url 'new_teacher' %}">New Teacher? Signup here.</a></h3>
                <!-- <h3> <a href="{% url 'new_student' %}">New Student? Signup here.</a></h3> -->
-                <h3> <a href="login">Login</a></h3>
-
         </div>
     </body>
 

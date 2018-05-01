@@ -18,7 +18,6 @@ logger = logging.getLogger(__name__)
 def splash(request):
     return render(request, 'school/splash.html', {})
 
-@login_required
 def new_teacher(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
