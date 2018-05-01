@@ -88,19 +88,20 @@ def list_exams(request):
 def construction(request, pk):
     return render(request, 'tracker/404.html', {})
 
+@login_required
+def tracker_overview(request):
+    return render(request, 'tracker/tracker_overview.html', {})
+
 
 @login_required
 def examDetails(request,pk):
     exam = Exam.objects.get(pk=pk)
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
-
-
     return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                          'sittings': sittings,
                                                          'questions': questions})
 @login_required
 def sitting_detail(request,pk):
     sitting = Sitting.objects.get(pk=pk)
-
     return render(request, 'tracker/404.html')
