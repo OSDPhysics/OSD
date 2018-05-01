@@ -83,3 +83,21 @@ def import_students(request):
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
+
+
+@login_required
+def import_teachers(request):
+    # Deal with getting a CSV file
+
+    if request.method == 'POST':
+        csvform = CSVDocForm(request.POST, request.FILES)
+        if csvform.is_valid():
+            file = csvform.save()
+            path = file.document.path
+            processteacher(path)
+            os.remove(path)
+            file.delete()
+            return redirect('list_students')
+    else:
+        csvform = CSVDocForm()
+    return render(request, 'school/model_form_upload.html', {'csvform': csvform})
