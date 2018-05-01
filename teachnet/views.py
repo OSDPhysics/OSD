@@ -8,6 +8,18 @@ from school.models import Teacher
 import os
 
 
+def can_view_profile(requester, user):
+    if requester.pk == user.pk: # viewing own profile
+        return True
+
+    # check if the requester is the line manager of the user
+    islinemanager = Teacher.objects.filter(line_manager=requester).count()
+
+    if islinemanager >= 1:
+        return True
+
+    # We're not the user, or the line manager, so kick them out
+    return False
 
 @login_required
 def home(request):
@@ -22,7 +34,12 @@ def teacherskills(request):
 @login_required
 def profile(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
-    return render(request, 'teachnet/profile.html', {'teacher': teacher})
+
+    if can_view_profile(request.user,teacher):
+        return render(request, 'teachnet/profile.html', {'teacher': teacher})
+
+    else:
+        return render(request, 'teachnet/forbidden.html')
 
 @login_required
 def teacherwithskill(request,pk):

@@ -18,6 +18,7 @@ class Teacher(models.Model):
     title = models.CharField(max_length=20, choices=TITLES, blank=True)
     staffcode = models.CharField(max_length=10, blank=True)
     skills = models.ManyToManyField(Skill)
+    line_manager = models.OneToOneField(User, on_delete=models.SET_NULL(), null=True, blank=True)
 
     def __str__(self):
         space = ' '
