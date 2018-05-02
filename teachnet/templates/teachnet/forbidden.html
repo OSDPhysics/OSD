@@ -1,0 +1,20 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}TeachNet{% endblock %}
+
+{% block content %}
+
+    <body>
+        <div class="center">
+                <div class="jumbotron">
+                    <h1 class="display-4">Access Denied</h1>
+                         <p class="lead">You do not have permission to view this user's profile.</p>
+                   
+        </div>
+                <a class="btn btn-primary btn-lg" href="profile/{{ user.pk }}" role="button">View my profile</a>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Search for a skill</a>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Search for an objective</a>
+
+        </div>
+    </body>
+{% endblock %}

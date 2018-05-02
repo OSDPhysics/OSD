@@ -22,22 +22,23 @@ def processstudent(path):
             newstudent['classgroup'] = row[8]
             newstudent['year'] = row [9]
 
-
             addstudent(newstudent)
 
 
-def processteacher(reader):
-    for row in reader:
-        newteacher = {}
-        newteacher['last_name'] = row[0]
-        newteacher['first_name'] = row[1]
-        newteacher['title'] = row[2]
-        newteacher['email'] = row[3]
-        newteacher['username'] = row[4]
-        newteacher['staffcode'] = row[5]
-        newteacher['password'] = row[6]
+def processteacher(path):
+    with open(path, newline='') as csvfile:
+        teachers = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in teachers:
+            newteacher = {}
+            newteacher['last_name'] = row[0]
+            newteacher['first_name'] = row[1]
+            newteacher['title'] = row[2]
+            newteacher['email'] = row[3]
+            newteacher['username'] = row[4]
+            newteacher['staffcode'] = row[5]
+            newteacher['password'] = row[6]
 
-        addteacher(newteacher)
+            addteacher(newteacher)
 
 
 def addstudent(newstudent):
@@ -55,7 +56,9 @@ def addstudent(newstudent):
                                      )
 
     # HACK!!!!#
-    newclassgroup = ClassGroup.objects.get(pk=1)
+    newclassgroupname = newstudent['classgroup']
+
+    newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
 
     student.classgroups.add(newclassgroup)
 
