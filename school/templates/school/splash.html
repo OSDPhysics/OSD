@@ -16,10 +16,12 @@
                     <hr class="my-4">
                     <p>It is currently under development by a group of GIS teachers.</p>
                     <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    <a class="btn btn-primary btn-lg" href={% url 'accounts_profile' %} role="button">Your Account</a>
+                     <a class="btn btn-primary btn-lg" href="{% url 'teachnet_home' %}" role="button">Teachnet</a>
+                      <a class="btn btn-primary btn-lg" href="{% url 'school_home' %}" role="button">School Management</a>
           </p>
         </div>
-               <!-- <h3> <a href="{% url 'new_student' %}">New Student? Signup here.</a></h3> -->
+
         </div>
     </body>
 

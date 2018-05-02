@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    path('', views.home, name='school_home'),
     path('teachers/', views.teachers),
     # not defined yet: path('teachers/<int:pk>', views.teacher_details, name='teacher_details'),
     path('teachers/new/', views.new_teacher, name='new_teacher'),

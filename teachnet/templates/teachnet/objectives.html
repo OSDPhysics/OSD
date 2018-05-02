@@ -1,0 +1,39 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Teachnet - My Objectives{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+  <h1>{{ teacher }} - Objectives</h1>
+
+    <div class="container">
+
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>Objective</td>
+                    <td>Date approved</td>
+                    <td>Outcome report</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for objective in teacher.objective_set.all %}
+                <tr>
+                    <td>{{ objective.objective }}</td>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+</body>
+
+{% endblock %}

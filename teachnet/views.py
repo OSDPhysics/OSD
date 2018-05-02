@@ -50,3 +50,13 @@ def teacherwithskill(request, pk):
     skill = Skill.objects.get(pk=pk)
     return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers,
                                                             'skill': skill})
+
+@login_required
+def objectives(request,pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+
+    if can_view_full_profile(request.user, teacher):
+        return render(request, 'teachnet/objectives.html', {'teacher': teacher})
+
+    else:
+        return render(request, 'teachnet/forbidden.html')

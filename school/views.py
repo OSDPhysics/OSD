@@ -14,9 +14,15 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+@login_required
+def home(request):
+    user = request.user
+    return render(request, 'school/home.html', {'user': user})
+
 
 def splash(request):
     return render(request, 'school/splash.html', {})
+
 
 @login_required
 def school(request):
@@ -68,6 +74,7 @@ def student_detail(request, pk):
 
 def logout_view(request):
     logout(request)
+
 
 # Add students in bulk from CSV
 @login_required
