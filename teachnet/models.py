@@ -1,5 +1,4 @@
 from django.db import models
-#from school.models import Teacher as myTeacher
 # Create your models here.
 
 

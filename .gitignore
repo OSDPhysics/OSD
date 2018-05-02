@@ -4,3 +4,5 @@
 db.sqlite3
 osd/settings.py
 osd/wsgi.py
+
+.idea/
