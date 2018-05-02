@@ -40,7 +40,7 @@ def profile(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
 
     if can_view_full_profile(request.user, teacher):
-        teacher_objectives = Objective.objects.filter(teacher=teacher)
+        teacher_objectives = Objective.objects.filter(teacher=teacher).order_by('date_created').order_by('date_approved')
         return render(request, 'teachnet/full_profile.html', {'teacher': teacher,
                                                               'teacher_objectives': teacher_objectives})
 
