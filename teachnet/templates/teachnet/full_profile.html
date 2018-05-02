@@ -29,7 +29,28 @@
        </div>
         <div class="col-md-6">
           <h2>Objectives</h2>
-          <p></p>
+          <p>
+
+            <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Objective</th>
+        <th>Date Set</th>
+        <th>Date Approved</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+        {% for objective in teacher_objectives %}
+            <td>{{ objective.short_name }}</td>
+            <td>{{ objective.date_created }}</td>
+            <td>{{ objective.date_approved }}</td>
+    </tbody>
+  </table>
+
+
+
+              {% endfor %}
+          </p>
           <p><a class="btn btn-default" href="#" role="button">Change Objectives &raquo;</a></p>
         </div>
       </div>

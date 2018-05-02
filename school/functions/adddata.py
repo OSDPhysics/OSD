@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from school.models import Student, Teacher, ClassGroup
 import csv
 import codecs
@@ -48,6 +48,12 @@ def addstudent(newstudent):
                                        first_name=newstudent['last_name'],
                                        last_name=newstudent['first_name']
                                        )
+
+    # Place new user in the Students Auth group
+
+    students_user_group = Group.objects.get(name='Students')
+    students_user_group.user_set.add(newuser)
+
     student = Student.objects.create(user=newuser,
                                      Gender=newstudent['Gender'],
                                      idnumber=newstudent['studentid'],
@@ -55,11 +61,9 @@ def addstudent(newstudent):
 
                                      )
 
-    # HACK!!!!#
+    # Add student to CLASS GROUP (NOT USER GROUP)
     newclassgroupname = newstudent['classgroup']
-
     newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
-
     student.classgroups.add(newclassgroup)
 
 

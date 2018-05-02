@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from .forms import *
@@ -13,6 +13,10 @@ import os
 import logging
 
 logger = logging.getLogger(__name__)
+
+def is_teacher(user):
+    return user.groups.filter(name='Teachers').exists()
+
 
 @login_required
 def home(request):
@@ -77,7 +81,7 @@ def logout_view(request):
 
 
 # Add students in bulk from CSV
-@login_required
+@user_passes_test(is_teacher)
 def import_students(request):
     # Deal with getting a CSV file
 

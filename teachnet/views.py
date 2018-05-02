@@ -4,7 +4,8 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from school.models import Teacher, Skill
+from school.models import Teacher
+from teachnet.models import Skill, Objective
 import os
 
 
@@ -33,12 +34,15 @@ def teacherskills(request):
     return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers,
                                                             'skill': skill})
 
+
 @login_required
 def profile(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
 
     if can_view_full_profile(request.user, teacher):
-        return render(request, 'teachnet/full_profile.html', {'teacher': teacher})
+        teacher_objectives = Objective.objects.filter(teacher=teacher)
+        return render(request, 'teachnet/full_profile.html', {'teacher': teacher,
+                                                              'teacher_objectives': teacher_objectives})
 
     else:
         return render(request, 'teachnet/forbidden.html') # TODO: change to a limited profile
