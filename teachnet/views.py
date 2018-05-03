@@ -1,12 +1,10 @@
-from django.shortcuts import render
-
 # Create your views here.
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+
+from osd.decorators import teacher_only
 from school.models import Teacher
 from teachnet.models import Skill, Objective
-import os
 
 
 def can_view_full_profile(requester, user):
@@ -22,12 +20,12 @@ def can_view_full_profile(requester, user):
     # We're not the user, or the line manager, so kick them out
     return False
 
-@login_required
+@teacher_only
 def home(request):
 
     return render(request, 'teachnet/home.html')
 
-@login_required
+@teacher_only
 def teacherskills(request):
     teachers = Teacher.objects.all()
     skill = 'All'
@@ -35,7 +33,7 @@ def teacherskills(request):
                                                             'skill': skill})
 
 
-@login_required
+@teacher_only
 def profile(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
 
@@ -48,14 +46,14 @@ def profile(request, pk):
         return render(request, 'teachnet/forbidden.html') # TODO: change to a limited profile
 
 
-@login_required
+@teacher_only
 def teacherwithskill(request, pk):
     teachers = Teacher.objects.filter(skills__pk=pk)
     skill = Skill.objects.get(pk=pk)
     return render(request, 'teachnet/teacher_skills.html', {'teachers': teachers,
                                                             'skill': skill})
 
-@login_required
+@teacher_only
 def objectives(request,pk):
     teacher = get_object_or_404(Teacher, pk=pk)
 

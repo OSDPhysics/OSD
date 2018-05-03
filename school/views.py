@@ -1,16 +1,13 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from .forms import *
-from .models import Teacher, Student
-from .functions.adddata import *
-import csv
-import codecs
-import os
 import logging
+import os
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import *
+from .functions.adddata import *
+from osd.decorators import admin_only, teacher_or_own_only
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +28,7 @@ def splash(request):
 @login_required
 def school(request):
     return render(request, 'school/school.html', {})
+
 
 def new_teacher(request):
     # if this is a POST request we need to process the form data
@@ -70,7 +68,7 @@ def accounts_profile(request):
     return render(request, 'school/accounts_profile.html')
 
 
-@login_required
+@teacher_or_own_only
 def student_detail(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'school/student_detail.html', {'student': student})
@@ -81,7 +79,7 @@ def logout_view(request):
 
 
 # Add students in bulk from CSV
-@user_passes_test(is_teacher)
+@admin_only
 def import_students(request):
     # Deal with getting a CSV file
 
@@ -99,7 +97,7 @@ def import_students(request):
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
 
 
-@login_required
+@admin_only
 def import_teachers(request):
     # Deal with getting a CSV file
 
