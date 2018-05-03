@@ -6,6 +6,17 @@
 
     <body>
         <p>Teacher access to tracker related data.</p>
+    <div class="well">
+       <h2>Syllabus'</h2>
+        {% for syllabus in syllabuses %}
+            <p>{{ syllabus.board }} {{ syllabus.syllabusname }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="well">
+        <h2>Exams</h2>
+        Our most recently sat exams are:
+    </div>
     </body>
 
 {% endblock content %}

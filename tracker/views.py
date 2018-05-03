@@ -90,7 +90,10 @@ def construction(request, pk):
 
 @login_required
 def tracker_overview(request):
-    return render(request, 'tracker/tracker_overview.html', {})
+
+    syllabuses = Syllabus.objects.order_by('examtype')
+
+    return render(request, 'tracker/tracker_overview.html', {'syllabuses':syllabuses})
 
 
 @login_required
@@ -101,6 +104,8 @@ def examDetails(request,pk):
     return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                          'sittings': sittings,
                                                          'questions': questions})
+
+
 @login_required
 def sitting_detail(request,pk):
     sitting = Sitting.objects.get(pk=pk)
