@@ -1,0 +1,29 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+    <body>
+        <h1>Current classes</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Class Teacher</td>
+            <td>Class Name</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                <td><a href="{% url 'teachers' %}{{ class.groupteacher.pk }}">{{ class.groupteacher }}</a></td>
+                <td><a href="{% url 'classes' %}{{ class.pk}}">{{ class }}</a></td>
+        {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    </body>
+
+
+{% endblock content %}

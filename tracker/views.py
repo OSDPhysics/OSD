@@ -92,8 +92,10 @@ def construction(request, pk):
 def tracker_overview(request):
 
     syllabuses = Syllabus.objects.order_by('examtype')
+    sittings = Sitting.objects.order_by('datesat')[:10]
 
-    return render(request, 'tracker/tracker_overview.html', {'syllabuses':syllabuses})
+    return render(request, 'tracker/tracker_overview.html', {'syllabuses':syllabuses,
+                                                             'sittings':sittings})
 
 
 @login_required

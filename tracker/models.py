@@ -81,6 +81,9 @@ class Sitting(models.Model):
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
 
+    def __str__(self):
+        return self.exam.name + " " + self.classgroup.groupname
+
 
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

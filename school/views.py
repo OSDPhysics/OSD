@@ -7,9 +7,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import *
 from .functions.adddata import *
-from osd.decorators import admin_only, teacher_or_own_only
+
+from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
 logger = logging.getLogger(__name__)
+
 
 def is_teacher(user):
     return user.groups.filter(name='Teachers').exists()
@@ -114,3 +116,20 @@ def import_teachers(request):
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
 
+
+@teacher_only
+def classes(request):
+    classes = ClassGroup.objects.all().order_by('groupteacher').order_by('groupname')
+    return render(request, 'school/classes.html', {'classes': classes})
+
+
+# TODO: implement
+@teacher_only
+def teacher_details(request, *args, **kwargs):
+    return render(request, 'tracker/404.html')
+
+
+# TODO: implement
+@teacher_only
+def class_details(request, *args, **kwargs):
+    return render(request, 'tracker/404.html')
