@@ -40,16 +40,19 @@
       </tr>
     </thead>
     <tbody id="myTable">
-        {% for objective in teacher_objectives %}
-            <td> <a href='#' data-toggle="tooltip" title="{{ objective.long_text }}">{{ objective.short_name }}</a></td>
+
+    {% for objective in teacher_objectives %}
+            <tr><td> <a href='#' data-toggle="tooltip" title="{{ objective.long_text }}">{{ objective.short_name }}</a></td>
             <td>{{ objective.date_created }}</td>
-            <td>{{ objective.date_approved }}</td>
+            <td>{{ objective.date_approved }}</td></tr>
+         {% endfor %}
+
     </tbody>
   </table>
 
 
 
-              {% endfor %}
+
           </p>
           <p><a class="btn btn-default" href="#" role="button">Change Objectives &raquo;</a></p>
         </div>

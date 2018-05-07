@@ -10,7 +10,7 @@ class Objective(models.Model):
     short_name = models.CharField(max_length=100)
     long_text = RichTextField()
 
-    date_created = models.DateField(null=True, default='django.utils.timezone.now()')  # TODO: Change to FALSE for production
+    date_created = models.DateField(null=True, auto_now_add=True)  # TODO: Change to FALSE for production
 
     date_approved = models.DateField(null=True, blank=True)
 

@@ -1,10 +1,11 @@
 # Create your views here.
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 
-from osd.decorators import teacher_only
+from osd.decorators import teacher_only, teacer_or_lm_only
 from school.models import Teacher
 from teachnet.models import Skill, Objective
+from teachnet.forms import ObjectiveForm
 
 
 def can_view_full_profile(requester, user):
@@ -62,3 +63,24 @@ def objectives(request,pk):
 
     else:
         return render(request, 'teachnet/forbidden.html')
+
+
+@teacer_or_lm_only
+def set_objectives(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ObjectiveForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('../'+str(pk))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ObjectiveForm()
+
+    return render(request, 'teachnet/update_objective.html', {'form': form})
+

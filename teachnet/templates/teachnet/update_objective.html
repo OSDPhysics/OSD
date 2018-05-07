@@ -1,0 +1,14 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Teachnet - Update Objective{% endblock %}
+
+{% block content %}
+<form action="newobjective" method="post">
+{% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+
+</form>
+
+
+{% endblock %}
