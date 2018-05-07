@@ -75,6 +75,9 @@ def set_objectives(request, pk):
         form = ObjectiveForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+            newobjective = form.save(commit=False) # needed so we can now modify the form data
+            newobjective.teacher = teacher # Set teacher to be saved
+
             form.save()
             return HttpResponseRedirect('../'+str(pk))
 

@@ -7,5 +7,5 @@ class ObjectiveForm(ModelForm):
     # TODO: Lock input to selected user ONLY
     class Meta:
         model = Objective
-        fields = ['teacher', 'short_name', 'long_text']
+        fields = ['short_name', 'long_text']
 
