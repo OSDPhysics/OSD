@@ -53,7 +53,7 @@ def teacer_or_lm_only(function):
     """ restrict viewing to the requesting (teacher) user or their line managers only"""
 
     def wrap(request, *args, **kwargs):
-        requested_teacher = Teacher.objects.get(pk=kwargs['pk']).user
+        requested_teacher = Teacher.objects.get(pk=kwargs['teacher_pk']).user
         requesting_user = request.user
         if requested_teacher == requesting_user:
             return function(request, *args, **kwargs)

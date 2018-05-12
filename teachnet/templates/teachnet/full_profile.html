@@ -42,7 +42,7 @@
     <tbody id="myTable">
 
     {% for objective in teacher_objectives %}
-            <tr><td> <a href='#' data-toggle="tooltip" title="{{ objective.long_text }}">{{ objective.short_name }}</a></td>
+            <tr><td> <a href='{% url 'edit_objective' teacher_pk=teacher.pk objective_pk=objective.pk %}' data-toggle="tooltip" title="{{ objective.long_text }}">{{ objective.short_name }}</a></td>
             <td>{{ objective.date_created }}</td>
             <td>{{ objective.date_approved }}</td></tr>
          {% endfor %}
@@ -54,7 +54,7 @@
 
 
           </p>
-          <p><a class="btn btn-default" href="#" role="button">Change Objectives &raquo;</a></p>
+          <p><a class="btn btn-default" href="./{{ teacher.pk }}/update_objective" role="button">Add Objective &raquo;</a></p>
         </div>
       </div>
 
