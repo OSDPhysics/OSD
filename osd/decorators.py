@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from school.models import Student, Teacher
+from django.contrib.auth.models import User
 
 
 def teacher_only(function):
@@ -53,10 +54,25 @@ def teacer_or_lm_only(function):
     """ restrict viewing to the requesting (teacher) user or their line managers only"""
 
     def wrap(request, *args, **kwargs):
-        requested_teacher = Teacher.objects.get(pk=kwargs['teacher_pk']).user
-        requesting_user = request.user
-        if requested_teacher == requesting_user:
+        requested_teacher = Teacher.objects.get(pk=kwargs['teacher_pk'])
+        requesting_user = request.user # Remember that LMs are defined by a foreign key to a USER, not TEACHER.
+        if requested_teacher.user == requesting_user:
             return function(request, *args, **kwargs)
+
+        linemanagers= [requested_teacher]
+        current_teacher = requested_teacher
+        while True:
+
+            if current_teacher.line_manager.exists: #TODO: Fix this line!
+                linemanagers.append(current_teacher.line_manager)
+                if requesting_user in linemanagers:
+                    return function(request, *args, **kwargs)
+                else:
+                    current_teacher = current_teacher.line_manager
+            else:
+                raise PermissionDenied
+
+
 
         # TODO: Add code to check chain of line managers
         else:

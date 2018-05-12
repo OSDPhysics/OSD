@@ -14,6 +14,7 @@ def can_view_full_profile(requester, user):
         return True
 
     # check if the requester is the line manager of the user
+    # TODO: This currently is 1 for ANY line manager! Must fix so ONLY the LM for the teacher
     islinemanager = Teacher.objects.filter(line_manager=requester).count()
 
     if islinemanager >= 1:
