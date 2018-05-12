@@ -43,6 +43,34 @@
                         </tr>
                         {% endfor %}
                 </table>
+
+    <h2>Questions</h2>
+    {{ qform.media }}
+    <form action="{% url 'examDetail' exam.pk %}" method="post">
+    {% csrf_token %}
+    <table class="table table-striped">
+    {{ qform.management_form }}
+    <thead>
+    <tr>
+        <td>Order</td>
+        <td>Question Number</td>
+        <td>Maximum Score</td>
+        <td>Syllabus Points Covered</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for qform in qform %}
+    <tr>
+        <td>{{ qform.qnumber }}</td>
+        <td>{{ qform.qnumber }}</td>
+        <td>{{ qform.maxscore }}</td>
+        <td>{{ qform.syllabuspoint }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
 {% endblock content %}
 
 

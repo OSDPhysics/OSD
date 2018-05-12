@@ -18,7 +18,7 @@
 
                         {% for exam in exams %}
                         <tr>
-                            <td>{{exam.syllabus.name}}</td>
+                            <td>{% for syllabus in exam.syllabus.all %}{{syllabus}} {% endfor %}</td>
                             <td><a href="{{ exam.pk }}">{{exam.name}}</a></td>
                         </tr>
                         {% endfor %}

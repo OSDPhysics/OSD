@@ -1,5 +1,6 @@
 
 from django import forms
+from django.forms import modelformset_factory
 from .models import *
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
@@ -24,7 +25,22 @@ class questionsForm(forms.ModelForm):
         }
 
 
-class examForm(forms.ModelForm):
+class NewExamForm(forms.ModelForm):
     class Meta:
         model = Exam
-        exclude = ('',)
+        fields = ('name', 'syllabus',)
+        widgets = {
+            'syllabus': SearchableSelect(model='tracker.Syllabus', search_field='syllabusname', many=True)
+        }
+
+
+class SetQuestions(forms.ModelForm):
+
+    class Meta:
+        model = Question
+        fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint']
+        widgets = { # TODO: any way to filter this?
+            'syllabuspoint': SearchableSelect(model='tracker.SyllabusPoint', search_field='syllabusText', many=True)
+        }
+
+
