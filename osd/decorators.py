@@ -63,7 +63,7 @@ def teacer_or_lm_only(function):
         current_teacher = requested_teacher
         while True:
 
-            if current_teacher.line_manager.exists: #TODO: Fix this line!
+            if current_teacher.line_manager:
                 linemanagers.append(current_teacher.line_manager)
                 if requesting_user in linemanagers:
                     return function(request, *args, **kwargs)
@@ -72,9 +72,6 @@ def teacer_or_lm_only(function):
             else:
                 raise PermissionDenied
 
-
-
-        # TODO: Add code to check chain of line managers
         else:
             raise PermissionDenied
     wrap.__doc__ = function.__doc__

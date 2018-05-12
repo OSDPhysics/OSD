@@ -84,7 +84,7 @@ def new_objectives(request, teacher_pk):
             newobjective.teacher = teacher  # Set teacher to be saved
 
             form.save()
-            return HttpResponseRedirect('../' + str(pk))
+            return HttpResponseRedirect(reverse('profile', args=(teacher.pk,)))
 
     # if a GET (or any other method) we'll create a blank form
     else:
