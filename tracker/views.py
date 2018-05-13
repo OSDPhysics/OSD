@@ -124,22 +124,24 @@ def tracker_overview(request):
 @teacher_only
 def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
-    form = SetQuestions()
+    questionFormset = formset_factory(SetQuestions, extra=10)
+    formset = questionFormset()
 
     if request.method == 'POST':
-        form = SetQuestions(request.POST)
-        if form.is_valid():
-            newquestion = form.save(commit=False)
-            newquestion.exam = exam
-            form.save()
-            form.save_m2m()
-            return render(request, 'tracker/exam_details.html', {'qform': form,
-                          'exam': exam})
+        formset = questionFormset(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                newquestion = form.save(commit=False)
+                newquestion.exam = exam
+                form.save()
+                form.save_m2m()
+                return render(request, 'tracker/exam_details.html', {'formset': formset,
+                              'exam': exam})
         else:
-            return render(request, 'tracker/exam_details.html', {'qform': form,
+            return render(request, 'tracker/exam_details.html', {'formset': formset,
                           'exam': exam})
 
-    return render(request, 'tracker/exam_details.html', {'qform': form,
+    return render(request, 'tracker/exam_details.html', {'formset': formset,
                                                          'exam': exam})
 
 
