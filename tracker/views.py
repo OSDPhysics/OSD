@@ -97,28 +97,50 @@ def tracker_overview(request):
                                                              'sittings':sittings})
 
 
+# @teacher_only
+# def examDetails(request,pk):
+#     exam = Exam.objects.get(pk=pk)
+#     sittings = Sitting.objects.filter(exam=exam)
+#     questions = Question.objects.filter(exam=exam)
+#     SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
+#
+#     if request.method == 'POST':
+#         qform = SetQuestionsFormset(request.POST)
+#         if qform.is_valid():
+#             for form in qform:
+#                 form.exam = exam
+#                 form.save()
+#                 return redirect(reverse('examDetail', args=(pk,)))
+#         else:
+#             return render(request, 'tracker/404.html')
+#
+#     else:
+#         return render(request, 'tracker/exam_details.html', {'exam': exam,
+#                                                              'sittings': sittings,
+#                                                              'questions': questions,
+#                                                              'qform': SetQuestionsFormset})
+
+
 @teacher_only
-def examDetails(request,pk):
+def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
-    sittings = Sitting.objects.filter(exam=exam)
-    questions = Question.objects.filter(exam=exam)
-    SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
+    form = SetQuestions()
 
     if request.method == 'POST':
-        qform = SetQuestionsFormset(request.POST)
-        if qform.is_valid():
-            for form in qform:
-                form.exam = exam
-                form.save()
-                return redirect(reverse('examDetail', args=(pk,)))
+        form = SetQuestions(request.POST)
+        if form.is_valid():
+            newquestion = form.save(commit=False)
+            newquestion.exam = exam
+            form.save()
+            form.save_m2m()
+            return render(request, 'tracker/exam_details.html', {'qform': form,
+                          'exam': exam})
         else:
-            return render(request, 'tracker/404.html')
+            return render(request, 'tracker/exam_details.html', {'qform': form,
+                          'exam': exam})
 
-    else:
-        return render(request, 'tracker/exam_details.html', {'exam': exam,
-                                                             'sittings': sittings,
-                                                             'questions': questions,
-                                                             'qform': SetQuestionsFormset})
+    return render(request, 'tracker/exam_details.html', {'qform': form,
+                                                         'exam': exam})
 
 
 @teacher_only
