@@ -1,49 +1,27 @@
 from django.contrib import admin
 from django import forms
-from searchableselect.widgets import SearchableSelect
-
-
-
+from tracker.forms import SetQuestions
 # Register your models here.
 
 
 from .models import *
-from dal import autocomplete
 
 
-class QuestionForm(forms.ModelForm):
-    class Meta:
-        model = Question
-        exclude = ()
+class QuestionAdmin(admin.ModelAdmin):
+    form = SetQuestions
 
-        widgets = {
-           'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
-        }
-
-
-class QuestionInline(admin.TabularInline):
+class QuestionsInLine(admin.TabularInline):
     model = Question
-
-    class Meta:
-        widgets = {
-                'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
-                 }
-
+    form = SetQuestions
 
 class ExamInLine(admin.ModelAdmin):
     inlines = [
-        QuestionInline,
+        QuestionsInLine,
     ]
 
 
 class MarkInLine(admin.TabularInline):
     model = Mark
-
-
-
-
-class QuestionAdmin(admin.ModelAdmin):
-    form = QuestionForm
 
 
 admin.site.register(Question)
