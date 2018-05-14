@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'searchableselect',
     'teachnet',
     'ckeditor',
+    'dynamic_formsets',
 ]
 
 MIDDLEWARE = [
