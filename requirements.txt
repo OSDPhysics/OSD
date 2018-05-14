@@ -1,3 +1,4 @@
+dal
 chardet==3.0.4
 Django==2.0.1
 django-csvimport==2.11

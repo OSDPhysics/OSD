@@ -8,6 +8,8 @@ from searchableselect.widgets import SearchableSelect
 
 
 from .models import *
+from dal import autocomplete
+
 
 class QuestionForm(forms.ModelForm):
     class Meta:
@@ -15,8 +17,7 @@ class QuestionForm(forms.ModelForm):
         exclude = ()
 
         widgets = {
-            'syllabuspoint': SearchableSelect(model='tracker.SyllabusPoint', search_field='syllabusText', many=True,
-                                              limit=10)
+           'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
         }
 
 
@@ -25,9 +26,9 @@ class QuestionInline(admin.TabularInline):
 
     class Meta:
         widgets = {
-                'syllabuspoint': SearchableSelect(model='tracker.SyllabusPoint', search_field='syllabusText', many=True,
-                                                  limit=10)
+                'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
                  }
+
 
 class ExamInLine(admin.ModelAdmin):
     inlines = [
@@ -43,6 +44,7 @@ class MarkInLine(admin.TabularInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     form = QuestionForm
+
 
 admin.site.register(Question)
 

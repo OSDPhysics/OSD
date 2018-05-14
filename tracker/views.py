@@ -124,7 +124,7 @@ def tracker_overview(request):
 @teacher_only
 def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
-    questionFormset = formset_factory(SetQuestions, extra=10)
+    questionFormset = formset_factory(SetQuestions)
     formset = questionFormset()
 
     if request.method == 'POST':

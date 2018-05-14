@@ -1,5 +1,6 @@
 
 from django import forms
+from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
 from django.forms import formset_factory
@@ -40,7 +41,7 @@ class SetQuestions(forms.ModelForm):
         model = Question
         fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint']
         widgets = { # TODO: any way to filter this?
-            'syllabuspoint': SearchableSelect(model='tracker.SyllabusPoint', search_field='syllabusText', many=True)
+            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
         }
 
 
