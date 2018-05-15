@@ -1,5 +1,5 @@
 from django.urls import path
-from tracker.autocomplete import SyllabusPointAutocomplete
+from tracker.autocomplete import SyllabusPointAutocomplete, ClaassgroupAutocomplete
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from . import views
@@ -14,8 +14,10 @@ urlpatterns = [
     path('exams/', views.list_exams, name='listExams'),
     path('exams/new', views.add_test, name='new_test'),
     path('sittings/', views.construction, name='sittings'),
+    path('sittings/new/<int:exampk>', views.new_sitting, name='new_sitting'),
     path('sittings/<int:pk>', views.sitting_detail, name='sitting_detail'),
     path('', views.tracker_overview, name='tracker_overview'),
-    path('syllabus-point-autocomplete/', SyllabusPointAutocomplete.as_view(), name='syllabus-point-autocomplete')
+    path('syllabus-point-autocomplete/', SyllabusPointAutocomplete.as_view(), name='syllabus-point-autocomplete'),
+    path('classgroups-autocomplete/', ClaassgroupAutocomplete.as_view(), name='classgroups-autocomplete')
 
 ]

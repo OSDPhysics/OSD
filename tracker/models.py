@@ -86,9 +86,11 @@ class Sitting(models.Model):
 
 
 class Mark(models.Model):
+    # TODO: This should be updated whenever a sitting is modified
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.IntegerField(blank=True, null=True)
+    sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.score)

@@ -97,55 +97,87 @@ def tracker_overview(request):
                                                              'sittings':sittings})
 
 
-# @teacher_only
-# def examDetails(request,pk):
-#     exam = Exam.objects.get(pk=pk)
-#     sittings = Sitting.objects.filter(exam=exam)
-#     questions = Question.objects.filter(exam=exam)
-#     SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
-#
-#     if request.method == 'POST':
-#         qform = SetQuestionsFormset(request.POST)
-#         if qform.is_valid():
-#             for form in qform:
-#                 form.exam = exam
-#                 form.save()
-#                 return redirect(reverse('examDetail', args=(pk,)))
-#         else:
-#             return render(request, 'tracker/404.html')
-#
-#     else:
-#         return render(request, 'tracker/exam_details.html', {'exam': exam,
-#                                                              'sittings': sittings,
-#                                                              'questions': questions,
-#                                                              'qform': SetQuestionsFormset})
-
-
 @teacher_only
-def examDetails(request, pk):
+def examDetails(request,pk):
     exam = Exam.objects.get(pk=pk)
-    questionFormset = formset_factory(SetQuestions)
-    formset = questionFormset()
+    sittings = Sitting.objects.filter(exam=exam)
+    questions = Question.objects.filter(exam=exam)
+    SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
 
     if request.method == 'POST':
-        formset = questionFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                newquestion = form.save(commit=False)
-                newquestion.exam = exam
+        qform = SetQuestionsFormset(request.POST)
+        if qform.is_valid():
+            for form in qform:
+                form.exam = exam
                 form.save()
-                form.save_m2m()
-                return render(request, 'tracker/exam_details.html', {'formset': formset,
-                              'exam': exam})
+                return redirect(reverse('examDetail', args=(pk,)))
         else:
-            return render(request, 'tracker/exam_details.html', {'formset': formset,
-                          'exam': exam})
+            return render(request, 'tracker/404.html')
 
-    return render(request, 'tracker/exam_details.html', {'formset': formset,
-                                                         'exam': exam})
+    else:
+        return render(request, 'tracker/exam_details.html', {'exam': exam,
+                                                             'sittings': sittings,
+                                                             'questions': questions,
+                                                             'qform': SetQuestionsFormset})
+
+# Not in use: this was an attempt for an editable version, but it doesn't work.
+# @teacher_only
+# def examDetails(request, pk):
+#     exam = Exam.objects.get(pk=pk)
+#     questionFormset = formset_factory(SetQuestions)
+#     formset = questionFormset()
+#
+#     if request.method == 'POST':
+#         formset = questionFormset(request.POST)
+#         if formset.is_valid():
+#             for form in formset:
+#                 newquestion = form.save(commit=False)
+#                 newquestion.exam = exam
+#                 form.save()
+#                 form.save_m2m()
+#                 return render(request, 'tracker/exam_details.html', {'formset': formset,
+#                               'exam': exam})
+#         else:
+#             return render(request, 'tracker/exam_details.html', {'formset': formset,
+#                           'exam': exam})
+#
+#     return render(request, 'tracker/exam_details.html', {'formset': formset,
+#                                                          'exam': exam})
 
 
 @teacher_only
 def sitting_detail(request,pk):
     sitting = Sitting.objects.get(pk=pk)
-    return render(request, 'tracker/404.html')
+    return render(request, 'tracker/sitting_detail.html', {'sitting': sitting})
+
+
+def new_sitting(request, exampk):
+    exam = Exam.objects.get(pk=exampk)
+    questions = Question.objects.filter(exam=exam)
+    sittingform = NewSittingForm()
+    if request.method == 'POST':
+        sittingform = NewSittingForm(request.POST)
+        if sittingform.is_valid():
+
+            classgroup = sittingform.cleaned_data['classgroup']
+            sitting = Sitting.objects.create(exam=exam, classgroup=classgroup, datesat=sittingform.cleaned_data['date'], openForStudentRecording=True)
+            students = Student.objects.filter(classgroups=classgroup)
+            for student in students:
+                for question in questions:
+                    Mark.objects.create(student=student, question=question, sitting=sitting)
+            return redirect(reverse('sitting_detail'))
+
+        else:
+            return render(request, 'tracker/new_sitting.html.html', {'sittingform':sittingform})
+
+    return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
+
+def input_marks(request, sitting_pk):
+    sitting = Sitting.objects.get(pk=sitting_pk)
+    marks = Mark.objects.filter(sitting=sitting).order_by('question__qorder').order_by('student')
+
+    #Todo:  create a formset
+
+
+    #Todo:  send that formset to the view
+    #Todo:  process the completed formset.
