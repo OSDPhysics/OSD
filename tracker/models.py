@@ -93,7 +93,7 @@ class Mark(models.Model):
     sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.score)
+        return str(self.question.exam) + str(self.student) + str(self.question) + '(' + str(self.score) + ')'
 
 
 # CSV Uploads

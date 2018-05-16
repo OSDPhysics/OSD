@@ -47,6 +47,7 @@ def syllabus_detail(request, pk):
     return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
                                                            'specpoints': allpoints})
 
+
 # CSV Uplods
 @admin_only
 def import_spec_points(request):
@@ -75,7 +76,7 @@ def create_questions(request):
 
     # If no post:
 
-    return render(request, 'tracker/add_questions.html', {'questionFormSet': questionFormSet,})
+    return render(request, 'tracker/add_questions.html', {'questionFormSet': questionFormSet, })
 
 
 @teacher_only
@@ -87,18 +88,18 @@ def list_exams(request):
 def construction(request, pk):
     return render(request, 'tracker/404.html', {})
 
+
 @teacher_only
 def tracker_overview(request):
-
     syllabuses = Syllabus.objects.order_by('examtype')
     sittings = Sitting.objects.order_by('datesat')[:10]
 
-    return render(request, 'tracker/tracker_overview.html', {'syllabuses':syllabuses,
-                                                             'sittings':sittings})
+    return render(request, 'tracker/tracker_overview.html', {'syllabuses': syllabuses,
+                                                             'sittings': sittings})
 
 
 @teacher_only
-def examDetails(request,pk):
+def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
@@ -119,6 +120,7 @@ def examDetails(request,pk):
                                                              'sittings': sittings,
                                                              'questions': questions,
                                                              'qform': SetQuestionsFormset})
+
 
 # Not in use: this was an attempt for an editable version, but it doesn't work.
 # @teacher_only
@@ -146,7 +148,7 @@ def examDetails(request,pk):
 
 
 @teacher_only
-def sitting_detail(request,pk):
+def sitting_detail(request, pk):
     sitting = Sitting.objects.get(pk=pk)
     return render(request, 'tracker/sitting_detail.html', {'sitting': sitting})
 
@@ -160,7 +162,8 @@ def new_sitting(request, exampk):
         if sittingform.is_valid():
 
             classgroup = sittingform.cleaned_data['classgroup']
-            sitting = Sitting.objects.create(exam=exam, classgroup=classgroup, datesat=sittingform.cleaned_data['date'], openForStudentRecording=True)
+            sitting = Sitting.objects.create(exam=exam, classgroup=classgroup, datesat=sittingform.cleaned_data['date'],
+                                             openForStudentRecording=True)
             students = Student.objects.filter(classgroups=classgroup)
             for student in students:
                 for question in questions:
@@ -168,16 +171,61 @@ def new_sitting(request, exampk):
             return redirect(reverse('sitting_detail'))
 
         else:
-            return render(request, 'tracker/new_sitting.html.html', {'sittingform':sittingform})
+            return render(request, 'tracker/new_sitting.html.html', {'sittingform': sittingform})
 
     return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
-def input_marks(request, sitting_pk):
+
+def input_marks(request, sitting_pk, student_pk):
     sitting = Sitting.objects.get(pk=sitting_pk)
-    marks = Mark.objects.filter(sitting=sitting).order_by('question__qorder').order_by('student')
+    student = Student.objects.get(pk=student_pk)
+    marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
 
-    #Todo:  create a formset
+    # Todo:  create a formset
+    MarkFormset = modelformset_factory(Mark, fields=('score', 'question'), extra=0)
+    formset = MarkFormset(
+        queryset=Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder'))
 
+    if request.method == 'POST':
 
-    #Todo:  send that formset to the view
-    #Todo:  process the completed formset.
+        formset = MarkFormset(request.POST)
+        if formset.is_valid():
+            formset.save(commit=False)
+            n = 0
+            for mark in marks:
+                # Override any naughty changes to the question order by POST hacking
+                formset[n].question = marks[n].question
+                # Set our form to the correct student TODO: Is this needed?
+                formset[n].student = student
+
+                # Check marks are correct:
+                if formset[n].cleaned_data['score']:
+                    if formset[n].cleaned_data['score'] > mark.question.maxscore:
+                        formset[n].add_error('score', 'Score is greater than the maximum for this question')
+
+                n = n + 1
+            # Call is_valid() again to check if we've added any errors.
+            if formset.is_valid():
+                formset.save()
+                return redirect('tracker')
+
+            else:
+                return render(request, 'tracker/exam_scores.html', {'formset': formset,
+                                                                'sitting': sitting,
+                                                                'marks': marks,
+                                                                'student': student})
+
+        else:
+            return render(request, 'tracker/exam_scores.html', {'formset': formset,
+                                                                'sitting': sitting,
+                                                                'marks': marks,
+                                                                'student': student})
+
+    else:
+        return render(request, 'tracker/exam_scores.html', {'formset': formset,
+                                                            'sitting': sitting,
+                                                            'marks': marks,
+                                                            'student': student}, )
+
+    # Todo:  send that formset to the view
+    # Todo:  process the completed formset.

@@ -3,7 +3,26 @@ h1,h2,h3{
     font-family: 'Cuprum';
 }
 
-.center {
-    padding: 70px 0;
-    text-align: center;
+table {
+  border:1px solid black;
+}
+table th {
+  border-bottom:1px solid black;
+}
+
+
+th.rotate {
+  height:80px;
+  white-space: nowrap;
+  position:relative;
+}
+
+th.rotate > div {
+  transform: rotate(90deg);
+  position:absolute;
+  left:0;
+  right:0;
+  top: 10px;
+  margin:auto;
+
 }

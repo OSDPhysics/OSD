@@ -51,8 +51,9 @@ class NewSittingForm(forms.Form):
                                         widget=autocomplete.ModelSelect2(url='classgroups-autocomplete'))
     date = forms.DateField()
 
+
 class MarkForm(forms.ModelForm):
 
     class Meta:
         model = Mark
-        fields = {''}
+        fields = ['score']

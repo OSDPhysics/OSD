@@ -1,0 +1,43 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block title %}Set exam scores{% endblock title %}
+{% block description %}
+    Editing the scores for {{ student}} of test {{ sitting.exam }} on {{ sitting.datesat }}.
+{% endblock description %}
+
+{% block content %}
+<form method="post">
+{% csrf_token %}
+{{ formset.management_form }}
+    {{ scoreform.media }}
+    <table id="formset" class="form">
+                {% for form in formset.forms %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                    {% endif %}
+                    <tr>
+                        {% for field in form.visible_fields %}
+                            <td>
+                                {# Include the hidden fields in the form #}
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+<button type="submit">Submit</button>
+</form>
+{% endblock content %}
