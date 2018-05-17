@@ -10,35 +10,25 @@
 <form method="post">
 {% csrf_token %}
 {{ formset.management_form }}
-    {{ scoreform.media }}
-    <table id="formset" class="form">
-                {% for form in formset.forms %}
-                    {% if forloop.first %}
-                        <thead>
-                        <tr>
-                            {% for field in form.visible_fields %}
-                                <th>{{ field.label|capfirst }}</th>
-                            {% endfor %}
-                        </tr>
-                        </thead>
-                    {% endif %}
-                    <tr>
-                        {% for field in form.visible_fields %}
-                            <td>
-                                {# Include the hidden fields in the form #}
-                                {% if forloop.first %}
-                                    {% for hidden in form.hidden_fields %}
-                                        {{ hidden }}
-                                    {% endfor %}
-                                {% endif %}
-                                {{ field.errors.as_ul }}
-                                {{ field }}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Question</td>
+            <td>Maximum score</td>
+            <td>Score</td>
+        </tr>
+        </thead>
 
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
+        <tbody>
+        {% for question, form in data %}
+            <tr>
+            <td>{{ question }}</td>
+            <td>{{ question.maxscore }}</td>
+            <td>{{ form.score }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 <button type="submit">Submit</button>
 </form>
 {% endblock content %}

@@ -190,52 +190,53 @@ def new_sitting(request, exampk):
 
 
 def input_marks(request, sitting_pk, student_pk):
+    # Get the main data we'll need
     sitting = Sitting.objects.get(pk=sitting_pk)
     student = Student.objects.get(pk=student_pk)
     marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
+    questions = Question.objects.filter(exam=sitting.exam).order_by('qnumber')
 
-    # Todo:  create a formset
-    MarkFormset = modelformset_factory(Mark, fields=('question', 'score'), extra=0)
-    formset = MarkFormset(
-        queryset=Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder'))
+    # Formset to enter the student's mark
+    MarkFormset = modelformset_factory(Mark, fields=('score',), extra=0)
+    formset = MarkFormset(queryset=marks)
 
     if request.method == 'POST':
 
         formset = MarkFormset(request.POST)
+
         if formset.is_valid():
             formset.save(commit=False)
-            n = 0
-            for mark in marks:
-                # Override any naughty changes to the question order by POST hacking
-                formset[n].question = marks[n].question
-                # Set our form to the correct student TODO: Is this needed?
-                formset[n].student = student
+            n = 0 # Loop counter
 
+            for mark in marks: #TODO: move this to the __clean__ method of formset
                 # Check marks are correct:
                 if formset[n].cleaned_data['score']:
                     if formset[n].cleaned_data['score'] > mark.question.maxscore:
                         formset[n].add_error('score', 'Score is greater than the maximum for this question')
 
                 n = n + 1
-            # Call is_valid() again to check if we've added any errors.
+            # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
                 formset.save()
-                return redirect('tracker')
+                return redirect('profile')
 
-            else:
-                return render(request, 'tracker/exam_scores.html', {'formset': formset,
+            else:   # Either an initial validation error or the mark checking picked up too high a score
+                data = zip(questions, formset)
+                return render(request, 'tracker/exam_scores.html', {'data': data,  # Still .post
                                                                     'sitting': sitting,
                                                                     'marks': marks,
                                                                     'student': student})
 
         else:
-            return render(request, 'tracker/exam_scores.html', {'formset': formset,
+            data = zip(questions, formset)
+            return render(request, 'tracker/exam_scores.html', {'data': data,
                                                                 'sitting': sitting,
                                                                 'marks': marks,
                                                                 'student': student})
 
     else:
-        return render(request, 'tracker/exam_scores.html', {'formset': formset,
+        data = zip(questions, formset)
+        return render(request, 'tracker/exam_scores.html', {'data': data,
                                                             'sitting': sitting,
                                                             'marks': marks,
                                                             'student': student}, )
