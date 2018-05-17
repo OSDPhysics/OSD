@@ -106,7 +106,9 @@ class Mark(models.Model):
     def __str__(self):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(self.score) + ')'
 
+    def percentage(self):
 
+        return round(self.score / self.question.maxscore *100, 2)
 # CSV Uploads
 
 
