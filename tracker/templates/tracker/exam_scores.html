@@ -10,12 +10,15 @@
 <form method="post">
 {% csrf_token %}
 {{ formset.management_form }}
+{{ formset.media }}
     <table class="table table-striped">
         <thead>
         <tr>
             <td>Question</td>
             <td>Maximum score</td>
-            <td>Score</td>
+            <td class="col-md-1">Score</td>
+            <td>Syllabus Points</td>
+            <td>Notes</td>
         </tr>
         </thead>
 
@@ -34,10 +37,26 @@
                     {{ field }}
                 {% endfor %}
             </td>
+            <td>
+                {% for point in question.syllabuspoint.all %}
+                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button>
+                    {% endfor %}
+             </td>
+
+            <td>
+                {{ form.notes }}
+            </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 <button type="submit">Submit</button>
 </form>
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
 {% endblock content %}

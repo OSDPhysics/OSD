@@ -197,7 +197,9 @@ def input_marks(request, sitting_pk, student_pk):
     questions = Question.objects.filter(exam=sitting.exam).order_by('qnumber')
 
     # Formset to enter the student's mark
-    MarkFormset = modelformset_factory(Mark, fields=('score',), extra=0)
+    MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets = {
+          'score': forms.Textarea(attrs={'rows':1, 'cols':2}),
+        })
     formset = MarkFormset(queryset=marks)
 
     if request.method == 'POST':
