@@ -213,7 +213,8 @@ def input_marks(request, sitting_pk, student_pk):
                 if formset[n].cleaned_data['score']:
                     if formset[n].cleaned_data['score'] > mark.question.maxscore:
                         formset[n].add_error('score', 'Score is greater than the maximum for this question')
-
+                else:
+                    formset[n].add_error('score', 'Please set a score')
                 n = n + 1
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
@@ -221,22 +222,25 @@ def input_marks(request, sitting_pk, student_pk):
                 return redirect('profile')
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
-                data = zip(questions, formset)
-                return render(request, 'tracker/exam_scores.html', {'data': data,  # Still .post
+                data = list(zip(questions, formset))
+                return render(request, 'tracker/exam_scores.html', {'data': data,
                                                                     'sitting': sitting,
                                                                     'marks': marks,
-                                                                    'student': student})
+                                                                    'student': student,
+                                                                    'formset': formset}, )
 
         else:
-            data = zip(questions, formset)
+            data = list(zip(questions, formset))
             return render(request, 'tracker/exam_scores.html', {'data': data,
                                                                 'sitting': sitting,
                                                                 'marks': marks,
-                                                                'student': student})
+                                                                'student': student,
+                                                                'formset': formset}, )
 
     else:
-        data = zip(questions, formset)
+        data = list(zip(questions, formset))
         return render(request, 'tracker/exam_scores.html', {'data': data,
                                                             'sitting': sitting,
                                                             'marks': marks,
-                                                            'student': student}, )
+                                                            'student': student,
+                                                            'formset': formset}, )

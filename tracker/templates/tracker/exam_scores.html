@@ -24,7 +24,16 @@
             <tr>
             <td>{{ question }}</td>
             <td>{{ question.maxscore }}</td>
-            <td>{{ form.score }}</td>
+            <td {% if form.errors %}
+                    class="danger"
+
+                {% endif %}
+            >
+                {{ form.score }}{{ form.errors }}
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+            </td>
             </tr>
         {% endfor %}
         </tbody>
