@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from osd.decorators import teacher_only, admin_only
 from django.urls import reverse
+from django.db.models import Sum
+
 from .models import *
 import logging
 from .functions.adddata import *
@@ -150,10 +152,21 @@ def examDetails(request, pk):
 @teacher_only
 def sitting_detail(request, pk):
     sitting = Sitting.objects.get(pk=pk)
-    return render(request, 'tracker/sitting_detail.html', {'sitting': sitting})
+    students = Student.objects.filter(classgroups__in=sitting.classgroup).order_by('pk').order_by('user__last_name')
 
+    # collect total scores for this test
+    scores = {}
+    for student in students:
+        total = Mark.objects.filter(sitting=sitting).filter(student=student).aggregate(Sum('score'))
+        scores[student] = total
 
+    return render(request, 'tracker/sitting_detail.html', {'sitting': sitting,
+                                                           'scores': scores})
+
+@teacher_only
 def new_sitting(request, exampk):
+    # TODO: USE THE FORMAT for x, y in z
+    #       by using 'zip'.
     exam = Exam.objects.get(pk=exampk)
     questions = Question.objects.filter(exam=exam)
     sittingform = NewSittingForm()
@@ -182,7 +195,7 @@ def input_marks(request, sitting_pk, student_pk):
     marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
 
     # Todo:  create a formset
-    MarkFormset = modelformset_factory(Mark, fields=('score', 'question'), extra=0)
+    MarkFormset = modelformset_factory(Mark, fields=('question', 'score'), extra=0)
     formset = MarkFormset(
         queryset=Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder'))
 
@@ -211,9 +224,9 @@ def input_marks(request, sitting_pk, student_pk):
 
             else:
                 return render(request, 'tracker/exam_scores.html', {'formset': formset,
-                                                                'sitting': sitting,
-                                                                'marks': marks,
-                                                                'student': student})
+                                                                    'sitting': sitting,
+                                                                    'marks': marks,
+                                                                    'student': student})
 
         else:
             return render(request, 'tracker/exam_scores.html', {'formset': formset,
@@ -226,6 +239,3 @@ def input_marks(request, sitting_pk, student_pk):
                                                             'sitting': sitting,
                                                             'marks': marks,
                                                             'student': student}, )
-
-    # Todo:  send that formset to the view
-    # Todo:  process the completed formset.

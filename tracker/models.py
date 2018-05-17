@@ -1,6 +1,8 @@
 from django.db import models
 from school.models import Student, ClassGroup
 import numpy
+from django.db.models import Sum
+
 
 # Create your models here.
 
@@ -81,6 +83,15 @@ class Sitting(models.Model):
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
 
+    def student_total(self, *args, **kwargs):
+        exam = self.exam
+        classgroup = self.classgroup
+        student = Student.objects.get(pk=kwargs['student_pk'])
+        total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
+
+        return total['score__sum']
+
+
     def __str__(self):
         return self.exam.name + " " + self.classgroup.groupname
 
@@ -93,7 +104,7 @@ class Mark(models.Model):
     sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.question.exam) + str(self.student) + str(self.question) + '(' + str(self.score) + ')'
+        return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(self.score) + ')'
 
 
 # CSV Uploads
