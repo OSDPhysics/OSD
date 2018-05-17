@@ -13,6 +13,19 @@ import os
 logger = logging.getLogger(__name__)
 
 
+@login_required()
+def splash(request):
+    if request.user.groups.filter(name='Teachers'):
+        student = Student.objects.get(user=request.user)
+        data = {'student': student,
+                'sittings': Sitting.objects.filter(classgroup__in=student.classgroups)}
+
+        return render(request, 'tracker/splash_teacher.html', data)
+
+    if request.user.groups.filter(name='Students'):
+        return render(request, 'tracker/splash_student.html')
+
+
 @teacher_only
 def add_test(request):
     '''Take the information for the first stage of a new test record'''

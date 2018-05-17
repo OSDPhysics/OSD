@@ -54,8 +54,12 @@ class SyllabusPoint(models.Model):
         return self.topic.topic + " " + self.number
 
     def get_student_rating(self, student):
-        scores = Mark.objects.filter(question__syllabuspoint__in=self).filter(question__mark__student=student)
-        numpy.mean(scores.score)
+        marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
+        pcs = []
+        for mark in marks:
+            pcs.append(mark.score / mark.question.maxscore)
+        return numpy.mean(pcs)
+
 
 
 class Exam(models.Model):
@@ -85,7 +89,6 @@ class Sitting(models.Model):
 
     def student_total(self, student):
 
-
         total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
 
         return total['score__sum']
@@ -108,8 +111,11 @@ class Mark(models.Model):
 
     def percentage(self):
 
-        return round(self.score / self.question.maxscore *100, 2)
+        if self.score:
+            return round(self.score / self.question.maxscore *100, 2)
 # CSV Uploads
+        else:
+            return False
 
 
 class CSVDoc(models.Model):
