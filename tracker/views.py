@@ -210,7 +210,7 @@ def input_marks(request, sitting_pk, student_pk):
 
             for mark in marks: #TODO: move this to the __clean__ method of formset
                 # Check marks are correct:
-                if formset[n].cleaned_data['score']:
+                if formset[n].cleaned_data['score'] is not None:
                     if formset[n].cleaned_data['score'] > mark.question.maxscore:
                         formset[n].add_error('score', 'Score is greater than the maximum for this question')
                 else:

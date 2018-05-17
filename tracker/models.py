@@ -83,10 +83,9 @@ class Sitting(models.Model):
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
 
-    def student_total(self, *args, **kwargs):
-        exam = self.exam
-        classgroup = self.classgroup
-        student = Student.objects.get(pk=kwargs['student_pk'])
+    def student_total(self, student):
+
+
         total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
 
         return total['score__sum']
