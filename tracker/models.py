@@ -57,7 +57,8 @@ class SyllabusPoint(models.Model):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
         pcs = []
         for mark in marks:
-            pcs.append(mark.score / mark.question.maxscore)
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
         return numpy.mean(pcs)
 
 

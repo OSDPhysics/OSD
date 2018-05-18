@@ -1,0 +1,32 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+    <h1>
+    Studnet Profile for {{ student }} {{ student.tutorgroup }}
+    </h1>
+
+    <h2>
+    Classes
+    </h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Class</td>
+                <td>Syllabus Taught</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in classes %}
+            <tr>
+                <td>{{ class }}</td>
+                <td>{{ cla }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+{% endblock %}

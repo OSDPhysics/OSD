@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    path('', views.splash, name='slash'),
     path('syllabus', views.list_syllabuses, name='syllabuses'),
     path('syllabus/<int:pk>', views.syllabus_detail, name='syllabus_detail'),
     path('exams/new_exam', views.add_test, name='new_exam1'),

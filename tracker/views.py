@@ -15,15 +15,24 @@ logger = logging.getLogger(__name__)
 
 @login_required()
 def splash(request):
-    if request.user.groups.filter(name='Teachers'):
-        student = Student.objects.get(user=request.user)
-        data = {'student': student,
-                'sittings': Sitting.objects.filter(classgroup__in=student.classgroups)}
-
-        return render(request, 'tracker/splash_teacher.html', data)
-
     if request.user.groups.filter(name='Students'):
-        return render(request, 'tracker/splash_student.html')
+
+        # For the first (classgroups) table
+        student = Student.objects.get(user=request.user)
+        classes = student.classgroups.all()
+        data = {'student': student,
+                'sittings': Sitting.objects.filter(classgroup__in=classes),
+                'classes': classes}
+
+        # To get the assessments the studnet has sat:
+
+        sittings = Sitting.objects.filter(classgroup__in=classes)
+
+        data['sittings'] = sittings
+        return render(request, 'tracker/splash_student.html', data)
+
+    if request.user.groups.filter(name='Teachers'):
+        return render(request, 'tracker/splash_teacher.html')
 
 
 @teacher_only
@@ -48,7 +57,7 @@ def list_syllabuses(request):
     return render(request, 'tracker/syllabus.html', {'syllabuses': syllabuses})
 
 
-@teacher_only
+@login_required
 def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)

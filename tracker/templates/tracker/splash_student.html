@@ -1,0 +1,55 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+    <h1>
+    Studnet Profile for {{ student }} {{ student.tutorgroup }}
+    </h1>
+
+    <h2>
+    Classes
+    </h2>
+
+    You are a member of the following classes:
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Class</td>
+                <td>Syllabus Taught</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in classes %}
+            <tr>
+                <td>{{ class }}</td>
+                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'syllabus_detail' syllabus.pk %}" class="btn btn-info">{{ syllabus }}</a> {% endfor %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <h2>Tests and Assessments</h2>
+    You have taken the following assessments:
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Assessment Name</td>
+                <td>Date sat</td>
+                <td>Score</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for sitting  in sittings %}
+            <tr>
+                <td>{{ sitting.exam }}</td>
+                <td>{{ sitting.datesat }}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

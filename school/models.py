@@ -39,6 +39,7 @@ class Teacher(models.Model):
 class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
     groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE)
+    syllabustaught = models.ManyToManyField('tracker.Syllabus')
 
     def __str__(self):
         return self.groupname
