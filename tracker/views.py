@@ -24,11 +24,33 @@ def splash(request):
                 'sittings': Sitting.objects.filter(classgroup__in=classes),
                 'classes': classes}
 
-        # To get the assessments the studnet has sat:
+        # To get the assessments the student has sat:
 
         sittings = Sitting.objects.filter(classgroup__in=classes)
+        scores = []
+        for sitting in sittings:
+            scores.append(sitting.student_total(student))
+        sitting_data = list(zip(sittings, scores))
+        data['sitting_data'] = sitting_data
 
-        data['sittings'] = sittings
+        # Get syllabus ratings:
+
+        syllabuss_learned = []
+        for classgroup in student.classgroups.all().distinct():
+                syllabuss_learned.append(classgroup.syllabustaught.all())
+
+        for syllabus in syllabuss_learned:
+            points_learned = SyllabusPoint.objects.filter(topic__syllabus__in=syllabus)
+
+        student_ratings = []
+        for point in points_learned:
+            x = point.get_student_rating(student)
+            student_ratings.append(round(x*100))
+
+        syllabus_data = list(zip(points_learned, student_ratings))
+
+        data['syllabus_data'] = syllabus_data
+
         return render(request, 'tracker/splash_student.html', data)
 
     if request.user.groups.filter(name='Teachers'):
@@ -243,7 +265,12 @@ def input_marks(request, sitting_pk, student_pk):
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
                 formset.save()
-                return redirect('profile')
+
+                if request.user.groups.filter(name='Students'):
+                    return redirect('sitting_summary')
+
+                if request.user.groups.filter(name='Teachers'):
+                    return redirect('sitting')
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))

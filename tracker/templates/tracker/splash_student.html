@@ -43,13 +43,48 @@
         </thead>
 
         <tbody>
-            {% for sitting  in sittings %}
-            <tr>
+            {% for sitting, score  in sitting_data %}
+            <tr class='clickable-row' data-href='{% url 'input_marks' sitting.pk student.pk %}'>
                 <td>{{ sitting.exam }}</td>
                 <td>{{ sitting.datesat }}</td>
-                <td></td>
+                <td>{{ score }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <h2>Your Syllabus Points</h2>
+    This is your performance based on the syllabus' you've been taught:
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Syllabus Name</td>
+                <td>Syllabus Topic</td>
+                <td>Syllabus Point</td>
+                <td>Your Rating</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for point, rating in syllabus_data %}
+            <tr>
+                <td>{{ point.topic.syllabus }}</td>
+                <td>{{ point.topic }}</td>
+                <td>{{ point.number }}</td>
+                <td>{{ rating }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# for clickable rows #}
+    <script>
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+    </script>
 {% endblock %}
