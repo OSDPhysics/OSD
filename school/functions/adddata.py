@@ -21,7 +21,7 @@ def processstudent(path):
             newstudent['password'] = row[7]
             newstudent['classgroup'] = row[8]
             newstudent['year'] = row [9]
-
+            newstudent['classgroup'] = row[10]
 
             addstudent(newstudent)
 
@@ -55,7 +55,9 @@ def addstudent(newstudent):
                                      )
 
     # HACK!!!!#
-    newclassgroup = ClassGroup.objects.get(pk=1)
+    newclassgroupname = newstudent['classgroup']
+
+    newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
 
     student.classgroups.add(newclassgroup)
 
