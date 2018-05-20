@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from osd.decorators import teacher_only, admin_only
+from osd.decorators import *
 from django.urls import reverse
 from django.db.models import Sum
 
@@ -232,7 +232,7 @@ def new_sitting(request, exampk):
 
     return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
-
+@own_or_teacher_only
 def input_marks(request, sitting_pk, student_pk):
     # Get the main data we'll need
     sitting = Sitting.objects.get(pk=sitting_pk)

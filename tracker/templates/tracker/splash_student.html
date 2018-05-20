@@ -56,6 +56,8 @@
     <h2>Your Syllabus Points</h2>
     This is your performance based on the syllabus' you've been taught:
 
+    <input class="form-control" id="syllabusSearch" type="text" placeholder="Search this table...">
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -66,7 +68,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="syllabusTable">
             {% for point, rating in syllabus_data %}
             <tr>
                 <td>{{ point.topic.syllabus }}</td>
@@ -87,4 +89,16 @@
 });
 
     </script>
+
+    <script>
+    // Make the table filterable
+$(document).ready(function(){
+  $("#syllabusSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#syllabusTable").find("tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 {% endblock %}

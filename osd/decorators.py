@@ -77,3 +77,28 @@ def teacer_or_lm_only(function):
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
+
+
+def own_or_teacher_only(function):
+    """
+    Restrict editing to either the currently logged-in student or any teacher
+    :param function:
+    :return:
+    """
+
+    def wrap(request, *args, **kwargs):
+        requsted_student = Student.objects.get(pk=kwargs['student_pk'])
+        requesting_user = request.user
+
+        if requesting_user.groups.filter(name='Teachers'):
+            return function(request, *args, **kwargs)
+
+        if requesting_user == requsted_student.user:
+            return function(request, *args, **kwargs)
+
+        else:
+            raise PermissionDenied
+
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
