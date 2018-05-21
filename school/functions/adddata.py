@@ -44,8 +44,8 @@ def addstudent(newstudent):
     newuser = User.objects.create_user(username=newstudent['username'],
                                        email=newstudent['email'],
                                        password=newstudent['password'],
-                                       first_name=newstudent['last_name'],
-                                       last_name=newstudent['first_name']
+                                       first_name=newstudent['first_name'],
+                                       last_name=newstudent['last_name']
                                        )
 
     # Place new user in the Students Auth group
