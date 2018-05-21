@@ -51,7 +51,7 @@ class SyllabusPoint(models.Model):
     syllabusLevel = models.CharField(max_length=10, choices=LEVELS, blank=True, null=True)
 
     def __str__(self):
-        return self.topic.topic + " " + self.number
+        return self.topic.topic + " " + self.number + " " + self.syllabusText
 
     def get_student_rating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
