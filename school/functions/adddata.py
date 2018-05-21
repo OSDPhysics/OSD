@@ -21,7 +21,7 @@ def processstudent(path):
             newstudent['password'] = row[7]
             newstudent['classgroup'] = row[8]
             newstudent['year'] = row [9]
-            newstudent['classgroup'] = row[10]
+
 
             addstudent(newstudent)
 
