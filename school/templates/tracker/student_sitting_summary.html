@@ -1,0 +1,55 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Assessment Performance Summary{% endblock %}
+
+{% block content %}
+    <h1>
+    Assessment performance summary for {{ student }} {{ student.tutorgroup }}
+    </h1>
+
+    <h2>Raw Scores</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Question</td>
+            <td>Syllabus points</td>
+            <td>Score</td>
+            <td>Your Remarks</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for mark in marks %}
+        <tr>
+            <td>{{ mark.question }}</td>
+            <td>{% for point in mark.question.syllabuspoint.all %}
+                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button>
+                    {% endfor %}</td>
+            <td>{{ mark.score }}/{{ mark.question.maxscore }}</td>
+            <td>{{ mark.notes|safe }}</td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+    // Make the table filterable
+$(document).ready(function(){
+  $("#syllabusSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#syllabusTable").find("tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+        {# for tooltips #}
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{% endblock %}

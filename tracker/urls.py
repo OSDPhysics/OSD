@@ -19,6 +19,7 @@ urlpatterns = [
     path('sittings/<int:pk>', views.sitting_detail, name='sitting_detail'),
     path('', views.tracker_overview, name='tracker_overview'),
     path('sittings/<int:sitting_pk>/<int:student_pk>/scores', views.input_marks, name='input_marks'),
+    path('sittings/<int:sitting_pk>/<int:student_pk>', views.student_sitting_summary, name='student_sitting_summary'),
     path('syllabus-point-autocomplete/', SyllabusPointAutocomplete.as_view(), name='syllabus-point-autocomplete'),
     path('classgroups-autocomplete/', ClaassgroupAutocomplete.as_view(), name='classgroups-autocomplete')
 

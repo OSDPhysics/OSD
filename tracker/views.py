@@ -40,7 +40,7 @@ def splash(request):
                 syllabuss_learned.append(classgroup.syllabustaught.all())
 
         for syllabus in syllabuss_learned:
-            points_learned = SyllabusPoint.objects.filter(topic__syllabus__in=syllabus)
+            points_learned = SyllabusPoint.objects.filter(topic__syllabus__in=syllabus).order_by('number').order_by('topic').order_by('topic__syllabus')
 
         student_ratings = []
         for point in points_learned:
@@ -267,7 +267,7 @@ def input_marks(request, sitting_pk, student_pk):
                 formset.save()
 
                 if request.user.groups.filter(name='Students'):
-                    return redirect('sitting_summary')
+                    return redirect('student_sitting_summary', sitting_pk, student_pk)
 
                 if request.user.groups.filter(name='Teachers'):
                     return redirect('sitting')
@@ -295,3 +295,15 @@ def input_marks(request, sitting_pk, student_pk):
                                                             'marks': marks,
                                                             'student': student,
                                                             'formset': formset}, )
+
+
+@own_or_teacher_only
+def student_sitting_summary(request, sitting_pk, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    sitting = Sitting.objects.get(pk=sitting_pk)
+
+    marks = Mark.objects.filter(sitting=sitting).filter(student=student_pk).order_by('question__qorder')
+
+    return render(request, 'tracker/student_sitting_summary.html', {'student': student,
+                                                                    'sitting': sitting,
+                                                                    'marks': marks})

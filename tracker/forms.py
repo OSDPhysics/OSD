@@ -50,13 +50,11 @@ class SetQuestions(forms.ModelForm):
         )
 
 
-
-
 class NewSittingForm(forms.Form):
 
     classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),
                                         widget=autocomplete.ModelSelect2(url='classgroups-autocomplete'))
-    date = forms.DateField()
+    date = forms.DateField(widget=forms.SelectDateWidget)
 
 
 class MarkForm(forms.ModelForm):
