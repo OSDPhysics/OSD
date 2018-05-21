@@ -1,5 +1,10 @@
 from .base import *
 
+DEBUG = True
+
+ALLOWED_HOSTS = ['localhost',
+]
+
 SECRET_KEY = '*+3s!e@j!#yzclaf4z7vct&p7qobgm#8ja3vy(9%6agn#v&37#'
 
 DATABASES = {
