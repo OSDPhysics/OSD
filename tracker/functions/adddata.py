@@ -6,7 +6,7 @@ import codecs
 
 def processSpecification(path):
     with open(path, newline='') as csvfile:
-        specification = csv.reader(csvfile, delimiter=',', quotechar='|')
+        specification = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in specification:
             newSpecPoint = {}
             newSpecPoint['topic'] = row[0]
