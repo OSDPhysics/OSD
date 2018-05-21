@@ -31,7 +31,7 @@ class NewExamForm(forms.ModelForm):
         model = Exam
         fields = ('name', 'syllabus',)
         widgets = {
-            'syllabus': SearchableSelect(model='tracker.Syllabus', search_field='syllabusname', many=True)
+            'syllabus': SearchableSelect(model='tracker.Syllabus', search_field='syllabusText', many=True)
         }
 
 
@@ -43,6 +43,13 @@ class SetQuestions(forms.ModelForm):
         widgets = { # TODO: any way to filter this?
             'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
         }
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+        )
+
+
 
 
 class NewSittingForm(forms.Form):
