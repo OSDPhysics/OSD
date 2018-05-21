@@ -1,24 +1,29 @@
-{% extends 'tracker/base2.html' %}
-
-{% block title %}Greenpen{% endblock %}
+{% extends 'tracker/base.html' %}
 
 {% block content %}
 
     <body>
-        <div class="center">
+    <div class="align-left">
+        {% if user.is_authenticated %}
+            <H2>Hi, {{ user.username }}, welcome back.</H2>
+        {% else %}
+        {% endif %}
+    </div>
+    <div class="center">
                 <div class="jumbotron">
                     <h1 class="display-4">Welcome to Greenpen</h1>
                          <p class="lead">Greenpen is an assessment management system which allows students, teachers and parents to see an individual student's progress against assessment objectivies.</p>
                     <hr class="my-4">
                     <p>It is currently under development by a group of GIS teachers.</p>
                     <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    <a class="btn btn-primary btn-lg" href={% url 'accounts_profile' %} role="button">Your Account</a>
+                     <a class="btn btn-primary btn-lg" href="{% url 'teachnet_home' %}" role="button">Teachnet</a>
+                      <a class="btn btn-primary btn-lg" href="{% url 'school_home' %}" role="button">School Management</a>
           </p>
         </div>
-                <h3> <a href="{% url 'new_teacher' %}">New User? Signup here.</a></h3>
-               <!-- <h3> <a href="{% url 'new_student' %}">New Student? Signup here.</a></h3> -->
-                <h3> <a href="login">Login</a></h3>
 
         </div>
     </body>
-{% endblock %}
+
+
+{% endblock content %}

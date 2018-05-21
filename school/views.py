@@ -1,26 +1,37 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from .forms import *
-from .models import Teacher, Student
-from .functions.adddata import *
-import csv
-import codecs
-import os
 import logging
+import os
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import *
+from .functions.adddata import *
+
+from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
 logger = logging.getLogger(__name__)
+
+
+def is_teacher(user):
+    return user.groups.filter(name='Teachers').exists()
+
+
+@login_required
+def home(request):
+    user = request.user
+    return render(request, 'school/home.html', {'user': user})
 
 
 def splash(request):
     return render(request, 'school/splash.html', {})
 
 
-
 @login_required
+def school(request):
+    return render(request, 'school/school.html', {})
+
+
 def new_teacher(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -55,13 +66,22 @@ def students(request):
 
 
 @login_required
+def accounts_profile(request):
+    return render(request, 'school/accounts_profile.html')
+
+
+@teacher_or_own_only
 def student_detail(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'school/student_detail.html', {'student': student})
 
 
+def logout_view(request):
+    logout(request)
+
+
 # Add students in bulk from CSV
-@login_required
+@admin_only
 def import_students(request):
     # Deal with getting a CSV file
 
@@ -77,3 +97,39 @@ def import_students(request):
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
+
+
+@admin_only
+def import_teachers(request):
+    # Deal with getting a CSV file
+
+    if request.method == 'POST':
+        csvform = CSVDocForm(request.POST, request.FILES)
+        if csvform.is_valid():
+            file = csvform.save()
+            path = file.document.path
+            processteacher(path)
+            os.remove(path)
+            file.delete()
+            return redirect('list_students')
+    else:
+        csvform = CSVDocForm()
+    return render(request, 'school/model_form_upload.html', {'csvform': csvform})
+
+
+@teacher_only
+def classes(request):
+    classes = ClassGroup.objects.all().order_by('groupteacher').order_by('groupname')
+    return render(request, 'school/classes.html', {'classes': classes})
+
+
+# TODO: implement
+@teacher_only
+def teacher_details(request, *args, **kwargs):
+    return render(request, 'tracker/404.html')
+
+
+# TODO: implement
+@teacher_only
+def class_details(request, *args, **kwargs):
+    return render(request, 'tracker/404.html')

@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from teachnet.models import Skill
+
 
 # Create your models here.
+
 class Teacher(models.Model):
     TITLES = (
         ('Miss', 'Miss'),
@@ -14,6 +17,8 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     title = models.CharField(max_length=20, choices=TITLES, blank=True)
     staffcode = models.CharField(max_length=10, blank=True)
+    skills = models.ManyToManyField(Skill)
+    line_manager = models.ForeignKey(User, related_name='line_manager', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         space = ' '
@@ -34,6 +39,7 @@ class Teacher(models.Model):
 class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
     groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE)
+    syllabustaught = models.ManyToManyField('tracker.Syllabus')
 
     def __str__(self):
         return self.groupname

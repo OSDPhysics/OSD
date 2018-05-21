@@ -1,0 +1,62 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block title %}Set exam scores{% endblock title %}
+{% block description %}
+    Editing the scores for {{ student}} of test {{ sitting.exam }} on {{ sitting.datesat }}.
+{% endblock description %}
+
+{% block content %}
+<form method="post">
+{% csrf_token %}
+{{ formset.management_form }}
+{{ formset.media }}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Question</td>
+            <td>Maximum score</td>
+            <td class="col-md-1">Score</td>
+            <td>Syllabus Points</td>
+            <td>Notes</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for question, form in data %}
+            <tr>
+            <td>{{ question }}</td>
+            <td>{{ question.maxscore }}</td>
+            <td {% if form.errors %}
+                    class="danger"
+
+                {% endif %}
+            >
+                {{ form.score }}{{ form.errors }}
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+            </td>
+            <td>
+                {% for point in question.syllabuspoint.all %}
+                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button>
+                    {% endfor %}
+             </td>
+
+            <td>
+                {{ form.notes }}
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<button type="submit">Submit</button>
+</form>
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+{% endblock content %}

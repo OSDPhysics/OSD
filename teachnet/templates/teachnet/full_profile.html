@@ -1,0 +1,73 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Teachnet - My Profile{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+  <h2>Teacher Profile</h2>
+
+    <h1>{{ teacher.title }} {{ teacher.user.first_name }} {{ teacher.user.last_name }} {{ teacher.staffcode }}</h1>
+
+        <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Line Manager</h2>
+          <p>{{ teacher.line_manager.teacher }}</p>
+          <p><a class="btn btn-default" href="./{{ teacher.line_manager.pk }}" role="button">View Profile &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+          <h2>Skills</h2>
+          {% for skill in teacher.skills.all %}
+            <p>
+               <a href="../skills/{{ skill.pk }}">{{ skill }}</a>,
+            </p>
+            {% endfor %}
+
+          <p><a class="btn btn-default" href="#" role="button">Change Skills &raquo;</a></p>
+       </div>
+        <div class="col-md-6">
+          <h2>Objectives</h2>
+          <p>
+
+            <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Objective</th>
+        <th>Date Set</th>
+        <th>Date Approved</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+
+    {% for objective in teacher_objectives %}
+            <tr><td> <a href='{% url 'edit_objective' teacher_pk=teacher.pk objective_pk=objective.pk %}' data-toggle="tooltip" title="{{ objective.long_text }}">{{ objective.short_name }}</a></td>
+            <td>{{ objective.date_created }}</td>
+            <td>{{ objective.date_approved }}</td></tr>
+         {% endfor %}
+
+    </tbody>
+  </table>
+
+
+
+
+          </p>
+          <p><a class="btn btn-default" href="./{{ teacher.pk }}/update_objective" role="button">Add Objective &raquo;</a></p>
+        </div>
+      </div>
+
+
+</div>
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+
+</body>
+
+{% endblock %}

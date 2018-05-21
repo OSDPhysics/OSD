@@ -1,0 +1,42 @@
+{% extends 'tracker/base.html' %}
+
+
+
+{% block content %}
+
+    <body>
+    <h1>Teacher access to tracker related data.</h1>
+    <div class="well">
+       <h2>Syllabus'</h2>
+        {% for syllabus in syllabuses %}
+            <p>{{ syllabus.board }} {{ syllabus.syllabusname }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="well">
+        <h2>Exams</h2>
+        Our most recently sat exams are:
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Date Sat</td>
+                <td>Class</td>
+                <td>Teacher</td>
+                <td>Exam Name</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sitting in sittings %}
+            <tr>
+                <td>{{ sitting.datesat}}</td>
+                <td>{{ sitting.classgroup }}</td>
+                <td>{{ sitting.classgroup.groupteacher }}</td>
+                <td>{{ sitting.exam }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </body>
+
+{% endblock content %}

@@ -1,5 +1,7 @@
 
 from django import forms
+from dal import autocomplete
+from django.forms import modelformset_factory
 from .models import *
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
@@ -24,7 +26,34 @@ class questionsForm(forms.ModelForm):
         }
 
 
-class examForm(forms.ModelForm):
+class NewExamForm(forms.ModelForm):
     class Meta:
         model = Exam
-        exclude = ('',)
+        fields = ('name', 'syllabus',)
+        widgets = {
+            'syllabus': SearchableSelect(model='tracker.Syllabus', search_field='syllabusname', many=True)
+        }
+
+
+class SetQuestions(forms.ModelForm):
+
+    class Meta:
+        model = Question
+        fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint']
+        widgets = { # TODO: any way to filter this?
+            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
+        }
+
+
+class NewSittingForm(forms.Form):
+
+    classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),
+                                        widget=autocomplete.ModelSelect2(url='classgroups-autocomplete'))
+    date = forms.DateField()
+
+
+class MarkForm(forms.ModelForm):
+
+    class Meta:
+        model = Mark
+        fields = ['score']

@@ -1,0 +1,104 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+    <h1>
+    Studnet Profile for {{ student }} {{ student.tutorgroup }}
+    </h1>
+
+    <h2>
+    Classes
+    </h2>
+
+    You are a member of the following classes:
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Class</td>
+                <td>Syllabus Taught</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in classes %}
+            <tr>
+                <td>{{ class }}</td>
+                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'syllabus_detail' syllabus.pk %}" class="btn btn-info">{{ syllabus }}</a> {% endfor %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <h2>Tests and Assessments</h2>
+    You have taken the following assessments:
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Assessment Name</td>
+                <td>Date sat</td>
+                <td>Score</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for sitting, score  in sitting_data %}
+            <tr class='clickable-row' data-href='{% url 'input_marks' sitting.pk student.pk %}'>
+                <td>{{ sitting.exam }}</td>
+                <td>{{ sitting.datesat }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Your Syllabus Points</h2>
+    This is your performance based on the syllabus' you've been taught:
+
+    <input class="form-control" id="syllabusSearch" type="text" placeholder="Search this table...">
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Syllabus Name</td>
+                <td>Syllabus Topic</td>
+                <td>Syllabus Point</td>
+                <td>Your Rating</td>
+            </tr>
+        </thead>
+
+        <tbody id="syllabusTable">
+            {% for point, rating in syllabus_data %}
+            <tr>
+                <td>{{ point.topic.syllabus }}</td>
+                <td>{{ point.topic }}</td>
+                <td>{{ point.number }}</td>
+                <td>{{ rating }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# for clickable rows #}
+    <script>
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+    </script>
+
+    <script>
+    // Make the table filterable
+$(document).ready(function(){
+  $("#syllabusSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#syllabusTable").find("tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

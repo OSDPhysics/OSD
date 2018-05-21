@@ -17,6 +17,7 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import logout
 from school import views as school_views
 
 urlpatterns = [
@@ -27,5 +28,7 @@ urlpatterns = [
     path('logout/', auth_views.logout, name='logout'),
     path('searchableselect/', include('searchableselect.urls')),
     path('', school_views.splash, name='splash'),
+    path('accounts/profile/', school_views.accounts_profile, name='accounts_profile'),
+    path('teachnet/', include('teachnet.urls')),
 ]
 

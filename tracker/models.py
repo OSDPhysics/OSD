@@ -1,6 +1,8 @@
 from django.db import models
 from school.models import Student, ClassGroup
 import numpy
+from django.db.models import Sum
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -49,11 +51,16 @@ class SyllabusPoint(models.Model):
     syllabusLevel = models.CharField(max_length=10, choices=LEVELS, blank=True, null=True)
 
     def __str__(self):
-        return self.number + " " + self.syllabusText
+        return self.topic.topic + " " + self.number
 
     def get_student_rating(self, student):
-        scores = Mark.objects.filter(question__syllabuspoint__in=self).filter(question__mark__student=student)
-        numpy.mean(scores.score)
+        marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return numpy.mean(pcs)
+
 
 
 class Exam(models.Model):
@@ -81,17 +88,35 @@ class Sitting(models.Model):
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
 
+    def student_total(self, student):
+
+        total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
+
+        return total['score__sum']
+
+
+    def __str__(self):
+        return self.exam.name + " " + self.classgroup.groupname
+
 
 class Mark(models.Model):
+    # TODO: This should be updated whenever a sitting is modified
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.IntegerField(blank=True, null=True)
+    sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
+    notes = RichTextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.score)
+        return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(self.score) + ')'
 
+    def percentage(self):
 
+        if self.score:
+            return round(self.score / self.question.maxscore *100, 2)
 # CSV Uploads
+        else:
+            return False
 
 
 class CSVDoc(models.Model):

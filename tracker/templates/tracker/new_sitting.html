@@ -1,0 +1,16 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block title %}Add Sitting{% endblock title %}
+{% block description %}
+    Use this form to create a new sitting of the exam
+{% endblock description %}
+
+{% block content %}
+<form method="post">
+{% csrf_token %}
+    {{ sittingform.media }}
+    {{ sittingform.as_p }}
+<button type="submit">Submit</button>
+</form>
+{% endblock content %}
