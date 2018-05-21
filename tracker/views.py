@@ -228,7 +228,7 @@ def new_sitting(request, exampk):
             return redirect(reverse('sitting_detail'))
 
         else:
-            return render(request, 'tracker/new_sitting.html.html', {'sittingform': sittingform})
+            return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
     return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
