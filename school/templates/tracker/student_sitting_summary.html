@@ -34,6 +34,31 @@
         </tbody>
     </table>
 
+    <h2>Syllabus Point Performance</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Syllabus Point</td>
+            <td>Rating</td>
+            <td>Your comments</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for point, rating, notes in syllabus_data %}
+            <tr>
+            <td><button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button></td>
+            <td>{{ rating }}</td>
+            <td>{% for note in notes %}
+                <p>{{ note|safe }}</p>
+
+                {% endfor %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     <script>
     // Make the table filterable
 $(document).ready(function(){

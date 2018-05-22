@@ -4,6 +4,7 @@ from .forms import *
 from osd.decorators import *
 from django.urls import reverse
 from django.db.models import Sum
+from operator import itemgetter
 
 from .models import *
 import logging
@@ -299,11 +300,33 @@ def input_marks(request, sitting_pk, student_pk):
 
 @own_or_teacher_only
 def student_sitting_summary(request, sitting_pk, student_pk):
+
     student = Student.objects.get(pk=student_pk)
     sitting = Sitting.objects.get(pk=sitting_pk)
 
     marks = Mark.objects.filter(sitting=sitting).filter(student=student_pk).order_by('question__qorder')
 
+    syllabus_point_tested = SyllabusPoint.objects.filter(question__mark__in=marks).distinct().order_by('number').order_by('topic')
+
+    student_ratings = []
+    for point in syllabus_point_tested:
+        x = point.get_student_rating(student)
+        student_ratings.append(round(x * 5))
+
+    point_notes = []
+    for point in syllabus_point_tested:
+        point_marks = Mark.objects.filter(student=student).filter(sitting=sitting).filter(question__syllabuspoint=point)
+        single_note = []
+        for mark in point_marks:
+            single_note.append(mark.notes)
+        single_note = list(filter(None, single_note))
+        point_notes.append(single_note)
+
+    syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes))
+
+
+
     return render(request, 'tracker/student_sitting_summary.html', {'student': student,
                                                                     'sitting': sitting,
-                                                                    'marks': marks})
+                                                                    'marks': marks,
+                                                                    'syllabus_data': syllabus_data})
