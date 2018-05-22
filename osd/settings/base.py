@@ -134,7 +134,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
-        'removeButtons': 'NewPage,Save,Preview,Print,Templates,Replace,SelectAll,BidiLtr,BidiRtl,Language,Blockquote,CreateDiv,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,Anchor,Flash,Iframe,ShowBlocks,Source',
+        'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
+
+        'width':500,
+        'height':100,
 
     },
 }
