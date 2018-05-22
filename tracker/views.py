@@ -272,10 +272,10 @@ def input_marks(request, sitting_pk, student_pk):
                 formset.save()
 
                 if request.user.groups.filter(name='Students'):
-                    return redirect(reverse('student_sitting_summary', sitting_pk, student_pk))
+                    return redirect(reverse('student_sitting_summary', (sitting_pk, student_pk)))
 
                 if request.user.groups.filter(name='Teachers'):
-                    return redirect(reverse('student_sitting_summary', sitting_pk, student_pk))
+                    return redirect(reverse('student_sitting_summary', (sitting_pk, student_pk)))
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))

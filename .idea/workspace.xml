@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/osd/settings/prod.py" afterPath="$PROJECT_DIR$/osd/settings/prod.py" />
+      <change beforePath="$PROJECT_DIR$/tracker/views.py" afterPath="$PROJECT_DIR$/tracker/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,7 +43,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.52507675">
+    <splitter split-orientation="horizontal" split-proportion="0.7809621">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
@@ -121,8 +121,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tracker/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="6195">
-                  <caret line="342" column="0" lean-forward="true" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+                <state relative-caret-position="210">
+                  <caret line="279" column="87" lean-forward="false" selection-start-line="279" selection-start-column="87" selection-end-line="279" selection-end-column="87" />
                   <folding />
                 </state>
               </provider>
@@ -351,8 +351,8 @@
         <option value="$PROJECT_DIR$/learningjournal/models.py" />
         <option value="$PROJECT_DIR$/tracker/forms.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/enter_journal.html" />
-        <option value="$PROJECT_DIR$/tracker/views.py" />
         <option value="$PROJECT_DIR$/osd/settings/prod.py" />
+        <option value="$PROJECT_DIR$/tracker/views.py" />
       </list>
     </option>
   </component>
@@ -811,7 +811,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526986951013</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="HELP!!!!!2">
+      <created>1526987158940</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1526987158940</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -935,7 +942,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Started working on displaying and recording student marks after sittinga test." />
     <MESSAGE value="Basic score form now created and (seems to be) working!&#10;Now need to add links to this" />
     <MESSAGE value="Before changing view methods" />
     <MESSAGE value="Started changing views to new zip type" />
@@ -960,7 +966,8 @@
     <MESSAGE value="Set to force SSL" />
     <MESSAGE value="Changed default splash page" />
     <MESSAGE value="HELP!!!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="HELP!!!!!" />
+    <MESSAGE value="HELP!!!!!2" />
+    <option name="LAST_COMMIT_MESSAGE" value="HELP!!!!!2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1279,8 +1286,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/school/templates/school/splash.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="14" column="96" lean-forward="false" selection-start-line="14" selection-start-column="96" selection-end-line="14" selection-end-column="96" />
+        <state relative-caret-position="319">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1295,9 +1302,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="281">
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1337,27 +1346,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="-757">
+          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+        <state relative-caret-position="-540">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#1#25#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6195">
-          <caret line="342" column="0" lean-forward="true" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1376,6 +1377,14 @@
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="279" column="87" lean-forward="false" selection-start-line="279" selection-start-column="87" selection-end-line="279" selection-end-column="87" />
+          <folding />
         </state>
       </provider>
     </entry>
