@@ -14,7 +14,7 @@ class StudentJournalEntry(models.Model):
 
     syllabus_point = models.ManyToManyField(SyllabusPoint)
     syllabus_topic = models.ManyToManyField(SyllabusTopic)
-    entry = RichTextField()
+    entry = RichTextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.student) + ' ' + str(self.date_created) + ' ' + str(self.pk)

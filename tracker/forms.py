@@ -3,6 +3,7 @@ from django import forms
 from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
+from learningjournal.models import StudentJournalEntry
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
 
@@ -62,3 +63,9 @@ class MarkForm(forms.ModelForm):
     class Meta:
         model = Mark
         fields = ['score']
+
+class JournalForm(forms.ModelForm):
+
+    class Meta:
+        model = StudentJournalEntry
+        fields = ['entry']

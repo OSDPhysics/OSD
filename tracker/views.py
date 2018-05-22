@@ -87,11 +87,13 @@ def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)
     allpoints = []
+    ratings = []
     for topic in topics:
         # get a list of topics, for each topic get all the syllabus points
         points = SyllabusPoint.objects.filter(topic=topic)
         for point in points:
             allpoints.append(point)
+
 
     return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
                                                            'specpoints': allpoints})
@@ -269,24 +271,11 @@ def input_marks(request, sitting_pk, student_pk):
             if formset.is_valid():
                 formset.save()
 
-                # Now create new journal entries:
-
-                for mark in marks:
-                    if mark.notes:
-                        journal_entry, created = StudentJournalEntry.objects.get_or_create(date_created=mark.sitting.datesat, student=student, entry=mark.notes, mark=mark)
-                        if created:
-                            journal_entry.syllabus_point.clear()
-                            for point in mark.question.syllabuspoint.all():
-                                journal_entry.syllabus_point.add(point)
-                            journal_entry.syllabus_topic.clear()
-                            for point in mark.question.syllabuspoint.all():
-                                journal_entry.syllabus_topic.add(point.topic)
-
                 if request.user.groups.filter(name='Students'):
-                    return redirect('student_sitting_summary', sitting_pk, student_pk)
+                    return redirect(reverse('student_sitting_summary', sitting_pk, student_pk))
 
                 if request.user.groups.filter(name='Teachers'):
-                    return redirect('student_sitting_summary', sitting_pk, student_pk)
+                    return redirect(reverse('student_sitting_summary', sitting_pk, student_pk))
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))
@@ -351,4 +340,3 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                     'marks': marks,
                                                                     'syllabus_data': syllabus_data,
                                                                     'topic_data': topic_data})
-

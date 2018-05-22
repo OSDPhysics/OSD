@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>
-    Studnet Profile for {{ student }} {{ student.tutorgroup }}
+    Student Profile for {{ student }} {{ student.tutorgroup }}
     </h1>
 
     <h2>
@@ -39,6 +39,7 @@
                 <td>Assessment Name</td>
                 <td>Date sat</td>
                 <td>Score</td>
+                <td>Enter Marks</td>
             </tr>
         </thead>
 
@@ -48,6 +49,7 @@
                 <td>{{ sitting.exam }}</td>
                 <td>{{ sitting.datesat }}</td>
                 <td>{{ score }}</td>
+                <td><a class="button" href="{% url 'input_marks' sitting.pk student.pk %}">Enter Marks</a> </td>
             </tr>
             {% endfor %}
         </tbody>
