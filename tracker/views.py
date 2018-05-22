@@ -5,6 +5,8 @@ from osd.decorators import *
 from django.urls import reverse
 from django.db.models import Sum
 from operator import itemgetter
+from learningjournal.models import StudentJournalEntry
+import datetime
 
 from .models import *
 import logging
@@ -266,6 +268,19 @@ def input_marks(request, sitting_pk, student_pk):
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
                 formset.save()
+
+                # Now create new journal entries:
+
+                for mark in marks:
+                    if mark.notes:
+                        journal_entry, created = StudentJournalEntry.objects.get_or_create(date_created=mark.sitting.datesat, student=student, entry=mark.notes, mark=mark)
+                        if created:
+                            journal_entry.syllabus_point.clear()
+                            for point in mark.question.syllabuspoint.all():
+                                journal_entry.syllabus_point.add(point)
+                            journal_entry.syllabus_topic.clear()
+                            for point in mark.question.syllabuspoint.all():
+                                journal_entry.syllabus_topic.add(point.topic)
 
                 if request.user.groups.filter(name='Students'):
                     return redirect('student_sitting_summary', sitting_pk, student_pk)
