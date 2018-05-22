@@ -121,8 +121,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tracker/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="279" column="87" lean-forward="false" selection-start-line="279" selection-start-column="87" selection-end-line="279" selection-end-column="87" />
+                <state relative-caret-position="259">
+                  <caret line="279" column="84" lean-forward="false" selection-start-line="279" selection-start-column="84" selection-end-line="279" selection-end-column="84" />
                   <folding />
                 </state>
               </provider>
@@ -818,7 +818,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526987158940</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="HELP!!!!!2">
+      <created>1526987422774</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1526987422774</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1382,8 +1389,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="279" column="87" lean-forward="false" selection-start-line="279" selection-start-column="87" selection-end-line="279" selection-end-column="87" />
+        <state relative-caret-position="259">
+          <caret line="279" column="84" lean-forward="false" selection-start-line="279" selection-start-column="84" selection-end-line="279" selection-end-column="84" />
           <folding />
         </state>
       </provider>
