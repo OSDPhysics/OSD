@@ -351,3 +351,4 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                     'marks': marks,
                                                                     'syllabus_data': syllabus_data,
                                                                     'topic_data': topic_data})
+

@@ -1,0 +1,44 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block title %}Set exam scores{% endblock title %}
+{% block description %}
+    Learning Journal for {{ student}}.
+{% endblock description %}
+
+{% block content %}
+<h1>Learning Journal - {{ syllabus }}</h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+
+        <td>Point</td>
+        <td>Your Rating</td>
+        <td>Entry</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for syllabus_point, rating in topic_data %}
+        <tr>
+
+            <td>
+
+            <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ syllabus_point.syllabusText }}">{{ syllabus_point.topic }}{{ syllabus_point.number }}</button>
+            </td>
+
+            <td>{{ rating }}</td>
+            <td></td>
+    {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+    {# for tooltips #}
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{% endblock content %}
