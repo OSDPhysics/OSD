@@ -6,7 +6,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['www.greenpen.net',
 ]
 
-
+SECURE_SSL_REDIRECT = True
 
 
 STATIC_URL = '/static/'
