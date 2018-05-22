@@ -34,13 +34,35 @@
         </tbody>
     </table>
 
+    <h2>Topic Summary</h2>
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Topic</td>
+        <td>Average Rating / 5</td>
+    </tr>
+    </thead>
+
+    <tbody>
+     {% for topic, rating in topic_data %}
+         <tr>
+         <td>{{ topic }}</td>
+         <td>{{ rating }}</td>
+         </tr>
+     {% endfor %}
+    </tbody>
+    </table>
+
+
+
     <h2>Syllabus Point Performance</h2>
 
     <table class="table table-striped">
         <thead>
         <tr>
             <td>Syllabus Point</td>
-            <td>Rating</td>
+            <td>Rating /5</td>
             <td>Your comments</td>
         </tr>
         </thead>

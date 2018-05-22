@@ -37,6 +37,14 @@ class SyllabusTopic(models.Model):
     def __str__(self):
         return self.topic
 
+    def studentAverageRating(self, student):
+        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student=student)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs)*5,1)
+
 
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)

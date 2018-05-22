@@ -324,9 +324,15 @@ def student_sitting_summary(request, sitting_pk, student_pk):
 
     syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes))
 
+    topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
+    topic_average_marks = []
+    for topic in topics_tested:
+        topic_average_marks.append(topic.studentAverageRating(student))
 
+    topic_data = list(zip(topics_tested, topic_average_marks))
 
     return render(request, 'tracker/student_sitting_summary.html', {'student': student,
                                                                     'sitting': sitting,
                                                                     'marks': marks,
-                                                                    'syllabus_data': syllabus_data})
+                                                                    'syllabus_data': syllabus_data,
+                                                                    'topic_data': topic_data})
