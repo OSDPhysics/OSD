@@ -311,7 +311,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
     student_ratings = []
     for point in syllabus_point_tested:
         x = point.get_student_rating(student)
-        student_ratings.append(round(x * 5), 1)
+        student_ratings.append(round(x * 5, 1))
 
     point_notes = []
     for point in syllabus_point_tested:
