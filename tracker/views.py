@@ -238,11 +238,11 @@ def input_marks(request, sitting_pk, student_pk):
     sitting = Sitting.objects.get(pk=sitting_pk)
     student = Student.objects.get(pk=student_pk)
     marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
-    questions = Question.objects.filter(exam=sitting.exam).order_by('qnumber')
+    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
 
     # Formset to enter the student's mark
-    MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets = {
-          'score': forms.Textarea(attrs={'rows':1, 'cols':2}),
+    MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets={
+          'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
         })
     formset = MarkFormset(queryset=marks)
 
