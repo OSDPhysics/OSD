@@ -408,3 +408,24 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                         'syllabus_data': syllabus_data,
                                                                         'topic_data': topic_data,
                                                                         'point_journal_formset': point_journal_formset})
+
+def sitting_by_q(request, pk):
+    sitting = Sitting.objects.get(pk=pk)
+    students = Student.objects.filter(classgroups=sitting.classgroup).order_by('pk').order_by('user__last_name')
+    questions = Question.objects.filter(exam__sitting=sitting).order_by('qorder')
+
+    # create a row of percentage scores for each mark
+    scores = []
+    for question in questions:
+        row = []
+        for student in students:
+            mark, created = Mark.objects.get_or_create(sitting=sitting, student=student, question=question)
+            row.append(mark.percentage())
+        scores.append(row)
+
+    score_data = list(zip(questions, scores))
+
+    return render(request, 'tracker/sitting_detail_by_q.html', {'sitting': sitting,
+                                                           'scores': scores,
+                                                           'score_data': score_data,
+                                                                'students': students})

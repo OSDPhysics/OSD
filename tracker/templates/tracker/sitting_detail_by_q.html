@@ -1,0 +1,31 @@
+{% extends 'tracker/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block title %}Exam Details{% endblock title %}
+{% block description %}These are the details of the sitting of {{ sitting.exam }} for group {{ sitting.classgroup }} on {{ sitting.datesat }}.{% endblock description %}
+
+{% block content %}
+Data
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Question</td>
+        {% for student in students %}
+            <td>{{ student }}</td>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for question, scores in score_data %}
+        <tr>
+            <td>{{ question }}</td>
+            {% for score in scores %}
+                <td>{{ score }}</td>
+                {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock content %}
