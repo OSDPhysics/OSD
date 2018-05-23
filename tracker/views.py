@@ -125,8 +125,9 @@ def syllabus_detail(request, pk):
 
         ratings = []
         for topic in topics:
+            row = []
             for student in students:
-                row = []
+
 
                 row.append(topic.studentAverageRating(student))
             ratings.append(row)
