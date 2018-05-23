@@ -3,6 +3,11 @@
 {% block content %}
 <h1>Journal for {{ student }}</h1>
 
+
+    <form method="post">
+    {% csrf_token %}
+    {{ point_journal_formset.management_form }}
+    {{ point_journal_formset.media }}
     <table class="table table-striped">
     <thead>
     <tr>
@@ -13,9 +18,22 @@
 
         {% for point, entry in data %}
             <tr>
-            <td>{{ point }}</td>
-            <td>{{ entry|safe }}</td>
+            <td><button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button></td>
+            <td>{{ entry.media }}{% if entry.errors %}class="danger"{% endif %}
+                {{ entry.entry }}{{ entry.errors }}
+                {% for field in entry.hidden_fields %}
+                    {{ field }}
+                {% endfor %}</td>
             </tr>
         {% endfor %}
     </table>
+
+     <button type="submit">Submit</button>
+    </form>
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 {% endblock content %}
