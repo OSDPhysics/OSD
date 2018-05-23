@@ -1,0 +1,61 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>{{ syllabus.syllabusname }}</h1>
+
+        <div class="container">
+            <h3>These are the specification points for the syllabus ' {{ syllabus.syllabusname }}':</h3>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Topic</td>
+                        <td>Point</td>
+                        <td>Specification text</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for specpoint in specpoints %}
+                    <tr>
+                        <td>{{ specpoint.topic }}</td>
+                        <td>{{ specpoint.number }}</td>
+                        <td>{{ specpoint.syllabusText }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        <h1>Student Performance</h1>
+
+        This table shows how your students have performed in this syllabus.
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Topic</td>
+                {% for student in students %}
+                    <td>{{ student }}</td>
+                {% endfor %}
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for topic, ratings in student_topic_data %}
+                <tr>
+                    <td>{{ topic }}</td>
+                    {% for rating in ratings %}
+                        <td>{{ rating }}</td>
+                        {% endfor %}
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        </div>
+    </div>
+{% endblock %}

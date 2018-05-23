@@ -102,19 +102,41 @@ def list_syllabuses(request):
 
 @login_required
 def syllabus_detail(request, pk):
+
+
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)
     allpoints = []
-    ratings = []
     for topic in topics:
         # get a list of topics, for each topic get all the syllabus points
         points = SyllabusPoint.objects.filter(topic=topic)
         for point in points:
             allpoints.append(point)
 
+    if request.user.groups.filter(name='Students'):
 
-    return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
-                                                           'specpoints': allpoints})
+
+        return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
+                                                               'specpoints': allpoints})
+
+    if request.user.groups.filter(name='Teachers'):
+
+        students = Student.objects.all().filter(classgroups__syllabustaught=syllabus).order_by('user__last_name')
+
+        ratings = []
+        for topic in topics:
+            for student in students:
+                row = []
+
+                row.append(topic.studentAverageRating(student))
+            ratings.append(row)
+        student_topic_data = list(zip(topics, ratings))
+
+        return render(request, 'tracker/syllabus_teacher_detail.html', {'syllabus': syllabus,
+                                                               'specpoints': allpoints,
+                                                                        'student_topic_data': student_topic_data,
+                                                                        'students': students})
+
 
 
 # CSV Uplods
