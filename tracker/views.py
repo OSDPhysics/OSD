@@ -201,16 +201,19 @@ def examDetails(request, pk):
 @teacher_only
 def sitting_detail(request, pk):
     sitting = Sitting.objects.get(pk=pk)
-    students = Student.objects.filter(classgroups__in=sitting.classgroup).order_by('pk').order_by('user__last_name')
+    students = Student.objects.filter(classgroups=sitting.classgroup).order_by('pk').order_by('user__last_name')
 
     # collect total scores for this test
-    scores = {}
+    scores = []
     for student in students:
         total = Mark.objects.filter(sitting=sitting).filter(student=student).aggregate(Sum('score'))
-        scores[student] = total
+        scores.append(total['score__sum'])
+
+    data = list(zip(students, scores))
 
     return render(request, 'tracker/sitting_detail.html', {'sitting': sitting,
-                                                           'scores': scores})
+                                                           'scores': scores,
+                                                           'data': data})
 
 @teacher_only
 def new_sitting(request, exampk):

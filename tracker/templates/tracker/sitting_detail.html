@@ -5,6 +5,23 @@
 {% block description %}These are the details of the sitting of {{ sitting.exam }} for group {{ sitting.classgroup }} on {{ sitting.datesat }}.{% endblock description %}
 
 {% block content %}
-{{ n }}
+Data
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Student</td>
+        <td>Score</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for student, score in data %}
+        <tr>
+            <td>{{ student }}</td>
+            <td>{{ score }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
 
 {% endblock content %}
