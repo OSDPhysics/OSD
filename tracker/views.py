@@ -5,7 +5,6 @@ from osd.decorators import *
 from django.urls import reverse
 from django.db.models import Sum
 from operator import itemgetter
-from learningjournal.models import StudentJournalEntry
 import datetime
 
 from .models import *
