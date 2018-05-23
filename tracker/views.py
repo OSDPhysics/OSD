@@ -308,13 +308,13 @@ def input_marks(request, sitting_pk, student_pk):
 
 @own_or_teacher_only
 def student_sitting_summary(request, sitting_pk, student_pk):
-
     student = Student.objects.get(pk=student_pk)
     sitting = Sitting.objects.get(pk=sitting_pk)
 
     marks = Mark.objects.filter(sitting=sitting).filter(student=student_pk).order_by('question__qorder')
 
-    syllabus_point_tested = SyllabusPoint.objects.filter(question__mark__in=marks).distinct().order_by('number').order_by('topic')
+    syllabus_point_tested = SyllabusPoint.objects.filter(question__mark__in=marks).distinct().order_by(
+        'number').order_by('topic')
 
     student_ratings = []
     for point in syllabus_point_tested:
@@ -323,7 +323,8 @@ def student_sitting_summary(request, sitting_pk, student_pk):
 
     point_notes = []
     for point in syllabus_point_tested:
-        point_marks = Mark.objects.filter(student=student).filter(sitting=sitting).filter(question__syllabuspoint=point)
+        point_marks = Mark.objects.filter(student=student).filter(sitting=sitting).filter(
+            question__syllabuspoint=point)
         single_note = []
         for mark in point_marks:
             single_note.append(mark.notes)
@@ -334,20 +335,59 @@ def student_sitting_summary(request, sitting_pk, student_pk):
 
     for point in syllabus_point_tested:
         journal_entry, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_point=point)
-        form = StudentJournalExisting(instance=journal_entry)
-        point_journal.append(form)
 
-    syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal))
+    # Create a formset to store the journal items in.
+    journal_formset = modelformset_factory(StudentJournalEntry, extra=0, fields=('entry',))
 
-    topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
-    topic_average_marks = []
-    for topic in topics_tested:
-        topic_average_marks.append(topic.studentAverageRating(student))
+    if request.method == 'POST':
 
-    topic_data = list(zip(topics_tested, topic_average_marks))
+        # Populate the formset with POSTed data:
+        point_journal_formset = journal_formset(request.POST)
 
-    return render(request, 'tracker/student_sitting_summary.html', {'student': student,
-                                                                    'sitting': sitting,
-                                                                    'marks': marks,
-                                                                    'syllabus_data': syllabus_data,
-                                                                    'topic_data': topic_data})
+        if point_journal_formset.is_valid():
+            point_journal_formset.save()
+
+            return redirect(reverse('tracker_overview'))
+
+        else:
+
+            syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal_formset))
+
+            topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
+            topic_average_marks = []
+            for topic in topics_tested:
+                topic_average_marks.append(topic.studentAverageRating(student))
+
+            topic_data = list(zip(topics_tested, topic_average_marks))
+
+            return render(request, 'tracker/student_sitting_summary.html', {'student': student,
+                                                                            'sitting': sitting,
+                                                                            'marks': marks,
+                                                                            'syllabus_data': syllabus_data,
+                                                                            'topic_data': topic_data,
+                                                                            'point_journal_formset': point_journal_formset})
+
+    else:
+
+
+        point_journal_formset = journal_formset(
+            queryset=StudentJournalEntry.objects.filter(student=student,
+                                                        syllabus_point__in=syllabus_point_tested).order_by(
+                'syllabus_point__number') .order_by('syllabus_point__topic'))
+
+
+        syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal_formset))
+
+        topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
+        topic_average_marks = []
+        for topic in topics_tested:
+            topic_average_marks.append(topic.studentAverageRating(student))
+
+        topic_data = list(zip(topics_tested, topic_average_marks))
+
+        return render(request, 'tracker/student_sitting_summary.html', {'student': student,
+                                                                        'sitting': sitting,
+                                                                        'marks': marks,
+                                                                        'syllabus_data': syllabus_data,
+                                                                        'topic_data': topic_data,
+                                                                        'point_journal_formset': point_journal_formset})
