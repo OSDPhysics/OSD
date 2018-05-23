@@ -20,45 +20,62 @@ logger = logging.getLogger(__name__)
 @login_required()
 def splash(request):
     if request.user.groups.filter(name='Students'):
-
-        # For the first (classgroups) table
         student = Student.objects.get(user=request.user)
-        classes = student.classgroups.all()
-        data = {'student': student,
-                'sittings': Sitting.objects.filter(classgroup__in=classes),
-                'classes': classes}
-
-        # To get the assessments the student has sat:
-
-        sittings = Sitting.objects.filter(classgroup__in=classes)
-        scores = []
-        for sitting in sittings:
-            scores.append(sitting.student_total(student))
-        sitting_data = list(zip(sittings, scores))
-        data['sitting_data'] = sitting_data
-
-        # Get syllabus ratings:
-
-        syllabuss_learned = []
-        for classgroup in student.classgroups.all().distinct():
-                syllabuss_learned.append(classgroup.syllabustaught.all())
-
-        for syllabus in syllabuss_learned:
-            points_learned = SyllabusPoint.objects.filter(topic__syllabus__in=syllabus).order_by('number').order_by('topic').order_by('topic__syllabus')
-
-        student_ratings = []
-        for point in points_learned:
-            x = point.get_student_rating(student)
-            student_ratings.append(round(x*100))
-
-        syllabus_data = list(zip(points_learned, student_ratings))
-
-        data['syllabus_data'] = syllabus_data
-
-        return render(request, 'tracker/splash_student.html', data)
+        return redirect(reverse('student_profile', student.pk))
 
     if request.user.groups.filter(name='Teachers'):
-        return render(request, 'tracker/splash_teacher.html')
+        teacher = Teacher.objects.get(user=request.user)
+
+        # Show the teacher's students
+        students = Student.objects.filter(classgroups__groupteacher=teacher).order_by('user__last_name').order_by('classgroups__groupname')
+
+        # Show the teacher's exams
+
+        sittings = Sitting.objects.filter(classgroup__groupteacher=teacher)
+
+        return render(request, 'tracker/splash_teacher.html', {'teacher': teacher,
+                                                               'students': students,
+                                                               'sittings': sittings})
+
+
+@own_or_teacher_only
+def student_profile(request, student_pk):
+    # For the first (classgroups) table
+    student = Student.objects.get(pk=student_pk)
+    classes = student.classgroups.all()
+    data = {'student': student,
+            'sittings': Sitting.objects.filter(classgroup__in=classes),
+            'classes': classes}
+
+    # To get the assessments the student has sat:
+
+    sittings = Sitting.objects.filter(classgroup__in=classes)
+    scores = []
+    for sitting in sittings:
+        scores.append(sitting.student_total(student))
+    sitting_data = list(zip(sittings, scores))
+    data['sitting_data'] = sitting_data
+
+    # Get syllabus ratings:
+
+    syllabuss_learned = []
+    for classgroup in student.classgroups.all().distinct():
+        syllabuss_learned.append(classgroup.syllabustaught.all())
+
+    for syllabus in syllabuss_learned:
+        points_learned = SyllabusPoint.objects.filter(topic__syllabus__in=syllabus).order_by('number').order_by(
+            'topic').order_by('topic__syllabus')
+
+    student_ratings = []
+    for point in points_learned:
+        x = point.get_student_rating(student)
+        student_ratings.append(round(x * 100))
+
+    syllabus_data = list(zip(points_learned, student_ratings))
+
+    data['syllabus_data'] = syllabus_data
+
+    return render(request, 'tracker/splash_student.html', data)
 
 
 @teacher_only

@@ -3,23 +3,26 @@
 {% block content %}
 <h1>Journal for {{ student }}</h1>
 
+    <a class="button" href="{% url 'print_journal' student.pk %}">View Printable Version</a>
 
     <form method="post">
     {% csrf_token %}
-    {{ point_journal_formset.management_form }}
-    {{ point_journal_formset.media }}
+    {{ journal_formset.management_form }}
+    {{ journal_formset.media }}
     <table class="table table-striped">
     <thead>
     <tr>
         <td>Syllabus Point</td>
+        <td>Rating /5</td>
         <td>Journal</td>
     </tr>
     </thead>
 
-        {% for point, entry in data %}
+        {% for point, rating, entry in data %}
             <tr>
             <td><button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button></td>
-            <td>{{ entry.media }}{% if entry.errors %}class="danger"{% endif %}
+            <td>{{ rating }}</td>
+            <td>{% if entry.errors %}class="danger"{% endif %}
                 {{ entry.entry }}{{ entry.errors }}
                 {% for field in entry.hidden_fields %}
                     {{ field }}

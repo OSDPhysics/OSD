@@ -4,29 +4,43 @@
 
 {% block content %}
     <h1>
-    Studnet Profile for {{ student }} {{ student.tutorgroup }}
+    Students taught by {{ teacher }}
     </h1>
 
     <h2>
-    Classes
+    Students
     </h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Class</td>
-                <td>Syllabus Taught</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for class in classes %}
-            <tr>
-                <td>{{ class }}</td>
-                <td>{{ cla }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+    <ul>
+    {% for student in students %}
+        <li><a href="{% url 'student_profile' student.pk %}">{{ student }}</a></li>
+    {% endfor %}
+    </ul>
 
+    <h2>Assessments</h2>
+
+    Your students have completed the following assessments:
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Assessment name</td>
+        <td>Class</td>
+        <td>Date</td>
+        <td>View Details</td>
+    </tr>
+    </thead>
+
+    <tbody>
+        {% for sitting in sittings %}
+            <tr>
+            <td>{{ sitting.exam }}</td>
+            <td>{{ sitting.datesat }}</td>
+            <td>{{ sitting.classgroup }}</td>
+            <td><a class="button" href="{% url 'sitting_detail' sitting.pk %}">View</a> </td>
+            </tr>
+        {% endfor %}
+    </tbody>
     </table>
 
 {% endblock %}
