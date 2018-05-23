@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'school',
     'searchableselect',
     'teachnet',
+    'journal',
     'ckeditor',
     'dynamic_formsets',
 ]

@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
+from journal.forms import StudentJournalExisting
 from osd.decorators import *
 from django.urls import reverse
+from journal.models import StudentJournalEntry
 from django.db.models import Sum
 from operator import itemgetter
 import datetime
@@ -328,7 +330,14 @@ def student_sitting_summary(request, sitting_pk, student_pk):
         single_note = list(filter(None, single_note))
         point_notes.append(single_note)
 
-    syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes))
+    point_journal = []
+
+    for point in syllabus_point_tested:
+        journal_entry, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_point=point)
+        form = StudentJournalExisting(instance=journal_entry)
+        point_journal.append(form)
+
+    syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal))
 
     topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
     topic_average_marks = []
