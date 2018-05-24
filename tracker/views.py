@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from journal.forms import StudentJournalExisting
 from osd.decorators import *
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.db.models import Sum
 from operator import itemgetter
@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 def splash(request):
     if request.user.groups.filter(name='Students'):
         student = Student.objects.get(user=request.user)
-        return redirect(reverse('student_profile', student.pk))
+
+        return redirect(reverse('student_profile', args=(student.pk,)))
 
     if request.user.groups.filter(name='Teachers'):
         teacher = Teacher.objects.get(user=request.user)
