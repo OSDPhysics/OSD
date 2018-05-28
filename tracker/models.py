@@ -46,8 +46,17 @@ class SyllabusTopic(models.Model):
         return round(numpy.mean(pcs)*5,1)
 
 
+class SyllabusSubTopic(models.Model):
+    topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
+    sub_topic = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.topic) + ' ' + str(self.sub_topic)
+
+
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
+    sub_topic = models.ForeignKey(SyllabusSubTopic, on_delete=models.CASCADE, null=True)
     number = models.CharField(max_length=10)
     syllabusText = models.TextField()
 

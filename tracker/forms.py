@@ -51,6 +51,12 @@ class SetQuestions(forms.ModelForm):
         )
 
 
+class SyllabusPoint(forms.ModelForm):
+
+    class Meta:
+        model = SyllabusPoint
+        fields = ['topic', 'sub_topic', 'number', 'syllabusText']
+
 class NewSittingForm(forms.Form):
 
     classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),

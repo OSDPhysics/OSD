@@ -20,6 +20,15 @@ class ExamInLine(admin.ModelAdmin):
     ]
 
 
+class SyllabusPointInLine(admin.TabularInline):
+    model = SyllabusPoint
+
+
+class SyllabusTopicAdmin(admin.ModelAdmin):
+    inlines = [SyllabusPointInLine,]
+
+
+
 class MarkInLine(admin.TabularInline):
     model = Mark
 
@@ -29,7 +38,8 @@ admin.site.register(Question)
 admin.site.register(Examlevel)
 admin.site.register(Examboard)
 admin.site.register(Syllabus)
-admin.site.register(SyllabusTopic)
+admin.site.register(SyllabusTopic, SyllabusTopicAdmin)
+admin.site.register(SyllabusSubTopic)
 admin.site.register(SyllabusPoint)
 admin.site.register(Exam, ExamInLine)
 #admin.site.register(Question)
