@@ -51,7 +51,12 @@ class SyllabusSubTopic(models.Model):
     sub_topic = models.CharField(max_length=100)
 
     def __str__(self):
-        return str(self.topic) + ' ' + str(self.sub_topic)
+        return str(self.topic) + ': ' + str(self.sub_topic)
+
+    def studentAverageRating(self, student):
+        points = SyllabusPoint.objects.filter(sub_topic=self)
+        marks = Mark.objects.filter(question__syllabuspoint__in=points, student=student)
+        return mark_queryset_to_rating(marks)
 
 
 class SyllabusPoint(models.Model):
@@ -72,12 +77,7 @@ class SyllabusPoint(models.Model):
 
     def get_student_rating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
-        pcs = []
-        for mark in marks:
-            if mark.score is not None:
-                pcs.append(mark.score / mark.question.maxscore)
-        return numpy.mean(pcs)
-
+        return mark_queryset_to_rating(marks)
 
 
 class Exam(models.Model):
@@ -140,3 +140,12 @@ class CSVDoc(models.Model):
     description = models.CharField(max_length=255, blank=True)
     document = models.FileField(upload_to='documents/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+def mark_queryset_to_rating(marks):
+    """ take a queryset of marks and return a student rating for it."""
+    pcs = []
+    for mark in marks:
+        if mark.score is not None:
+            pcs.append(mark.score / mark.question.maxscore)
+    return numpy.mean(pcs)

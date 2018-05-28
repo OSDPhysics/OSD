@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Journal for {{ student }}</h1>
 
-    <a class="button" href="{% url 'print_journal' student.pk %}">View Printable Version</a>
+    <a class="button" href="{% url 'print_full_journal' student.pk %}">View Printable Version</a>
 
     <form method="post">
     {% csrf_token %}

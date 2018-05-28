@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import StudentJournalEntry
 from school.models import Student, Teacher
-from tracker.models import SyllabusPoint
+from tracker.models import SyllabusPoint, SyllabusTopic, SyllabusSubTopic
 from osd.decorators import own_or_teacher_only
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
@@ -21,6 +21,7 @@ def splash(request):
 
         return render(request, 'journal/studentlist.html', {'students': students})
 
+# Really, don't use this! It half-murders the database!
 @own_or_teacher_only
 def full_journal(request, student_pk):
 
@@ -50,7 +51,10 @@ def full_journal(request, student_pk):
                                                                 'student': student,
                                                                 'journal_formset': journal_formset})
 
-def print_journal(request, student_pk):
+
+# Should probably try to avoid this too, but it's less evil.
+# Eventually we should move this all to sub-topics only.
+def print_full_journal(request, student_pk):
     student = Student.objects.get(pk=student_pk)
     student_classes = student.classgroups.all()
     syllabus_points = SyllabusPoint.objects.filter(topic__syllabus__classgroup__in=student.classgroups.all())
@@ -72,3 +76,30 @@ def print_journal(request, student_pk):
 
     return render(request, 'journal/all_student_entries_print.html', {'data': data,
                                                                 'student': student})
+
+
+@own_or_teacher_only
+def view_topic(request, student_pk, topic_pk):
+
+    student = Student.objects.get(student_pk=student_pk)
+    topic = SyllabusTopic.objects.get(topic_pk=topic_pk)
+
+    syllabus_sub_topics = SyllabusSubTopic.objects.filter(topic=topic)
+
+    syllabus_points = SyllabusPoint.objects.filter(topic=topic)
+
+    sub_topic_ratings = []
+    for sub_topic in syllabus_sub_topics:
+        sub_topic_ratings.append(sub_topic.studentAverageRating(student))
+
+    sub_topic_data = list(zip(syllabus_sub_topics, sub_topic_ratings))
+
+    syllabus_ratings = []
+    for syllabus_point in syllabus_points:
+        syllabus_ratings.append(syllabus_point.get_student_rating(student))
+
+    syllabus_point_data = list(zip(syllabus_points, syllabus_ratings))
+
+    return render(request, 'journal/student_topic_overview.html', {'student': student,
+                                                                   'sub_topic_data': sub_topic_data,
+                                                                   'syllabus_point_data': syllabus_point_data})
