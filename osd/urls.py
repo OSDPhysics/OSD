@@ -22,15 +22,15 @@ from school import views as school_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tracker/', include('tracker.urls')),
-    path('school/', include('school.urls')),
+    path('tracker/', include('tracker.urls', namespace='tracker')),
+    path('school/', include('school.urls', namespace='school')),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, name='logout'),
     path('searchableselect/', include('searchableselect.urls')),
     path('', school_views.splash, name='splash'),
     path('accounts/profile/', school_views.accounts_profile, name='accounts_profile'),
-    path('teachnet/', include('teachnet.urls')),
-    path('journal/', include('journal.urls')),
+    path('teachnet/', include('teachnet.urls', namespace='teachnet')),
+    path('journal/', include('journal.urls', namespace='journal')),
 
 ]
 

@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+app_name = "teachnet"
+
 urlpatterns = [
     path('', views.home, name='teachnet_home'),
     path('profile/<int:teacher_pk>', views.profile, name='profile'),

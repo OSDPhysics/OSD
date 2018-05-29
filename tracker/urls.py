@@ -4,8 +4,10 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from . import views
 
+app_name = "tracker"
+
 urlpatterns = [
-    path('', views.splash, name='slash'),
+    path('', views.splash, name='splash'),
     path('<int:student_pk>/', views.student_profile, name='student_profile'),
     path('syllabus', views.list_syllabuses, name='syllabuses'),
     path('syllabus/<int:pk>', views.syllabus_detail, name='syllabus_detail'),

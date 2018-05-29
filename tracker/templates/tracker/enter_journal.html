@@ -81,8 +81,9 @@
         </tbody>
     </table>
 
+{% endblock content %}
 
-
+{% block script %}
     <script>
     // Make the table filterable
 $(document).ready(function(){
@@ -101,4 +102,4 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
-{% endblock %}
+{% endblock script%}

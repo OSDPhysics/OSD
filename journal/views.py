@@ -7,6 +7,7 @@ from osd.decorators import own_or_teacher_only
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 
 @login_required
@@ -21,10 +22,10 @@ def splash(request):
 
         return render(request, 'journal/studentlist.html', {'students': students})
 
+
 # Really, don't use this! It half-murders the database!
 @own_or_teacher_only
 def full_journal(request, student_pk):
-
     student = Student.objects.get(pk=student_pk)
     student_classes = student.classgroups.all()
     syllabus_points = SyllabusPoint.objects.filter(topic__syllabus__classgroup__in=student.classgroups.all())
@@ -38,12 +39,14 @@ def full_journal(request, student_pk):
 
     journal_formset_factory = modelformset_factory(StudentJournalEntry, extra=0, fields=('entry',))
 
-    journal_formset = journal_formset_factory(queryset=StudentJournalEntry.objects.filter(student=student).order_by('syllabus_point__number').order_by('syllabus_point__topic'))
+    journal_formset = journal_formset_factory(
+        queryset=StudentJournalEntry.objects.filter(student=student).order_by('syllabus_point__number').order_by(
+            'syllabus_point__topic'))
 
     # Now get topic ratings
     ratings = []
     for point in syllabus_points:
-        ratings.append(round(point.get_student_rating(student)*5,1))
+        ratings.append(round(point.get_student_rating(student) * 5, 1))
 
     data = list(zip(syllabus_points, ratings, journal_formset))
 
@@ -66,7 +69,6 @@ def print_full_journal(request, student_pk):
         entry, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_point=point)
         journal_entries.append(entry.entry)
 
-
     # Now get topic ratings
     ratings = []
     for point in syllabus_points:
@@ -75,12 +77,11 @@ def print_full_journal(request, student_pk):
     data = list(zip(syllabus_points, ratings, journal_entries))
 
     return render(request, 'journal/all_student_entries_print.html', {'data': data,
-                                                                'student': student})
+                                                                      'student': student})
 
 
 @own_or_teacher_only
 def view_topic(request, student_pk, topic_pk):
-
     student = Student.objects.get(student_pk=student_pk)
     topic = SyllabusTopic.objects.get(topic_pk=topic_pk)
 

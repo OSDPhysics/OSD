@@ -13,7 +13,7 @@
 
     <ul>
     {% for student in students %}
-        <li><a href="{% url 'student_profile' student.pk %}">{{ student }}</a></li>
+        <li><a href="{% url 'tracker:student_profile' student.pk %}">{{ student }}</a></li>
     {% endfor %}
     </ul>
 
@@ -37,7 +37,7 @@
             <td>{{ sitting.exam }}</td>
             <td>{{ sitting.datesat }}</td>
             <td>{{ sitting.classgroup }}</td>
-            <td><a class="button" href="{% url 'sitting_detail' sitting.pk %}">View</a> </td>
+            <td><a class="button" href="{% url 'tracker:sitting_detail' sitting.pk %}">View</a> </td>
             </tr>
         {% endfor %}
     </tbody>

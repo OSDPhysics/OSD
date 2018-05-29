@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from . import views
 
+app_name = "school"
+
 urlpatterns = [
     path('', views.home, name='school_home'),
     path('teachers/', views.teachers,name = 'teachers'),
