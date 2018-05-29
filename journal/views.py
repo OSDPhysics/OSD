@@ -82,8 +82,8 @@ def print_full_journal(request, student_pk):
 
 @own_or_teacher_only
 def view_topic(request, student_pk, topic_pk):
-    student = Student.objects.get(student_pk=student_pk)
-    topic = SyllabusTopic.objects.get(topic_pk=topic_pk)
+    student = Student.objects.get(pk=student_pk)
+    topic = SyllabusTopic.objects.get(pk=topic_pk)
 
     syllabus_sub_topics = SyllabusSubTopic.objects.filter(topic=topic)
 
@@ -103,4 +103,5 @@ def view_topic(request, student_pk, topic_pk):
 
     return render(request, 'journal/student_topic_overview.html', {'student': student,
                                                                    'sub_topic_data': sub_topic_data,
-                                                                   'syllabus_point_data': syllabus_point_data})
+                                                                   'syllabus_point_data': syllabus_point_data,
+                                                                   'topic': topic})

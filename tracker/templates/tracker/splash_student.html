@@ -23,7 +23,7 @@
             {% for class in classes %}
             <tr>
                 <td>{{ class }}</td>
-                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'syllabus_detail' syllabus.pk %}" class="btn btn-info">{{ syllabus }}</a> {% endfor %}</td>
+                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'tracker:syllabus_detail' syllabus.pk %}" class="btn btn-info">{{ syllabus }}</a> {% endfor %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -49,7 +49,7 @@
                 <td>{{ sitting.exam }}</td>
                 <td>{{ sitting.datesat }}</td>
                 <td>{{ score }}</td>
-                <td><a class="button" href="{% url 'input_marks' sitting.pk student.pk %}">Enter Marks</a> </td>
+                <td><a class="button" href="{% url 'tracker:input_marks' sitting.pk student.pk %}">Enter Marks</a> </td>
             </tr>
             {% endfor %}
         </tbody>

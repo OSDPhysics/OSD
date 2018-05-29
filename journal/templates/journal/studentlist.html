@@ -6,7 +6,7 @@
     Please select a student whose journal you want to view:
     <ul>
     {% for student in students %}
-        <li><a href="{% url 'full_journal' student.pk %}">{{ student }}</a></li>
+        <li><a href="{% url 'journal:full_journal' student.pk %}">{{ student }}</a></li>
     {% endfor %}
     </ul>
 {% endblock content %}

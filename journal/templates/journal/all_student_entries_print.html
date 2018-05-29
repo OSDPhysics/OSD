@@ -22,10 +22,12 @@
 
      <button type="submit">Submit</button>
     </form>
+{% endblock content %}
 
+{% block script %}
     <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
-{% endblock content %}
+{% endblock script %}

@@ -1,0 +1,28 @@
+{% extends 'tracker/base.html' %}
+{% block subtitle %}: Learning Journal{% endblock %}
+{% block content %}
+    <h1>Learning Journal for {{ student }}</h1>
+
+    <div class="container">
+        <div class="row">
+            <h2>{{ topic }}</h2>
+        </div>
+
+        {% for sub_topic, rating in syllabus_point_data %}
+        {% if forloop.first %}
+            <div class="row">
+        {% endif %}
+
+            <div class="col-5">
+            {{ sub_topic }}
+            </div>
+            <div class="col-1">
+            {{ rating }}
+            </div>
+        {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
+    </div>
+
+    <
+{% endblock content %}
