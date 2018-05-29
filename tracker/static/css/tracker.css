@@ -26,3 +26,18 @@ th.rotate > div {
   margin:auto;
 
 }
+
+.journalEntry {
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.journalText {
+    background-color: #a8a8a6;
+
+}
+
+.journalRating {
+    background-color: #81c9f4;
+
+}

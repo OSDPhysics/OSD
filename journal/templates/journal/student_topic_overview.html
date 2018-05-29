@@ -12,13 +12,15 @@
         {% if forloop.first %}
             <div class="row">
         {% endif %}
-
-            <div class="col-5">
-            {{ sub_topic }}
-            </div>
-            <div class="col-1">
-            {{ rating }}
-            </div>
+            <div class="col-6 journalEntry">
+            <div class="row">
+                <div class="col-10 journalText">
+                {{ sub_topic }}
+                </div>
+                <div class="col-2 journalRating">
+                {{ rating }}
+                </div>
+            </div></div>
         {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
         {% endfor %}
