@@ -19,25 +19,12 @@
     <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
     {# Google Analytics #}
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119765928-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'UA-119765928-1');
-    </script>
 
 
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Greenpen</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +70,7 @@
                         <input type='text' class='form-control ml-auto' name='username' placeholder='Username'/>
                     </div>
                     <div class='form-group'>
-                        <input type='password' class='form-control mr-sm-2' name='password' placeholder='Password'/>
+                        <input type='password' class='form-control ml-auto' name='password' placeholder='Password'/>
                     </div>
                     <button type='submit' class='btn btn-default'>Login</button>
                 </form>
@@ -110,7 +97,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-</body>
+
 <script src="{% static 'bootstrap3-editable/js/bootstrap-editable.js' %}"></script>
 
 {% block script %}

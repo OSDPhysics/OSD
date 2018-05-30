@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 def splash(request):
     if request.user.groups.filter(name='Students'):
         student = Student.objects.get(user=request.user)
-        return redirect(reverse('full_journal', args=(student.pk,)))
+        return redirect(reverse('journal:full_journal', args=(student.pk,)))
 
     else:
         teacher = Teacher.objects.get(user=request.user)

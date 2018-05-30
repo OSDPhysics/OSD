@@ -4,6 +4,7 @@ import numpy
 from django.db.models import Sum
 from ckeditor.fields import RichTextField
 
+
 # Create your models here.
 
 
@@ -43,7 +44,7 @@ class SyllabusTopic(models.Model):
         for mark in marks:
             if mark.score is not None:
                 pcs.append(mark.score / mark.question.maxscore)
-        return round(numpy.mean(pcs)*5,1)
+        return round(numpy.mean(pcs) * 5, 1)
 
 
 class SyllabusSubTopic(models.Model):
@@ -106,11 +107,9 @@ class Sitting(models.Model):
     openForStudentRecording = models.BooleanField()
 
     def student_total(self, student):
-
         total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
 
         return total['score__sum']
-
 
     def __str__(self):
         return self.exam.name + " " + self.classgroup.groupname
@@ -125,13 +124,14 @@ class Mark(models.Model):
     notes = RichTextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(self.score) + ')'
+        return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(
+            self.score) + ')'
 
     def percentage(self):
 
         if self.score:
-            return round(self.score / self.question.maxscore *100, 2)
-# CSV Uploads
+            return round(self.score / self.question.maxscore * 100, 2)
+        # CSV Uploads
         else:
             return False
 
@@ -148,4 +148,4 @@ def mark_queryset_to_rating(marks):
     for mark in marks:
         if mark.score is not None:
             pcs.append(mark.score / mark.question.maxscore)
-    return numpy.mean(pcs)
+    return round(numpy.mean(pcs) * 5, 1)

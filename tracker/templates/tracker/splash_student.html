@@ -23,7 +23,7 @@
             {% for class in classes %}
             <tr>
                 <td>{{ class }}</td>
-                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'tracker:syllabus_detail' syllabus.pk %}" class="btn btn-info">{{ syllabus }}</a> {% endfor %}</td>
+                <td>{% for syllabus in class.syllabustaught.all %}<a href="{% url 'tracker:syllabus_detail' syllabus.pk %}" class="btn btn-info btn-sm">{{ syllabus }}</a> {% endfor %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -40,16 +40,18 @@
                 <td>Date sat</td>
                 <td>Score</td>
                 <td>Enter Marks</td>
+                <td>View Responses</td>
             </tr>
         </thead>
 
         <tbody>
             {% for sitting, score  in sitting_data %}
-            <tr class='clickable-row' data-href='{% url 'input_marks' sitting.pk student.pk %}'>
+            <tr class='clickable-row' data-href='{% url 'tracker:input_marks' sitting.pk student.pk %}'>
                 <td>{{ sitting.exam }}</td>
                 <td>{{ sitting.datesat }}</td>
                 <td>{{ score }}</td>
-                <td><a class="button" href="{% url 'tracker:input_marks' sitting.pk student.pk %}">Enter Marks</a> </td>
+                <td><a class="button " href="{% url 'tracker:input_marks' sitting.pk student.pk %}">Enter Marks</a> </td>
+                <td><a class="button" href="{% url 'tracker:student_sitting_summary' sitting.pk student.pk %}">View Responses</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -82,6 +84,8 @@
         </tbody>
     </table>
 
+    {% endblock content %}
+{% block script %}
     {# for clickable rows #}
     <script>
     jQuery(document).ready(function($) {
@@ -103,4 +107,4 @@ $(document).ready(function(){
   });
 });
 </script>
-{% endblock %}
+{% endblock script %}

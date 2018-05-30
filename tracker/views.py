@@ -22,7 +22,7 @@ def splash(request):
     if request.user.groups.filter(name='Students'):
         student = Student.objects.get(user=request.user)
 
-        return redirect(reverse('student_profile', args=(student.pk,)))
+        return redirect(reverse('tracker:student_profile', args=(student.pk,)))
 
     if request.user.groups.filter(name='Teachers'):
         teacher = Teacher.objects.get(user=request.user)
@@ -70,7 +70,7 @@ def student_profile(request, student_pk):
     student_ratings = []
     for point in points_learned:
         x = point.get_student_rating(student)
-        student_ratings.append(round(x * 100))
+        student_ratings.append(x)
 
     syllabus_data = list(zip(points_learned, student_ratings))
 
@@ -360,7 +360,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
     student_ratings = []
     for point in syllabus_point_tested:
         x = point.get_student_rating(student)
-        student_ratings.append(round(x * 5, 1))
+        student_ratings.append(x)
 
     point_notes = []
     for point in syllabus_point_tested:
