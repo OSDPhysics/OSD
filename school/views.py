@@ -7,14 +7,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import *
 from .functions.adddata import *
+from osd.decorators import *
+from tracker.models import Sitting
 
 from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
 logger = logging.getLogger(__name__)
 
 
-def is_teacher(user):
-    return user.groups.filter(name='Teachers').exists()
+
 
 
 @login_required
@@ -24,7 +25,20 @@ def home(request):
 
 
 def splash(request):
-    return render(request, 'school/splash.html', {})
+
+    if request.user.groups.filter(name='Teachers').exists():
+        # Get the teacher's classes:
+        classes = ClassGroup.objects.filter(groupteacher__user=request.user)
+        assessments = Sitting.objects.filter(classgroup__groupteacher__user=request.user).order_by('datesat')
+        return render(request, 'school/splash_teacher.html', {'classes': classes,
+                                                              'assessments': assessments})
+
+    elif request.user.groups.filter(name='Students').exists():
+        # Gather student stuff
+        return render(request, 'school/splash_student.html', {})
+
+    else:
+        return render(request, 'school/splash.html', {})
 
 
 @login_required
