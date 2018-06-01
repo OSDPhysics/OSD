@@ -42,7 +42,7 @@ class SetQuestions(forms.ModelForm):
         model = Question
         fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint']
         widgets = { # TODO: any way to filter this?
-            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='syllabus-point-autocomplete')
+            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-point-autocomplete')
         }
 
     class Media:
@@ -59,10 +59,8 @@ class SyllabusPoint(forms.ModelForm):
 
 class NewSittingForm(forms.Form):
 
-    classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),
-                                        widget=autocomplete.ModelSelect2(url='classgroups-autocomplete'))
+    classgroup = forms.ModelChoiceField(ClassGroup.objects.all())
     date = forms.DateField(widget=forms.SelectDateWidget)
-
 
 class MarkForm(forms.ModelForm):
 

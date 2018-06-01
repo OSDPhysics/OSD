@@ -78,6 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'osd.wsgi.application'
 
+#new
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
