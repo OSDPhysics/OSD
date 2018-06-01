@@ -10,18 +10,21 @@
 
         {% for sub_topic, rating in syllabus_point_data %}
         {% if forloop.first %}
-            <div class="row">
+            <div class="card-group">
         {% endif %}
-            <div class="col col-md-5 journalEntry">
-            <div class="row">
-                <div class="col-10 align-items-center journalText">
+
+            <div class="card card-lg {% if rating <= 3 and rating >= 2 %} bg-warning{% elif rating < 2 %}bg-danger text-white {% elif rating >= 4 %}bg-success text-white{% endif %}">
+
+                <div class="card-body">
+
                 {{ sub_topic }}
                 </div>
-                <div class="col-2 align-items-center journalRating">
-                {{ rating }}
+                <div class="card-footer">
+                   {{ rating }}
+
                 </div>
-            </div></div>
-        {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+            </div>
+        {% if forloop.counter|divisibleby:2 %}</div><div class="card-group">{% endif %}
         {% if forloop.last %}</div>{% endif %}
         {% endfor %}
     </div>
