@@ -1,27 +1,66 @@
 {% extends 'tracker/base.html' %}
 {% load staticfiles %}
 {% load static %}
-{% block title %}Exam Details{% endblock title %}
-{% block description %}These are the details of the sitting of {{ sitting.exam }} for group {{ sitting.classgroup }} on {{ sitting.datesat }}.{% endblock description %}
+{% block title %}Assessment Details{% endblock title %}
+{% block description %}These are the details of the sitting of {{ sitting.exam }} for group {{ sitting.classgroup }} on
+    {{ sitting.datesat }}.{% endblock description %}
 
 {% block content %}
-Data
+    <div class="container">
 
-    <table class="table table-striped">
-    <thead>
-    <tr>
-        <td>Student</td>
-        <td>Score</td>
-    </tr>
-    </thead>
-    <tbody>
-    {% for student, score in data %}
-        <tr>
-            <td>{{ student }}</td>
-            <td>{{ score }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-    </table>
+        <div class="row">
+            <div class="col col-lg-6">
+                <div class="card card-lg-6">
+                    <div class="card-body">
+                        <h2 class="card-title text-centre">Student Scores</h2>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Student</td>
+                                <td>Score</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for student, score in data %}
+                                <tr>
+                                    <td>{% if sitting.openForStudentRecording %}
+                                        <a href="{% url 'tracker:input_marks' sitting.pk student.pk %}"
+                                    {% else %}<a
+                                        href="{% url 'tracker:student_sitting_summary' sitting.pk student.pk %}"
+                                    {% endif %}>{{ student }}</a></td>
+                                    <td>{{ score }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-lg-6">
+                <div class="card card-lg-6">
 
+
+                    <div class="card-body">
+                        <h2 class="card-title text-centre">Topic Scores</h2>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Topic</td>
+                                <td>Average Rating</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for topic, rating in topic_data %}
+                                <tr>
+                                    <td>{{ topic }}</td>
+                                    <td>{{ rating }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

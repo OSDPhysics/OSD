@@ -1,96 +1,102 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
-<h1>Class Detail for {{ classgroup }}</h1>
- <div class="container">
+    <h1>Class Detail for {{ classgroup }}</h1>
+    <div class="container">
         <div class="row">
             <div class="card-group">
 
-
-                <div class="card card-lg-6">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">
-                            Topics
-                        </h2>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Topic</th>
-                                <th>% Assessed</th>
-                                <th>Average rating</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for topic in classgroup.topics %}
-                            <tr>
-                                <td>{{ topic }}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                <div class="col col-md-6">
+                    <div class="card card-lg-6">
+                        <div class="card-body">
+                            <h2 class="card-title text-center">
+                                Topics
+                            </h2>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Topic</th>
+                                    <th>% Assessed</th>
+                                    <th>Average rating</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for topic in classgroup.topics %}
+                                    <tr>
+                                        <td>{{ topic }}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card card-lg-6">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">
-                            Students
-                        </h2>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>% Jouranled</th>
-                                <th>Average rating</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for student in classgroup.students %}
-                            <tr>
-                                <td><a href="{% url 'tracker:student_profile' student.pk %}">{{ student }}</a></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                <div class="col col-md-6">
+                    <div class="card card-lg-6">
+                        <div class="card-body">
+                            <h2 class="card-title text-center">
+                                Students
+                            </h2>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>% Jouranled</th>
+                                    <th>Average rating</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for student in classgroup.students %}
+                                    <tr>
+                                        <td><a href="{% url 'tracker:student_profile' student.pk %}">{{ student }}</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="col col-lg-12">
             <div class="card card-lg-12">
                 <div class="card-body">
                     <h2 class="card-title text-center">
-                    Assessments
+                        Assessments
                     </h2>
                     <table class="table table-striped">
-                            <thead>
+                        <thead>
+                        <tr>
+                            <th>Assessment</th>
+                            <th>Average score</th>
+                            <th>Range</th>
+                            <th>Std Deviation</th>
+                            <th>Open for recording</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for assessment in classgroup.assessments %}
                             <tr>
-                                <th>Assessment</th>
-                                <th>Average score</th>
-                                <th>Range</th>
-                                <th>Std Deviation</th>
-                                <th>Open for recording</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for assessment in classgroup.assessments %}
-                            <tr>
-                                <td>{{ assessment }}</td>
+                                <td><a href="{% url 'tracker:sitting_detail' assessment.pk %}">{{ assessment }}</a></td>
                                 <td>{{ assessment.class_average_score_str }}</td>
                                 <td>{{ assessment.class_score_range }}</td>
                                 <td>{{ assessment.class_score_std }}</td>
                                 <td>{% if assessment.openForStudentRecording %}Yes{% else %} No {% endif %}</td>
                             </tr>
-                            {% endfor %}
-                            </tbody>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            </div>
         </div>
- </div>
+    </div>
 
 
 {% endblock content %}

@@ -47,8 +47,8 @@
 
                             {% for assessment in assessments %}
                                 <tr>
-                                <td>{{ assessment.exam }}</td>
-                                <td>{{ assessment.classgroup }}</td>
+                                <td><a href="{% url 'tracker:sitting_detail' assessment.pk %}">{{ assessment.exam }}</a></td>
+                                <td><a href="{% url 'school:class_details' assessment.classgroup.pk %}">{{ assessment.classgroup }}</a></td>
                                 <td>{{ assessment.datesat }}</td>
                                 <td>{% if assessment.openForStudentRecording %}Yes{% else %}No{% endif %}
                             {% endfor %}

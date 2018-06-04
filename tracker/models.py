@@ -30,6 +30,24 @@ class Syllabus(models.Model):
     def __str__(self):
         return self.syllabusname
 
+    def student_completion(self, student):
+        """Find the % of entire syllabus a student has marks entered for"""
+        all_points = SyllabusPoint.objects.filter(topic__syllabus=self)
+
+        all_marks = Mark.objects.filter(student=student, score__isnull=False)
+        completed_points = all_points.filter(question__mark__in=all_marks).distinct()
+        if completed_points.count() != 0:
+            return int(round(completed_points.count()/all_points.count()*100,0))
+        else:
+            return 0
+
+    def classgroup_completion(self, classgroup):
+        points = SyllabusPoint.objects.filter(topic__syllabus=self)
+        students = Student.objects.filter(classgroups=classgroup)
+        entered = SyllabusPoint.objects.filter(question__mark__student__in=students,
+                                               question__syllabuspoint__in=points).distinct().count()
+
+        return int(round(entered / points.count() * 100, 0))
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -155,13 +173,13 @@ class Sitting(models.Model):
     def class_topic_performance(self):
         topics = self.exam.topics_tested().all()
 
+        # TODO: THIS DOESN'T WORK! It currently gets their average acorss all assessments
         topic_ratings = []
         for topic in topics:
-            ratings = []
-            for student in self.classgroup.students():
-                if not numpy.isnan(topic.studentAverageRating(student)):
-                    ratings.append(topic.studentAverageRating(student))
-            topic_ratings.append(round(numpy.average(ratings), 1))
+            questions = Question.objects.filter(syllabuspoint__topic=topic)
+            markset = Mark.objects.filter(question__in=questions)
+            topic_ratings.append(mark_queryset_to_rating(markset))
+
 
         topic_data= list(zip(topics,topic_ratings))
 

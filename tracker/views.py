@@ -253,9 +253,12 @@ def sitting_detail(request, pk):
 
     data = list(zip(students, scores))
 
+    # Get the topic ratings:
+    topic_data = sitting.class_topic_performance()
     return render(request, 'tracker/sitting_detail.html', {'sitting': sitting,
                                                            'scores': scores,
-                                                           'data': data})
+                                                           'data': data,
+                                                           'topic_data': topic_data})
 
 @teacher_only
 def new_sitting(request, exampk):

@@ -12,7 +12,7 @@ Data
     <tr>
         <td>Question</td>
         {% for student in students %}
-            <td><a href="{% url 'student_sitting_summary'  sitting.pk student.pk %}">{{ student }}</a></td>
+            <td><a href="{% url 'tracker:student_sitting_summary'  sitting.pk student.pk %}">{{ student }}</a></td>
         {% endfor %}
     </tr>
     </thead>
