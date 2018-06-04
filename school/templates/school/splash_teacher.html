@@ -1,40 +1,64 @@
 {% extends 'tracker/base.html' %}
 
-<div class="container">
-  <div class="row">
-    <div class="col lg-6">
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col xl">
 
 
-
-      <div class="card card-md">
-        <div class="card-body">
-          <h2 class="card-title text-center">
-            Your Classes
-          </h2>
-          <table class="table">
-            <tr>
-              <td>1/2</td>
-              <td>2/2</td>
-            </tr>
-          </table>
-
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Your Classes
+                        </h2>
+                        <table class="table">
+                            <tr>
+                                <td>Class</td>
+                                <td>Average completion</td>
+                                <td>Average score</td>
+                            </tr>
+                            {% for class in classes %}
+                                <tr>
+                                    <td>{{ class.groupname }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col xl">
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Your Assessments
+                        </h2>
+                        <table class="table">
+                            <tr>
+                                <td>Assessment name</td>
+                                <td>Class</td>
+                                <td>Date</td>
+                                <td>Complete?</td>
 
-      <div class="card card-md">
-        <div class="card-body">
-          <h2 class="card-title text-center">
-            Your Assessments
-          </h2>
-          <table class="table">
-            <tr>
-              <td>1/2</td>
-              <td>2/2</td>
-            </tr>
-          </table>
+                            </tr>
 
+                            {% for assessment in assessments %}
+                                <tr>
+                                <td>{{ assessment.exam }}</td>
+                                <td>{{ assessment.classgroup }}</td>
+                                <td>{{ assessment.datesat }}</td>
+                                <td>{% if assessment.openForStudentRecording %}Yes{% else %}No{% endif %}
+                            {% endfor %}
+                            </tr>
+                        </table>
+                        <a href="/admin/tracker/exam/add/" class="btn btn-primary">Add Assessment</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+    </div>
+{% endblock %}

@@ -29,7 +29,7 @@ def splash(request):
     if request.user.groups.filter(name='Teachers').exists():
         # Get the teacher's classes:
         classes = ClassGroup.objects.filter(groupteacher__user=request.user)
-        assessments = Sitting.objects.filter(classgroup__groupteacher__user=request.user).order_by('datesat')
+        assessments = Sitting.objects.filter(classgroup__groupteacher__user=request.user).order_by('-datesat')
         return render(request, 'school/splash_teacher.html', {'classes': classes,
                                                               'assessments': assessments})
 
