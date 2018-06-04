@@ -145,5 +145,6 @@ def teacher_details(request, *args, **kwargs):
 
 # TODO: implement
 @teacher_only
-def class_details(request, *args, **kwargs):
-    return render(request, 'tracker/404.html')
+def class_details(request, class_pk):
+    classgroup = ClassGroup.objects.get(pk=class_pk)
+    return render(request, 'school/class_detail.html', {'classgroup': classgroup})

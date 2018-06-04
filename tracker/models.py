@@ -88,6 +88,9 @@ class Exam(models.Model):
     def __str__(self):
         return self.name
 
+    def max_score(self):
+        return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))
+
 
 class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
@@ -111,8 +114,37 @@ class Sitting(models.Model):
 
         return total['score__sum']
 
+    def class_average_score_int(self):
+        students = Student.objects.filter(classgroups=self.classgroup)
+        scores = []
+        for student in students:
+            if self.student_total(student):
+                scores.append(self.student_total(student))
+        return round(numpy.average(scores))
+
+    def class_average_score_str(self):
+        return str(self.class_average_score_int()) + '/' + str(self.exam.max_score()['maxscore__sum'])
+
     def __str__(self):
         return self.exam.name + " " + self.classgroup.groupname
+
+    def class_score_range(self):
+        students = Student.objects.filter(classgroups=self.classgroup)
+        scores = []
+        for student in students:
+            if self.student_total(student):
+                scores.append(self.student_total(student))
+        score_range = numpy.max(scores) - numpy.min(scores)
+        return score_range
+
+    def class_score_std(self):
+        students = Student.objects.filter(classgroups=self.classgroup)
+        scores = []
+        for student in students:
+            if self.student_total(student):
+                scores.append(self.student_total(student))
+
+        return round(numpy.std(scores),1)
 
 
 class Mark(models.Model):

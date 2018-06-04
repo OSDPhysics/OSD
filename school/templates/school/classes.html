@@ -16,8 +16,8 @@
         <tbody>
         {% for class in classes %}
             <tr>
-                <td><a href="{% url 'teachers' %}{{ class.groupteacher.pk }}">{{ class.groupteacher }}</a></td>
-                <td><a href="{% url 'classes' %}{{ class.pk}}">{{ class }}</a></td>
+                <td><a href="{% url 'school:teachers' %}{{ class.groupteacher.pk }}">{{ class.groupteacher }}</a></td>
+                <td><a href="{% url 'school:class_details'  class_pk=class.pk %}">{{ class }}</a></td>
         {% endfor %}
             </tr>
         </tbody>

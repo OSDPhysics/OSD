@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from teachnet.models import Skill
+from django.apps import apps
 
 
 # Create your models here.
@@ -44,6 +45,22 @@ class ClassGroup(models.Model):
     def __str__(self):
         return self.groupname
 
+    def assessments(self):
+
+        # Avoid a circular import
+        sitting_model = apps.get_model(app_label='tracker', model_name='Sitting')
+
+        return sitting_model.objects.filter(classgroup=self).order_by('-datesat')
+
+    def topics(self):
+        # Avoid a circular import
+        SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')
+
+        return SyllabusTopic.objects.filter(syllabus__in=self.syllabustaught.all())
+
+    def students(self):
+        return Student.objects.filter(classgroups=self)
+
 
 class TutorGroup(models.Model):
     tgname = models.CharField(max_length=5)
@@ -80,3 +97,5 @@ class CSVDoc(models.Model):
     description = models.CharField(max_length=255, blank=True)
     document = models.FileField(upload_to='documents/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
