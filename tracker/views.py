@@ -433,6 +433,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                         'topic_data': topic_data,
                                                                         'point_journal_formset': point_journal_formset})
 
+
 def sitting_by_q(request, pk):
     sitting = Sitting.objects.get(pk=pk)
     students = Student.objects.filter(classgroups=sitting.classgroup).order_by('pk').order_by('user__last_name')

@@ -91,6 +91,12 @@ class Exam(models.Model):
     def max_score(self):
         return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))
 
+    def topics_tested(self):
+        questions = Question.objects.filter(exam=self)
+        topics = SyllabusTopic.objects.filter(syllabussubtopic__syllabuspoint__question__in=questions).distinct()
+
+        return topics
+
 
 class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
@@ -146,6 +152,20 @@ class Sitting(models.Model):
 
         return round(numpy.std(scores),1)
 
+    def class_topic_performance(self):
+        topics = self.exam.topics_tested().all()
+
+        topic_ratings = []
+        for topic in topics:
+            ratings = []
+            for student in self.classgroup.students():
+                if not numpy.isnan(topic.studentAverageRating(student)):
+                    ratings.append(topic.studentAverageRating(student))
+            topic_ratings.append(round(numpy.average(ratings), 1))
+
+        topic_data= list(zip(topics,topic_ratings))
+
+        return topic_data
 
 class Mark(models.Model):
     # TODO: This should be updated whenever a sitting is modified

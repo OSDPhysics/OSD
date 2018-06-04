@@ -19,7 +19,7 @@
                             </tr>
                             {% for class in classes %}
                                 <tr>
-                                    <td>{{ class.groupname }}</td>
+                                    <td><a href="{% url 'school:class_details' class.pk %}"{{ class.groupname }}>{{ class }}</a></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
