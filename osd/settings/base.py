@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tracker',
     'exambuilder',
     'school',
+    'timetable',
     'searchableselect',
     'teachnet',
     'journal',
