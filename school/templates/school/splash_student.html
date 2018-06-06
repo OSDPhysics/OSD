@@ -1,0 +1,37 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Your Learning: {{ student }}</h1>
+        <div class="row">
+            {% for dataset in classgroup_data %}
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            {{ dataset.classgroup }}
+                            <a href="#"></a>
+                        </h2>
+                        <h3>Recent Assessments</h3>
+                        <table class="table">
+                            <tr>
+                                <td>Assessment</td>
+                                <td>Date</td>
+                            </tr>
+                                {% for assessment in dataset.assessments %}
+                                <tr>
+                                    <td><a href="{% url 'tracker:student_sitting_summary' assessment.pk student.pk %}">{{ assessment.exam }}</a></td>
+                                    <td>{{ assessment.datesat }}</td>
+
+                                </tr>
+                                {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+{% endblock %}

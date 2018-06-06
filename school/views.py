@@ -34,8 +34,19 @@ def splash(request):
                                                               'assessments': assessments})
 
     elif request.user.groups.filter(name='Students').exists():
-        # Gather student stuff
-        return render(request, 'school/splash_student.html', {})
+        student = Student.objects.get(user=request.user)
+        classgroups = student.classgroups.all()
+
+        classgroup_data = []
+        for classgroup in classgroups:
+            current_group = {}
+            current_group['classgroup'] = classgroup
+            recent_assessments = Sitting.objects.filter(classgroup=classgroup).order_by('-datesat')[:5]
+            current_group['assessments'] = recent_assessments
+            classgroup_data.append(current_group)
+
+        return render(request, 'school/splash_student.html', {'student': student,
+                                                              'classgroup_data': classgroup_data})
 
     else:
         return render(request, 'school/splash.html', {})
