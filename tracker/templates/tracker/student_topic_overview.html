@@ -1,0 +1,54 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>{{ student }}: Performance in {{ topic }}</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Sub-Topic</td>
+                                <td>Average rating</td>
+                                <td>Journal</td>
+                                <td>Assessments</td>
+                                <td>Resources</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for sub_topic, rating in sub_topic_data %}
+                            <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
+                                <td><a href="{% url 'tracker:student_sub_topic_overview' sub_topic.pk student.pk %}">{{ sub_topic.sub_topic }}</a></td>
+                            <td>{{ rating }}</td>
+                            <td><i class="fas fa-book-open"></i>
+
+</td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

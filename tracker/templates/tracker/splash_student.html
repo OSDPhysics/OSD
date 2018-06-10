@@ -74,7 +74,11 @@
 
         <tbody id="syllabusTable">
             {% for point, rating in syllabus_data %}
-            <tr>
+            <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
                 <td>{{ point.topic.syllabus }}</td>
                 <td>{{ point.topic }}</td>
                 <td>{{ point.number }}</td>

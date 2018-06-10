@@ -11,19 +11,38 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            {{ dataset.classgroup }}
-                            <a href="#"></a>
+                            <a href="{% url 'school:student_class_overview' student.pk dataset.classgroup.pk %}">{{ dataset.classgroup }}</a>
+
                         </h2>
                         <h3>Recent Assessments</h3>
                         <table class="table">
                             <tr>
                                 <td>Assessment</td>
                                 <td>Date</td>
+                                <td>Score</td>
                             </tr>
-                                {% for assessment in dataset.assessments %}
+                                {% for assessment, score in dataset.assessments %}
                                 <tr>
                                     <td><a href="{% url 'tracker:student_sitting_summary' assessment.pk student.pk %}">{{ assessment.exam }}</a></td>
                                     <td>{{ assessment.datesat }}</td>
+                                    <td>{{ score }}</td>
+                                </tr>
+                                {% endfor %}
+                        </table>
+                        <h3>Topics</h3>
+                        <table class="table">
+                            <tr>
+                                <td>Topic</td>
+                                <td>Rating</td>
+                            </tr>
+                                {% for topic, rating in dataset.topics %}
+                                <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
+                                    <td><a href="{% url 'tracker:student_topic_overview' topic.pk student.pk %}">{{ topic }}</a></td>
+                                    <td>{{ rating }}</td>
 
                                 </tr>
                                 {% endfor %}

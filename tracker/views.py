@@ -104,7 +104,6 @@ def list_syllabuses(request):
 @login_required
 def syllabus_detail(request, pk):
 
-
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)
     allpoints = []
@@ -115,7 +114,6 @@ def syllabus_detail(request, pk):
             allpoints.append(point)
 
     if request.user.groups.filter(name='Students'):
-
 
         return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
                                                                'specpoints': allpoints})
@@ -128,8 +126,6 @@ def syllabus_detail(request, pk):
         for topic in topics:
             row = []
             for student in students:
-
-
                 row.append(topic.studentAverageRating(student))
             ratings.append(row)
         student_topic_data = list(zip(topics, ratings))
@@ -138,8 +134,6 @@ def syllabus_detail(request, pk):
                                                                'specpoints': allpoints,
                                                                         'student_topic_data': student_topic_data,
                                                                         'students': students})
-
-
 
 # CSV Uplods
 @admin_only
@@ -158,18 +152,6 @@ def import_spec_points(request):
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
-
-
-@teacher_only
-def create_questions(request):
-    questionFormSet = formset_factory(questionsForm)
-    newExamForm = examForm
-
-    # Process POST data
-
-    # If no post:
-
-    return render(request, 'tracker/add_questions.html', {'questionFormSet': questionFormSet, })
 
 
 @teacher_only
@@ -213,31 +195,6 @@ def examDetails(request, pk):
                                                              'sittings': sittings,
                                                              'questions': questions,
                                                              'qform': SetQuestionsFormset})
-
-
-# Not in use: this was an attempt for an editable version, but it doesn't work.
-# @teacher_only
-# def examDetails(request, pk):
-#     exam = Exam.objects.get(pk=pk)
-#     questionFormset = formset_factory(SetQuestions)
-#     formset = questionFormset()
-#
-#     if request.method == 'POST':
-#         formset = questionFormset(request.POST)
-#         if formset.is_valid():
-#             for form in formset:
-#                 newquestion = form.save(commit=False)
-#                 newquestion.exam = exam
-#                 form.save()
-#                 form.save_m2m()
-#                 return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                               'exam': exam})
-#         else:
-#             return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                           'exam': exam})
-#
-#     return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                                                          'exam': exam})
 
 
 @teacher_only
@@ -419,7 +376,6 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                         syllabus_point__in=syllabus_point_tested).order_by(
                 'syllabus_point__number') .order_by('syllabus_point__topic'))
 
-
         syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal_formset))
 
         topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
@@ -457,3 +413,47 @@ def sitting_by_q(request, pk):
                                                            'scores': scores,
                                                            'score_data': score_data,
                                                                 'students': students})
+
+
+def student_topic_overview(request, topic_pk, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    topic = SyllabusTopic.objects.get(pk=topic_pk)
+
+    sub_topic_data = topic.studentSubTopicData(student)
+
+    return render(request, 'tracker/student_topic_overview.html', {'student': student,
+                  'topic': topic,
+                  'sub_topic_data': sub_topic_data})
+
+
+def student_sub_topic_overview(request, sub_topic_pk, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    sub_topic = SyllabusSubTopic.objects.get(pk=sub_topic_pk)
+
+    point_data = sub_topic.student_sub_topic_data(student)
+    # Remember, get_or_create returns a tuple; the object, and a TRUE or FALSE depending on whether it was created.
+    journal, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_sub_topic=sub_topic)
+
+    if request.method == 'POST':
+        journal_form = StudentJournalExisting(request.POST)
+        if journal_form.is_valid():
+            journal_entry = StudentJournalEntry.objects.get(student=student, syllabus_sub_topic=sub_topic)
+            journal_entry.entry = journal_form.cleaned_data['entry']
+            journal_entry.save()
+            parent_topic_pk = sub_topic.topic.pk
+            return redirect(reverse('tracker:student_topic_overview', args=(parent_topic_pk, student_pk )))
+
+        else:
+            return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
+                                                                               'sub_topic': sub_topic,
+                                                                               'point_data': point_data,
+                                                                               'journal_form': journal_form})
+
+    else:
+
+        journal_form = StudentJournalExisting(instance=journal)
+
+        return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
+                                                                           'sub_topic': sub_topic,
+                                                                           'point_data': point_data,
+                                                                           'journal_form': journal_form})
