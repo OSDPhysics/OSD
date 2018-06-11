@@ -32,7 +32,7 @@ class NewExamForm(forms.ModelForm):
         model = Exam
         fields = ('name', 'syllabus',)
         widgets = {
-            'syllabus': SearchableSelect(model='tracker.Syllabus', search_field='syllabusText', many=True)
+            'syllabus': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-autocomplete')
         }
 
 
@@ -40,9 +40,11 @@ class SetQuestions(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint']
+        fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint', 'exam']
         widgets = { # TODO: any way to filter this?
-            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-point-autocomplete')
+            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-point-autocomplete',
+                                                               forward=['exam']
+                                                               )
         }
 
     class Media:

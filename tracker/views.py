@@ -86,9 +86,13 @@ def add_test(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = NewExamForm(request.POST)
-        new_exam = form.save()
+        if form.is_valid():
+            new_exam = form.save()
 
-        return redirect(reverse('examDetail', args=(new_exam.pk,)))
+            return redirect(reverse('tracker:examDetail', args=(new_exam.pk,)))
+
+        else:
+            return render(request, 'tracker/new_exam1.html', {'form': form})
 
     else:
         form = NewExamForm()
@@ -176,25 +180,50 @@ def tracker_overview(request):
 @teacher_only
 def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
+    syllabus = exam.syllabus.all()
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
-    SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
+    SetQuestionsFormset = modelformset_factory(Question,  form=SetQuestions, extra=10)
 
     if request.method == 'POST':
         qform = SetQuestionsFormset(request.POST)
         if qform.is_valid():
             for form in qform:
-                form.exam = exam
-                form.save()
-                return redirect(reverse('examDetail', args=(pk,)))
+                form.is_valid()
+                # Only process formsets with data in them
+                if len(form.cleaned_data) > 0:
+                    question = form.save(commit=False)
+                    question.exam = exam
+                    if question.qorder == 0:
+                        question.delete()
+                    else:
+                        question.save()
+                        form.save_m2m()
+
+            # Now sort of the field ordering: decimals may have been used to insert fields.
+
+            questions = Question.objects.filter(exam=exam).order_by('qorder')
+            n = 1
+            for question in questions:
+                question.qorder = n
+                question.save()
+                n = n+1
+
+            return redirect(reverse('tracker:examDetail', args=(pk,)))
         else:
-            return render(request, 'tracker/404.html')
+            return render(request, 'tracker/exam_details.html', {'exam': exam,
+                                                                 'sittings': sittings,
+                                                                 'questions': questions,
+                                                                 'qform': qform})
 
     else:
+        qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
+
+
         return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                              'sittings': sittings,
                                                              'questions': questions,
-                                                             'qform': SetQuestionsFormset})
+                                                             'qform': qform})
 
 
 @teacher_only
@@ -235,7 +264,7 @@ def new_sitting(request, exampk):
             for student in students:
                 for question in questions:
                     Mark.objects.create(student=student, question=question, sitting=sitting)
-            return redirect(reverse('sitting_detail'))
+            return redirect(reverse('tracker:sitting_detail'))
 
         else:
             return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
@@ -277,10 +306,10 @@ def input_marks(request, sitting_pk, student_pk):
                 formset.save()
 
                 if request.user.groups.filter(name='Students'):
-                    return redirect(reverse('student_sitting_summary', args=[sitting_pk, student_pk]))
+                    return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
 
                 if request.user.groups.filter(name='Teachers'):
-                    return redirect(reverse('student_sitting_summary', args=[sitting_pk, student_pk]))
+                    return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))
@@ -348,7 +377,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
         if point_journal_formset.is_valid():
             point_journal_formset.save()
 
-            return redirect(reverse('tracker_overview'))
+            return redirect(reverse('tracker:tracker_overview'))
 
         else:
 
