@@ -219,6 +219,9 @@ def examDetails(request, pk):
     else:
         qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
 
+        for form in qform:
+            form.initial['exam'] = exam.pk
+
 
         return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                              'sittings': sittings,

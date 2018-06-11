@@ -43,8 +43,9 @@ class SetQuestions(forms.ModelForm):
         fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint', 'exam']
         widgets = { # TODO: any way to filter this?
             'syllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-point-autocomplete',
-                                                               forward=['exam']
-                                                               )
+                                                               forward=['exam'],
+                                                               ),
+            'exam': forms.HiddenInput()
         }
 
     class Media:
