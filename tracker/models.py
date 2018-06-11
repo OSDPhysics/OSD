@@ -213,7 +213,7 @@ class Mark(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.IntegerField(blank=True, null=True)
     sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
-    notes = RichTextField(null=True, blank=True)
+    notes = RichTextField(null=True, blank=True, config_name='small')
 
     def __str__(self):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(

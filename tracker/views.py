@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from journal.forms import StudentJournalExisting
+from journal.forms import  StudentJournalEntryLarge
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
@@ -435,7 +435,7 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
     journal, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_sub_topic=sub_topic)
 
     if request.method == 'POST':
-        journal_form = StudentJournalExisting(request.POST)
+        journal_form = StudentJournalEntryLarge(request.POST)
         if journal_form.is_valid():
             journal_entry = StudentJournalEntry.objects.get(student=student, syllabus_sub_topic=sub_topic)
             journal_entry.entry = journal_form.cleaned_data['entry']
@@ -451,7 +451,7 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
 
     else:
 
-        journal_form = StudentJournalExisting(instance=journal)
+        journal_form = StudentJournalEntryLarge(instance=journal)
 
         return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
                                                                            'sub_topic': sub_topic,

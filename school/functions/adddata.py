@@ -3,12 +3,10 @@ from school.models import Student, Teacher, ClassGroup
 import csv
 import codecs
 
-
-
-
 def processstudent(path):
     with open(path, newline='') as csvfile:
         students = csv.reader(csvfile, delimiter=',', quotechar='|')
+        newstudents=[] # list of all the newly-created students
         for row in students:
             newstudent = {}
             newstudent['last_name'] = row[0]
@@ -20,11 +18,10 @@ def processstudent(path):
             newstudent['studentid'] = row[6]
             newstudent['password'] = row[7]
             newstudent['classgroup'] = row[8]
-            newstudent['year'] = row [9]
 
+            newstudents.append(addstudent(newstudent))
 
-            addstudent(newstudent)
-
+        return newstudents
 
 def processteacher(reader):
     for row in reader:
@@ -41,30 +38,39 @@ def processteacher(reader):
 
 
 def addstudent(newstudent):
-    newuser = User.objects.create_user(username=newstudent['username'],
+    # Test to see whether the user exists yet
+
+    newuser, created = User.objects.get_or_create(username=newstudent['username'],
                                        email=newstudent['email'],
                                        password=newstudent['password'],
                                        first_name=newstudent['first_name'],
                                        last_name=newstudent['last_name']
                                        )
 
-    # Place new user in the Students Auth group
+    # created will be true if the user didn't already exist.
 
-    students_user_group = Group.objects.get(name='Students')
-    students_user_group.user_set.add(newuser)
+    if created:
 
-    student = Student.objects.create(user=newuser,
-                                     Gender=newstudent['Gender'],
-                                     idnumber=newstudent['studentid'],
-                                     year=int(newstudent['year'])
+        # Place new user in the Students Auth group
 
-                                     )
+        students_user_group = Group.objects.get(name='Students')
+        students_user_group.user_set.add(newuser)
+
+        student = Student.objects.create(user=newuser,
+                                         Gender=newstudent['Gender'],
+                                         idnumber=newstudent['studentid'],
+                                         year=int(newstudent['year'])
+
+                                         )
+    else:
+        student = Student.objects.get(user=newuser)
 
     # Add student to CLASS GROUP (NOT USER GROUP)
     newclassgroupname = newstudent['classgroup']
     newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
     student.classgroups.add(newclassgroup)
 
+    return student
 
 def addteacher(newteacher):
     newuser = User.objects.create_user(username=newteacher['username'],

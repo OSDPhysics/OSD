@@ -40,8 +40,8 @@
                     <form method="post">
                     {% csrf_token %}
                         {{ journal_form.media }}
-                        {{ journal_form }}
-                        <button class="button" type="submit">Save Journal</button>
+                        {{ journal_form.entry }}
+                        <br><button class="btn btn-primary" type="submit">Save Journal</button>
                     </form>
                     </div>
                 </div>
