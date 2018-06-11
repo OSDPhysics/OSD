@@ -9,8 +9,12 @@
 {% block content %}
 <form method="post">
 {% csrf_token %}
-    {{ sittingform.media }}
+
     {{ sittingform.as_p }}
 <button type="submit">Submit</button>
 </form>
 {% endblock content %}
+
+{% block script %}
+    {{ sittingform.media }}
+{% endblock %}

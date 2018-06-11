@@ -261,12 +261,15 @@
         {% for sitting in sittings %}
             <tr>
                 <td>{{ sitting.datesat }}</td>
-                <td><a href="{% url 'sittings' %}{{ sitting.pk }}">{{ sitting.classgroup.groupname }}</a></td>
+                <td><a href="{% url 'tracker:sitting_detail' sitting.pk %}">{{ sitting.classgroup.groupname }}</a></td>
                 <td>{{ sitting.classgroup.groupteacher }}</td>
 
             </tr>
         {% endfor %}
     </table>
+
+                <a href="{% url 'tracker:new_sitting' exam.pk %}" class="btn btn-primary">Add Sitting</a>
+
 
     <h2>Questions</h2>
 

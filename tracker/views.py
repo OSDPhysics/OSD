@@ -187,34 +187,42 @@ def examDetails(request, pk):
 
     if request.method == 'POST':
         qform = SetQuestionsFormset(request.POST)
-        if qform.is_valid():
-            for form in qform:
-                form.is_valid()
-                # Only process formsets with data in them
-                if len(form.cleaned_data) > 0:
-                    question = form.save(commit=False)
-                    question.exam = exam
-                    if question.qorder == 0:
-                        question.delete()
-                    else:
-                        question.save()
-                        form.save_m2m()
 
-            # Now sort of the field ordering: decimals may have been used to insert fields.
+        # Quite a nasty hack to remove the hidden 'exam' field from only those forms without data.
 
-            questions = Question.objects.filter(exam=exam).order_by('qorder')
-            n = 1
-            for question in questions:
-                question.qorder = n
-                question.save()
-                n = n+1
+        for form in qform:
+            if form['qorder'].value == '' and form['qnumber'].value == '' and form['syllabuspoint'].value =='' and form['maxsore'].value == '':
+                form.data['exam'].value = '' # set the exam to nothing.
 
-            return redirect(reverse('tracker:examDetail', args=(pk,)))
-        else:
-            return render(request, 'tracker/exam_details.html', {'exam': exam,
-                                                                 'sittings': sittings,
-                                                                 'questions': questions,
-                                                                 'qform': qform})
+        #if qform.is_valid():
+        for form in qform:
+            form.is_valid()
+            # Only process formsets with data in them
+            if 'qorder' in form.cleaned_data.keys():
+                question = form.save(commit=False)
+                question.exam = exam
+                if question.qorder == 0:
+                    question.delete()
+                else:
+                    question.save()
+                    form.save_m2m()
+
+        # Now sort of the field ordering: decimals may have been used to insert fields.
+
+        questions = Question.objects.filter(exam=exam).order_by('qorder')
+        n = 1
+        for question in questions:
+            question.qorder = n
+            question.save()
+            n = n+1
+
+        return redirect(reverse('tracker:examDetail', args=(pk,)))
+
+        #else:
+            #return render(request, 'tracker/exam_details.html', {'exam': exam,
+                                                                 #'sittings': sittings,
+                                                                 #'questions': questions,
+                                                                 #'qform': qform})
 
     else:
         qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
@@ -267,7 +275,7 @@ def new_sitting(request, exampk):
             for student in students:
                 for question in questions:
                     Mark.objects.create(student=student, question=question, sitting=sitting)
-            return redirect(reverse('tracker:sitting_detail'))
+            return redirect(reverse('tracker:sitting_detail', args=[sitting.pk,]))
 
         else:
             return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
@@ -279,13 +287,17 @@ def input_marks(request, sitting_pk, student_pk):
     # Get the main data we'll need
     sitting = Sitting.objects.get(pk=sitting_pk)
     student = Student.objects.get(pk=student_pk)
-    marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
-    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
 
+    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
+    marks = []
+    for question in questions:
+        marks.append(Mark.objects.get_or_create(sitting=sitting, student=student, question=question))
     # Formset to enter the student's mark
     MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets={
           'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
         })
+
+    marks = Mark.objects.filter(student=student, sitting=sitting).order_by('question__qorder')
     formset = MarkFormset(queryset=marks)
 
     if request.method == 'POST':
