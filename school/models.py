@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from teachnet.models import Skill
 from django.apps import apps
+from numpy import average
 
 
 # Create your models here.
@@ -58,8 +59,69 @@ class ClassGroup(models.Model):
 
         return SyllabusTopic.objects.filter(syllabus__in=self.syllabustaught.all())
 
+    def class_topics_w_ratings(self):
+
+        SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')
+        topics_taught = SyllabusTopic.objects.filter(syllabus__in=self.syllabustaught.all())
+
+        ratings = []
+        for topic in topics_taught:
+            ratings.append(topic.classAverageRating(self))
+
+        data = list(zip(topics_taught, ratings))
+
+        return data
+
+    def class_topics_completion(self):
+
+        SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')
+        topics_taught = SyllabusTopic.objects.filter(syllabus__in=self.syllabustaught.all())
+
+        completion = []
+        for topic in topics_taught:
+            completion.append(topic.classAverageCompletion(self))
+
+        data = list(zip(topics_taught, completion))
+
+        return data
+
+    def class_topic_all_data(self):
+
+        SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')
+        topics_taught = SyllabusTopic.objects.filter(syllabus__in=self.syllabustaught.all())
+
+        ratings = []
+        for topic in topics_taught:
+            ratings.append(topic.classAverageRating(self))
+
+        completion = []
+        for topic in topics_taught:
+            completion.append(topic.classAverageCompletion(self))
+
+        data = list(zip(topics_taught, completion, ratings))
+
+        return data
+
     def students(self):
         return Student.objects.filter(classgroups=self)
+
+    def all_students_completion_data(self):
+
+        students = self.students()
+
+        ratings = []
+        journaled = []
+        for student in students:
+            individual_ratings = []
+            individual_journaled = []
+            for syllabus in self.syllabustaught.all():
+                individual_ratings.append(syllabus.studentAverageRating(student))
+                individual_journaled.append(syllabus.student_completion(student))
+            ratings.append(average(individual_ratings))
+            journaled.append(average(individual_journaled))
+
+        data = list(zip(students, journaled, ratings))
+        return data
 
 
 class TutorGroup(models.Model):
@@ -89,6 +151,8 @@ class Student(models.Model):
         fullname = self.user.first_name + space + self.user.last_name  # + space + '(' + self.tg.tgname + ')'
         # fullname = 'temporary'
         return fullname
+
+
 
 
 # For CSV Imports:

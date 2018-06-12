@@ -21,11 +21,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for topic in classgroup.topics %}
-                                    <tr>
+                                {% for topic, completion, rating in classgroup.class_topic_all_data %}
+                                    <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
                                         <td>{{ topic }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ completion }}</td>
+                                        <td>{{ rating }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -48,12 +52,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for student in classgroup.students %}
-                                    <tr>
-                                        <td><a href="{% url 'tracker:student_profile' student.pk %}">{{ student }}</a>
+                                {% for student, journaled, rating in classgroup.all_students_completion_data %}
+                                    <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
+                                        <td><a href="{% url 'school:student_class_overview' student.pk classgroup.pk %}">{{ student }}</a>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ journaled }}</td>
+                                        <td>{{ rating }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -21,11 +21,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for topic, completion, score in topic_data %}
-                            <tr>
+                            {% for topic, completion, rating in topic_data %}
+                           <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
                                 <td><a href="{% url 'tracker:student_topic_overview' topic.pk student.pk %}">{{ topic }}</a></td>
                             <td>{{ completion }}</td>
-                            <td>{{ score }}</td>
+                            <td>{{ rating }}</td>
                             </tr>
                             {% endfor %}
                             </tbody>

@@ -19,7 +19,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for syllabus_point, rating in point_data %}
+                            {% for syllabus_point, rating, assessments in point_data %}
                             <tr {% if rating >= 4 %} class="table-success"
                                 {% elif rating >= 3 %} class = "table-info"
                                 {% elif rating >= 2 %} class="table-warning"
@@ -27,7 +27,9 @@
                             {% endif %}>
                             <td>{{ syllabus_point }}</td>
                             <td>{{ rating }}</td>
-                            <td><i class="fas fa-book-open"></i>
+                            <td>{% for assessment in assessments %}
+                                {{ assessment }}
+                                {% endfor %}
 
 </td>
 

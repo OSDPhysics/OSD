@@ -41,6 +41,14 @@ class Syllabus(models.Model):
         else:
             return 0
 
+    def studentAverageRating(self, student):
+        marks = Mark.objects.filter(question__exam__syllabus=self).filter(student=student)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
     def classgroup_completion(self, classgroup):
         points = SyllabusPoint.objects.filter(topic__syllabus=self)
         students = Student.objects.filter(classgroups=classgroup)
@@ -68,7 +76,10 @@ class SyllabusTopic(models.Model):
         possible = SyllabusPoint.objects.filter(topic=self).distinct()
         with_score = possible.filter(question__mark__student=student)
 
-        return round(with_score.count() / possible.count() *100)
+        if possible.count() > 0:
+            return round(with_score.count() / possible.count() *100)
+        else:
+            return 0
 
     def studentSubTopicData(self, student):
         sub_topics = SyllabusSubTopic.objects.filter(topic=self)
@@ -76,6 +87,23 @@ class SyllabusTopic(models.Model):
         for topic in sub_topics:
             ratings.append(topic.studentAverageRating(student))
         return list(zip(sub_topics, ratings))
+
+    def classAverageRating(self, classgroup):
+        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(sitting__classgroup=classgroup)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
+    def classAverageCompletion(self, classgroup):
+        possible = SyllabusPoint.objects.filter(topic=self).distinct()
+        students = classgroup.students()
+        with_score = possible.filter(question__mark__student__in=students)
+        if possible.count() > 0:
+            return round(with_score.count() / possible.count() *100)
+        else:
+            return 0
 
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -96,7 +124,9 @@ class SyllabusSubTopic(models.Model):
         for point in syllabus_points:
             ratings.append(point.get_student_rating(student))
 
-        return list(zip(syllabus_points, ratings))
+        assesments = Exam.objects.filter(question__mark__student=student).distinct()
+
+        return list(zip(syllabus_points, ratings, assesments))
 
 
 
@@ -120,6 +150,10 @@ class SyllabusPoint(models.Model):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
         return mark_queryset_to_rating(marks)
 
+    def student_assesments(self, student):
+        assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
+
+        return assessments
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
