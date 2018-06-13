@@ -318,7 +318,8 @@ def input_marks(request, sitting_pk, student_pk):
                 n = n + 1
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
-                formset.save()
+                formset.save() # Data is now saved.
+
 
                 if request.user.groups.filter(name='Students'):
                     return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
