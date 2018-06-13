@@ -27,9 +27,12 @@
                             {% endif %}>
                             <td>{{ syllabus_point }}</td>
                             <td>{{ rating }}</td>
-                            <td>{% for assessment in assessments %}
-                                {{ assessment }}
-                                {% endfor %}
+                            <td>{% if assessments %}
+                               <a href="{% url 'tracker:small_assessment_list' syllabus_point.pk student.pk %}"><i class="fas fa-check-circle"></i>
+
+</a>
+                                    {% endif %}
+
 
 </td>
 

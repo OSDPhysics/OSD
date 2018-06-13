@@ -121,12 +121,13 @@ class SyllabusSubTopic(models.Model):
 
         syllabus_points = SyllabusPoint.objects.filter(sub_topic=self)
         ratings = []
+        assessments = []
         for point in syllabus_points:
             ratings.append(point.get_student_rating(student))
 
-        assesments = Exam.objects.filter(question__mark__student=student).distinct()
+            assessments.append(Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
 
-        return list(zip(syllabus_points, ratings, assesments))
+        return list(zip(syllabus_points, ratings, assessments))
 
 
 
@@ -153,7 +154,8 @@ class SyllabusPoint(models.Model):
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
 
-        return assessments
+        sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments).distinct
+        return sittings
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)

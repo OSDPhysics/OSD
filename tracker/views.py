@@ -501,3 +501,16 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
                                                                            'sub_topic': sub_topic,
                                                                            'point_data': point_data,
                                                                            'journal_form': journal_form})
+
+
+def small_assessment_list(request, point_pk, student_pk):
+    '''Create a small window showing which assessments are testing a certain syllabus point.'''
+
+    student = Student.objects.get(pk=student_pk)
+    point = SyllabusPoint.objects.get(pk=point_pk)
+
+    assessments = point.student_assesments(student)
+
+    return render(request, 'tracker/small_assessment_list.html', {'student': student,
+                                                                  'point': point,
+                                                                  'assessments': assessments})

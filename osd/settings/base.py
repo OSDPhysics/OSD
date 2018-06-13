@@ -15,16 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-
-
 
 
 # Application definition
@@ -46,6 +42,7 @@ INSTALLED_APPS = [
     'journal',
     'ckeditor',
     'dynamic_formsets',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -56,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'osd.urls'
@@ -78,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'osd.wsgi.application'
 
-#new
+# new
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -107,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -120,7 +117,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -136,22 +132,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_CONFIGS = {
     'default': {
 
-
     },
     'large': {
-            'toolbar': 'full',
-            #'extraPlugins': 'autogrow',
-            'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
+        'toolbar': 'full',
+        # 'extraPlugins': 'autogrow',
+        'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
 
-        },
+    },
 
     'small': {
-            'toolbar': 'full',
-            'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
+        'toolbar': 'full',
+        'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
 
-            'width':500,
+        'width': 500,
 
-            'height':100,
+        'height': 100,
 
-        },
+    },
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
