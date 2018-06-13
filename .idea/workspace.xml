@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/school/templates/school/model_form_upload.html" afterPath="$PROJECT_DIR$/school/templates/school/model_form_upload.html" />
+      <change beforePath="$PROJECT_DIR$/school/functions/adddata.py" afterPath="$PROJECT_DIR$/school/functions/adddata.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -53,7 +53,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.47794873">
+    <splitter split-orientation="horizontal" split-proportion="0.6810256">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
@@ -80,11 +80,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="model_form_upload.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="model_form_upload.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/school/templates/school/model_form_upload.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="150">
-                  <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+                  <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -123,11 +123,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="adddata.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="adddata.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="885">
-                  <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+                <state relative-caret-position="260">
+                  <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
                   <folding />
                 </state>
               </provider>
@@ -195,8 +195,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="80">
-                  <caret line="123" column="24" lean-forward="true" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
+                <state relative-caret-position="125">
+                  <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -370,7 +370,6 @@
         <option value="$PROJECT_DIR$/tracker/templates/tracker/splash_student.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html" />
         <option value="$PROJECT_DIR$/school/templates/school/splash_student.html" />
-        <option value="$PROJECT_DIR$/school/functions/adddata.py" />
         <option value="$PROJECT_DIR$/journal/forms.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/new_exam1.html" />
         <option value="$PROJECT_DIR$/tracker/autocomplete.py" />
@@ -392,6 +391,7 @@
         <option value="$PROJECT_DIR$/tracker/views.py" />
         <option value="$PROJECT_DIR$/school/templates/school/import_students.html" />
         <option value="$PROJECT_DIR$/school/templates/school/model_form_upload.html" />
+        <option value="$PROJECT_DIR$/school/functions/adddata.py" />
       </list>
     </option>
   </component>
@@ -641,13 +641,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Fixed name reversal for imported students.">
-      <created>1526873107889</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1526873107889</updated>
     </task>
     <task id="LOCAL-00022" summary="Modified tracker/add_data.py to correctly process Google Docs CSVs">
       <created>1526876067306</created>
@@ -985,7 +978,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528931826393</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Temp fix">
+      <created>1528932215805</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1528932215805</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1098,7 +1098,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="HELP!!!!!2" />
     <MESSAGE value="Slightly corrected, also can now view student totals" />
     <MESSAGE value="Changed login redirect page" />
     <MESSAGE value="Commit this branch to PRODUCTION to remove LEARNINGJOURNAL" />
@@ -1123,7 +1122,8 @@
     <MESSAGE value="Implemented a some additional data in different views." />
     <MESSAGE value="Included Django Debug Toolbar" />
     <MESSAGE value="Fixed non-namespaced URL for import students" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed non-namespaced URL for import students" />
+    <MESSAGE value="Temp fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Temp fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1515,8 +1515,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="19" lean-forward="false" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+        <state relative-caret-position="7710">
+          <caret line="515" column="81" lean-forward="false" selection-start-line="515" selection-start-column="81" selection-end-line="515" selection-end-column="81" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
             <marker date="1528931992000" expanded="true" signature="12110:12515" ph="..." />
@@ -1560,14 +1560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/journal/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1586,8 +1578,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/school/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+        <state relative-caret-position="152">
+          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -1597,18 +1589,26 @@
     <entry file="file://$PROJECT_DIR$/school/templates/school/model_form_upload.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="123" column="24" lean-forward="true" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
+        <state relative-caret-position="1545">
+          <caret line="103" column="24" lean-forward="false" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -59,7 +59,7 @@ def addstudent(newstudent):
         student = Student.objects.create(user=newuser,
                                          Gender=newstudent['Gender'],
                                          idnumber=newstudent['studentid'],
-                                         year=int(newstudent['year'])
+                                         #year=int(newstudent['year'])
 
                                          )
     else:
