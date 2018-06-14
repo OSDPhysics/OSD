@@ -442,6 +442,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                         'point_journal_formset': point_journal_formset})
 
 
+@teacher_only
 def sitting_by_q(request, pk):
     sitting = Sitting.objects.get(pk=pk)
     students = Student.objects.filter(classgroups=sitting.classgroup).order_by('pk').order_by('user__last_name')
@@ -464,6 +465,7 @@ def sitting_by_q(request, pk):
                                                                 'students': students})
 
 
+@own_or_teacher_only
 def student_topic_overview(request, topic_pk, student_pk):
     student = Student.objects.get(pk=student_pk)
     topic = SyllabusTopic.objects.get(pk=topic_pk)
@@ -475,6 +477,7 @@ def student_topic_overview(request, topic_pk, student_pk):
                   'sub_topic_data': sub_topic_data})
 
 
+@own_or_teacher_only
 def student_sub_topic_overview(request, sub_topic_pk, student_pk):
     student = Student.objects.get(pk=student_pk)
     sub_topic = SyllabusSubTopic.objects.get(pk=sub_topic_pk)
@@ -507,7 +510,7 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
                                                                            'point_data': point_data,
                                                                            'journal_form': journal_form})
 
-
+@own_or_teacher_only
 def small_assessment_list(request, point_pk, student_pk):
     '''Create a small window showing which assessments are testing a certain syllabus point.'''
 

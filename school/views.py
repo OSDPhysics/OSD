@@ -82,6 +82,7 @@ def school(request):
     return render(request, 'school/school.html', {})
 
 
+@admin_only
 def new_teacher(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -186,6 +187,7 @@ def class_details(request, class_pk):
     return render(request, 'school/class_detail.html', {'classgroup': classgroup})
 
 
+@login_required
 def student_class_overview(request, student_pk, class_pk):
     classgroup = ClassGroup.objects.get(pk=class_pk)
     student = Student.objects.get(pk=student_pk)
