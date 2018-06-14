@@ -239,13 +239,11 @@ class Sitting(models.Model):
     def class_topic_performance(self):
         topics = self.exam.topics_tested().all()
 
-        # TODO: THIS DOESN'T WORK! It currently gets their average acorss all assessments
         topic_ratings = []
         for topic in topics:
             questions = Question.objects.filter(syllabuspoint__topic=topic)
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
-
 
         topic_data= list(zip(topics,topic_ratings))
 
