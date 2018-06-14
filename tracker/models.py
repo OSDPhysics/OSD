@@ -191,6 +191,9 @@ class Sitting(models.Model):
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
 
+    def students(self):
+        return Student.objects.filter(classgroups=self.classgroup)
+
     def student_total(self, student):
         total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
 
@@ -240,7 +243,7 @@ class Sitting(models.Model):
         topic_ratings = []
         for topic in topics:
             questions = Question.objects.filter(syllabuspoint__topic=topic)
-            markset = Mark.objects.filter(question__in=questions)
+            markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
 
