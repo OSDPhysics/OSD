@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/journal/functions.py" afterPath="$PROJECT_DIR$/journal/functions.py" />
       <change beforePath="$PROJECT_DIR$/school/functions/adddata.py" afterPath="$PROJECT_DIR$/school/functions/adddata.py" />
+      <change beforePath="$PROJECT_DIR$/tracker/models.py" afterPath="$PROJECT_DIR$/tracker/models.py" />
+      <change beforePath="$PROJECT_DIR$/tracker/views.py" afterPath="$PROJECT_DIR$/tracker/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -53,14 +56,14 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6810256">
+    <splitter split-orientation="horizontal" split-proportion="0.6717949">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1545">
-                  <caret line="103" column="24" lean-forward="false" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
+                <state relative-caret-position="531">
+                  <caret line="228" column="7" lean-forward="false" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -93,22 +96,11 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="7710">
-                  <caret line="515" column="81" lean-forward="false" selection-start-line="515" selection-start-column="81" selection-end-line="515" selection-end-column="81" />
+                <state relative-caret-position="-156">
+                  <caret line="325" column="40" lean-forward="false" selection-start-line="325" selection-start-column="40" selection-end-line="325" selection-end-column="40" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
-                    <marker date="1528931992000" expanded="true" signature="12110:12515" ph="..." />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="small_assessment_list.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/small_assessment_list.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -126,8 +118,8 @@
           <file leaf-file-name="adddata.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="260">
-                  <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+                <state relative-caret-position="322">
+                  <caret line="52" column="55" lean-forward="false" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
                   <folding />
                 </state>
               </provider>
@@ -156,11 +148,21 @@
           <file leaf-file-name="functions.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/journal/functions.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                <state relative-caret-position="130">
+                  <caret line="30" column="94" lean-forward="false" selection-start-line="30" selection-start-column="94" selection-end-line="30" selection-end-column="94" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="class_detail.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/school/templates/school/class_detail.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="192">
+                  <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -183,10 +185,10 @@
             <entry file="file://$PROJECT_DIR$/tracker/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="480">
-                  <caret line="32" column="19" lean-forward="false" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+                  <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
-                    <marker date="1528931992000" expanded="true" signature="12110:12515" ph="..." />
+                    <marker date="1528947257000" expanded="true" signature="12180:12721" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -195,8 +197,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="125">
-                  <caret line="123" column="24" lean-forward="false" selection-start-line="123" selection-start-column="24" selection-end-line="123" selection-end-column="24" />
+                <state relative-caret-position="213">
+                  <caret line="219" column="27" lean-forward="false" selection-start-line="219" selection-start-column="27" selection-end-line="219" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -219,8 +221,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/school/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="585">
-                  <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+                <state relative-caret-position="267">
+                  <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -295,7 +297,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>args(</find>
       <find>commit</find>
       <find>commi</find>
       <find>student_pro</find>
@@ -312,7 +313,6 @@
       <find>new_sitting</find>
       <find>sitting_detail</find>
       <find>redirect</find>
-      <find>scores</find>
       <find>sitting_det</find>
       <find>exam_detail</find>
       <find>sitting_De</find>
@@ -325,6 +325,8 @@
       <find>sub</find>
       <find>student_sub</find>
       <find>import</find>
+      <find>scores</find>
+      <find>input</find>
     </findStrings>
     <replaceStrings>
       <replace>td</replace>
@@ -380,17 +382,17 @@
         <option value="$PROJECT_DIR$/school/templates/school/class_detail.html" />
         <option value="$PROJECT_DIR$/school/templates/school/student_class_overview.html" />
         <option value="$PROJECT_DIR$/tracker/scratchpad.py" />
-        <option value="$PROJECT_DIR$/journal/functions.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/base-mini.html" />
         <option value="$PROJECT_DIR$/tracker/urls.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" />
-        <option value="$PROJECT_DIR$/tracker/models.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/small_assessment_list.html" />
         <option value="$PROJECT_DIR$/osd/urls.py" />
         <option value="$PROJECT_DIR$/osd/settings/base.py" />
-        <option value="$PROJECT_DIR$/tracker/views.py" />
         <option value="$PROJECT_DIR$/school/templates/school/import_students.html" />
         <option value="$PROJECT_DIR$/school/templates/school/model_form_upload.html" />
+        <option value="$PROJECT_DIR$/tracker/views.py" />
+        <option value="$PROJECT_DIR$/journal/functions.py" />
+        <option value="$PROJECT_DIR$/tracker/models.py" />
         <option value="$PROJECT_DIR$/school/functions/adddata.py" />
       </list>
     </option>
@@ -641,13 +643,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Modified tracker/add_data.py to correctly process Google Docs CSVs">
-      <created>1526876067306</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1526876067306</updated>
     </task>
     <task id="LOCAL-00023" summary="Attempt to fix js loading issue">
       <created>1526879884243</created>
@@ -985,7 +980,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528932215805</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Temp fix">
+      <created>1528932325962</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1528932325962</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1013,7 +1015,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.84814215" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287483" sideWeight="0.84814215" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1158,13 +1160,17 @@
         <breakpoints-dialog />
       </breakpoints-dialog>
       <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
+        <breakpoint enabled="true" type="django-exception">
+          <properties exception="VariableDoesNotExist" />
+        </breakpoint>
+        <breakpoint enabled="true" type="jinja2-exception">
+          <properties exception="TemplateError" />
+        </breakpoint>
+        <breakpoint enabled="true" type="javascript-exception">
+          <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="82" />
+      <option name="time" value="84" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1352,14 +1358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school/templates/school/class_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="32" column="19" lean-forward="false" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tracker/scratchpad.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3631">
@@ -1495,42 +1493,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/journal/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tracker/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="27" column="58" lean-forward="false" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7710">
-          <caret line="515" column="81" lean-forward="false" selection-start-line="515" selection-start-column="81" selection-end-line="515" selection-end-column="81" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-            <marker date="1528931992000" expanded="true" signature="12110:12515" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1594,10 +1561,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-156">
+          <caret line="325" column="40" lean-forward="false" selection-start-line="325" selection-start-column="40" selection-end-line="325" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/journal/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="30" column="94" lean-forward="false" selection-start-line="30" selection-start-column="94" selection-end-line="30" selection-end-column="94" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/class_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tracker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1545">
-          <caret line="103" column="24" lean-forward="false" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
+        <state relative-caret-position="531">
+          <caret line="228" column="7" lean-forward="false" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -1606,8 +1611,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+        <state relative-caret-position="322">
+          <caret line="52" column="55" lean-forward="false" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
           <folding />
         </state>
       </provider>

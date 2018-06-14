@@ -47,6 +47,9 @@ def addstudent(newstudent):
                                        last_name=newstudent['last_name']
                                        )
 
+    if created:
+        newuser.set_password(newstudent['password'])
+
     # created will be true if the user didn't already exist.
 
     if created:

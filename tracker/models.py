@@ -216,8 +216,13 @@ class Sitting(models.Model):
         for student in students:
             if self.student_total(student):
                 scores.append(self.student_total(student))
-        score_range = numpy.max(scores) - numpy.min(scores)
-        return score_range
+
+        if len(scores) > 0:
+            score_range = numpy.max(scores) - numpy.min(scores)
+            return score_range
+
+        else:
+            return 0
 
     def class_score_std(self):
         students = Student.objects.filter(classgroups=self.classgroup)

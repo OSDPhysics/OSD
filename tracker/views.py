@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from journal.forms import  StudentJournalEntryLarge
+from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
@@ -320,6 +321,9 @@ def input_marks(request, sitting_pk, student_pk):
             if formset.is_valid():
                 formset.save() # Data is now saved.
 
+                # Now we insert the notes into the journals.
+
+                move_mark_reflection_to_journal_student(student, sitting)
 
                 if request.user.groups.filter(name='Students'):
                     return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
