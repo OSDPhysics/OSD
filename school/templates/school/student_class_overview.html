@@ -1,0 +1,48 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Class Summary for {{ student }} in {{ classgroup }}</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Your Topic Performance
+                        </h2>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Topic</td>
+                                <td>Total completed</td>
+                                <td>Average rating</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for topic, completion, rating in topic_data %}
+                           <tr {% if rating >= 4 %} class="table-success"
+                                {% elif rating >= 3 %} class = "table-info"
+                                {% elif rating >= 2 %} class="table-warning"
+                                {% elif rating < 2 %} class="table-danger"
+                            {% endif %}>
+                                <td><a href="{% url 'tracker:student_topic_overview' topic.pk student.pk %}">{{ topic }}</a></td>
+                            <td>{{ completion }}</td>
+                            <td>{{ rating }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

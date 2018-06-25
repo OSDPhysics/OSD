@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from journal.forms import StudentJournalExisting
+from journal.forms import  StudentJournalEntryLarge
+from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
@@ -86,9 +87,13 @@ def add_test(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = NewExamForm(request.POST)
-        new_exam = form.save()
+        if form.is_valid():
+            new_exam = form.save()
 
-        return redirect(reverse('examDetail', args=(new_exam.pk,)))
+            return redirect(reverse('tracker:examDetail', args=(new_exam.pk,)))
+
+        else:
+            return render(request, 'tracker/new_exam1.html', {'form': form})
 
     else:
         form = NewExamForm()
@@ -104,7 +109,6 @@ def list_syllabuses(request):
 @login_required
 def syllabus_detail(request, pk):
 
-
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)
     allpoints = []
@@ -115,7 +119,6 @@ def syllabus_detail(request, pk):
             allpoints.append(point)
 
     if request.user.groups.filter(name='Students'):
-
 
         return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
                                                                'specpoints': allpoints})
@@ -128,8 +131,6 @@ def syllabus_detail(request, pk):
         for topic in topics:
             row = []
             for student in students:
-
-
                 row.append(topic.studentAverageRating(student))
             ratings.append(row)
         student_topic_data = list(zip(topics, ratings))
@@ -138,8 +139,6 @@ def syllabus_detail(request, pk):
                                                                'specpoints': allpoints,
                                                                         'student_topic_data': student_topic_data,
                                                                         'students': students})
-
-
 
 # CSV Uplods
 @admin_only
@@ -158,18 +157,6 @@ def import_spec_points(request):
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
-
-
-@teacher_only
-def create_questions(request):
-    questionFormSet = formset_factory(questionsForm)
-    newExamForm = examForm
-
-    # Process POST data
-
-    # If no post:
-
-    return render(request, 'tracker/add_questions.html', {'questionFormSet': questionFormSet, })
 
 
 @teacher_only
@@ -194,50 +181,61 @@ def tracker_overview(request):
 @teacher_only
 def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
+    syllabus = exam.syllabus.all()
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
-    SetQuestionsFormset = formset_factory(SetQuestions, extra=10)
+    SetQuestionsFormset = modelformset_factory(Question,  form=SetQuestions, extra=10)
 
     if request.method == 'POST':
         qform = SetQuestionsFormset(request.POST)
-        if qform.is_valid():
-            for form in qform:
-                form.exam = exam
-                form.save()
-                return redirect(reverse('examDetail', args=(pk,)))
-        else:
-            return render(request, 'tracker/404.html')
+
+        # Quite a nasty hack to remove the hidden 'exam' field from only those forms without data.
+
+        for form in qform:
+            if form['qorder'].value == '' and form['qnumber'].value == '' and form['syllabuspoint'].value =='' and form['maxsore'].value == '':
+                form.data['exam'].value = '' # set the exam to nothing.
+
+        #if qform.is_valid():
+        for form in qform:
+            form.is_valid()
+            # Only process formsets with data in them
+            if 'qorder' in form.cleaned_data.keys():
+                question = form.save(commit=False)
+                question.exam = exam
+                if question.qorder == 0:
+                    question.delete()
+                else:
+                    question.save()
+                    form.save_m2m()
+
+        # Now sort of the field ordering: decimals may have been used to insert fields.
+
+        questions = Question.objects.filter(exam=exam).order_by('qorder')
+        n = 1
+        for question in questions:
+            question.qorder = n
+            question.save()
+            n = n+1
+
+        return redirect(reverse('tracker:examDetail', args=(pk,)))
+
+        #else:
+            #return render(request, 'tracker/exam_details.html', {'exam': exam,
+                                                                 #'sittings': sittings,
+                                                                 #'questions': questions,
+                                                                 #'qform': qform})
 
     else:
+        qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
+
+        for form in qform:
+            form.initial['exam'] = exam.pk
+
+
         return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                              'sittings': sittings,
                                                              'questions': questions,
-                                                             'qform': SetQuestionsFormset})
-
-
-# Not in use: this was an attempt for an editable version, but it doesn't work.
-# @teacher_only
-# def examDetails(request, pk):
-#     exam = Exam.objects.get(pk=pk)
-#     questionFormset = formset_factory(SetQuestions)
-#     formset = questionFormset()
-#
-#     if request.method == 'POST':
-#         formset = questionFormset(request.POST)
-#         if formset.is_valid():
-#             for form in formset:
-#                 newquestion = form.save(commit=False)
-#                 newquestion.exam = exam
-#                 form.save()
-#                 form.save_m2m()
-#                 return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                               'exam': exam})
-#         else:
-#             return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                           'exam': exam})
-#
-#     return render(request, 'tracker/exam_details.html', {'formset': formset,
-#                                                          'exam': exam})
+                                                             'qform': qform})
 
 
 @teacher_only
@@ -278,25 +276,38 @@ def new_sitting(request, exampk):
             for student in students:
                 for question in questions:
                     Mark.objects.create(student=student, question=question, sitting=sitting)
-            return redirect(reverse('sitting_detail'))
+            return redirect(reverse('tracker:sitting_detail', args=[sitting.pk,]))
 
         else:
             return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
     return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
+
+@teacher_only
+def sitting_toggle_open_for_recording(request, sitting_pk):
+    sitting = Sitting.objects.get(pk=sitting_pk)
+    classgroup = sitting.classgroup
+    sitting.toggle_open_for_recording()
+    return redirect(reverse('school:class_detail', args=[classgroup.pk,]))
+
+
 @own_or_teacher_only
 def input_marks(request, sitting_pk, student_pk):
     # Get the main data we'll need
     sitting = Sitting.objects.get(pk=sitting_pk)
     student = Student.objects.get(pk=student_pk)
-    marks = Mark.objects.filter(sitting=sitting).filter(student=student).order_by('question__qorder')
-    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
 
+    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
+    marks = []
+    for question in questions:
+        marks.append(Mark.objects.get_or_create(sitting=sitting, student=student, question=question))
     # Formset to enter the student's mark
     MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets={
           'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
         })
+
+    marks = Mark.objects.filter(student=student, sitting=sitting).order_by('question__qorder')
     formset = MarkFormset(queryset=marks)
 
     if request.method == 'POST':
@@ -317,13 +328,17 @@ def input_marks(request, sitting_pk, student_pk):
                 n = n + 1
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
-                formset.save()
+                formset.save() # Data is now saved.
+
+                # Now we insert the notes into the journals.
+
+                move_mark_reflection_to_journal_student(student, sitting)
 
                 if request.user.groups.filter(name='Students'):
-                    return redirect(reverse('student_sitting_summary', args=[sitting_pk, student_pk]))
+                    return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
 
                 if request.user.groups.filter(name='Teachers'):
-                    return redirect(reverse('student_sitting_summary', args=[sitting_pk, student_pk]))
+                    return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
 
             else:   # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))
@@ -391,7 +406,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
         if point_journal_formset.is_valid():
             point_journal_formset.save()
 
-            return redirect(reverse('tracker_overview'))
+            return redirect(reverse('tracker:tracker_overview'))
 
         else:
 
@@ -419,7 +434,6 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                         syllabus_point__in=syllabus_point_tested).order_by(
                 'syllabus_point__number') .order_by('syllabus_point__topic'))
 
-
         syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal_formset))
 
         topics_tested = SyllabusTopic.objects.filter(syllabuspoint__question__mark__in=marks).distinct()
@@ -437,6 +451,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                         'point_journal_formset': point_journal_formset})
 
 
+@teacher_only
 def sitting_by_q(request, pk):
     sitting = Sitting.objects.get(pk=pk)
     students = Student.objects.filter(classgroups=sitting.classgroup).order_by('pk').order_by('user__last_name')
@@ -457,3 +472,62 @@ def sitting_by_q(request, pk):
                                                            'scores': scores,
                                                            'score_data': score_data,
                                                                 'students': students})
+
+
+@own_or_teacher_only
+def student_topic_overview(request, topic_pk, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    topic = SyllabusTopic.objects.get(pk=topic_pk)
+
+    sub_topic_data = topic.studentSubTopicData(student)
+
+    return render(request, 'tracker/student_topic_overview.html', {'student': student,
+                  'topic': topic,
+                  'sub_topic_data': sub_topic_data})
+
+
+@own_or_teacher_only
+def student_sub_topic_overview(request, sub_topic_pk, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    sub_topic = SyllabusSubTopic.objects.get(pk=sub_topic_pk)
+
+    point_data = sub_topic.student_sub_topic_data(student)
+    # Remember, get_or_create returns a tuple; the object, and a TRUE or FALSE depending on whether it was created.
+    journal, created = StudentJournalEntry.objects.get_or_create(student=student, syllabus_sub_topic=sub_topic)
+
+    if request.method == 'POST':
+        journal_form = StudentJournalEntryLarge(request.POST)
+        if journal_form.is_valid():
+            journal_entry = StudentJournalEntry.objects.get(student=student, syllabus_sub_topic=sub_topic)
+            journal_entry.entry = journal_form.cleaned_data['entry']
+            journal_entry.save()
+            parent_topic_pk = sub_topic.topic.pk
+            return redirect(reverse('tracker:student_topic_overview', args=(parent_topic_pk, student_pk )))
+
+        else:
+            return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
+                                                                               'sub_topic': sub_topic,
+                                                                               'point_data': point_data,
+                                                                               'journal_form': journal_form})
+
+    else:
+
+        journal_form = StudentJournalEntryLarge(instance=journal)
+
+        return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
+                                                                           'sub_topic': sub_topic,
+                                                                           'point_data': point_data,
+                                                                           'journal_form': journal_form})
+
+@own_or_teacher_only
+def small_assessment_list(request, point_pk, student_pk):
+    '''Create a small window showing which assessments are testing a certain syllabus point.'''
+
+    student = Student.objects.get(pk=student_pk)
+    point = SyllabusPoint.objects.get(pk=point_pk)
+
+    assessments = point.student_assesments(student)
+
+    return render(request, 'tracker/small_assessment_list.html', {'student': student,
+                                                                  'point': point,
+                                                                  'assessments': assessments})

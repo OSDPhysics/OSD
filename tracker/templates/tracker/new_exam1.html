@@ -5,11 +5,15 @@
     <form method="POST">
         {% csrf_token %}
          <table class="table">
-             {{ form.media }}
+
              {{ form.as_table }}
 
        </table>
            <button type="submit" class="save btn btn-default">Save</button>
 
     </form>
+{% endblock %}
+
+{% block script %}
+{{ form.media }}
 {% endblock %}

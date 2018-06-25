@@ -57,6 +57,7 @@ def full_journal(request, student_pk):
 
 # Should probably try to avoid this too, but it's less evil.
 # Eventually we should move this all to sub-topics only.
+@own_or_teacher_only
 def print_full_journal(request, student_pk):
     student = Student.objects.get(pk=student_pk)
     student_classes = student.classgroups.all()

@@ -1,0 +1,31 @@
+{% extends 'tracker/base-mini.html' %}
+
+{% block content %}
+ <h1>Assessments of {{ student }} for {{ point }}</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            {{ point }}
+                        </h2>
+                        <ul>
+                            {% for assessment in assessments %}
+                                <li><a href="{% url 'tracker:student_sitting_summary' assessment.pk student.pk%}">{{ assessment }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

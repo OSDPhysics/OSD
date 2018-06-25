@@ -41,6 +41,14 @@ class Syllabus(models.Model):
         else:
             return 0
 
+    def studentAverageRating(self, student):
+        marks = Mark.objects.filter(question__exam__syllabus=self).filter(student=student)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
     def classgroup_completion(self, classgroup):
         points = SyllabusPoint.objects.filter(topic__syllabus=self)
         students = Student.objects.filter(classgroups=classgroup)
@@ -48,6 +56,15 @@ class Syllabus(models.Model):
                                                question__syllabuspoint__in=points).distinct().count()
 
         return int(round(entered / points.count() * 100, 0))
+
+    def classgroup_average_rating(self, classgroup):
+        marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(sitting__classgroup=classgroup)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -64,6 +81,38 @@ class SyllabusTopic(models.Model):
                 pcs.append(mark.score / mark.question.maxscore)
         return round(numpy.mean(pcs) * 5, 1)
 
+    def studentCompletion(self, student):
+        possible = SyllabusPoint.objects.filter(topic=self).distinct()
+        with_score = possible.filter(question__mark__student=student)
+
+        if possible.count() > 0:
+            return round(with_score.count() / possible.count() *100)
+        else:
+            return 0
+
+    def studentSubTopicData(self, student):
+        sub_topics = SyllabusSubTopic.objects.filter(topic=self)
+        ratings = []
+        for topic in sub_topics:
+            ratings.append(topic.studentAverageRating(student))
+        return list(zip(sub_topics, ratings))
+
+    def classAverageRating(self, classgroup):
+        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(sitting__classgroup=classgroup)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
+    def classAverageCompletion(self, classgroup):
+        possible = SyllabusPoint.objects.filter(topic=self).distinct()
+        students = classgroup.students()
+        with_score = possible.filter(question__mark__student__in=students)
+        if possible.count() > 0:
+            return round(with_score.count() / possible.count() *100)
+        else:
+            return 0
 
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -76,6 +125,19 @@ class SyllabusSubTopic(models.Model):
         points = SyllabusPoint.objects.filter(sub_topic=self)
         marks = Mark.objects.filter(question__syllabuspoint__in=points, student=student)
         return mark_queryset_to_rating(marks)
+
+    def student_sub_topic_data(self, student):
+
+        syllabus_points = SyllabusPoint.objects.filter(sub_topic=self)
+        ratings = []
+        assessments = []
+        for point in syllabus_points:
+            ratings.append(point.get_student_rating(student))
+
+            assessments.append(Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
+
+        return list(zip(syllabus_points, ratings, assessments))
+
 
 
 class SyllabusPoint(models.Model):
@@ -98,6 +160,11 @@ class SyllabusPoint(models.Model):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
         return mark_queryset_to_rating(marks)
 
+    def student_assesments(self, student):
+        assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
+
+        sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments).distinct
+        return sittings
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
@@ -119,7 +186,7 @@ class Exam(models.Model):
 class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     qnumber = models.CharField(max_length=100)
-    qorder = models.IntegerField()
+    qorder = models.DecimalField(decimal_places=2, max_digits=6)
     syllabuspoint = models.ManyToManyField(SyllabusPoint)
     maxscore = models.IntegerField()
 
@@ -132,6 +199,9 @@ class Sitting(models.Model):
     classgroup = models.ForeignKey(ClassGroup, on_delete=models.CASCADE)
     datesat = models.DateField()
     openForStudentRecording = models.BooleanField()
+
+    def students(self):
+        return Student.objects.filter(classgroups=self.classgroup)
 
     def student_total(self, student):
         total = Mark.objects.filter(sitting=self).filter(student=student).aggregate(Sum('score'))
@@ -158,8 +228,13 @@ class Sitting(models.Model):
         for student in students:
             if self.student_total(student):
                 scores.append(self.student_total(student))
-        score_range = numpy.max(scores) - numpy.min(scores)
-        return score_range
+
+        if len(scores) > 0:
+            score_range = numpy.max(scores) - numpy.min(scores)
+            return score_range
+
+        else:
+            return 0
 
     def class_score_std(self):
         students = Student.objects.filter(classgroups=self.classgroup)
@@ -173,17 +248,20 @@ class Sitting(models.Model):
     def class_topic_performance(self):
         topics = self.exam.topics_tested().all()
 
-        # TODO: THIS DOESN'T WORK! It currently gets their average acorss all assessments
         topic_ratings = []
         for topic in topics:
             questions = Question.objects.filter(syllabuspoint__topic=topic)
-            markset = Mark.objects.filter(question__in=questions)
+            markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
-
 
         topic_data= list(zip(topics,topic_ratings))
 
         return topic_data
+
+    def toggle_open_for_recording(self):
+        # clever trick to switch Bool
+        self.openForStudentRecording = not self.openForStudentRecording
+
 
 class Mark(models.Model):
     # TODO: This should be updated whenever a sitting is modified
@@ -191,7 +269,7 @@ class Mark(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.IntegerField(blank=True, null=True)
     sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
-    notes = RichTextField(null=True, blank=True)
+    notes = RichTextField(null=True, blank=True, config_name='small')
 
     def __str__(self):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(
