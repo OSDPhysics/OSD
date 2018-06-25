@@ -85,6 +85,18 @@ class ClassGroup(models.Model):
 
         return data
 
+    def classgroup_average_rating(self):
+        ratings = []
+        for syllabus in self.syllabustaught.all():
+            ratings.append(syllabus.classgroup_average_rating(self))
+        return round(average(ratings),1)
+
+    def classgroup_average_completion(self):
+        pcs = []
+        for syllabus in self.syllabustaught.all():
+            pcs.append(syllabus.classgroup_completion(self))
+        return round(average(pcs), 1)
+
     def class_topic_all_data(self):
 
         SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')

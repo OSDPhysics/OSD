@@ -57,6 +57,15 @@ class Syllabus(models.Model):
 
         return int(round(entered / points.count() * 100, 0))
 
+    def classgroup_average_rating(self, classgroup):
+        marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(sitting__classgroup=classgroup)
+        pcs = []
+        for mark in marks:
+            if mark.score is not None:
+                pcs.append(mark.score / mark.question.maxscore)
+        return round(numpy.mean(pcs) * 5, 1)
+
+
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
     topic = models.CharField(max_length=100)
