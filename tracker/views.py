@@ -283,6 +283,15 @@ def new_sitting(request, exampk):
 
     return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
 
+
+@teacher_only
+def sitting_toggle_open_for_recording(request, sitting_pk):
+    sitting = Sitting.objects.get(pk=sitting_pk)
+    classgroup = sitting.classgroup
+    sitting.toggle_open_for_recording()
+    return redirect(reverse('school:class_detail', args=[classgroup.pk,]))
+
+
 @own_or_teacher_only
 def input_marks(request, sitting_pk, student_pk):
     # Get the main data we'll need

@@ -258,6 +258,11 @@ class Sitting(models.Model):
 
         return topic_data
 
+    def toggle_open_for_recording(self):
+        # clever trick to switch Bool
+        self.openForStudentRecording = not self.openForStudentRecording
+
+
 class Mark(models.Model):
     # TODO: This should be updated whenever a sitting is modified
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
