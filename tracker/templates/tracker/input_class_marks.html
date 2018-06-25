@@ -1,0 +1,50 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Enter class marks</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Marks for {{ sitting }}
+                        </h2>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Question</td>
+                                {% for student in students %}
+                                <td>{{ student }}</td>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for question, formset in entry_rows %}
+                            <tr>
+                                <td>{{ question }}</td>
+                                {{ formset.management_form }}
+
+                                {% for form in formset %}
+                                    <td>{{ form.score }}</td>
+                                    {% endfor %}
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

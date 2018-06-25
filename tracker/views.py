@@ -364,6 +364,41 @@ def input_marks(request, sitting_pk, student_pk):
                                                             'student': student,
                                                             'formset': formset}, )
 
+@teacher_only
+def input_class_marks(request, sitting_pk):
+    # Get the main data we'll need
+    sitting = Sitting.objects.get(pk=sitting_pk)
+    students = Student.objects.filter(classgroups=sitting.classgroup).order_by('user__last_name', 'user__first_name', 'pk')
+    questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
+
+    # make sure that all the marks exist
+
+    for student in students:
+        for question in questions:
+            Mark.objects.get_or_create(student=student, sitting=sitting, question=question)
+
+    MarkFormset = modelformset_factory(Mark, fields=('score',), extra=0, widgets={
+        'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
+    })
+
+    # marks = Mark.objects.filter(student__in=students, sitting=sitting).order_by('question__qorder')
+    # formset = MarkFormset(queryset=marks)
+
+    # experimental
+
+    formsets = []
+    n = 0
+    for question in questions:
+        marks = Mark.objects.filter(student__in=students, sitting=sitting, question=question).order_by('student__user__last_name', 'student__user__first_name', 'student__pk')
+        formset = MarkFormset(queryset=marks, prefix=n)
+        formsets.append(formset)
+        n = n+1
+
+    entry_rows = list(zip(questions, formsets))
+
+    return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
+                                                              'sitting': sitting,
+                                                              'students': students})
 
 @own_or_teacher_only
 def student_sitting_summary(request, sitting_pk, student_pk):

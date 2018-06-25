@@ -27,6 +27,10 @@ class LessonSlot(models.Model):
     class Meta:
         unique_together = ['day', 'period']
 
+    def __str__(self):
+        return self.day + " P" + str(self.period)
+
+
 
 class TimetabledLesson(models.Model):
     classgroup = models.ForeignKey(ClassGroup, on_delete=models.CASCADE, blank=True, null=True)
@@ -35,12 +39,18 @@ class TimetabledLesson(models.Model):
     class Meta:
         unique_together = ['classgroup', 'lesson_slot']
 
+    def __str__(self):
+        return str(self.classgroup) + " " + str(self.lesson_slot)
+
 
 class Lesson(models.Model):
     date = models.DateField()
     lesson = models.ForeignKey(TimetabledLesson, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, null=True, blank=True)
     syllabus_points_covered = models.ForeignKey(SyllabusPoint, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.lesson) + " " + str(self.date)
 
 
 class LessonResources(models.Model):
