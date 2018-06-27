@@ -388,17 +388,42 @@ def input_class_marks(request, sitting_pk):
 
     formsets = []
     n = 0
-    for question in questions:
-        marks = Mark.objects.filter(student__in=students, sitting=sitting, question=question).order_by('student__user__last_name', 'student__user__first_name', 'student__pk')
-        formset = MarkFormset(queryset=marks, prefix=n)
-        formsets.append(formset)
-        n = n+1
 
-    entry_rows = list(zip(questions, formsets))
+    if request.method == 'GET':
+        for question in questions:
+            marks = Mark.objects.filter(student__in=students, sitting=sitting, question=question).order_by('student__user__last_name', 'student__user__first_name', 'student__pk')
+            formset = MarkFormset(queryset=marks, prefix=n)
+            formsets.append(formset)
+            n = n+1
 
-    return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
-                                                              'sitting': sitting,
-                                                              'students': students})
+        entry_rows = list(zip(questions, formsets))
+
+        return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
+                                                                  'sitting': sitting,
+                                                                  'students': students})
+
+    if request.method == 'POST':
+        n = 0
+        for question in questions:
+            formset = MarkFormset(request.POST, prefix=n)
+            if formset.is_valid():
+                formset.save()
+
+            else:
+                entry_rows = list(zip(questions, formsets))
+                return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
+                                                               'sitting': sitting,
+                                                               'students': students})
+            n = n + 1
+
+
+        entry_rows = list(zip(questions, formsets))
+
+        return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
+                                                                  'sitting': sitting,
+                                                                  'students': students})
+
+
 
 @own_or_teacher_only
 def student_sitting_summary(request, sitting_pk, student_pk):
