@@ -4,7 +4,8 @@ from .secret_beta import *
 DEBUG = True
 
 ALLOWED_HOSTS = ['www.greenpen.net',
-                 'jdjwright.pythonanywhere.com'
+                 'jdjwright.pythonanywhere.com',
+                 'localhost'
 ]
 
 SECURE_SSL_REDIRECT = True
