@@ -32,7 +32,7 @@ urlpatterns = [
     path('accounts/profile/', school_views.accounts_profile, name='accounts_profile'),
     path('teachnet/', include('teachnet.urls', namespace='teachnet')),
     path('journal/', include('journal.urls', namespace='journal')),
-
+    path('timetable/', include('timetable.urls', namespace='timetable')),
 ]
 
 if settings.DEBUG:
