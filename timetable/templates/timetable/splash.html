@@ -13,8 +13,9 @@
                             Timetable for week commencing {{ start_day }}
                         </h2>
                         <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher_pk last_week %}" role="button"><<</a>
-                        <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher_pk next_week %}" role="button">>></a>
-
+                        <div class="btn-group float-right mt-2" role="group">
+                            <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher_pk next_week %}" role="button">>></a>
+                        </div>
                         <table class="table table-bordered">
                             <thead>
                             <tr>

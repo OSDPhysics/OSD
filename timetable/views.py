@@ -49,7 +49,11 @@ def teacher_tt(request, teacher_pk, week_number):
                 lesson, created = Lesson.objects.get_or_create(date=current_date, lesson=lessonslot)
                 edit_string = str("<a href=/admin/timetable/lesson/" + str(lesson.pk) + "/change target='_blank'>" + str(lesson.title) + "</a>")
                 timetabledlesson.append(edit_string)
-                timetabledlesson.append(lesson.requirements)
+                if lesson.description:
+                    timetabledlesson.append(lesson.description)
+
+                if lesson.requirements:
+                    timetabledlesson.append("<b>Order:</b> " + lesson.requirements)
 
 
             currentday.append(timetabledlesson)

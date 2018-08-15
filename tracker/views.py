@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from journal.forms import  StudentJournalEntryLarge
+from journal.forms import StudentJournalEntryLarge
 from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy

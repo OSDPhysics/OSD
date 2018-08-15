@@ -42,6 +42,7 @@ class Syllabus(models.Model):
         else:
             return 0
 
+
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__exam__syllabus=self).filter(student=student)
         pcs = []
@@ -50,6 +51,7 @@ class Syllabus(models.Model):
                 pcs.append(mark.score / mark.question.maxscore)
         return round(numpy.mean(pcs) * 5, 1)
 
+
     def classgroup_completion(self, classgroup):
         points = SyllabusPoint.objects.filter(topic__syllabus=self)
         students = Student.objects.filter(classgroups=classgroup)
@@ -57,6 +59,7 @@ class Syllabus(models.Model):
                                                question__syllabuspoint__in=points).distinct().count()
 
         return int(round(entered / points.count() * 100, 0))
+
 
     def classgroup_average_rating(self, classgroup):
         marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(sitting__classgroup=classgroup)
@@ -69,7 +72,7 @@ class Syllabus(models.Model):
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
-    topic = models.CharField(max_length=100)
+    topic = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.topic
