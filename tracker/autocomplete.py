@@ -21,6 +21,24 @@ class SyllabusPointAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
+class SyllabusPointAutocomplete2(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return SyllabusPoint.objects.none()
+        qs = SyllabusPoint.objects.all()
+        syllabus = self.forwarded.get('syllabus', None)
+
+        if syllabus:
+            qs = qs.filter(topic__syllabus=syllabus)
+
+        if self.q:
+            qs = qs.filter(syllabusText__contains=self.q)
+
+        return qs
+
+
+
 class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -48,3 +66,5 @@ class SyllabusAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(syllabusname__contains=self.q)
 
         return qs
+
+

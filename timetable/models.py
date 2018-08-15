@@ -47,7 +47,10 @@ class Lesson(models.Model):
     date = models.DateField()
     lesson = models.ForeignKey(TimetabledLesson, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, null=True, blank=True)
-    syllabus_points_covered = models.ForeignKey(SyllabusPoint, on_delete=models.SET_NULL, blank=True, null=True)
+    syllabus_points_covered = models.ManyToManyField(SyllabusPoint)
+    title = models.CharField(max_length = 200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    requirements = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return str(self.lesson) + " " + str(self.date)

@@ -10,9 +10,12 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Timetable
+                            Timetable for week commencing {{ start_day }}
                         </h2>
-                        <table class="table-striped">
+                        <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher_pk last_week %}" role="button"><<</a>
+                        <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher_pk next_week %}" role="button">>></a>
+
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <td></td>
@@ -25,8 +28,8 @@
                             <tr>
                                 {% for period in day %}
                                     <td>
-                                        {% if period.classgroup %} {{ period.classgroup }}
-                                        {% else %}{{ period }}{% endif %}
+                                        {% for data in period %}<p>{{ data |safe }}</p>
+                                            {% endfor %}
                                     </td>
                                 {% endfor %}
                             </tr>

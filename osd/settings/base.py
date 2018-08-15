@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'journal',
     'ckeditor',
     'dynamic_formsets',
-    'debug_toolbar'
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,9 @@ CKEDITOR_CONFIGS = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+CALENDAR_START_MONDAY_DAY = 20
+CALENDAR_START_MONTH = 8
+CALENDAR_START_YEAR = 2018
+
+CALENDAR_START_DATE = datetime.date(CALENDAR_START_YEAR, CALENDAR_START_MONTH, CALENDAR_START_MONDAY_DAY)
