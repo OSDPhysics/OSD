@@ -40,7 +40,8 @@ def teacher_tt(request, teacher_pk, week_number):
             timetabledlesson = []
             try:
                 lessonslot = TimetabledLesson.objects.get(classgroup__groupteacher=teacher, lesson_slot=lessonslot)
-                timetabledlesson.append(lessonslot.classgroup)
+                string = str("<a href='/timetable/class/" + str(lessonslot.classgroup.pk)+ "'>" + str(lessonslot.classgroup) + "</a>")
+                timetabledlesson.append(string)
             except TimetabledLesson.DoesNotExist:
                 timetabledlesson.append("FREE")
 
@@ -67,15 +68,17 @@ def teacher_tt(request, teacher_pk, week_number):
                                                      'teacher_pk': teacher_pk})
 
 
-def classgroup_lesson_list(request, classgroup_pk):
-    """Find all lessons for a given class group"""
-
-    classgroup = ClassGroup.objects.get_or_create(pk=classgroup_pk)
-    lessons = Lesson.objects.filter(lesson__classgroup=classgroup).order_by('date')
-
-    return render(request, 'timetable/classgroup_lesson_list.html', {'lessons': lessons})
 
 
 def get_monday_date_from_weekno(week_number):
     start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
     return start_date
+
+
+def class_lesson_list(request, classgroup_pk):
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    lessons = Lesson.objects.filter(lesson__classgroup=classgroup_pk)
+    lessons.order_by("date")
+
+    return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
+                                                                     'lessons': lessons})

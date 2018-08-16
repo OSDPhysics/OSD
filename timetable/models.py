@@ -55,6 +55,9 @@ class Lesson(models.Model):
     def __str__(self):
         return str(self.lesson) + " " + str(self.date)
 
+    def resources(self):
+
+        return LessonResources.objects.filter(lesson=self)
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
