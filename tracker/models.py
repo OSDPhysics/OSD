@@ -58,7 +58,10 @@ class Syllabus(models.Model):
         entered = SyllabusPoint.objects.filter(question__mark__student__in=students,
                                                question__syllabuspoint__in=points).distinct().count()
 
-        return int(round(entered / points.count() * 100, 0))
+        if points.count() > 0:
+            return int(round(entered / points.count() * 100, 0))
+        else:
+            return 0
 
 
     def classgroup_average_rating(self, classgroup):
