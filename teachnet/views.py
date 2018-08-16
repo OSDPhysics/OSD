@@ -78,7 +78,7 @@ def new_objectives(request, teacher_pk):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = ObjectiveForm(request.POST)
-        # check whether it's valid:
+        # check whdiether it's valid:
         if form.is_valid():
             newobjective = form.save(commit=False)  # needed so we can now modify the form data
             newobjective.teacher = teacher  # Set teacher to be saved

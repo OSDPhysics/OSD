@@ -33,10 +33,9 @@
                                     <p><a href="{{ resource.link }}" target='_blank'>{{ resource.resource_type }}</a></p>
                                     {% endfor %}
 
-</td>
-                                <td><a href="#"><i class="fas fa-arrow-right"></i>
+                                <td><a href=""><i class="fas fa-arrow-right"></i>
 
-</a><a href="#"><i class="fas fa-copy"></i>
+                                    </a><a href="{% url 'timetable:copy_lesson' lesson.pk %}"><i class="fas fa-copy"></i>
 
 </a>
                                 </td>

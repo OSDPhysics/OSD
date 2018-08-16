@@ -276,7 +276,7 @@ def new_sitting(request, exampk):
             for student in students:
                 for question in questions:
                     Mark.objects.create(student=student, question=question, sitting=sitting)
-            return redirect(reverse('tracker:sitting_detail', args=[sitting.pk,]))
+            return (reverse('tracker:sitting_detail', args=[sitting.pk,]))
 
         else:
             return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})

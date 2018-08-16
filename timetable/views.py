@@ -3,6 +3,7 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
+from .forms import *
 import datetime
 
 # Create your views here.
@@ -82,3 +83,39 @@ def class_lesson_list(request, classgroup_pk):
 
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
+
+
+def copy_lesson(request, lesson_pk):
+    source_lesson = Lesson.objects.get(pk=lesson_pk)
+    moveForm = LessonCopyForm()
+
+    if request.method == 'POST':
+        moveForm = LessonCopyForm(request.POST)
+        if moveForm.is_valid():
+
+            target_lesson = Lesson.objects.get(pk=moveForm.cleaned_data['lesson_to_copy_to'])
+            if target_lesson.title:
+                # The lesson has already been written, so we need to move it first
+                return
+            else:
+                target_lesson.title = source_lesson.title
+                target_lesson.requirements = source_lesson.requirements
+                target_lesson.description = source_lesson.description
+                target_lesson.syllabus_points_covered = source_lesson.syllabus_points_covered
+                target_lesson.save()
+                # Now copy the resources
+                for resource in target_lesson.resources():
+                    new_resource = LessonResources.objects.create(lesson=target_lesson,
+                                                   resource_type=resource.resource_type,
+                                                   link=resource.link,
+                                                   students_can_view_after=resource.students_can_view_after,
+                                                   students_can_view_before=resource.students_can_view_before)
+                    new_resource.save()
+
+            return redirect(reverse('timetable:class_lesson_list', args=[target_lesson.pk,]))
+
+        else:
+            return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
+
+    else:
+        return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
