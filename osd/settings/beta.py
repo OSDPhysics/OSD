@@ -5,7 +5,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['www.greenpen.net',
                  'jdjwright.pythonanywhere.com',
-                 'localhost'
+                 'localhost',
+                 'beta.greenpen.net'
 ]
 
 SECURE_SSL_REDIRECT = True
