@@ -3,7 +3,8 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
-from .forms import *
+from timetable.forms import LessonCopyForm
+
 import datetime
 
 # Create your views here.
@@ -47,8 +48,14 @@ def teacher_tt(request, teacher_pk, week_number):
                 timetabledlesson.append("FREE")
 
             if timetabledlesson[0] is not 'FREE':
+                # Find the sequence number:
+                total_lessons = lessonslot.total_lessons()
+                lessons_before_this_week = total_lessons * week_number
 
-                lesson, created = Lesson.objects.get_or_create(date=current_date, lesson=lessonslot)
+                lesson_number = lessons_before_this_week + lessonslot.order()
+
+
+                lesson, created = Lesson.objects.get_or_create(lesson=lessonslot, sequence=lesson_number)
                 edit_string = str("<a href=/admin/timetable/lesson/" + str(lesson.pk) + "/change target='_blank'>" + str(lesson.title) + "</a>")
                 timetabledlesson.append(edit_string)
                 if lesson.description:
@@ -119,3 +126,13 @@ def copy_lesson(request, lesson_pk):
 
     else:
         return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
+
+
+def get_lesson_from_date(classgroup, date):
+    # get the lessons
+
+    lesson_slots = TimetabledLesson.objects.filter(classgroup=classgroup)
+
+    # find the sequence number from the date
+
+    lessons_per_week = lesson_slots[0].total_lessons()
