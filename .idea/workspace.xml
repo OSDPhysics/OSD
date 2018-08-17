@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/OSD.iml" afterPath="$PROJECT_DIR$/.idea/OSD.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/osd/settings/beta.py" afterPath="$PROJECT_DIR$/osd/settings/beta.py" />
-      <change beforePath="$PROJECT_DIR$/osd/urls.py" afterPath="$PROJECT_DIR$/osd/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,8 +71,8 @@
           <file leaf-file-name="beta.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/osd/settings/beta.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+                <state relative-caret-position="225">
+                  <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -734,13 +731,6 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
     </task>
-    <task id="LOCAL-00016" summary="Adding test scores is now fully supported. &#10;TODO: Define workflow for students and teachers during normal test proceedure.">
-      <created>1526546301031</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1526546301040</updated>
-    </task>
     <task id="LOCAL-00017" summary="Started on student and teacher workflow">
       <created>1526552388808</created>
       <option name="number" value="00017" />
@@ -1077,7 +1067,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530236726871</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Added new server address">
+      <created>1534473068596</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1534473068597</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1190,7 +1187,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed to decimal point for ratings" />
     <MESSAGE value="Added a topic summary table to student outcomes from tests." />
     <MESSAGE value="Set to force SSL" />
     <MESSAGE value="Changed default splash page" />
@@ -1215,7 +1211,8 @@
     <MESSAGE value="Can now get topic means for a class exam sitting." />
     <MESSAGE value="student_completion method of Syllabus model now reports how much of the course a student has entered marks for (not just has done an assessment on)." />
     <MESSAGE value="Added a timetable module and a way to input whole-class marks at once." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a timetable module and a way to input whole-class marks at once." />
+    <MESSAGE value="Added new server address" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new server address" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1665,8 +1662,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/osd/settings/beta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="225">
+          <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

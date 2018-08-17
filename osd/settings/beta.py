@@ -9,7 +9,7 @@ ALLOWED_HOSTS = ['www.greenpen.net',
                  'beta.greenpen.net'
 ]
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 
 STATIC_URL = '/static/'
