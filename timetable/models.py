@@ -31,7 +31,6 @@ class LessonSlot(models.Model):
         return self.day + " P" + str(self.period)
 
 
-
 class TimetabledLesson(models.Model):
     classgroup = models.ForeignKey(ClassGroup, on_delete=models.CASCADE, blank=True, null=True)
     lesson_slot = models.ForeignKey(LessonSlot, on_delete=models.CASCADE, blank=True, null=True)
@@ -51,6 +50,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length = 200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
+    sequence = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return str(self.lesson) + " " + str(self.date)
