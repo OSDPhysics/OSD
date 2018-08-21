@@ -1,7 +1,8 @@
 from django.db import models
 from school.models import ClassGroup, Teacher
-from tracker.models import SyllabusPoint
+from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE
+from django.db.models import Q
 
 import datetime
 
@@ -73,7 +74,6 @@ class TimetabledLesson(models.Model):
 
     def order(self):
         all_instances = TimetabledLesson.objects.filter(classgroup=self.classgroup)
-        all_instances = all_instances.order_by('sequence')
         return list(all_instances).index(self) + 1
 
 
@@ -85,6 +85,8 @@ class Lesson(models.Model):
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
     sequence = models.IntegerField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return str(self.lesson) + " lesson " + str(self.sequence)
@@ -93,7 +95,16 @@ class Lesson(models.Model):
 
         return LessonResources.objects.filter(lesson=self)
 
-    def date(self):
+    def set_date(self):
+
+        """ A slightly complicated method, which must set the date for the current lesson.
+
+        In order for this to work, we will have to iterate over *every* lesson for the classgroup.
+        This is so that we can check for any lesson suspensions. """
+
+        all_lessons = Lesson.objects.filter(lesson__classgroup=self.lesson.classgroup)
+
+        # Lesson slots where these appear.
         slots = TimetabledLesson.objects.filter(classgroup=self.lesson.classgroup)
 
         # Find the first day of term:
@@ -102,24 +113,46 @@ class Lesson(models.Model):
         # Find total lessons per week
         lessons_per_week = int(TimetabledLesson.objects.filter(classgroup=self.lesson.classgroup).count())
 
+        # we'll use *week* to track each week we're looking at.
 
+        week = 0
 
-        # Find which of this weeks lessons we're dealing with
-        lesson_of_week = int(self.sequence % lessons_per_week)
+        for lesson in all_lessons:
 
-        days_taught = []
-        for slot in slots:
-            days_taught.append(slot.lesson_slot.dow())
+            # Find which of this weeks lessons we're dealing with
+            lesson_of_week = int(lesson.sequence % lessons_per_week)
 
-        # Find lesson of the week
+            days_taught = []
+            for slot in slots:
+                days_taught.append(slot.lesson_slot.dow())
 
-        day_taught = days_taught[lessons_per_week % self.sequence]
+            # Find lesson of the week
 
-        # Find in which week it appears
-        weekno = self.sequence // lessons_per_week
-        date = start_date + datetime.timedelta(weeks=weekno) + datetime.timedelta(days=day_taught)
+            day_taught = days_taught[lessons_per_week % self.sequence]
 
-        return date
+            # Find in which week it should appear
+            weekno = week
+            date = start_date + datetime.timedelta(weeks=weekno) + datetime.timedelta(days=day_taught)
+
+            # check if the date is a suspension day:
+
+            suspensions = LessonSuspension.objects.filter(Q(whole_school=True)|Q(classgroups=lesson.lesson.classgroup))
+
+            for suspension in suspensions: # Check for a suspension
+                if date == suspension.date and suspension.all_day is True:
+                    continue
+
+                elif date == suspension.date and suspension.period == lesson.lesson.lesson_slot.period:
+                    continue
+
+                else: # lesson isn't suspended, so save it.
+                    lesson.date = date
+                    lesson.save() # TODO: Add a kwarg to disable the self.set_date in the overriden save() method to prevent infinite recurision.
+
+    def save(self, *args, **kwargs):
+        """Make sure we set all dates correctly. """
+        self.set_date()
+        super(Lesson, self).save(*args, **kwargs)
 
 
 class LessonResources(models.Model):
@@ -128,3 +161,21 @@ class LessonResources(models.Model):
     link = models.URLField(blank=True, null=True)
     students_can_view_before = models.BooleanField()
     students_can_view_after = models.BooleanField()
+
+
+class LessonSuspension(models.Model):
+    """Store suspensions and missing lessons"""
+    whole_school = models.BooleanField(default=True)
+    date = models.DateField(blank=False, null=False)
+    reason = models.CharField(max_length=200, blank=False, null=True)
+    classgroups = models.ManyToManyField(ClassGroup, blank=True, null=True)
+    all_day = models.BooleanField(default=False)
+    period = models.IntegerField(choices=PERIODS, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        """When we save, we need to update the dates of all affected lessons. """
+
+        affected_lessons = Lesson.objects.filter(date=self.date)
+        for lesson in affected_lessons:
+            lesson.set_date()
+        super(LessonSuspension, self).save(*args, **kwargs)
