@@ -10,18 +10,19 @@ import datetime
 
 DAYS = (
     ('Monday', 'Monday'),
-    ('Tuesday','Tuesday'),
+    ('Tuesday', 'Tuesday'),
     ('Wednesday', 'Wednesday'),
     ('Thursday', 'Thursday'),
     ('Friday', 'Friday'),
-        )
+)
 
 PERIODS = (
-    (1,1),
-    (2,2),
-    (3,3),
-    (4,4),
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
 )
+
 
 def get_monday_date_from_weekno(week_number):
     start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
@@ -55,6 +56,7 @@ class LessonSlot(models.Model):
         """Return the TimetabledLesson assosciated with a teacher"""
         lesson = TimetabledLesson.objects.get(lesson_slot=self, classgroup__groupteacher=teacher)
 
+
 class TimetabledLesson(models.Model):
     classgroup = models.ForeignKey(ClassGroup, on_delete=models.CASCADE, blank=True, null=True)
     lesson_slot = models.ForeignKey(LessonSlot, on_delete=models.CASCADE, blank=True, null=True)
@@ -81,7 +83,7 @@ class Lesson(models.Model):
     lesson = models.ForeignKey(TimetabledLesson, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, null=True, blank=True)
     syllabus_points_covered = models.ManyToManyField(SyllabusPoint)
-    title = models.CharField(max_length = 200, null=True, blank=True)
+    lesson_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
     sequence = models.IntegerField(null=True, blank=True)
@@ -116,43 +118,69 @@ class Lesson(models.Model):
         # we'll use *week* to track each week we're looking at.
 
         week = 0
+        lesson_of_week = 0
+
+        def next_lesson(week, lesson_of_week):
+            if lesson_of_week == (lessons_per_week - 1): # We just did the last lesson of the week
+                week = week + 1
+                lesson_of_week = 0
+
+            else:
+                lesson_of_week = lesson_of_week + 1
+
+            return week, lesson_of_week
+
 
         for lesson in all_lessons:
 
-            # Find which of this weeks lessons we're dealing with
-            lesson_of_week = int(lesson.sequence % lessons_per_week)
 
             days_taught = []
             for slot in slots:
                 days_taught.append(slot.lesson_slot.dow())
 
-            # Find lesson of the week
 
-            day_taught = days_taught[lessons_per_week % self.sequence]
 
-            # Find in which week it should appear
-            weekno = week
-            date = start_date + datetime.timedelta(weeks=weekno) + datetime.timedelta(days=day_taught)
+
 
             # check if the date is a suspension day:
 
-            suspensions = LessonSuspension.objects.filter(Q(whole_school=True)|Q(classgroups=lesson.lesson.classgroup))
+            suspensions = LessonSuspension.objects.filter(
+                Q(whole_school=True) | Q(classgroups=lesson.lesson.classgroup))
 
-            for suspension in suspensions: # Check for a suspension
-                if date == suspension.date and suspension.all_day is True:
-                    continue
+            date_set = False # Used to check whether we've set the date yet
 
-                elif date == suspension.date and suspension.period == lesson.lesson.lesson_slot.period:
-                    continue
+            while not date_set:
+                # Find day of the week, with monday = 0
 
-                else: # lesson isn't suspended, so save it.
-                    lesson.date = date
-                    lesson.save() # TODO: Add a kwarg to disable the self.set_date in the overriden save() method to prevent infinite recurision.
+                day_taught = days_taught[lesson_of_week]
+                date = start_date + datetime.timedelta(weeks=week) + datetime.timedelta(days=day_taught)
+                for suspension in suspensions:  # Check for a suspension
+                    if date == suspension.date and suspension.all_day is True:
+                        week, lesson_of_week = next_lesson(week, lesson_of_week)
+                        break
 
-    def save(self, *args, **kwargs):
+                    elif date == suspension.date and suspension.period == lesson.lesson.lesson_slot.period:
+                        week, lesson_of_week = next_lesson(week, lesson_of_week)
+                        break
+
+                    else:  # lesson isn't suspended, so save it.
+                        lesson.date = date
+                        lesson.save(date=date)
+                        week, lesson_of_week = next_lesson(week, lesson_of_week)
+                        date_set = True
+
+    def save(self, date=False, *args, **kwargs):
         """Make sure we set all dates correctly. """
-        self.set_date()
-        super(Lesson, self).save(*args, **kwargs)
+        if not date:
+            self.set_date()
+
+        else:
+
+            self.date = date
+
+            super(Lesson, self).save(*args, **kwargs)
+
+        return self
 
 
 class LessonResources(models.Model):

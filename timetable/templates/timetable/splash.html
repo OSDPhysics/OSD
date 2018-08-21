@@ -29,8 +29,11 @@
                             <tr>
                                 {% for period in day %}
                                     <td>
-                                        {% for data in period %}<p>{{ data |safe }}</p>
-                                            {% endfor %}
+
+
+                                    <strong>{{ period.lesson_title }}</strong><br>
+                                    {{ period.description }}<b></b>
+                                    Orders: {{ period.requirements }}
                                     </td>
                                 {% endfor %}
                             </tr>

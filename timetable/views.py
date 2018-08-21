@@ -34,39 +34,43 @@ def teacher_tt(request, teacher_pk, week_number):
     current_date = start_date
     weekgrid = []
     for day in DAYS:
-        currentday = [day[0]]
+
+        # Check if the day is suspended.
+        suspensions = LessonSuspension.objects.filter(date=current_date)
+        check = suspensions.exists
+        if suspensions.exists():
+            # There is at least one suspension on this day
+            if suspensions.filter(whole_school=True).exists():
+                if suspensions.filter(all_day=True).exists():
+                    weekgrid.append([day[0],"Suspended", "Suspended", "Suspended", "Suspended"])
+                    current_date = current_date + datetime.timedelta(days=1)
+                    continue
+
+        dayrow = [day[0]]
+
         for period in PERIODS:
-            day = currentday[0] # TODO: clean up this ugly hack
-            period = int(period[0])
-            lessonslot = LessonSlot.objects.get(day=day, period=period)
-            timetabledlesson = []
+            # Check if that period is whole-school suspended:
+            check = suspensions.filter(period=period[0]).filter(whole_school=True).exists()
+            if check:
+                dayrow.append("Suspended")
+                current_date = current_date + datetime.timedelta(days=1)
+                continue
+
             try:
-                lessonslot = TimetabledLesson.objects.get(classgroup__groupteacher=teacher, lesson_slot=lessonslot)
-                string = str("<a href='/timetable/class/" + str(lessonslot.classgroup.pk)+ "'>" + str(lessonslot.classgroup) + "</a>")
-                timetabledlesson.append(string)
+                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0], classgroup__groupteacher=teacher, lesson_slot__period=period[0])
             except TimetabledLesson.DoesNotExist:
-                timetabledlesson.append("FREE")
+                dayrow.append("Free")
+                timetabled_lesson = "Free"
 
-            if timetabledlesson[0] is not 'FREE':
-                # Find the sequence number:
-                total_lessons = lessonslot.total_lessons()
-                lessons_before_this_week = total_lessons * week_number
+            if timetabled_lesson != "Free":
 
-                lesson_number = lessons_before_this_week + lessonslot.order()
+                if suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup).exists():
+                    dayrow.append("Suspended")
+                    continue
 
-
-                lesson, created = Lesson.objects.get_or_create(lesson=lessonslot, sequence=lesson_number)
-                edit_string = str("<a href=/admin/timetable/lesson/" + str(lesson.pk) + "/change target='_blank'>" + str(lesson.title) + "</a>")
-                timetabledlesson.append(edit_string)
-                if lesson.description:
-                    timetabledlesson.append(lesson.description)
-
-                if lesson.requirements:
-                    timetabledlesson.append("<b>Order:</b> " + lesson.requirements)
-
-
-            currentday.append(timetabledlesson)
-        weekgrid.append(currentday)
+                lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
+                dayrow.append(lesson)
+        weekgrid.append(dayrow)
         current_date = current_date + datetime.timedelta(days=1)
 
     return render(request, 'timetable/splash.html', {'weekgrid': weekgrid,
