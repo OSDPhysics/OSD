@@ -4,6 +4,7 @@ from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
 from timetable.forms import LessonCopyForm
+from .functions import generate_week_grid, get_monday_date_from_weekno
 
 import datetime
 
@@ -31,60 +32,16 @@ def teacher_tt(request, teacher_pk, week_number):
     else:
         last_week = 0
 
-    current_date = start_date
-    weekgrid = []
-    for day in DAYS:
-
-        # Check if the day is suspended.
-        suspensions = LessonSuspension.objects.filter(date=current_date)
-        check = suspensions.exists
-        if suspensions.exists():
-            # There is at least one suspension on this day
-            if suspensions.filter(whole_school=True).exists():
-                if suspensions.filter(all_day=True).exists():
-                    weekgrid.append([day[0],"Suspended", "Suspended", "Suspended", "Suspended"])
-                    current_date = current_date + datetime.timedelta(days=1)
-                    continue
-
-        dayrow = [day[0]]
-
-        for period in PERIODS:
-            # Check if that period is whole-school suspended:
-            check = suspensions.filter(period=period[0]).filter(whole_school=True).exists()
-            if check:
-                dayrow.append("Suspended")
-                current_date = current_date + datetime.timedelta(days=1)
-                continue
-
-            try:
-                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0], classgroup__groupteacher=teacher, lesson_slot__period=period[0])
-            except TimetabledLesson.DoesNotExist:
-                dayrow.append("Free")
-                timetabled_lesson = "Free"
-
-            if timetabled_lesson != "Free":
-
-                if suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup).exists():
-                    dayrow.append("Suspended")
-                    continue
-
-                lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
-                dayrow.append(lesson)
-        weekgrid.append(dayrow)
-        current_date = current_date + datetime.timedelta(days=1)
+    weekgrid = generate_week_grid(teacher, week_number)
 
     return render(request, 'timetable/splash.html', {'weekgrid': weekgrid,
                                                      'start_day': start_date,
                                                      'next_week': next_week,
                                                      'last_week': last_week,
-                                                     'teacher_pk': teacher_pk})
+                                                     'teacher': teacher})
 
 
 
-
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
-    return start_date
 
 
 def class_lesson_list(request, classgroup_pk):

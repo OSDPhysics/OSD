@@ -10,11 +10,11 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Timetable for week commencing {{ start_day }}
+                            Timetable for {{ teacher }} week commencing {{ start_day }}
                         </h2>
-                        <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher_pk last_week %}" role="button"><<</a>
+                        <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher.pk last_week %}" role="button"><<</a>
                         <div class="btn-group float-right mt-2" role="group">
-                            <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher_pk next_week %}" role="button">>></a>
+                            <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher.pk next_week %}" role="button">>></a>
                         </div>
                         <table class="table table-bordered">
                             <thead>
@@ -28,12 +28,36 @@
                             {% for day in weekgrid %}
                             <tr>
                                 {% for period in day %}
-                                    <td>
+                                    <td
+
+                                    {# display the day number first #}
+                                        {% if forloop.first %}
+                                        >{{ period }}
+
+                                        {# Check if it's a free #}
+
+                                        {% elif period == "Free" %}
+                                        class="table-success">Free
+
+                                        {# Only the suspension type has a reason #}
+                                        {% elif period.reason %}
+                                        class="table-danger">{{ period.reason }}
+
+                                        {# Only the lesson type has a lesson associated #}
+                                        {% elif period.lesson %}
+                                        >
+                                          <a href="{% url 'timetable:class_lesson_list' period.lesson.classgroup.pk %}">{{ period.lesson.classgroup }}</a><br>
+                                            <strong><a href="/admin/timetable/lesson/{{ period.pk }}/change/">{{ period.lesson_title }}</a></strong><br>
+                                            {{ period.description }}<br>
+                                            {% if period.requirements %}
+                                            <strong>Order: {{ period.requirements }}</strong>
+                                            {% endif %}
 
 
-                                    <strong>{{ period.lesson_title }}</strong><br>
-                                    {{ period.description }}<b></b>
-                                    Orders: {{ period.requirements }}
+
+                                        {% endif %}
+
+
                                     </td>
                                 {% endfor %}
                             </tr>
