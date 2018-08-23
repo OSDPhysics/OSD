@@ -30,7 +30,7 @@ class SyllabusPointAutocomplete2(autocomplete.Select2QuerySetView):
         syllabus = self.forwarded.get('syllabus', None)
 
         if syllabus:
-            qs = qs.filter(topic__syllabus=syllabus)
+            qs = qs.filter(topic__syllabus__pk=syllabus)
 
         if self.q:
             qs = qs.filter(syllabusText__contains=self.q)

@@ -3,10 +3,6 @@ from .models import *
 from tracker.forms import SetQuestions
 # Register your models here.
 
-
-
-
-
 class QuestionAdmin(admin.ModelAdmin):
     form = SetQuestions
 
