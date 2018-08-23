@@ -104,7 +104,7 @@ class Lesson(models.Model):
         In order for this to work, we will have to iterate over *every* lesson for the classgroup.
         This is so that we can check for any lesson suspensions. """
 
-        all_lessons = Lesson.objects.filter(lesson__classgroup=self.lesson.classgroup)
+        all_lessons = Lesson.objects.filter(lesson__classgroup=self.lesson.classgroup).order_by('sequence')
 
         # Lesson slots where these appear.
         slots = TimetabledLesson.objects.filter(classgroup=self.lesson.classgroup)
@@ -121,7 +121,7 @@ class Lesson(models.Model):
         lesson_of_week = 0
 
         def next_lesson(week, lesson_of_week):
-            if lesson_of_week == (lessons_per_week - 1): # We just did the last lesson of the week
+            if lesson_of_week == (lessons_per_week - 1):  # We just did the last lesson of the week
                 week = week + 1
                 lesson_of_week = 0
 
@@ -130,24 +130,18 @@ class Lesson(models.Model):
 
             return week, lesson_of_week
 
-
         for lesson in all_lessons:
-
 
             days_taught = []
             for slot in slots:
                 days_taught.append(slot.lesson_slot.dow())
-
-
-
-
 
             # check if the date is a suspension day:
 
             suspensions = LessonSuspension.objects.filter(
                 Q(whole_school=True) | Q(classgroups=lesson.lesson.classgroup))
 
-            date_set = False # Used to check whether we've set the date yet
+            date_set = False  # Used to check whether we've set the date yet
 
             while not date_set:
                 # Find day of the week, with monday = 0
@@ -165,18 +159,20 @@ class Lesson(models.Model):
 
                     else:  # lesson isn't suspended, so save it.
                         lesson.date = date
-                        lesson.save(date=date)
+
+                        lesson.save(date_to_set=date)
                         week, lesson_of_week = next_lesson(week, lesson_of_week)
                         date_set = True
 
-    def save(self, date=False, *args, **kwargs):
+    def save(self, date_to_set=False, *args, **kwargs):
         """Make sure we set all dates correctly. """
-        if not date:
+        if not date_to_set:
+            super(Lesson, self).save(*args, **kwargs)
             self.set_date()
 
         else:
 
-            self.date = date
+            self.date = date_to_set
 
             super(Lesson, self).save(*args, **kwargs)
 
