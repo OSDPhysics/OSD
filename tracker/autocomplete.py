@@ -39,7 +39,6 @@ class SyllabusPointAutocomplete2(autocomplete.Select2QuerySetView):
         return qs
 
 
-
 class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !

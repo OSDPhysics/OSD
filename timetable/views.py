@@ -41,9 +41,6 @@ def teacher_tt(request, teacher_pk, week_number):
                                                      'teacher': teacher})
 
 
-
-
-
 def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     lessons = Lesson.objects.filter(lesson__classgroup=classgroup_pk)
