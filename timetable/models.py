@@ -25,6 +25,15 @@ PERIODS = (
     (4, 4),
 )
 
+RESOURCE_TYPES = (
+    ('Presentation', 'Presentation'),
+    ('Worksheet', 'Worksheet'),
+    ('Test', 'Test'),
+    ('Mark Scheme', 'Mark Scheme'),
+    ('Web Page', 'Web Page'),
+
+)
+
 
 def get_monday_date_from_weekno(week_number):
     start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
@@ -188,10 +197,30 @@ class Lesson(models.Model):
 
         return self
 
+    def lesson_resource_icons(self):
+        icons = []
+        resources = LessonResources.objects.filter(lesson=self)
+        for resource in resources:
+            if resource.resource_type == "Presentation":
+                string = "<a href=" + str(resource.link)
+                string = string + 'data-toggle="tooltip" data-placement="top" title="'
+                string = string + (str(resource.resource_name))
+                string = string + '">'
+                string = string + "<i class='fas fa-desktop'></i></a>"
+            else:
+                string = "<a href=" + str(resource.link)
+                string = string + 'data-toggle="tooltip" data-placement="top" title="'
+                string = string + (str(resource.resource_name))
+                string = string + '">'
+                string = string + '<i class="far fa-question-circle"></i>'
+            icons.append(string)
+
+        return icons
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    resource_type = models.CharField(max_length=100)
+    resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
+    resource_name = models.CharField(max_length=100, null=True, blank=False)
     link = models.URLField(blank=True, null=True)
     students_can_view_before = models.BooleanField()
     students_can_view_after = models.BooleanField()

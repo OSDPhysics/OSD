@@ -62,8 +62,12 @@ def generate_week_grid(teacher, week_number):
                 else:
                     lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
                     dayrow.append(lesson)
+
         weekgrid.append(dayrow)
         current_date = current_date + datetime.timedelta(days=1)
 
 
     return weekgrid
+
+
+

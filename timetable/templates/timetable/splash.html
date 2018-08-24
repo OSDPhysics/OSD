@@ -50,7 +50,10 @@
                                             <strong><a href="/admin/timetable/lesson/{{ period.pk }}/change/">{{ period.lesson_title }}</a></strong><br>
                                             {{ period.description }}<br>
                                             {% if period.requirements %}
-                                            <strong>Order: {{ period.requirements }}</strong>
+                                            <strong>Order:</strong> {{ period.requirements }}
+                                                {% for resource in period.lesson_resource_icons %}
+                                                {{ resource|safe }}
+                                                {% endfor %}
                                             {% endif %}
 
 
@@ -75,5 +78,9 @@
 {% endblock content %}
 
 {% block script %}
-
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock script %}
