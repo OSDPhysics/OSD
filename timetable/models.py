@@ -3,6 +3,8 @@ from school.models import ClassGroup, Teacher
 from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE
 from django.db.models import Q
+from django.db.models import Max
+
 
 import datetime
 
@@ -163,10 +165,18 @@ class Lesson(models.Model):
                         lesson.save(date_to_set=date)
                         week, lesson_of_week = next_lesson(week, lesson_of_week)
                         date_set = True
+                        break
 
     def save(self, date_to_set=False, *args, **kwargs):
         """Make sure we set all dates correctly. """
         if not date_to_set:
+
+            if self.sequence is None:
+                # Need to set a sequence number, otherwise the date will always be wrong
+                classgroup = self.lesson.classgroup
+                highest_sequence = Lesson.objects.filter(lesson__classgroup=classgroup).aggregate(Max('sequence'))
+                self.sequence = highest_sequence['sequence__max'] + 1
+
             super(Lesson, self).save(*args, **kwargs)
             self.set_date()
 
