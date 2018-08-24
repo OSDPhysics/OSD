@@ -16,6 +16,7 @@
                             <thead>
                             <tr>
                                 <td>Date</td>
+                                <td>Lesson number</td>
                                 <td>Lesson title</td>
                                 <td>Description</td>
                                 <td>Requirements</td>
@@ -26,6 +27,7 @@
                             {% for lesson in lessons %}
                                 <tr>
                                 <td>{{ lesson.date }}</td>
+                                <td>{{ lesson.sequence }}</td>
                                     <td><a href="/admin/timetable/lesson/{{ lesson.pk }}/change">{{ lesson.lesson_title }}</a></td>
                                 <td>{{ lesson.description }}</td>
                                 <td>{{ lesson.requirements }}</td>

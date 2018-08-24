@@ -43,7 +43,7 @@ def teacher_tt(request, teacher_pk, week_number):
 
 def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
-    lessons = Lesson.objects.filter(lesson__classgroup=classgroup_pk)
+    lessons = Lesson.objects.filter(lesson__classgroup=classgroup_pk).order_by('date')
     lessons.order_by("sequence")
 
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,

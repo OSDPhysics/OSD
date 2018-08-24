@@ -1,4 +1,5 @@
 from timetable.models import *
+from django.db.models import Max
 import datetime
 
 
@@ -58,9 +59,18 @@ def generate_week_grid(teacher, week_number):
                     dayrow.append(check)
                     continue
 
-                lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
-                dayrow.append(lesson)
+                else:
+                    lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
+                    if created:
+
+                        # Need to set a sequence number, otherwise the date will always be wrong
+                        classgroup = lesson.lesson.classgroup
+                        highest_sequence = Lesson.objects.filter(lesson__classgroup=classgroup).aggregate(Max('sequence'))
+                        lesson.sequence = highest_sequence['sequence__max'] + 1
+                        lesson.save()
+                    dayrow.append(lesson)
         weekgrid.append(dayrow)
         current_date = current_date + datetime.timedelta(days=1)
+
 
     return weekgrid
