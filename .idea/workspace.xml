@@ -67,8 +67,8 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+            <state relative-caret-position="381">
+              <caret line="50" column="72" lean-forward="true" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -526,13 +526,6 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
     </task>
-    <task id="LOCAL-00033" summary="Added a topic summary table to student outcomes from tests.">
-      <created>1526954348946</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1526954348946</updated>
-    </task>
     <task id="LOCAL-00034" summary="Set to force SSL">
       <created>1526984004014</created>
       <option name="number" value="00034" />
@@ -869,7 +862,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535096214789</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Changed URL for Google jquery to use https instead of http.">
+      <created>1535341653845</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1535341653845</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TodoView">
@@ -982,7 +982,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit this branch to PRODUCTION to add new LEARNINGJOURNAL" />
     <MESSAGE value="Set up journal" />
     <MESSAGE value="Enabled ability to see details of student percentage scores" />
     <MESSAGE value="Bugfix" />
@@ -1007,7 +1006,8 @@
     <MESSAGE value="Template fix" />
     <MESSAGE value="First attempt at a beta site" />
     <MESSAGE value="Bugfixes for setting lesson dates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bugfixes for setting lesson dates" />
+    <MESSAGE value="Changed URL for Google jquery to use https instead of http." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed URL for Google jquery to use https instead of http." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1339,6 +1339,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="41" column="36" lean-forward="false" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1467,8 +1468,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state relative-caret-position="381">
+          <caret line="50" column="72" lean-forward="true" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
           <folding />
         </state>
       </provider>
