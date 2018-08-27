@@ -207,6 +207,28 @@ class Lesson(models.Model):
                 string = string + (str(resource.resource_name))
                 string = string + '">'
                 string = string + "<i class='fas fa-desktop'></i></a>"
+
+            elif resource.resource_type == "Web Page":
+                string = "<a href=" + str(resource.link)
+                string = string + 'data-toggle="tooltip" data-placement="top" title="'
+                string = string + (str(resource.resource_name))
+                string = string + '">'
+                string = string + '<i class="fas fa-tablet-alt"></i>'
+
+            elif resource.resource_type == "Worksheet":
+                string = "<a href=" + str(resource.link)
+                string = string + 'data-toggle="tooltip" data-placement="top" title="'
+                string = string + (str(resource.resource_name))
+                string = string + '">'
+                string = string + '<i class="far fa-newspaper"></i>'
+
+            elif resource.resource_type == "Test":
+                string = "<a href=" + str(resource.link)
+                string = string + 'data-toggle="tooltip" data-placement="top" title="'
+                string = string + (str(resource.resource_name))
+                string = string + '">'
+                string = string + '<i class="fas fa-pencil-ruler"></i>'
+
             else:
                 string = "<a href=" + str(resource.link)
                 string = string + 'data-toggle="tooltip" data-placement="top" title="'

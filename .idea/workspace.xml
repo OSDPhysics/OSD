@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/base.html" afterPath="$PROJECT_DIR$/tracker/templates/tracker/base.html" />
+      <change beforePath="$PROJECT_DIR$/timetable/models.py" afterPath="$PROJECT_DIR$/timetable/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,21 +54,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timetable/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3150">
-              <caret line="218" column="0" lean-forward="false" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="229" column="71" lean-forward="true" selection-start-line="229" selection-start-column="71" selection-end-line="229" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="50" column="72" lean-forward="true" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+            <state relative-caret-position="-303">
+              <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -133,8 +133,8 @@
       <file leaf-file-name="splash.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="82" column="25" lean-forward="false" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
+            <state relative-caret-position="327">
+              <caret line="54" column="67" lean-forward="true" selection-start-line="54" selection-start-column="67" selection-end-line="54" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -143,8 +143,8 @@
       <file leaf-file-name="classgroup_lesson_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+            <state relative-caret-position="362">
+              <caret line="44" column="10" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -267,9 +267,9 @@
         <option value="$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html" />
         <option value="$PROJECT_DIR$/timetable/views.py" />
         <option value="$PROJECT_DIR$/timetable/functions.py" />
-        <option value="$PROJECT_DIR$/timetable/models.py" />
         <option value="$PROJECT_DIR$/timetable/templates/timetable/splash.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/base.html" />
+        <option value="$PROJECT_DIR$/timetable/models.py" />
       </list>
     </option>
   </component>
@@ -525,13 +525,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Set to force SSL">
-      <created>1526984004014</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1526984004014</updated>
     </task>
     <task id="LOCAL-00035" summary="Changed default splash page">
       <created>1526984164442</created>
@@ -869,7 +862,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535341653845</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Reworked some nav links">
+      <created>1535361939519</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1535361939519</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TodoView">
@@ -982,7 +982,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set up journal" />
     <MESSAGE value="Enabled ability to see details of student percentage scores" />
     <MESSAGE value="Bugfix" />
     <MESSAGE value="Bugfix for incorrect url forwarding." />
@@ -1007,7 +1006,8 @@
     <MESSAGE value="First attempt at a beta site" />
     <MESSAGE value="Bugfixes for setting lesson dates" />
     <MESSAGE value="Changed URL for Google jquery to use https instead of http." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed URL for Google jquery to use https instead of http." />
+    <MESSAGE value="Reworked some nav links" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reworked some nav links" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1422,14 +1422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timetable/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -1437,14 +1429,6 @@
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3150">
-          <caret line="218" column="0" lean-forward="false" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,18 +1442,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="82" column="25" lean-forward="false" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
+        <state relative-caret-position="-303">
+          <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="50" column="72" lean-forward="true" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+        <state relative-caret-position="327">
+          <caret line="54" column="67" lean-forward="true" selection-start-line="54" selection-start-column="67" selection-end-line="54" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="44" column="10" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="229" column="71" lean-forward="true" selection-start-line="229" selection-start-column="71" selection-end-line="229" selection-end-column="71" />
           <folding />
         </state>
       </provider>
