@@ -1,7 +1,7 @@
 from django.db import models
 from school.models import ClassGroup, Teacher
 from tracker.models import SyllabusPoint, Syllabus
-from osd.settings.base import CALENDAR_START_DATE
+from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 from django.db.models import Q
 from django.db.models import Max
 
@@ -91,9 +91,10 @@ class TimetabledLesson(models.Model):
 
 
 class Lesson(models.Model):
-    lesson = models.ForeignKey(TimetabledLesson, on_delete=models.CASCADE)
+    lessonslot = models.ForeignKey(TimetabledLesson, on_delete=models.CASCADE)
+    classgroup = models.ForeignKey(ClassGroup, null=True, blank=False, on_delete=models.SET_NULL)
     status = models.CharField(max_length=20, null=True, blank=True)
-    syllabus_points_covered = models.ManyToManyField(SyllabusPoint)
+    syllabus_points_covered = models.ManyToManyField(SyllabusPoint, blank=True)
     lesson_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
@@ -102,7 +103,7 @@ class Lesson(models.Model):
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return str(self.lesson) + " lesson " + str(self.sequence)
+        return str(self.lessonslot) + " lesson " + str(self.sequence)
 
     def resources(self):
 
@@ -115,23 +116,26 @@ class Lesson(models.Model):
         In order for this to work, we will have to iterate over *every* lesson for the classgroup.
         This is so that we can check for any lesson suspensions. """
 
-        all_lessons = Lesson.objects.filter(lesson__classgroup=self.lesson.classgroup).order_by('sequence')
+        all_lessons = Lesson.objects.filter(lessonslot__classgroup=self.lessonslot.classgroup).order_by('sequence')
 
         # Lesson slots where these appear.
-        slots = TimetabledLesson.objects.filter(classgroup=self.lesson.classgroup)
+        slots = TimetabledLesson.objects.filter(classgroup=self.lessonslot.classgroup)
 
         # Find the first day of term:
         start_date = get_monday_date_from_weekno(0)
 
         # Find total lessons per week
-        lessons_per_week = int(TimetabledLesson.objects.filter(classgroup=self.lesson.classgroup).count())
+        lessons_per_week = int(TimetabledLesson.objects.filter(classgroup=self.lessonslot.classgroup).count())
 
         # we'll use *week* to track each week we're looking at.
 
         week = 0
         lesson_of_week = 0
+        slot_number = 0
+        date = CALENDAR_END_DATE
 
-        def next_lesson(week, lesson_of_week):
+
+        def next_lesson(week, lesson_of_week, slot_number):
             if lesson_of_week == (lessons_per_week - 1):  # We just did the last lesson of the week
                 week = week + 1
                 lesson_of_week = 0
@@ -139,10 +143,15 @@ class Lesson(models.Model):
             else:
                 lesson_of_week = lesson_of_week + 1
 
-            return week, lesson_of_week
+            if slot_number != slots.__len__() - 1:
+                slot_number = slot_number + 1
 
-        for lesson in all_lessons:
+            else:
+                slot_number = 0
 
+            return week, lesson_of_week, slot_number
+
+        while date > CALENDAR_END_DATE:
             days_taught = []
             for slot in slots:
                 days_taught.append(slot.lesson_slot.dow())
@@ -150,31 +159,11 @@ class Lesson(models.Model):
             # check if the date is a suspension day:
 
             suspensions = LessonSuspension.objects.filter(
-                Q(whole_school=True) | Q(classgroups=lesson.lesson.classgroup))
+                Q(whole_school=True) | Q(classgroups=self.lessonslot.classgroup))
 
-            date_set = False  # Used to check whether we've set the date yet
 
-            while not date_set:
-                # Find day of the week, with monday = 0
 
-                day_taught = days_taught[lesson_of_week]
-                date = start_date + datetime.timedelta(weeks=week) + datetime.timedelta(days=day_taught)
-                for suspension in suspensions:  # Check for a suspension
-                    if date == suspension.date and suspension.all_day is True:
-                        week, lesson_of_week = next_lesson(week, lesson_of_week)
-                        break
 
-                    elif date == suspension.date and suspension.period == lesson.lesson.lesson_slot.period:
-                        week, lesson_of_week = next_lesson(week, lesson_of_week)
-                        break
-
-                    else:  # lesson isn't suspended, so save it.
-                        lesson.date = date
-
-                        lesson.save(date_to_set=date)
-                        week, lesson_of_week = next_lesson(week, lesson_of_week)
-                        date_set = True
-                        break
 
     def save(self, date_to_set=False, *args, **kwargs):
         """Make sure we set all dates correctly. """
@@ -182,9 +171,13 @@ class Lesson(models.Model):
 
             if self.sequence is None:
                 # Need to set a sequence number, otherwise the date will always be wrong
-                classgroup = self.lesson.classgroup
-                highest_sequence = Lesson.objects.filter(lesson__classgroup=classgroup).aggregate(Max('sequence'))
-                self.sequence = highest_sequence['sequence__max'] + 1
+                classgroup = self.lessonslot.classgroup
+                highest_sequence = Lesson.objects.filter(lessonslot__classgroup=classgroup).aggregate(Max('sequence'))
+
+                if highest_sequence['sequence__max']:
+                    self.sequence = highest_sequence['sequence__max'] + 1
+                else:
+                    self.sequence = 0
 
             super(Lesson, self).save(*args, **kwargs)
             self.set_date()

@@ -60,7 +60,7 @@ def generate_week_grid(teacher, week_number):
                     continue
 
                 else:
-                    lesson, created = Lesson.objects.get_or_create(lesson=timetabled_lesson, date=current_date)
+                    lesson, created = Lesson.objects.get_or_create(lessonslot=timetabled_lesson, date=current_date)
                     dayrow.append(lesson)
 
         weekgrid.append(dayrow)
