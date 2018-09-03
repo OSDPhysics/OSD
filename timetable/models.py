@@ -200,41 +200,33 @@ class Lesson(models.Model):
     def lesson_resource_icons(self):
         icons = []
         resources = LessonResources.objects.filter(lesson=self)
+
+        def generate_string(font_awesome_string, resource):
+            string = "<a href=" + str(resource.link)
+            string = string + 'data-toggle="tooltip" data-placement="top" title="'
+            string = string + (str(resource.resource_name))
+            string = string + '">'
+            string = string + font_awesome_string
+            string = string + "</i></a>"
+
+            return string
+
         for resource in resources:
             if resource.resource_type == "Presentation":
-                string = "<a href=" + str(resource.link)
-                string = string + 'data-toggle="tooltip" data-placement="top" title="'
-                string = string + (str(resource.resource_name))
-                string = string + '">'
-                string = string + "<i class='fas fa-desktop'></i></a>"
+                string = generate_string("<i class='fas fa-desktop'>", resource)
 
             elif resource.resource_type == "Web Page":
-                string = "<a href=" + str(resource.link)
-                string = string + 'data-toggle="tooltip" data-placement="top" title="'
-                string = string + (str(resource.resource_name))
-                string = string + '">'
-                string = string + '<i class="fas fa-tablet-alt"></i>'
+                string = generate_string("<i class='fas fa-tablet-alt'>", resource)
 
             elif resource.resource_type == "Worksheet":
-                string = "<a href=" + str(resource.link)
-                string = string + 'data-toggle="tooltip" data-placement="top" title="'
-                string = string + (str(resource.resource_name))
-                string = string + '">'
-                string = string + '<i class="far fa-newspaper"></i>'
+                string = generate_string('<i class="far fa-newspaper">', resource)
 
             elif resource.resource_type == "Test":
-                string = "<a href=" + str(resource.link)
-                string = string + 'data-toggle="tooltip" data-placement="top" title="'
-                string = string + (str(resource.resource_name))
-                string = string + '">'
-                string = string + '<i class="fas fa-pencil-ruler"></i>'
+                string = generate_string('<i class="fas fa-pencil-ruler">', resource)
 
             else:
-                string = "<a href=" + str(resource.link)
-                string = string + 'data-toggle="tooltip" data-placement="top" title="'
-                string = string + (str(resource.resource_name))
-                string = string + '">'
-                string = string + '<i class="far fa-question-circle"></i>'
+                string = generate_string('<i class="far fa-question-circle">', resource)
+
             icons.append(string)
 
         return icons
