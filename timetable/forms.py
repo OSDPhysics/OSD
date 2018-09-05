@@ -10,7 +10,7 @@ class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = ["lesson_title", 'sequence', 'status', 'syllabus', 'syllabus_points_covered', 'description', 'requirements', 'lessonslot']
+        fields = ["lesson_title", 'date', 'sequence', 'status', 'syllabus', 'syllabus_points_covered', 'description', 'requirements', 'lessonslot']
 
         widgets = {
             'syllabus_points_covered': autocomplete.ModelSelect2Multiple(

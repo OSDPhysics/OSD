@@ -2,9 +2,9 @@ from django.db import models
 from school.models import ClassGroup, Teacher
 from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
-from django.db.models import Q
 from django.db.models import Max
 
+# from .functions import *
 
 import datetime
 
@@ -33,6 +33,93 @@ RESOURCE_TYPES = (
     ('Web Page', 'Web Page'),
 
 )
+
+
+def get_monday_date_from_weekno(week_number):
+    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
+    return start_date
+
+
+def generate_week_grid(teacher, week_number):
+    start_date = get_monday_date_from_weekno(week_number)
+    next_week = week_number + 1
+    if week_number is not 0:
+        last_week = week_number - 1
+    else:
+        last_week = 0
+
+    current_date = start_date
+    weekgrid = []
+    for day in DAYS:
+
+        # Check if the day is suspended.
+        suspensions = LessonSuspension.objects.filter(date=current_date)
+        if suspensions.exists():
+            # There is at least one suspension on this day
+            if suspensions.filter(whole_school=True).exists():
+                if suspensions.filter(all_day=True).exists():
+                    # Get the first suspension TODO: add constraints so there's only one
+                    suspension = suspensions.filter(all_day=True)[0]
+
+                    # fill the day row with the suspension objects
+                    weekgrid.append([day[0], suspension, suspension, suspension, suspension])
+                    current_date = current_date + datetime.timedelta(days=1)
+                    continue
+
+        dayrow = [day[0]]
+
+        for period in PERIODS:
+            # Check if that period is whole-school suspended:
+            check = suspensions.filter(period=period[0]).filter(whole_school=True)
+            if check.exists():
+                dayrow.append(check[0])  # See above: May like to change to a get.
+                current_date = current_date + datetime.timedelta(days=1)
+                continue
+
+            try:
+                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0],
+                                                                 classgroup__groupteacher=teacher,
+                                                                 lesson_slot__period=period[0])
+            except TimetabledLesson.DoesNotExist:
+                dayrow.append("Free")
+                timetabled_lesson = "Free"
+
+            if timetabled_lesson != "Free":
+                check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
+                if check.exists():
+                    dayrow.append(check)
+                    continue
+
+                else:
+                    lesson, created = Lesson.objects.get_or_create(lessonslot=timetabled_lesson, date=current_date)
+                    dayrow.append(lesson)
+
+        weekgrid.append(dayrow)
+        current_date = current_date + datetime.timedelta(days=1)
+
+    return weekgrid
+
+
+def check_suspension(date, period, classgroup):
+    # Check if the whole school is suspended that day:
+    day_suspensions = LessonSuspension.objects.filter(date=date)
+    suspensions = day_suspensions.filter(whole_school=True, all_day=True).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(period=period, whole_school=True).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(all_day=True, classgroups=classgroup).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(period=period, classgroups=classgroup).count()
+    if suspensions:
+        return True
+
+    return False
 
 
 def get_monday_date_from_weekno(week_number):
@@ -102,6 +189,10 @@ class Lesson(models.Model):
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
+    class Meta:
+        unique_together = (("lessonslot", "date"),
+                           ("classgroup", "sequence"))
+
     def __str__(self):
         return str(self.lessonslot) + " lesson " + str(self.sequence)
 
@@ -113,27 +204,37 @@ class Lesson(models.Model):
 
         """ A slightly complicated method, which must set the date for the current lesson.
 
-        In order for this to work, we will have to iterate over *every* lesson for the classgroup.
-        This is so that we can check for any lesson suspensions. """
+        We need to create every lesson for the year.
+         1. Set a start date + period
+         2. Check if a lesson is suspended
+         3. If not suspended, get_or_create the lesson, and set it to the date and period
+         4. Move to next eligible lesson and repeat.
+
+         """
 
         all_lessons = Lesson.objects.filter(lessonslot__classgroup=self.lessonslot.classgroup).order_by('sequence')
 
         # Lesson slots where these appear.
         slots = TimetabledLesson.objects.filter(classgroup=self.lessonslot.classgroup)
 
-        # Find the first day of term:
-        start_date = get_monday_date_from_weekno(0)
-
         # Find total lessons per week
         lessons_per_week = int(TimetabledLesson.objects.filter(classgroup=self.lessonslot.classgroup).count())
 
         # we'll use *week* to track each week we're looking at.
 
+        global week, lesson_of_week, slot_number, current_lesson
         week = 0
         lesson_of_week = 0
         slot_number = 0
-        date = CALENDAR_END_DATE
+        current_lesson = 0
+        # Set our starting lesson date:
 
+        dow = slots[0].lesson_slot.dow()
+        date = CALENDAR_START_DATE + datetime.timedelta(days=dow)
+
+        days_taught = []
+        for slot in slots:
+            days_taught.append(slot.lesson_slot.dow())
 
         def next_lesson(week, lesson_of_week, slot_number):
             if lesson_of_week == (lessons_per_week - 1):  # We just did the last lesson of the week
@@ -143,50 +244,54 @@ class Lesson(models.Model):
             else:
                 lesson_of_week = lesson_of_week + 1
 
-            if slot_number != slots.__len__() - 1:
+            if slot_number != lessons_per_week - 1:
                 slot_number = slot_number + 1
 
             else:
                 slot_number = 0
 
-            return week, lesson_of_week, slot_number
+            date = CALENDAR_START_DATE + datetime.timedelta(days=days_taught[slot_number], weeks=week)
 
-        while date > CALENDAR_END_DATE:
-            days_taught = []
+            return week, lesson_of_week, slot_number, date
+
+        while date < CALENDAR_END_DATE:
+
+            # Iteratete this over the slots:
+
             for slot in slots:
-                days_taught.append(slot.lesson_slot.dow())
+                if check_suspension(date, slot.lesson_slot.period, slot.classgroup):
+                    # lesson has been suspended
+                    week, lesson_of_week, slot_number, date = next_lesson(week, lesson_of_week, slot_number)
+                    continue
 
-            # check if the date is a suspension day:
+                else:  # lesson is not suspended
+                    lesson, created = Lesson.objects.get_or_create(date=date, lessonslot=slots[slot_number],
+                                                                   classgroup=slots[slot_number].classgroup)
+                    # lesson.sequence = current_lesson
+                    # current_lesson = current_lesson + 1
+                    week, lesson_of_week, slot_number, date = next_lesson(week, lesson_of_week, slot_number)
+                    lesson.save
 
-            suspensions = LessonSuspension.objects.filter(
-                Q(whole_school=True) | Q(classgroups=self.lessonslot.classgroup))
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
 
+            # As this is a new object, we need to set the sequence to the highest value we know...
+            self.classgroup = self.lessonslot.classgroup
+            max_sequence = Lesson.objects.filter(classgroup=self.classgroup).aggregate(Max("sequence"))
+            if max_sequence['sequence__max'] is None:
+                self.sequence = 0
+            else:
+                self.sequence = max_sequence['sequence__max'] + 1
+            super(Lesson, self).save(*args, **kwargs)
+            set_classgroups_lesson_dates(self.classgroup)
+            return self
 
-
-
-
-    def save(self, date_to_set=False, *args, **kwargs):
         """Make sure we set all dates correctly. """
-        if not date_to_set:
 
-            if self.sequence is None:
-                # Need to set a sequence number, otherwise the date will always be wrong
-                classgroup = self.lessonslot.classgroup
-                highest_sequence = Lesson.objects.filter(lessonslot__classgroup=classgroup).aggregate(Max('sequence'))
-
-                if highest_sequence['sequence__max']:
-                    self.sequence = highest_sequence['sequence__max'] + 1
-                else:
-                    self.sequence = 0
-
-            super(Lesson, self).save(*args, **kwargs)
-            self.set_date()
-
-        else:
-
-            self.date = date_to_set
-
-            super(Lesson, self).save(*args, **kwargs)
+        super(Lesson, self).save(*args, **kwargs)
 
         return self
 
@@ -224,6 +329,7 @@ class Lesson(models.Model):
 
         return icons
 
+
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
@@ -247,5 +353,155 @@ class LessonSuspension(models.Model):
 
         affected_lessons = Lesson.objects.filter(date=self.date)
         for lesson in affected_lessons:
-            lesson.set_date()
+            classgroup = lesson.classgroup
+            set_classgroups_lesson_dates(classgroup)
         super(LessonSuspension, self).save(*args, **kwargs)
+        return self
+
+
+def get_monday_date_from_weekno(week_number):
+    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
+    return start_date
+
+
+def generate_week_grid(teacher, week_number):
+    start_date = get_monday_date_from_weekno(week_number)
+    next_week = week_number + 1
+    if week_number is not 0:
+        last_week = week_number - 1
+    else:
+        last_week = 0
+
+    current_date = start_date
+    weekgrid = []
+    for day in DAYS:
+
+        # Check if the day is suspended.
+        suspensions = LessonSuspension.objects.filter(date=current_date)
+        if suspensions.exists():
+            # There is at least one suspension on this day
+            if suspensions.filter(whole_school=True).exists():
+                if suspensions.filter(all_day=True).exists():
+                    # Get the first suspension TODO: add constraints so there's only one
+                    suspension = suspensions.filter(all_day=True)[0]
+
+                    # fill the day row with the suspension objects
+                    weekgrid.append([day[0], suspension, suspension, suspension, suspension])
+                    current_date = current_date + datetime.timedelta(days=1)
+                    continue
+
+        dayrow = [day[0]]
+
+        for period in PERIODS:
+            # Check if that period is whole-school suspended:
+            check = suspensions.filter(period=period[0]).filter(whole_school=True)
+            if check.exists():
+                dayrow.append(check[0])  # See above: May like to change to a get.
+                current_date = current_date + datetime.timedelta(days=1)
+                continue
+
+            try:
+
+                # Check the timetable to see if the lesson actually exists
+                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0],
+                                                                 classgroup__groupteacher=teacher,
+                                                                 lesson_slot__period=period[0])
+            except TimetabledLesson.DoesNotExist:
+                dayrow.append("Free")
+                timetabled_lesson = "Free"
+
+            if timetabled_lesson != "Free":
+                check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
+                if check.exists():
+                    dayrow.append(check)
+                    continue
+
+                else:
+                    lesson, created = Lesson.objects.get(lessonslot=timetabled_lesson,
+                                                         date=current_date,
+                                                         classgroup=timetabled_lesson.classgroup)
+                    dayrow.append(lesson)
+
+        weekgrid.append(dayrow)
+        current_date = current_date + datetime.timedelta(days=1)
+
+    return weekgrid
+
+
+def check_suspension(date, period, classgroup):
+    # Check if the whole school is suspended that day:
+    day_suspensions = LessonSuspension.objects.filter(date=date)
+    suspensions = day_suspensions.filter(whole_school=True, all_day=True).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(period=period, whole_school=True).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(all_day=True, classgroups=classgroup).count()
+    if suspensions:
+        return True
+
+    suspensions = day_suspensions.filter(period=period, classgroups=classgroup).count()
+    if suspensions:
+        return True
+
+    return False
+
+
+def set_classgroups_lesson_dates(classgroup):
+    lessons = Lesson.objects.filter(classgroup=classgroup).order_by("sequence")
+
+    slots = TimetabledLesson.objects.filter(classgroup=classgroup)
+
+    global total_slots, current_week, current_slot, current_lesson
+
+    total_slots = slots.count() - 1
+
+    current_week = 0
+    current_slot = 0
+    current_lesson = 0
+
+    def next_lesson(current_slot, current_week):
+        if current_slot == total_slots:
+            current_slot = 0
+            current_week = current_week + 1
+
+        else:
+            current_slot = current_slot + 1
+
+        return current_slot, current_week
+
+    date = CALENDAR_START_DATE
+
+    while date < CALENDAR_END_DATE:
+
+
+    for lesson in lessons:
+        date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week, days=lesson.lessonslot.lesson_slot.dow())
+        period = slots[current_slot].lesson_slot.period
+
+        # check if any lessons are missing in the sequence list:
+        if lesson.sequence == current_lesson:
+            pass
+
+        else:
+            lesson.sequence = current_lesson
+            lesson.save()
+
+        current_lesson = current_lesson + 1
+
+        while True:
+            # We need to keep trying with this period until we place it
+            if check_suspension(date, period, classgroup):
+                # lesson is suspended, so skip
+                current_slot, current_week = next_lesson(current_slot, current_week)
+                continue  # Go back to the start and try again
+            else:
+
+                lesson.lessonslot = slots[current_slot]
+                lesson.date = date
+                current_slot, current_week = next_lesson(current_slot, current_week)
+                lesson.save
+                break  # End loop and get next lesson
