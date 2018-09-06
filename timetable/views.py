@@ -136,8 +136,7 @@ def teacher_tt(request, teacher_pk, week_number):
 
 def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
-    lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by('date')
-    lessons.order_by("sequence")
+    lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
 
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
@@ -187,3 +186,13 @@ def get_lesson_from_date(classgroup, date):
     # find the sequence number from the date
 
     lessons_per_week = lesson_slots[0].total_lessons()
+
+
+def class_lesson_check(request, classgroup_pk):
+
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    # re-order all the lessons
+
+    set_classgroups_lesson_dates(classgroup)
+
+    return redirect(reverse('timetable:class_lesson_list', args=[classgroup_pk, ]))

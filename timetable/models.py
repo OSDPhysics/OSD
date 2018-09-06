@@ -272,28 +272,28 @@ class Lesson(models.Model):
                     week, lesson_of_week, slot_number, date = next_lesson(week, lesson_of_week, slot_number)
                     lesson.save
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # This code only happens if the objects is
-            # not in the database yet. Otherwise it would
-            # have pk
-
-            # As this is a new object, we need to set the sequence to the highest value we know...
-            self.classgroup = self.lessonslot.classgroup
-            max_sequence = Lesson.objects.filter(classgroup=self.classgroup).aggregate(Max("sequence"))
-            if max_sequence['sequence__max'] is None:
-                self.sequence = 0
-            else:
-                self.sequence = max_sequence['sequence__max'] + 1
-            super(Lesson, self).save(*args, **kwargs)
-            set_classgroups_lesson_dates(self.classgroup)
-            return self
-
-        """Make sure we set all dates correctly. """
-
-        super(Lesson, self).save(*args, **kwargs)
-
-        return self
+    # def save(self, *args, **kwargs):
+    #     if not self.pk:
+    #         # This code only happens if the objects is
+    #         # not in the database yet. Otherwise it would
+    #         # have pk
+    #
+    #         # As this is a new object, we need to set the sequence to the highest value we know...
+    #         self.classgroup = self.lessonslot.classgroup
+    #         max_sequence = Lesson.objects.filter(classgroup=self.classgroup).aggregate(Max("sequence"))
+    #         if max_sequence['sequence__max'] is None:
+    #             self.sequence = 0
+    #         else:
+    #             self.sequence = max_sequence['sequence__max'] + 1
+    #         super(Lesson, self).save(*args, **kwargs)
+    #         set_classgroups_lesson_dates(self.classgroup)
+    #         return self
+    #
+    #     """Make sure we set all dates correctly. """
+    #
+    #     super(Lesson, self).save(*args, **kwargs)
+    #
+    #     return self
 
     def lesson_resource_icons(self):
         icons = []
@@ -477,20 +477,11 @@ def set_classgroups_lesson_dates(classgroup):
 
     while date < CALENDAR_END_DATE:
 
+        lesson, created = Lesson.objects.get_or_create(sequence=current_lesson, classgroup=classgroup,
+                                                       lessonslot=slots[current_slot])
 
-    for lesson in lessons:
         date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week, days=lesson.lessonslot.lesson_slot.dow())
         period = slots[current_slot].lesson_slot.period
-
-        # check if any lessons are missing in the sequence list:
-        if lesson.sequence == current_lesson:
-            pass
-
-        else:
-            lesson.sequence = current_lesson
-            lesson.save()
-
-        current_lesson = current_lesson + 1
 
         while True:
             # We need to keep trying with this period until we place it
@@ -503,5 +494,8 @@ def set_classgroups_lesson_dates(classgroup):
                 lesson.lessonslot = slots[current_slot]
                 lesson.date = date
                 current_slot, current_week = next_lesson(current_slot, current_week)
-                lesson.save
+                lesson.save()
+
                 break  # End loop and get next lesson
+
+        current_lesson = current_lesson + 1
