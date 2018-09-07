@@ -48,8 +48,9 @@ def generate_week_grid(teacher, week_number):
             # Check if that period is whole-school suspended:
             check = suspensions.filter(period=period[0]).filter(whole_school=True)
             if check.exists():
-                dayrow.append(check[0]) # See above: May like to change to a get.
-                current_date = current_date + datetime.timedelta(days=1)
+                dayrow.append(check[0]) # Add that the day is suspended
+
+
                 continue
 
             try:
@@ -67,8 +68,14 @@ def generate_week_grid(teacher, week_number):
                     continue
 
                 else:
-                    lesson, created = Lesson.objects.get_or_create(lessonslot=timetabled_lesson, date=current_date)
-                    dayrow.append(lesson)
+                    try:
+                        lesson = Lesson.objects.get(lessonslot=timetabled_lesson, date=current_date)
+                        dayrow.append(lesson)
+                    except models.ObjectDoesNotExist:
+                        from timetable.models import set_classgroups_lesson_dates
+                        set_classgroups_lesson_dates(timetabled_lesson.classgroup)
+                        lesson = Lesson.objects.get(lessonslot=timetabled_lesson, date=current_date)
+                        dayrow.append(lesson)
 
         weekgrid.append(dayrow)
         current_date = current_date + datetime.timedelta(days=1)

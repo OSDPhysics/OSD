@@ -185,7 +185,7 @@ class Lesson(models.Model):
     lesson_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
-    sequence = models.IntegerField(null=True, blank=True)
+    sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
@@ -350,12 +350,12 @@ class LessonSuspension(models.Model):
 
     def save(self, *args, **kwargs):
         """When we save, we need to update the dates of all affected lessons. """
-
+        super(LessonSuspension, self).save(*args, **kwargs)
         affected_lessons = Lesson.objects.filter(date=self.date)
         for lesson in affected_lessons:
             classgroup = lesson.classgroup
             set_classgroups_lesson_dates(classgroup)
-        super(LessonSuspension, self).save(*args, **kwargs)
+
         return self
 
 
@@ -451,11 +451,8 @@ def check_suspension(date, period, classgroup):
 
 
 def set_classgroups_lesson_dates(classgroup):
-    lessons = Lesson.objects.filter(classgroup=classgroup).order_by("sequence")
 
     slots = TimetabledLesson.objects.filter(classgroup=classgroup)
-
-    global total_slots, current_week, current_slot, current_lesson
 
     total_slots = slots.count() - 1
 
@@ -463,7 +460,8 @@ def set_classgroups_lesson_dates(classgroup):
     current_slot = 0
     current_lesson = 0
 
-    def next_lesson(current_slot, current_week):
+
+    def next_lesson(current_slot, current_week, reset=False):
         if current_slot == total_slots:
             current_slot = 0
             current_week = current_week + 1
@@ -471,16 +469,25 @@ def set_classgroups_lesson_dates(classgroup):
         else:
             current_slot = current_slot + 1
 
+        if reset:
+            current_slot = 0
+            current_week = 0
+
         return current_slot, current_week
 
     date = CALENDAR_START_DATE
+    current_week, current_slot = next_lesson(current_week, current_slot, True)
 
     while date < CALENDAR_END_DATE:
+        # We need to check if the lesson exists:
 
-        lesson, created = Lesson.objects.get_or_create(sequence=current_lesson, classgroup=classgroup,
-                                                       lessonslot=slots[current_slot])
+        try:
+            lesson = Lesson.objects.get(sequence=current_lesson, classgroup=classgroup)
+        except models.ObjectDoesNotExist:
+            lesson = Lesson.objects.create(sequence=current_lesson, classgroup=classgroup,
+                                           lessonslot=slots[current_slot])
 
-        date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week, days=lesson.lessonslot.lesson_slot.dow())
+        date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week, days=slots[current_slot].lesson_slot.dow())
         period = slots[current_slot].lesson_slot.period
 
         while True:
@@ -488,14 +495,24 @@ def set_classgroups_lesson_dates(classgroup):
             if check_suspension(date, period, classgroup):
                 # lesson is suspended, so skip
                 current_slot, current_week = next_lesson(current_slot, current_week)
+                date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week,
+                                                                days=slots[current_slot].lesson_slot.dow())
                 continue  # Go back to the start and try again
             else:
 
                 lesson.lessonslot = slots[current_slot]
                 lesson.date = date
                 current_slot, current_week = next_lesson(current_slot, current_week)
+
+                # Check if a lesson already exists that meets all these criteria:
+
                 lesson.save()
 
                 break  # End loop and get next lesson
 
+
         current_lesson = current_lesson + 1
+
+    # re-set our values back to zero for next iteration (why???)
+
+    next_lesson(current_week, current_slot, True)
