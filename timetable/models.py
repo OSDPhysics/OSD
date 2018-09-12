@@ -528,7 +528,12 @@ def set_classgroups_lesson_dates(classgroup):
                         clashing_lesson.sequence = clashing_lesson.sequence + 1
                         # This date thing is a horrid hack, but we're about to set a correct date,
                         # and we need to make sure we don't cause further integrity errors
-                        clashing_lesson.date = clashing_lesson.date + datetime.timedelta(weeks=1000)
+
+                        # temp bugxix:
+                        if clashing_lesson.date:
+                            clashing_lesson.date = clashing_lesson.date + datetime.timedelta(weeks=1000)
+                        else:
+                            clashing_lesson.date = CALENDAR_START_DATE + datetime.timedelta(weeks=1000)
                         clashing_lesson.save()
                     lesson.save()  # Finally save our original lesson
 
