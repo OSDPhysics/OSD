@@ -57,8 +57,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timetable/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="498" column="19" lean-forward="false" selection-start-line="498" selection-start-column="19" selection-end-line="498" selection-end-column="19" />
+            <state relative-caret-position="288">
+              <caret line="497" column="91" lean-forward="false" selection-start-line="497" selection-start-column="91" selection-end-line="497" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -501,13 +501,6 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
     </task>
-    <task id="LOCAL-00046" summary="Enabled ability to see details of student percentage scores">
-      <created>1527069128892</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1527069128892</updated>
-    </task>
     <task id="LOCAL-00047" summary="Bugfix">
       <created>1527074834955</created>
       <option name="number" value="00047" />
@@ -844,7 +837,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536743876561</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="temp bugbix">
+      <created>1536744785554</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744785554</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TodoView">
@@ -957,7 +957,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created syllabus SubTopics and added to admin forms. &#10;TODO: add sub-topics to the CSV import function" />
     <MESSAGE value="Started on a topic overview page similar to Keith's Learning Journal idea." />
     <MESSAGE value="Started making changes to move to bootstrap version 4" />
     <MESSAGE value="Created a student sub-topic overview page using BS4 row/col layout." />
@@ -982,7 +981,8 @@
     <MESSAGE value="Refactored icon generating function" />
     <MESSAGE value="Started playing with a better method of allocating lesson dates etc" />
     <MESSAGE value="Timetabling beta release" />
-    <option name="LAST_COMMIT_MESSAGE" value="Timetabling beta release" />
+    <MESSAGE value="temp bugbix" />
+    <option name="LAST_COMMIT_MESSAGE" value="temp bugbix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1433,7 +1433,7 @@
         <state relative-caret-position="165">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1443,15 +1443,15 @@
         <state relative-caret-position="15">
           <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="498" column="19" lean-forward="false" selection-start-line="498" selection-start-column="19" selection-end-line="498" selection-end-column="19" />
+        <state relative-caret-position="288">
+          <caret line="497" column="91" lean-forward="false" selection-start-line="497" selection-start-column="91" selection-end-line="497" selection-end-column="91" />
           <folding />
         </state>
       </provider>
