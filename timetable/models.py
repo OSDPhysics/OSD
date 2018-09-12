@@ -495,6 +495,7 @@ def set_classgroups_lesson_dates(classgroup):
                                            lessonslot=slots[current_slot])
 
         date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week, days=slots[current_slot].lesson_slot.dow())
+        print(date)
         period = slots[current_slot].lesson_slot.period
 
         while True:
