@@ -520,7 +520,7 @@ def set_classgroups_lesson_dates(classgroup):
 
                 except IntegrityError:
                     # All lessons above <current_sequence> must be incremented
-                    clashing_lessons = Lesson.objects.filter(sequence__gte=current_lesson).order_by('sequence').reverse()
+                    clashing_lessons = Lesson.objects.filter(sequence__gte=current_lesson, classgroup=classgroup).order_by('sequence').reverse()
                     # Must be in reverse order so we don't cause further integrity errors
                     # Note that we don't need to worry about setting correct slots here, as they are about to be re-set
                     for clashing_lesson in clashing_lessons:
