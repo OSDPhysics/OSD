@@ -193,7 +193,7 @@ class Lesson(models.Model):
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        unique_together = ( #("lessonslot", "date"),
+        unique_together = ( ("lessonslot", "date"),
                            ("classgroup", "sequence"))
 
     def __str__(self):
@@ -458,7 +458,9 @@ def check_suspension(date, period, classgroup):
 
 def set_classgroups_lesson_dates(classgroup):
 
-    slots = TimetabledLesson.objects.filter(classgroup=classgroup)
+    # slots must be ordered for it to work - weirdly this doesn't happen on local!
+    slots = TimetabledLesson.objects.filter(classgroup=classgroup).order_by('lesson_slot')
+
 
     total_slots = slots.count() - 1
 
