@@ -57,8 +57,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timetable/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="199" column="65" lean-forward="true" selection-start-line="199" selection-start-column="65" selection-end-line="199" selection-end-column="65" />
+            <state relative-caret-position="229">
+              <caret line="196" column="53" lean-forward="false" selection-start-line="196" selection-start-column="53" selection-end-line="196" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -525,13 +525,6 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
     </task>
-    <task id="LOCAL-00044" summary="Commit this branch to PRODUCTION to add new LEARNINGJOURNAL">
-      <created>1527060647169</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1527060647169</updated>
-    </task>
     <task id="LOCAL-00045" summary="Set up journal">
       <created>1527062790513</created>
       <option name="number" value="00045" />
@@ -868,7 +861,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536743214236</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Timetabling beta release">
+      <created>1536743613876</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743613876</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1474,8 +1474,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="199" column="65" lean-forward="true" selection-start-line="199" selection-start-column="65" selection-end-line="199" selection-end-column="65" />
+        <state relative-caret-position="229">
+          <caret line="196" column="53" lean-forward="false" selection-start-line="196" selection-start-column="53" selection-end-line="196" selection-end-column="53" />
           <folding />
         </state>
       </provider>

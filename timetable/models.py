@@ -193,7 +193,7 @@ class Lesson(models.Model):
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        unique_together = (("lessonslot", "date"),
+        unique_together = ( #("lessonslot", "date"),
                            ("classgroup", "sequence"))
 
     def __str__(self):
