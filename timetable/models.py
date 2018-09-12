@@ -197,7 +197,7 @@ class Lesson(models.Model):
                            ("classgroup", "sequence"))
 
     def __str__(self):
-        return str(self.lessonslot) + " lesson " + str(self.sequence)
+        return str(self.lessonslot) + " lesson " + str(self.date)
 
     def resources(self):
 
