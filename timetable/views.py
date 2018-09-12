@@ -145,6 +145,11 @@ def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
 
+    # Check for any lessons beyond end date
+    overshot_lessons = Lesson.objects.filter(date__gt=CALENDAR_END_DATE, classgroup=classgroup).count()
+    if overshot_lessons:
+        messages.add_message(request, messages.WARNING, 'Lessons exist past end of school year.')
+
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
 
@@ -185,6 +190,26 @@ def copy_lesson(request, lesson_pk):
         return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
 
 
+def delete_lesson(request, lesson_pk, class_pk):
+    lesson = Lesson.objects.get(pk=lesson_pk)
+    classgroup = ClassGroup.objects.get(pk=class_pk)
+    if not lesson.lesson_title:
+        lesson.delete()
+        messages.add_message(request, messages.SUCCESS, 'Lesson deleted successfully.')
+        return redirect(reverse('timetable:class_lesson_list', args=[class_pk, ]))
+
+    else:
+        return render(request, 'timetable/confirm_delete.html', {'lesson': lesson,
+                                                                 'classgroup': classgroup})
+
+
+def confirm_delete_lesson(request, lesson_pk, class_pk):
+    lesson = Lesson.objects.get(pk=lesson_pk)
+    lesson.delete()
+    messages.add_message(request, messages.SUCCESS, 'Lesson deleted successfully.')
+    return redirect(reverse('timetable:class_lesson_list', args=[class_pk, ]))
+
+
 def get_lesson_from_date(classgroup, date):
     # get the lessons
 
@@ -200,6 +225,9 @@ def class_lesson_check(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 
-    set_classgroups_lesson_dates(classgroup)
+    message = set_classgroups_lesson_dates(classgroup)
+
+    if message:
+        messages.add_message(request, messages.WARNING, message)
 
     return redirect(reverse('timetable:class_lesson_list', args=[classgroup_pk, ]))

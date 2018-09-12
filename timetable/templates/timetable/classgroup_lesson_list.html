@@ -40,6 +40,7 @@
                                     </a><a href="{% url 'timetable:copy_lesson' lesson.pk %}"><i class="fas fa-copy"></i>
 
 </a>
+                                    <a href="{% url 'timetable:delete_lesson' lesson.pk classgroup.pk %}"><i class="fas fa-trash"></i></a>
                                 </td>
                                 </tr>
                             {% endfor %}

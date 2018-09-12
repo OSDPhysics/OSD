@@ -1,7 +1,10 @@
-from django.db import models
+from django.db import models, IntegrityError
 from school.models import ClassGroup, Teacher
 from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
+from django.db import transaction
+from django.contrib import messages
+
 from django.db.models import Max
 
 # from .functions import *
@@ -358,6 +361,9 @@ class LessonSuspension(models.Model):
 
         return self
 
+    def __str__(self):
+        return str(self.date) + " " + self.reason
+
 
 def get_monday_date_from_weekno(week_number):
     start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
@@ -460,6 +466,7 @@ def set_classgroups_lesson_dates(classgroup):
     current_slot = 0
     current_lesson = 0
 
+    message = False # Used to return a warning message if lessons overshoot end date
 
     def next_lesson(current_slot, current_week, reset=False):
         if current_slot == total_slots:
@@ -506,13 +513,40 @@ def set_classgroups_lesson_dates(classgroup):
 
                 # Check if a lesson already exists that meets all these criteria:
 
-                lesson.save()
+                try:
+                    with transaction.atomic(): # Needed to prevent an error as per https://stackoverflow.com/questions/32205220/cant-execute-queries-until-end-of-atomic-block-in-my-data-migration-on-django-1?rq=1
+
+                        lesson.save()  # Will fail if a lesson already has same date and slot
+
+                except IntegrityError:
+                    # All lessons above <current_sequence> must be incremented
+                    clashing_lessons = Lesson.objects.filter(sequence__gte=current_lesson).order_by('sequence').reverse()
+                    # Must be in reverse order so we don't cause further integrity errors
+                    # Note that we don't need to worry about setting correct slots here, as they are about to be re-set
+                    for clashing_lesson in clashing_lessons:
+
+                        clashing_lesson.sequence = clashing_lesson.sequence + 1
+                        # This date thing is a horrid hack, but we're about to set a correct date,
+                        # and we need to make sure we don't cause further integrity errors
+                        clashing_lesson.date = clashing_lesson.date + datetime.timedelta(weeks=1000)
+                        clashing_lesson.save()
+                    lesson.save()  # Finally save our original lesson
 
                 break  # End loop and get next lesson
-
 
         current_lesson = current_lesson + 1
 
     # re-set our values back to zero for next iteration (why???)
 
     next_lesson(current_week, current_slot, True)
+
+    # clean up any lessons beyond end date
+    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE)
+    for lesson in overshot_lessons:
+        if lesson.lesson_title: # only delete unwritten lessons
+            lesson.delete()
+
+        else:
+            message = "Warning! Your scheduled lessons extend beyond the last day of term."
+
+    return message
