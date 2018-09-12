@@ -57,8 +57,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timetable/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="497" column="91" lean-forward="false" selection-start-line="497" selection-start-column="91" selection-end-line="497" selection-end-column="91" />
+            <state relative-caret-position="232">
+              <caret line="497" column="143" lean-forward="false" selection-start-line="497" selection-start-column="143" selection-end-line="497" selection-end-column="143" />
               <folding />
             </state>
           </provider>
@@ -501,13 +501,6 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
     </task>
-    <task id="LOCAL-00047" summary="Bugfix">
-      <created>1527074834955</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1527074834955</updated>
-    </task>
     <task id="LOCAL-00048" summary="Bugfix for incorrect url forwarding.">
       <created>1527122712497</created>
       <option name="number" value="00048" />
@@ -844,7 +837,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536744785554</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="temp bugbix">
+      <created>1536744973284</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744973284</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1450,8 +1450,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="497" column="91" lean-forward="false" selection-start-line="497" selection-start-column="91" selection-end-line="497" selection-end-column="91" />
+        <state relative-caret-position="232">
+          <caret line="497" column="143" lean-forward="false" selection-start-line="497" selection-start-column="143" selection-end-line="497" selection-end-column="143" />
           <folding />
         </state>
       </provider>
