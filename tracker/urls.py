@@ -31,6 +31,7 @@ urlpatterns = [
     path('syllabus-point-autocomplete/', SyllabusPointAutocomplete.as_view(), name='syllabus-point-autocomplete'),
     path('classgroups-autocomplete/', ClaassgroupAutocomplete.as_view(), name='classgroups-autocomplete'),
     path('syllabus-autocomplete/', SyllabusAutocomplete.as_view(), name='syllabus-autocomplete'),
-    path('syllabus-autocomplete2/', SyllabusPointAutocomplete2.as_view(), name='syllabus-autocomplete2')
+    path('syllabus-autocomplete2/', SyllabusPointAutocomplete2.as_view(), name='syllabus-autocomplete2'),
+    path('lesson_autocomplete/', LessonAutocomplete.as_view(), name='lesson_autocomplete')
 
 ]

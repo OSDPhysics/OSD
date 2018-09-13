@@ -162,18 +162,21 @@ def copy_lesson(request, lesson_pk):
         moveForm = LessonCopyForm(request.POST)
         if moveForm.is_valid():
 
-            target_lesson = Lesson.objects.get(pk=moveForm.cleaned_data['lesson_to_copy_to'])
-            if target_lesson.title:
+            target_lesson = moveForm.cleaned_data['lesson_to_copy_to']
+            if target_lesson.lesson_title:
                 # The lesson has already been written, so we need to move it first
                 return
             else:
-                target_lesson.title = source_lesson.title
+                target_lesson.lesson_title = source_lesson.lesson_title
                 target_lesson.requirements = source_lesson.requirements
                 target_lesson.description = source_lesson.description
-                target_lesson.syllabus_points_covered = source_lesson.syllabus_points_covered
+
+                for point in source_lesson.syllabus_points_covered.all():
+                    target_lesson.syllabus_points_covered.add(point)
+
                 target_lesson.save()
                 # Now copy the resources
-                for resource in target_lesson.resources():
+                for resource in source_lesson.resources().all():
                     new_resource = LessonResources.objects.create(lesson=target_lesson,
                                                    resource_type=resource.resource_type,
                                                    link=resource.link,
@@ -181,7 +184,7 @@ def copy_lesson(request, lesson_pk):
                                                    students_can_view_before=resource.students_can_view_before)
                     new_resource.save()
 
-            return redirect(reverse('timetable:class_lesson_list', args=[target_lesson.pk,]))
+            return redirect(reverse('timetable:class_lesson_list', args=[source_lesson.classgroup.pk,]))
 
         else:
             return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})

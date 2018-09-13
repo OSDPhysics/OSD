@@ -1,5 +1,6 @@
 {% extends 'tracker/base.html' %}
-
+{% load staticfiles %}
+{% load static %}
 {% block content %}
 
  <div class="container">
@@ -10,10 +11,11 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Move a lesson
+                            Copy a lesson to another class
                         </h2>
-                        {{ moveform.media }}
+
                         <form method="post">
+                            {% csrf_token %}
                         {{ moveform.as_p }}
                         <button type="submit" class="save btn btn-default">Move</button>
                         </form>
@@ -23,8 +25,10 @@
             </div>
         </div>
  </div>
+<! Start media/>
+ <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 
-
+{{ moveform.media }}
 {% endblock content %}
 
 {% block script %}

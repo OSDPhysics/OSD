@@ -1,6 +1,7 @@
 from dal import autocomplete
 from tracker.models import SyllabusPoint, Syllabus, Exam
 from school.models  import ClassGroup
+from timetable.models import Lesson
 
 
 class SyllabusPointAutocomplete(autocomplete.Select2QuerySetView):
@@ -48,7 +49,24 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
         qs = ClassGroup.objects.all()
 
         if self.q:
-            qs = qs.filter(syllabusText__contains=self.q)
+            qs = qs.filter(groupname__contains=self.q)
+
+        return qs
+
+
+class LessonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Lesson.objects.none()
+
+        qs = Lesson.objects.all().order_by('date')
+
+        if self.forwarded['classgroup']:
+            qs = qs.filter(classgroup__pk=self.forwarded['classgroup'])
+
+        if self.q:
+            qs = qs.filter(date=self.q)
 
         return qs
 

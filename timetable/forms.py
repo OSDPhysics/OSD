@@ -26,5 +26,13 @@ class LessonForm(forms.ModelForm):
 
 class LessonCopyForm(forms.Form):
     classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),
-                                        widget=autocomplete.ModelSelect2(url='tracker:classgroups-autocomplete'))
-    lesson_to_copy_to = forms.ModelChoiceField(Lesson.objects.all())
+                                        widget=autocomplete.ModelSelect2(url='tracker:classgroups-autocomplete'),
+                                        )
+    lesson_to_copy_to = forms.ModelChoiceField(Lesson.objects.all(),
+                                               widget=autocomplete.ModelSelect2(url='tracker:lesson_autocomplete',
+                                                                               forward=('classgroup', )))
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+        )
