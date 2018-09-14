@@ -304,7 +304,7 @@ class Lesson(models.Model):
 
         def generate_string(font_awesome_string, resource):
             string = "<a href=" + str(resource.link)
-            string = string + '" data-toggle="tooltip" data-placement="top" title="'
+            string = string + ' data-toggle="tooltip" data-placement="top" title="'
             string = string + (str(resource.resource_name))
             string = string + '">'
             string = string + font_awesome_string
