@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
 from timetable.forms import LessonCopyForm
 
-
 import datetime
+
 
 # Create your views here.
 
@@ -33,12 +33,11 @@ def generate_week_grid(teacher, week_number):
             # There is at least one suspension on this day
             if suspensions.filter(whole_school=True).exists():
                 if suspensions.filter(all_day=True).exists():
-
                     # Get the first suspension TODO: add constraints so there's only one
                     suspension = suspensions.filter(all_day=True)[0]
 
                     # fill the day row with the suspension objects
-                    weekgrid.append([day[0], suspension, suspension, suspension, suspension ])
+                    weekgrid.append([day[0], suspension, suspension, suspension, suspension])
                     current_date = current_date + datetime.timedelta(days=1)
                     continue
 
@@ -48,8 +47,7 @@ def generate_week_grid(teacher, week_number):
             # Check if that period is whole-school suspended:
             check = suspensions.filter(period=period[0]).filter(whole_school=True)
             if check.exists():
-                dayrow.append(check[0]) # Add that the day is suspended
-
+                dayrow.append(check[0])  # Add that the day is suspended
 
                 continue
 
@@ -80,7 +78,6 @@ def generate_week_grid(teacher, week_number):
         weekgrid.append(dayrow)
         current_date = current_date + datetime.timedelta(days=1)
 
-
     return weekgrid
 
 
@@ -106,10 +103,6 @@ def check_suspension(date, period, classgroup):
     return False
 
 
-
-
-
-
 @login_required
 def teacher_splash(request):
     teacher = Teacher.objects.get(user=request.user)
@@ -123,7 +116,6 @@ def teacher_splash(request):
 
 
 def teacher_tt(request, teacher_pk, week_number):
-
     teacher = Teacher.objects.get(pk=teacher_pk)
     start_date = get_monday_date_from_weekno(week_number)
     next_week = week_number + 1
@@ -178,13 +170,14 @@ def copy_lesson(request, lesson_pk):
                 # Now copy the resources
                 for resource in source_lesson.resources().all():
                     new_resource = LessonResources.objects.create(lesson=target_lesson,
-                                                   resource_type=resource.resource_type,
-                                                   link=resource.link,
-                                                   students_can_view_after=resource.students_can_view_after,
-                                                   students_can_view_before=resource.students_can_view_before)
+                                                                  resource_type=resource.resource_type,
+                                                                  resource_name=resource.resource_name,
+                                                                  link=resource.link,
+                                                                  students_can_view_after=resource.students_can_view_after,
+                                                                  students_can_view_before=resource.students_can_view_before)
                     new_resource.save()
 
-            return redirect(reverse('timetable:class_lesson_list', args=[source_lesson.classgroup.pk,]))
+            return redirect(reverse('timetable:class_lesson_list', args=[source_lesson.classgroup.pk, ]))
 
         else:
             return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
@@ -224,7 +217,6 @@ def get_lesson_from_date(classgroup, date):
 
 
 def class_lesson_check(request, classgroup_pk):
-
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 

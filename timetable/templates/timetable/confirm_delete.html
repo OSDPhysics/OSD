@@ -1,0 +1,36 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Lesson deletion</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Confirm Deletion?
+                        </h2>
+                        Your are about to delete {{ lesson }}<br>
+                        Title: {{ lesson.lesson_title }}<br>
+                        Class: {{ lesson.classgroup }}<br>
+                        Lesson number: {{ lesson.sequence }}<br>
+                        Description: {{ lesson.description }}<br>
+                        Requirements: {{ lesson.requirements }}<br>
+
+                        <a href="{% url 'timetable:confirm_delete_lesson' lesson.pk lesson.classgroup.pk %}" class="btn btn-danger">Delete this lesson</a>
+
+                        <a href="{% url 'timetable:class_lesson_list' lesson.classgroup.pk %}" class="btn btn-primary">Back (do note delete)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

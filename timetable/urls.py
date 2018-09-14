@@ -10,6 +10,6 @@ urlpatterns = [
     path('class/<int:classgroup_pk>/check', views.class_lesson_check, name='class_lesson_check'),
     path('copy/<int:lesson_pk>', views.copy_lesson, name='copy_lesson'),
     path('delete/<int:lesson_pk>/<int:class_pk>', views.delete_lesson, name='delete_lesson'),
-    path('confirm_delete/<int:lesson_pk><int:class_pk>', views.confirm_delete_lesson, name='confirm_delete_lesson'),
+    path('confirm_delete/<int:lesson_pk>/<int:class_pk>', views.confirm_delete_lesson, name='confirm_delete_lesson'),
 
 ]

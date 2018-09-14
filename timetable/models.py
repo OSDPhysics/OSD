@@ -302,44 +302,48 @@ class Lesson(models.Model):
         icons = []
         resources = LessonResources.objects.filter(lesson=self)
 
-        def generate_string(font_awesome_string, resource):
-            string = "<a href=" + str(resource.link)
-            string = string + ' data-toggle="tooltip" data-placement="top" title="'
-            string = string + (str(resource.resource_name))
-            string = string + '">'
-            string = string + font_awesome_string
-            string = string + "</i></a>"
-
-            return string
-
         for resource in resources:
-            if resource.resource_type == "Presentation":
-                string = generate_string("<i class='fas fa-desktop'>", resource)
-
-            elif resource.resource_type == "Web Page":
-                string = generate_string("<i class='fas fa-tablet-alt'>", resource)
-
-            elif resource.resource_type == "Worksheet":
-                string = generate_string('<i class="far fa-newspaper">', resource)
-
-            elif resource.resource_type == "Test":
-                string = generate_string('<i class="fas fa-pencil-ruler">', resource)
-
-            else:
-                string = generate_string('<i class="far fa-question-circle">', resource)
-
-            icons.append(string)
+            icons.append(resource.icon)
 
         return icons
 
 
 class LessonResources(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, blank=False, null=False, on_delete=models.CASCADE)
     resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
     resource_name = models.CharField(max_length=100, null=True, blank=False)
     link = models.URLField(blank=True, null=True)
     students_can_view_before = models.BooleanField()
     students_can_view_after = models.BooleanField()
+
+    def __str__(self):
+        return self.resource_name
+
+    def icon(self):
+        string = "<a href=" + str(self.link)
+        string = string + ' data-toggle="tooltip" data-placement="top" title="'
+        string = string + (str(self.resource_name))
+        string = string + '">'
+
+        if self.resource_type == "Presentation":
+            string = string + "<i class='fas fa-desktop'>"
+
+        elif self.resource_type == "Web Page":
+            string = string + "<i class='fas fa-tablet-alt'>"
+
+        elif self.resource_type == "Worksheet":
+            string = string + '<i class="far fa-newspaper">'
+
+        elif self.resource_type == "Test":
+            string = string + '<i class="fas fa-pencil-ruler">'
+
+        else:
+            string = string + '<i class="far fa-question-circle">'
+
+        string = string + "</i></a>"
+
+        return string
+
 
 
 class LessonSuspension(models.Model):
@@ -347,7 +351,7 @@ class LessonSuspension(models.Model):
     whole_school = models.BooleanField(default=True)
     date = models.DateField(blank=False, null=False)
     reason = models.CharField(max_length=200, blank=False, null=True)
-    classgroups = models.ManyToManyField(ClassGroup, blank=True, null=True)
+    classgroups = models.ManyToManyField(ClassGroup, blank=True)
     all_day = models.BooleanField(default=False)
     period = models.IntegerField(choices=PERIODS, blank=True, null=True)
 
