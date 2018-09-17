@@ -14,6 +14,7 @@
                             <a href="{% url 'school:student_class_overview' student.pk dataset.classgroup.pk %}">{{ dataset.classgroup }}</a>
 
                         </h2>
+                        You have learned {{ dataset.classgroup.percentage_topics_taught }}% of all the content of this course
                         <h3>Recent Assessments</h3>
                         <table class="table">
                             <tr>

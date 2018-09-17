@@ -3,7 +3,11 @@ from django.contrib.auth.models import User
 from teachnet.models import Skill
 from django.apps import apps
 from numpy import average
+from itertools import chain
 
+# Remove before starting server - this is to help PyCharm auto syntax completion!
+#from tracker.models import SyllabusPoint
+#from timetable.models import Lesson
 
 # Create your models here.
 
@@ -134,6 +138,33 @@ class ClassGroup(models.Model):
 
         data = list(zip(students, journaled, ratings))
         return data
+
+    def percentage_topics_taught(self):
+
+        # Avoid circular import:
+        SyllabusPoint = apps.get_model(app_label='tracker', model_name='SyllabusPoint')
+        # Get total number of syllabus points
+        total_points = SyllabusPoint.objects.filter(sub_topic__topic__syllabus__in=self.syllabustaught.all())
+        total_points = total_points.distinct().count()
+        print(total_points)
+
+        # Find how many individual points we've taught:
+
+        # Get all lessons:
+        Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
+        all_lessons = Lesson.objects.filter(classgroup=self)
+        taught_points = SyllabusPoint.objects.filter(lesson__in=all_lessons)
+
+        # remove duplicate taught poitns:
+        print(taught_points)
+
+        if taught_points == 0 or total_points == 0:
+            return 0
+        else:
+            taught_points = taught_points.distinct().count()
+
+            return round(taught_points/total_points * 100, 0)
+
 
 
 class TutorGroup(models.Model):

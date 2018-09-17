@@ -8,12 +8,13 @@
         <option name="manageScript" value="$MODULE_DIR$/manage.py" />
         <option name="environment" value="&lt;map/&gt;" />
         <option name="doNotUseTestRunner" value="false" />
+        <option name="trackFilePattern" value="migrations" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.6 (django-test)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery" level="application" />
   </component>
@@ -22,6 +23,10 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/school/templates" />
+        <option value="$MODULE_DIR$/teachnet/templates" />
+        <option value="$MODULE_DIR$/timetable/templates" />
+        <option value="$MODULE_DIR$/tracker/templates" />
+        <option value="$MODULE_DIR$/journal/templates" />
       </list>
     </option>
   </component>

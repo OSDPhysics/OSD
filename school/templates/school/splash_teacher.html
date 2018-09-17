@@ -14,12 +14,14 @@
                         <table class="table">
                             <tr>
                                 <td>Class</td>
-                                <td>Average completion</td>
+                                <td>% taught</td>
+                                <td>% tested</td>
                                 <td>Average score</td>
                             </tr>
                             {% for class in classes %}
                                 <tr>
                                     <td><a href="{% url 'school:class_details' class.pk %}"{{ class.groupname }}>{{ class }}</a></td>
+                                    <td>{{ class.percentage_topics_taught }}</td>
                                     <td>{{ class.classgroup_average_completion }}</td>
                                     <td>{{ class.classgroup_average_rating }}</td>
                                 </tr>

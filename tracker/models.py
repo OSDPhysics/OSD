@@ -3,6 +3,7 @@ from school.models import Student, ClassGroup
 import numpy
 from django.db.models import Sum
 from ckeditor.fields import RichTextField
+from django.apps import apps
 
 
 # Create your models here.
@@ -121,6 +122,14 @@ class SyllabusTopic(models.Model):
         else:
             return 0
 
+    def lessons_taught(self, classgroup):
+        """ return all the lessons in which this point has been taught to this classgroup"""
+
+        Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
+        lessons = Lesson.objects.filter(syllabus_points_covered__sub_topic__topic=self, classgroup=classgroup)
+        return lessons.distinct()
+
+
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
     sub_topic = models.CharField(max_length=100)
@@ -145,6 +154,12 @@ class SyllabusSubTopic(models.Model):
 
         return list(zip(syllabus_points, ratings, assessments))
 
+    def lessons_taught(self, classgroup):
+        """ return all the lessons in which this point has been taught to this classgroup"""
+
+        Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
+        lessons = Lesson.objects.filter(syllabus_points_covered__sub_topic=self, classgroup=classgroup)
+        return lessons.distinct()
 
 
 class SyllabusPoint(models.Model):
@@ -170,8 +185,16 @@ class SyllabusPoint(models.Model):
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
 
-        sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments).distinct
+        sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments)
         return sittings
+
+    def lessons_taught(self, classgroup):
+        """ return all the lessons in which this point has been taught to this classgroup"""
+
+        Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
+        lessons = Lesson.objects.filter(syllabus_points_covered=self, classgroup=classgroup)
+        return lessons.distinct()
+
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
