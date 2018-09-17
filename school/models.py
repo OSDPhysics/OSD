@@ -146,7 +146,6 @@ class ClassGroup(models.Model):
         # Get total number of syllabus points
         total_points = SyllabusPoint.objects.filter(sub_topic__topic__syllabus__in=self.syllabustaught.all())
         total_points = total_points.distinct().count()
-        print(total_points)
 
         # Find how many individual points we've taught:
 
@@ -155,8 +154,6 @@ class ClassGroup(models.Model):
         all_lessons = Lesson.objects.filter(classgroup=self)
         taught_points = SyllabusPoint.objects.filter(lesson__in=all_lessons)
 
-        # remove duplicate taught poitns:
-        print(taught_points)
 
         if taught_points == 0 or total_points == 0:
             return 0

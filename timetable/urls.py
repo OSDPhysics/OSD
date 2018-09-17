@@ -11,5 +11,6 @@ urlpatterns = [
     path('copy/<int:lesson_pk>', views.copy_lesson, name='copy_lesson'),
     path('delete/<int:lesson_pk>/<int:class_pk>', views.delete_lesson, name='delete_lesson'),
     path('confirm_delete/<int:lesson_pk>/<int:class_pk>', views.confirm_delete_lesson, name='confirm_delete_lesson'),
+    path('lessons/<int:lesson_pk>', views.lesson_details, name='lesson_details'),
 
 ]

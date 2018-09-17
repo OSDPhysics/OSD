@@ -4,9 +4,9 @@ from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
 from timetable.forms import LessonCopyForm
-
+from osd.decorators import *
 import datetime
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -131,8 +131,7 @@ def teacher_tt(request, teacher_pk, week_number):
                                                      'next_week': next_week,
                                                      'last_week': last_week,
                                                      'teacher': teacher})
-
-
+@teacher_only
 def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
@@ -145,7 +144,7 @@ def class_lesson_list(request, classgroup_pk):
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
 
-
+@teacher_only
 def copy_lesson(request, lesson_pk):
     source_lesson = Lesson.objects.get(pk=lesson_pk)
     moveForm = LessonCopyForm()
@@ -186,6 +185,7 @@ def copy_lesson(request, lesson_pk):
         return render(request, 'timetable/move_lesson.html', {'moveform': moveForm})
 
 
+@teacher_only
 def delete_lesson(request, lesson_pk, class_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     classgroup = ClassGroup.objects.get(pk=class_pk)
@@ -198,7 +198,7 @@ def delete_lesson(request, lesson_pk, class_pk):
         return render(request, 'timetable/confirm_delete.html', {'lesson': lesson,
                                                                  'classgroup': classgroup})
 
-
+@teacher_only
 def confirm_delete_lesson(request, lesson_pk, class_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     lesson.delete()
@@ -216,6 +216,7 @@ def get_lesson_from_date(classgroup, date):
     lessons_per_week = lesson_slots[0].total_lessons()
 
 
+@teacher_only
 def class_lesson_check(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
@@ -226,3 +227,23 @@ def class_lesson_check(request, classgroup_pk):
         messages.add_message(request, messages.WARNING, message)
 
     return redirect(reverse('timetable:class_lesson_list', args=[classgroup_pk, ]))
+
+
+@login_required
+def lesson_details(request, lesson_pk):
+
+    lesson = Lesson.objects.get(pk=lesson_pk)
+
+    # TEACHERS should see all details
+    if request.user.groups.filter(name='Teachers').exists():
+        return render(request, 'tracker/teacher_lesson_details.html', {'lesson': lesson })
+
+    # STUDENTS see restricted data
+    elif request.user.groups.filter(name='Students').exists():
+        classgroups = Student.objects.get(user=request.user).classgroups
+        if classgroups in lesson.classgroup:
+            resources = LessonResources.objects.filter(lesson=lesson)
+            resources.filter(Q((students_can_view_before=True) | (stude)))
+            return render(request, 'tracker/student_lesson_details.html')
+
+
