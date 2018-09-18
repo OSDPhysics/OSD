@@ -197,7 +197,11 @@ class Lesson(models.Model):
                            ("classgroup", "sequence"))
 
     def __str__(self):
-        return str(self.lessonslot) + " lesson " + str(self.date)
+        if self.lesson_title:
+            return str(self.classgroup) + " " + str(self.sequence) + ": " + str(self.lesson_title)
+
+        else:
+            return str(self.classgroup) + "lesson:  " + str(self.sequence) + " " + str(self.date)
 
     def resources(self):
 

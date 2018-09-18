@@ -144,7 +144,7 @@ def import_students(request):
             processstudent(path)
             os.remove(path)
             file.delete()
-            return redirect('list_students')
+            return redirect('school:list_students')
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})

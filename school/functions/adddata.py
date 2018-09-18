@@ -41,11 +41,7 @@ def addstudent(newstudent):
     # Test to see whether the user exists yet
 
     newuser, created = User.objects.get_or_create(username=newstudent['username'],
-                                                  email=newstudent['email'],
-                                                  password=newstudent['password'],
-                                                  first_name=newstudent['first_name'],
-                                                  last_name=newstudent['last_name']
-                                                  )
+                                                 )
 
     # created will be true if the user didn't already exist.
 
@@ -53,6 +49,9 @@ def addstudent(newstudent):
 
         # New user won't have a password yet
         newuser.set_password(newstudent['password'])
+        newuser.email = newstudent['email']
+        newuser.first_name = newstudent['first_name']
+        newuser.last_name = newstudent['last_name']
         newuser.save()
 
         # Place new user in the Students Auth group
