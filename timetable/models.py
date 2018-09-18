@@ -207,6 +207,23 @@ class Lesson(models.Model):
 
         return LessonResources.objects.filter(lesson=self)
 
+    def student_viewable_resources(self):
+        # Get the resources set to be viewable at any time
+        all_resources = []
+        resources = LessonResources.objects.filter(lesson=self, students_can_view_before=True)
+        for resource in resources:
+            all_resources.append(resource)
+
+        # If it's been taught, get the 'after' resources:
+
+        if self.date < datetime.datetime.now():
+            resources = LessonResources.objects.filter(lesson=self, students_can_view_after=True).exclude(
+                students_can_view_before=True)
+            for resource in resources:
+                all_resources.append(resource)
+
+        return all_resources
+
     def set_date(self):
 
         """ A slightly complicated method, which must set the date for the current lesson.
@@ -336,13 +353,13 @@ class LessonResources(models.Model):
             string = string + "<i class='fas fa-tablet-alt'>"
 
         elif self.resource_type == "Worksheet":
-            string = string + '<i class="far fa-newspaper">'
+            string = string + '<i class="fas fa-newspaper">'
 
         elif self.resource_type == "Test":
-            string = string + '<i class="fas fa-pencil-ruler">'
+            string = string + "<i class='fas fa-pencil-ruler'></i>"
 
         else:
-            string = string + '<i class="far fa-question-circle">'
+            string = string + '<i class="fas fa-question-circle">'
 
         string = string + "</i></a>"
 

@@ -6,7 +6,8 @@ from osd.settings.base import CALENDAR_START_DATE
 from timetable.forms import LessonCopyForm
 from osd.decorators import *
 import datetime
-from django.db.models import Q
+from django.http import HttpResponseForbidden
+
 
 # Create your views here.
 
@@ -131,6 +132,8 @@ def teacher_tt(request, teacher_pk, week_number):
                                                      'next_week': next_week,
                                                      'last_week': last_week,
                                                      'teacher': teacher})
+
+
 @teacher_only
 def class_lesson_list(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
@@ -143,6 +146,7 @@ def class_lesson_list(request, classgroup_pk):
 
     return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
+
 
 @teacher_only
 def copy_lesson(request, lesson_pk):
@@ -167,7 +171,7 @@ def copy_lesson(request, lesson_pk):
 
                 target_lesson.save()
                 # Now copy the resources
-                for resource in source_lesson.resources().all():
+                for resource in source_lesson.all_resources().all():
                     new_resource = LessonResources.objects.create(lesson=target_lesson,
                                                                   resource_type=resource.resource_type,
                                                                   resource_name=resource.resource_name,
@@ -197,6 +201,7 @@ def delete_lesson(request, lesson_pk, class_pk):
     else:
         return render(request, 'timetable/confirm_delete.html', {'lesson': lesson,
                                                                  'classgroup': classgroup})
+
 
 @teacher_only
 def confirm_delete_lesson(request, lesson_pk, class_pk):
@@ -231,19 +236,24 @@ def class_lesson_check(request, classgroup_pk):
 
 @login_required
 def lesson_details(request, lesson_pk):
-
     lesson = Lesson.objects.get(pk=lesson_pk)
 
     # TEACHERS should see all details
     if request.user.groups.filter(name='Teachers').exists():
-        return render(request, 'tracker/teacher_lesson_details.html', {'lesson': lesson })
+        return render(request, 'tracker/teacher_lesson_details.html', {'lesson': lesson})
 
     # STUDENTS see restricted data
     elif request.user.groups.filter(name='Students').exists():
         classgroups = Student.objects.get(user=request.user).classgroups
+
+        # Make sure student can see this classgroup
         if classgroups in lesson.classgroup:
-            resources = LessonResources.objects.filter(lesson=lesson)
-            resources.filter(Q((students_can_view_before=True) | (stude)))
-            return render(request, 'tracker/student_lesson_details.html')
+            resources = lesson.student_viewable_resources()
+            return render(request, 'timetable/student_lesson_details.html', {'lesson': lesson,
+                                                                             'resources': resources})
 
+        else:  # Student is not a member of this lessons classgroup
+            return HttpResponseForbidden()
 
+    else:  # Not a student or a teacher!
+        return HttpResponseForbidden()
