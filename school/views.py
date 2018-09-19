@@ -3,7 +3,7 @@ import os
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from .forms import *
 from .functions.adddata import *
@@ -21,6 +21,7 @@ def home(request):
     return render(request, 'school/home.html', {'user': user})
 
 
+@login_required
 def splash(request):
     # Different splash pages are served depending on the type of user
 
@@ -144,7 +145,7 @@ def import_students(request):
             processstudent(path)
             os.remove(path)
             file.delete()
-            return redirect('school:list_students')
+            return redirect(reverse('school:list_students'))
     else:
         csvform = CSVDocForm()
     return render(request, 'school/model_form_upload.html', {'csvform': csvform})
