@@ -247,7 +247,7 @@ def lesson_details(request, lesson_pk):
         classgroups = Student.objects.get(user=request.user).classgroups.all()
 
         # Make sure student can see this classgroup
-        if classgroups in lesson.classgroup:
+        if lesson.classgroup in classgroups:
             resources = lesson.student_viewable_resources()
             return render(request, 'timetable/student_lesson_details.html', {'lesson': lesson,
                                                                              'resources': resources})
