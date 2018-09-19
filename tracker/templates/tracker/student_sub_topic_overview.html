@@ -37,7 +37,7 @@
 </td>
                             <td>
                                 {% for lesson in lessons %}
-                                    <a href="{% url 'timetable:lesson_details' lesson.pk %}">{{ lesson }}</a>
+                                    <a href="{% url 'timetable:lesson_details' lesson.pk %}">{{ lesson }}</a><br>
                                 {% endfor %}
                             </td>
                             <td></td>
