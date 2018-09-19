@@ -244,7 +244,7 @@ def lesson_details(request, lesson_pk):
 
     # STUDENTS see restricted data
     elif request.user.groups.filter(name='Students').exists():
-        classgroups = Student.objects.get(user=request.user).classgroups
+        classgroups = Student.objects.get(user=request.user).classgroups.all()
 
         # Make sure student can see this classgroup
         if classgroups in lesson.classgroup:
