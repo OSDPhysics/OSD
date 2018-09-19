@@ -147,12 +147,15 @@ class SyllabusSubTopic(models.Model):
         syllabus_points = SyllabusPoint.objects.filter(sub_topic=self)
         ratings = []
         assessments = []
+        lessons = []
+        Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
         for point in syllabus_points:
             ratings.append(point.get_student_rating(student))
 
             assessments.append(Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
+            lessons.append(Lesson.objects.filter(syllabus_points_covered=point, classgroup__in=student.classgroups.all()))
 
-        return list(zip(syllabus_points, ratings, assessments))
+        return list(zip(syllabus_points, ratings, assessments, lessons))
 
     def lessons_taught(self, classgroup):
         """ return all the lessons in which this point has been taught to this classgroup"""
@@ -188,11 +191,11 @@ class SyllabusPoint(models.Model):
         sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments)
         return sittings
 
-    def lessons_taught(self, classgroup):
+    def lessons_taught(self, classgroups):
         """ return all the lessons in which this point has been taught to this classgroup"""
 
         Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
-        lessons = Lesson.objects.filter(syllabus_points_covered=self, classgroup=classgroup)
+        lessons = Lesson.objects.filter(syllabus_points_covered=self, classgroup__in=classgroups)
         return lessons.distinct()
 
 

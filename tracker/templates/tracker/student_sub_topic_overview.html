@@ -15,11 +15,11 @@
                                 <td>Syllabus Point</td>
                                 <td>Average rating</td>
                                 <td>Assessments</td>
-                                <td>Resources</td>
+                                <td>Lessons</td>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for syllabus_point, rating, assessments in point_data %}
+                            {% for syllabus_point, rating, assessments, lessons in point_data %}
                             <tr {% if rating >= 4 %} class="table-success"
                                 {% elif rating >= 3 %} class = "table-info"
                                 {% elif rating >= 2 %} class="table-warning"
@@ -35,7 +35,11 @@
 
 
 </td>
-
+                            <td>
+                                {% for lesson in lessons %}
+                                    <a href="{% url 'timetable:lesson_details' lesson.pk %}">{{ lesson }}</a>
+                                {% endfor %}
+                            </td>
                             <td></td>
                             </tr>
 

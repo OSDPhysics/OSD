@@ -1,0 +1,57 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Lesson Details</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Details of Lesson {{ lesson }}
+                        </h2>
+                        <table class="table">
+                            <tr>
+                            <td>
+                                Date taught:
+                            </td>
+                                <td>{{ lesson.date }}</td>
+                            </tr>
+                            <tr>
+                            <td>Summary:</td><td>{{ lesson.description }}</td>
+                            </tr>
+                            <tr>
+                                <td>Orders:</td><td>{{ lesson.requirements }}</td>
+                            </tr>
+
+                            <h3>Resources</h3>
+                            <table class="table">
+                                <tr>
+                                    <td>Type</td>
+                                    <td>Name</td>
+                                    <td>Link</td>
+                                </tr>
+                                {% for resource in lesson.resources %}
+                                <tr>
+                                <td>{{ resource.resource_type }}</td>
+                                <td>{{ resource.resource_name }}</td>
+                                <td>{{ resource.icon|safe }}</td>
+                                </tr>
+
+                                {% endfor %}
+                            </table>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

@@ -216,7 +216,7 @@ class Lesson(models.Model):
 
         # If it's been taught, get the 'after' resources:
 
-        if self.date < datetime.datetime.now():
+        if self.date < datetime.date.today():
             resources = LessonResources.objects.filter(lesson=self, students_can_view_after=True).exclude(
                 students_can_view_before=True)
             for resource in resources:

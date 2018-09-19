@@ -240,7 +240,7 @@ def lesson_details(request, lesson_pk):
 
     # TEACHERS should see all details
     if request.user.groups.filter(name='Teachers').exists():
-        return render(request, 'tracker/teacher_lesson_details.html', {'lesson': lesson})
+        return render(request, 'timetable/teacher_lesson_details.html', {'lesson': lesson})
 
     # STUDENTS see restricted data
     elif request.user.groups.filter(name='Students').exists():
