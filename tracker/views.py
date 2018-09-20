@@ -579,6 +579,7 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
                                                                            'point_data': point_data,
                                                                            'journal_form': journal_form})
 
+
 @own_or_teacher_only
 def small_assessment_list(request, point_pk, student_pk):
     '''Create a small window showing which assessments are testing a certain syllabus point.'''

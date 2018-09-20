@@ -211,6 +211,7 @@ class Lesson(models.Model):
         # Get the resources set to be viewable at any time
         all_resources = []
         resources = LessonResources.objects.filter(lesson=self, students_can_view_before=True)
+        print(all_resources)
         for resource in resources:
             all_resources.append(resource)
 
