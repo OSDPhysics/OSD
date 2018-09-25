@@ -171,7 +171,7 @@ def copy_lesson(request, lesson_pk):
 
                 target_lesson.save()
                 # Now copy the resources
-                for resource in source_lesson.all_resources().all():
+                for resource in source_lesson.resources().all():
                     new_resource = LessonResources.objects.create(lesson=target_lesson,
                                                                   resource_type=resource.resource_type,
                                                                   resource_name=resource.resource_name,
