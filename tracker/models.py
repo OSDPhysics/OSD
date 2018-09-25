@@ -230,6 +230,9 @@ class Question(models.Model):
     def __str__(self):
         return self.qnumber
 
+    class Meta:
+        unique_together = (("exam", "qorder"),)
+
 
 class Sitting(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
@@ -287,7 +290,7 @@ class Sitting(models.Model):
 
         topic_ratings = []
         for topic in topics:
-            questions = Question.objects.filter(syllabuspoint__topic=topic)
+            questions = Question.objects.filter(syllabuspoint__topic=topic, exam=self)
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
@@ -319,6 +322,9 @@ class Mark(models.Model):
         # CSV Uploads
         else:
             return False
+
+    class Meta:
+        unique_together = (("student", "question", "sitting"),)
 
 
 class CSVDoc(models.Model):

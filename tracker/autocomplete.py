@@ -35,7 +35,7 @@ class SyllabusPointAutocomplete2(autocomplete.Select2QuerySetView):
             qs = qs.filter(topic__syllabus=syllabus)
 
         if self.q:
-            qs = qs.filter(syllabusText__contains=self.q)
+            qs = qs.filter(syllabusText__icontains=self.q)
 
         return qs
 
@@ -49,7 +49,7 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
         qs = ClassGroup.objects.all()
 
         if self.q:
-            qs = qs.filter(groupname__contains=self.q)
+            qs = qs.filter(groupname__icontains=self.q)
 
         return qs
 
@@ -81,7 +81,7 @@ class SyllabusAutocomplete(autocomplete.Select2QuerySetView):
 
 
         if self.q:
-            qs = qs.filter(syllabusname__contains=self.q)
+            qs = qs.filter(syllabusname__icontains=self.q)
 
         return qs
 

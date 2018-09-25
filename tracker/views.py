@@ -165,7 +165,7 @@ def list_exams(request):
     return render(request, 'tracker/exams.html', {'exams': exams})
 
 
-def construction(request, pk):
+def construction(request):
     return render(request, 'tracker/404.html', {})
 
 
@@ -275,8 +275,8 @@ def new_sitting(request, exampk):
             students = Student.objects.filter(classgroups=classgroup)
             for student in students:
                 for question in questions:
-                    Mark.objects.create(student=student, question=question, sitting=sitting)
-            return (reverse('tracker:sitting_detail', args=[sitting.pk,]))
+                    Mark.objects.get_or_create(student=student, question=question, sitting=sitting)
+            return redirect(reverse('tracker:sitting_detail', args=[sitting.pk, ]))
 
         else:
             return render(request, 'tracker/new_sitting.html', {'sittingform': sittingform})
