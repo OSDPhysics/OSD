@@ -78,8 +78,6 @@ class SyllabusAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Syllabus.objects.all()
 
-
-
         if self.q:
             qs = qs.filter(syllabusname__icontains=self.q)
 
