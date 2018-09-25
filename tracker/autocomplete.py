@@ -17,7 +17,7 @@ class SyllabusPointAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(topic__syllabus__in=syllabus)
 
         if self.q:
-            qs = qs.filter(syllabusText__contains=self.q)
+            qs = qs.filter(syllabusText__icontains=self.q)
 
         return qs
 
