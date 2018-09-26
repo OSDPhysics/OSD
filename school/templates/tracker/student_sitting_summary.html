@@ -53,62 +53,13 @@
      {% endfor %}
     </tbody>
     </table>
+    <a class="btn btn-primary btn-lg" href="{% url 'school:student_class_overview' student.pk sitting.classgroup.pk %}" role="button">Return to your class overview</a>
 
-
-
-    <h2>Syllabus Point Performance</h2>
-
-
-    <form method="post">
-    {% csrf_token %}
-    {{ point_journal_formset.management_form }}
-    {{ point_journal_formset.media }}
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <td>Syllabus Point</td>
-            <td>Rating /5</td>
-            <td>Your comments</td>
-            <td>Your Learning Journal</td>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        {% for point, rating, notes, journal in syllabus_data %}
-            <tr>
-            <td><button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button></td>
-            <td>{{ rating }}</td>
-            <td>{% for note in notes %}
-                <p>{{ note|safe }}</p>
-
-                {% endfor %}</td>
-            <td>{{ journal.media }}{% if journal.errors %}class="danger"{% endif %}
-                {{ journal.entry }}{{ journal.errors }}
-                {% for field in journal.hidden_fields %}
-                    {{ field }}
-                {% endfor %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <button type="submit">Submit</button>
-    </form>
 
     {% endblock content %}
 {% block script %}
 
-    <script>
-    // Make the table filterable
-$(document).ready(function(){
-  $("#syllabusSearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#syllabusTable").find("tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+
 
         {# for tooltips #}
     <script>

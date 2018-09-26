@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/templates/school/import_students.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/school/import_students.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/templates/school/splash_teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/school/splash_teacher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/school/templates/school/splash_student.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/school/splash_student.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,42 +54,73 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="splash_teacher.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/school/templates/school/splash_teacher.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="import_students.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/school/templates/school/import_students.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="importstudents.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tracker/management/commands/importstudents.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="import_students.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/import_students.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.50085473">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="splash_student.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="326">
+                  <caret line="23" column="50" lean-forward="true" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="student_sitting_summary.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="354">
+                  <caret line="53" column="12" lean-forward="true" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tracker/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-550">
+                  <caret line="435" column="29" selection-start-line="435" selection-start-column="29" selection-end-line="435" selection-end-column="29" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="splash.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/school/templates/school/splash.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-end-line="19" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/tracker/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="450">
+                  <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/school/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="18" column="29" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="29" />
+                  <folding>
+                    <element signature="e#0#28#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -103,7 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_mon</find>
       <find>de</find>
       <find>index</find>
       <find>new_sitt</find>
@@ -133,6 +162,7 @@
       <find>spla</find>
       <find>impor</find>
       <find>imp</find>
+      <find>student_sitting</find>
     </findStrings>
     <replaceStrings>
       <replace>td</replace>
@@ -149,7 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/journal/forms.py" />
         <option value="$PROJECT_DIR$/journal/admin.py" />
         <option value="$PROJECT_DIR$/school/templates/school/splash.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/syllabus_teacher_detail.html" />
@@ -162,7 +191,6 @@
         <option value="$PROJECT_DIR$/journal/templates/journal/studentlist.html" />
         <option value="$PROJECT_DIR$/journal/urls.py" />
         <option value="$PROJECT_DIR$/journal/templates/journal/all_student_entries.html" />
-        <option value="$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/splash_student.html" />
         <option value="$PROJECT_DIR$/journal/views.py" />
         <option value="$PROJECT_DIR$/journal/templates/journal/student_topic_overview.html" />
@@ -200,6 +228,8 @@
         <option value="$PROJECT_DIR$/school/models.py" />
         <option value="$PROJECT_DIR$/school/templates/school/splash_teacher.html" />
         <option value="$PROJECT_DIR$/school/templates/school/import_students.html" />
+        <option value="$PROJECT_DIR$/school/templates/school/splash_student.html" />
+        <option value="$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html" />
       </list>
     </option>
   </component>
@@ -239,33 +269,7 @@
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
               <item name="OSD" type="462c0819:PsiDirectoryNode" />
               <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="functions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
@@ -273,11 +277,6 @@
               <item name="school" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="tracker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="teachnet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
@@ -308,12 +307,6 @@
               <item name="OSD" type="462c0819:PsiDirectoryNode" />
               <item name="tracker" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
@@ -364,6 +357,120 @@
       <recent name="$PROJECT_DIR$/journal/templates/journal" />
       <recent name="$PROJECT_DIR$/registration" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.gitignore</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/timetable/views.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/autocomplete.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/models.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/views.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -801,63 +908,80 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="23" width="1212" height="777" extended-state="6" />
-    <editor active="true" />
+    <frame x="68" y="23" width="1212" height="777" extended-state="0" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32844576" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.2786746" side_tool="true" weight="0.32794118" />
-      <window_info anchor="bottom" id="Database Changes" order="14" weight="0.32941177" />
+      <window_info anchor="bottom" id="TODO" order="5" weight="0.32844576" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.2794872" side_tool="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Database Changes" order="16" weight="0.32941177" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49030694" weight="0.32794118" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69709206" weight="0.35" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" visible="true" weight="0.32794118" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.7213254" weight="0.32794118" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" weight="0.32794118" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.7205128" weight="0.32794118" />
       <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22991453" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
       <window_info anchor="right" id="SciView" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24959612" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.7350565" weight="0.3973607" />
-      <window_info anchor="bottom" id="Thumbnails" order="14" weight="0.32991204" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.7350565" weight="0.3973607" />
+      <window_info anchor="bottom" id="Version Control" order="19" sideWeight="0.49030694" weight="0.32794118" />
+      <window_info anchor="bottom" id="Thumbnails" order="24" weight="0.32991204" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Docker" order="22" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="17" weight="0.4" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22991453" />
+      <window_info anchor="right" id="SciView" order="5" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.32794118" />
-      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32991204" />
+      <window_info anchor="bottom" id="TODO" order="14" weight="0.32844576" />
+      <window_info anchor="bottom" id="manage.py@OSD" order="23" sideWeight="0.45799676" weight="0.32794118" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.8812601" visible="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Inspection Results" order="25" weight="0.32991204" />
+      <window_info anchor="bottom" id="Database Changes" order="26" weight="0.32941177" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24959612" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
       <window_info anchor="bottom" id="Messages" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="File Transfer" order="15" sideWeight="0.49676898" weight="0.3287483" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
+      <window_info anchor="bottom" id="Event Log" order="18" sideWeight="0.2786746" side_tool="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Cvs" order="15" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="File Transfer" order="27" sideWeight="0.49676898" weight="0.3287483" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32844576" />
+      <window_info anchor="bottom" id="Terminal" order="21" sideWeight="0.7213254" weight="0.32794118" />
+      <window_info anchor="bottom" id="Python Console" order="20" sideWeight="0.69709206" weight="0.35" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Thumbnails" order="14" weight="0.32991204" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" weight="0.32844576" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
-      <window_info anchor="bottom" id="Thumbnails" order="15" weight="0.32991204" />
-      <window_info id="Structure" order="1" weight="0.24959612" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49030694" weight="0.32794118" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32844576" />
-      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.32844576" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69709206" weight="0.35043988" />
-      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32991204" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26898223" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.7350565" visible="true" weight="0.3973607" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6898223" weight="0.32844576" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.26494345" side_tool="true" visible="true" weight="0.3973607" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49030694" weight="0.32844576" />
-      <window_info anchor="right" id="SciView" order="5" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22991453" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24959612" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" weight="0.32844576" />
+      <window_info anchor="bottom" id="Database Changes" order="16" weight="0.32941177" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" visible="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32991204" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
       <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.7213254" weight="0.32794118" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.2786746" side_tool="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="right" id="SciView" order="5" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="File Transfer" order="17" sideWeight="0.49676898" weight="0.3287483" />
+      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.32794118" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.7350565" weight="0.3973607" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69709206" weight="0.35" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -992,13 +1116,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/input_class_marks.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/teachnet/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -1091,13 +1208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tracker/functions/adddata.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1140,13 +1250,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="188" column="32" selection-start-line="188" selection-start-column="32" selection-end-line="188" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/fields/related_descriptors.py" />
     <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1157,36 +1260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="329" selection-start-line="329" selection-end-line="329" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="63" column="37" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+        <state relative-caret-position="380">
+          <caret line="328" selection-start-line="328" selection-end-line="328" />
         </state>
       </provider>
     </entry>
@@ -1194,34 +1269,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
           <caret line="54" column="67" selection-start-line="54" selection-start-column="67" selection-end-line="54" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="105" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="15" selection-start-column="15" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -1255,20 +1302,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="136" column="7" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_teacher.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/school/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1294,8 +1327,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/import_students.html">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="50" column="72" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_teacher.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-568">
+          <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="23" column="50" lean-forward="true" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-550">
+          <caret line="435" column="29" selection-start-line="435" selection-start-column="29" selection-end-line="435" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="53" column="12" lean-forward="true" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
