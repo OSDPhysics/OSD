@@ -1,8 +1,8 @@
 *.pyc
-*__pycache__
+*__pycache__*
 */migrations/*
 db.sqlite3
-osd/settings.py
 osd/wsgi.py
-
 .idea/
+osd/settings/secret.py
+osd/settings/secret_beta.py

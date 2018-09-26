@@ -46,12 +46,7 @@ class Syllabus(models.Model):
 
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__exam__syllabus=self).filter(student=student)
-        pcs = []
-        for mark in marks:
-            if mark.score is not None:
-                pcs.append(mark.score / mark.question.maxscore)
-        return round(numpy.mean(pcs) * 5, 1)
-
+        return mark_queryset_to_rating(marks)
 
     def classgroup_completion(self, classgroup):
         points = SyllabusPoint.objects.filter(topic__syllabus=self)
@@ -67,12 +62,7 @@ class Syllabus(models.Model):
 
     def classgroup_average_rating(self, classgroup):
         marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(sitting__classgroup=classgroup)
-        pcs = []
-        for mark in marks:
-            if mark.score is not None:
-                pcs.append(mark.score / mark.question.maxscore)
-        return round(numpy.mean(pcs) * 5, 1)
-
+        return mark_queryset_to_rating(marks)
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -83,11 +73,7 @@ class SyllabusTopic(models.Model):
 
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student=student)
-        pcs = []
-        for mark in marks:
-            if mark.score is not None:
-                pcs.append(mark.score / mark.question.maxscore)
-        return round(numpy.mean(pcs) * 5, 1)
+        return mark_queryset_to_rating(marks)
 
     def studentCompletion(self, student):
         possible = SyllabusPoint.objects.filter(topic=self).distinct()
@@ -107,11 +93,7 @@ class SyllabusTopic(models.Model):
 
     def classAverageRating(self, classgroup):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(sitting__classgroup=classgroup)
-        pcs = []
-        for mark in marks:
-            if mark.score is not None:
-                pcs.append(mark.score / mark.question.maxscore)
-        return round(numpy.mean(pcs) * 5, 1)
+        return mark_queryset_to_rating(marks)
 
     def classAverageCompletion(self, classgroup):
         possible = SyllabusPoint.objects.filter(topic=self).distinct()
@@ -230,6 +212,9 @@ class Question(models.Model):
     def __str__(self):
         return self.qnumber
 
+    class Meta:
+        unique_together = (("exam", "qorder"),)
+
 
 class Sitting(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
@@ -287,7 +272,7 @@ class Sitting(models.Model):
 
         topic_ratings = []
         for topic in topics:
-            questions = Question.objects.filter(syllabuspoint__topic=topic)
+            questions = Question.objects.filter(syllabuspoint__topic=topic, exam=self.exam)
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
@@ -320,6 +305,9 @@ class Mark(models.Model):
         else:
             return False
 
+    class Meta:
+        unique_together = (("student", "question", "sitting"),)
+
 
 class CSVDoc(models.Model):
     description = models.CharField(max_length=255, blank=True)
@@ -333,4 +321,8 @@ def mark_queryset_to_rating(marks):
     for mark in marks:
         if mark.score is not None:
             pcs.append(mark.score / mark.question.maxscore)
-    return round(numpy.mean(pcs) * 5, 1)
+
+    if len(pcs) > 0:
+        return round(numpy.mean(pcs) * 5, 1)
+    else:
+        return 0  # If we have no marks recorded, don't try to round - give zero.
