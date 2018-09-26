@@ -178,7 +178,8 @@ def classes(request):
 # TODO: implement
 @teacher_only
 def teacher_details(request, *args, **kwargs):
-    return render(request, 'tracker/404.html')
+    return render(request, 'school/404.html')
+
 
 
 # TODO: implement

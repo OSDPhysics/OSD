@@ -166,7 +166,8 @@ def list_exams(request):
 
 
 def construction(request):
-    return render(request, 'tracker/404.html', {})
+    return render(request, 'school/404.html', {})
+
 
 
 @teacher_only
