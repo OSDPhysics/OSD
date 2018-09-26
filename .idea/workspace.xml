@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/school/templates/school/import_students.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/school/import_students.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/school/templates/school/splash_teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/school/templates/school/splash_teacher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/migrations/0001_initial.py" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="90513b60:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="splash_teacher.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/school/templates/school/splash_teacher.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="import_students.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/school/templates/school/import_students.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="importstudents.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tracker/management/commands/importstudents.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="import_students.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/import_students.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>get_mon</find>
+      <find>de</find>
+      <find>index</find>
+      <find>new_sitt</find>
+      <find>choice</find>
+      <find>count</find>
+      <find>lesson</find>
+      <find>period=</find>
+      <find>title</find>
+      <find>tool</find>
+      <find>lesson_list</find>
+      <find>days</find>
+      <find>LessonSU</find>
+      <find>save</find>
+      <find>date_to_set</find>
+      <find>lesson(mo</find>
+      <find>LessonSuspen</find>
+      <find>super(lessonSusp</find>
+      <find>lessonSusp</find>
+      <find>exam_details</find>
+      <find>tooltip</find>
+      <find>impo</find>
+      <find>process</find>
+      <find>pro</find>
+      <find>class Less</find>
+      <find>logout</find>
+      <find>lo</find>
+      <find>spla</find>
+      <find>impor</find>
+      <find>imp</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>td</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/journal/forms.py" />
+        <option value="$PROJECT_DIR$/journal/admin.py" />
+        <option value="$PROJECT_DIR$/school/templates/school/splash.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/syllabus_teacher_detail.html" />
+        <option value="$PROJECT_DIR$/journal/models.py" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/enter_journal.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/exam_scores.html" />
+        <option value="$PROJECT_DIR$/teachnet/urls.py" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/splash_teacher.html" />
+        <option value="$PROJECT_DIR$/journal/templates/journal/all_student_entries_print.html" />
+        <option value="$PROJECT_DIR$/journal/templates/journal/studentlist.html" />
+        <option value="$PROJECT_DIR$/journal/urls.py" />
+        <option value="$PROJECT_DIR$/journal/templates/journal/all_student_entries.html" />
+        <option value="$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/splash_student.html" />
+        <option value="$PROJECT_DIR$/journal/views.py" />
+        <option value="$PROJECT_DIR$/journal/templates/journal/student_topic_overview.html" />
+        <option value="$PROJECT_DIR$/school/urls.py" />
+        <option value="$PROJECT_DIR$/school/templates/school/classes.html" />
+        <option value="$PROJECT_DIR$/school/views.py" />
+        <option value="$PROJECT_DIR$/school/templates/school/TEMPLATE.html" />
+        <option value="$PROJECT_DIR$/tracker/static/css/tracker.css" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/sitting_detail_by_q.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/sitting_detail.html" />
+        <option value="$PROJECT_DIR$/school/templates/school/class_detail.html" />
+        <option value="$PROJECT_DIR$/tracker/models.py" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/input_class_marks.html" />
+        <option value="$PROJECT_DIR$/tracker/views.py" />
+        <option value="$PROJECT_DIR$/osd/settings/secret-beta.py" />
+        <option value="$PROJECT_DIR$/osd/urls.py" />
+        <option value="$PROJECT_DIR$/2018-08-13.json" />
+        <option value="$PROJECT_DIR$/osd/settings/beta.py" />
+        <option value="$PROJECT_DIR$/tracker/forms.py" />
+        <option value="$PROJECT_DIR$/timetable/admin.py" />
+        <option value="$PROJECT_DIR$/tracker/admin.py" />
+        <option value="$PROJECT_DIR$/timetable/templates/timetable/splash.html" />
+        <option value="$PROJECT_DIR$/timetable/functions.py" />
+        <option value="$PROJECT_DIR$/timetable/urls.py" />
+        <option value="$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/base.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" />
+        <option value="$PROJECT_DIR$/osd/settings/base.py" />
+        <option value="$PROJECT_DIR$/tracker/urls.py" />
+        <option value="$PROJECT_DIR$/timetable/forms.py" />
+        <option value="$PROJECT_DIR$/timetable/templates/timetable/move_lesson.html" />
+        <option value="$PROJECT_DIR$/tracker/autocomplete.py" />
+        <option value="$PROJECT_DIR$/timetable/views.py" />
+        <option value="$PROJECT_DIR$/timetable/models.py" />
+        <option value="$PROJECT_DIR$/school/models.py" />
+        <option value="$PROJECT_DIR$/school/templates/school/splash_teacher.html" />
+        <option value="$PROJECT_DIR$/school/templates/school/import_students.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="68" />
+    <option name="y" value="23" />
+    <option name="width" value="1212" />
+    <option name="height" value="777" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="functions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="teachnet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="functions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="student_profile&#9;null&#9;null&#10;ckedi&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/static/ckeditor&#10;base.html&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/tracker/templates/tracker/base.html" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="pyconsole" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/registration/templates/registration" />
+      <recent name="$PROJECT_DIR$/registration/templates" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/static/django-dynamic-formset" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/school/templates/school" />
+      <recent name="$PROJECT_DIR$/journal/templates/journal" />
+      <recent name="$PROJECT_DIR$/registration" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Django server.OSD">
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tracker" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tracker/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="OSD" type="Python.DjangoServer" factoryName="Django server">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="osd.settings.dev" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+    </configuration>
+    <list>
+      <item itemvalue="Django server.OSD" />
+      <item itemvalue="Python.views" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="" />
+      <created>1525734200755</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1525734200755</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Started making changes to move to bootstrap version 4">
+      <created>1527581956094</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1527581956094</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Created a student sub-topic overview page using BS4 row/col layout.">
+      <created>1527585356335</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1527585356335</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Created a student sub-topic overview page using BS4 row/col layout.">
+      <created>1527586614135</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1527586614135</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Updated journal page to use cards">
+      <created>1527813957159</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1527813957160</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Check">
+      <created>1527822232594</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1527822232594</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Check">
+      <created>1527839424284</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1527839424284</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Check">
+      <created>1528078442150</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1528078442150</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Added classgroup list">
+      <created>1528089255352</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1528089255352</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Can now get topic means for a class exam sitting.">
+      <created>1528092509554</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1528092509555</updated>
+    </task>
+    <task id="LOCAL-00061" summary="student_completion method of Syllabus model now reports how much of the course a student has entered marks for (not just has done an assessment on).">
+      <created>1528156059440</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1528156059440</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Added a timetable module and a way to input whole-class marks at once.">
+      <created>1529917047527</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1529917047527</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Added a timetable module and a way to input whole-class marks at once.">
+      <created>1530074280681</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1530074280691</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Added a timetable module and a way to input whole-class marks at once.">
+      <created>1530236726869</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1530236726871</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Added new server address">
+      <created>1534473068596</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1534473068597</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Added new server address">
+      <created>1534473123690</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1534473123690</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Mid-point: use this commit to alter database">
+      <created>1534486723825</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1534486723825</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Second phase - use this to delete the date property from lessons.">
+      <created>1534487308921</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1534487308921</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Second phase - use this to delete the date property from lessons.">
+      <created>1534487420902</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1534487420902</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Trying to make lists work properly">
+      <created>1534494757829</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1534494757829</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Trying to make lists work properly">
+      <created>1534819004623</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1534819004669</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Trying to make lists work properly">
+      <created>1534842831170</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1534842831170</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Bugfix: timetable was not saving lesson titles or details.">
+      <created>1535015914053</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1535015914054</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Bugfix: Timetable Autocomplete needed PK set, not just searching for a syllabus by reference. No idea why it was working with GCSE!">
+      <created>1535016558384</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1535016558384</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Bugfix: Timetable Autocomplete needed PK set, not just searching for a syllabus by reference. No idea why it was working with GCSE!">
+      <created>1535017229342</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1535017229342</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Bugfix: Timetable Autocomplete needed PK set, not just searching for a syllabus by reference. No idea why it was working with GCSE!">
+      <created>1535074466171</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1535074466171</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Template fix">
+      <created>1535074699013</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1535074699013</updated>
+    </task>
+    <task id="LOCAL-00078" summary="First attempt at a beta site">
+      <created>1535083257903</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1535083257922</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Bugfixes for setting lesson dates">
+      <created>1535084197739</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1535084197740</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Bugfixes for setting lesson dates">
+      <created>1535084484500</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1535084484500</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Bugfixes for setting lesson dates">
+      <created>1535096214789</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1535096214789</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Changed URL for Google jquery to use https instead of http.">
+      <created>1535341653845</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1535341653845</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Reworked some nav links">
+      <created>1535361939519</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1535361939519</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Added new icons for resource types">
+      <created>1535362511987</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1535362511987</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Refactored icon generating function">
+      <created>1535961844920</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1535961844920</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1535965922769</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1535965922769</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536137958865</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1536137958865</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536224951169</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1536224951169</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536310405173</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1536310405173</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Timetabling beta release">
+      <created>1536740312389</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1536740312390</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Timetabling beta release">
+      <created>1536741861731</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1536741861731</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Timetabling beta release">
+      <created>1536743214236</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743214236</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Timetabling beta release">
+      <created>1536743613876</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743613876</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Timetabling beta release">
+      <created>1536743876561</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743876561</updated>
+    </task>
+    <task id="LOCAL-00095" summary="temp bugbix">
+      <created>1536744785554</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744785554</updated>
+    </task>
+    <task id="LOCAL-00096" summary="temp bugbix">
+      <created>1536744973284</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744973284</updated>
+    </task>
+    <task id="LOCAL-00097" summary="temp bugbix">
+      <created>1536745125082</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1536745125082</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Begin working on copy lessons">
+      <created>1536808076668</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1536808076668</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Lessons can now be copied. TODO: work around copying onto an existing lesson.">
+      <created>1536829547737</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1536829547737</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Minor bugfix">
+      <created>1536887259809</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1536887259809</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="68" y="23" width="1212" height="777" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32844576" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.2786746" side_tool="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Database Changes" order="14" weight="0.32941177" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49030694" weight="0.32794118" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69709206" weight="0.35" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" visible="true" weight="0.32794118" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.7213254" weight="0.32794118" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22991453" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
+      <window_info anchor="right" id="SciView" order="5" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24959612" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.7350565" weight="0.3973607" />
+      <window_info anchor="bottom" id="Thumbnails" order="14" weight="0.32991204" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.32794118" />
+      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32991204" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="File Transfer" order="15" sideWeight="0.49676898" weight="0.3287483" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.8812601" weight="0.32844576" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32956383" />
+      <window_info anchor="bottom" id="Thumbnails" order="15" weight="0.32991204" />
+      <window_info id="Structure" order="1" weight="0.24959612" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32844576" />
+      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.32844576" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69709206" weight="0.35043988" />
+      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32991204" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26898223" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.7350565" visible="true" weight="0.3973607" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6898223" weight="0.32844576" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.26494345" side_tool="true" visible="true" weight="0.3973607" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32844576" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49030694" weight="0.32844576" />
+      <window_info anchor="right" id="SciView" order="5" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated journal page to use cards" />
+    <MESSAGE value="Check" />
+    <MESSAGE value="Added classgroup list" />
+    <MESSAGE value="Can now get topic means for a class exam sitting." />
+    <MESSAGE value="student_completion method of Syllabus model now reports how much of the course a student has entered marks for (not just has done an assessment on)." />
+    <MESSAGE value="Added a timetable module and a way to input whole-class marks at once." />
+    <MESSAGE value="Added new server address" />
+    <MESSAGE value="Mid-point: use this commit to alter database" />
+    <MESSAGE value="Second phase - use this to delete the date property from lessons." />
+    <MESSAGE value="Trying to make lists work properly" />
+    <MESSAGE value="Bugfix: timetable was not saving lesson titles or details." />
+    <MESSAGE value="Bugfix: Timetable Autocomplete needed PK set, not just searching for a syllabus by reference. No idea why it was working with GCSE!" />
+    <MESSAGE value="Template fix" />
+    <MESSAGE value="First attempt at a beta site" />
+    <MESSAGE value="Bugfixes for setting lesson dates" />
+    <MESSAGE value="Changed URL for Google jquery to use https instead of http." />
+    <MESSAGE value="Reworked some nav links" />
+    <MESSAGE value="Added new icons for resource types" />
+    <MESSAGE value="Refactored icon generating function" />
+    <MESSAGE value="Started playing with a better method of allocating lesson dates etc" />
+    <MESSAGE value="Timetabling beta release" />
+    <MESSAGE value="temp bugbix" />
+    <MESSAGE value="Begin working on copy lessons" />
+    <MESSAGE value="Lessons can now be copied. TODO: work around copying onto an existing lesson." />
+    <MESSAGE value="Minor bugfix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor bugfix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/osd/decorators.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/osd/decorators.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/osd/decorators.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/journal/views.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/timetable/models.py</url>
+          <line>284</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="django-line">
+          <url>file://$PROJECT_DIR$/tracker/templates/tracker/input_class_marks.html</url>
+          <line>31</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="101" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Python.DjangoServer">
+        <watch expression="current_date" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>current_date</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/input_class_marks.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teachnet/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osd/settings/secret.py" />
+    <entry file="file://$PROJECT_DIR$/osd/useful_commands.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/options.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/utils/functional.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/manager.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/base.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/backends/sqlite3/base.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/sql/query.py" />
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/query.py" />
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/selectors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="378" selection-start-line="378" selection-end-line="378" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/exambuilder/bs4test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/exambuilder/scraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/small_assessment_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/class_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1455">
+          <caret line="97" column="46" selection-start-line="97" selection-start-column="46" selection-end-line="97" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/student_class_overview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/journal/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="124" column="70" selection-start-line="124" selection-start-column="70" selection-end-line="124" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="27" column="40" selection-start-line="23" selection-start-column="28" selection-end-line="27" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/functions/adddata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/add_questions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="75" column="5" selection-start-line="75" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-125">
+          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/exam_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3628">
+          <caret line="274" selection-start-line="274" selection-end-line="274" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osd/settings/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1883">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/autocomplete.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="188" column="32" selection-start-line="188" selection-start-column="32" selection-end-line="188" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/fields/related_descriptors.py" />
+    <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="329" selection-start-line="329" selection-end-line="329" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="63" column="37" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="67" selection-start-line="54" selection-start-column="67" selection-end-line="54" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="34" column="11" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teachnet/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="81" selection-start-line="13" selection-start-column="81" selection-end-line="13" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osd/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="136" column="7" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_teacher.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/import_students.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/management/commands/importstudents.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/import_students.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>
