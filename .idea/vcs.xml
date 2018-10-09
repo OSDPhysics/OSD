@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/venv/src/django-generic-m2m" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/venv/src/django-nested-admin" vcs="Git" />
   </component>
 </project>

@@ -332,6 +332,18 @@ class Lesson(models.Model):
 
         return icons
 
+    def delete(self, *args, **kwargs):
+        # We've removed a lesson, so we need to decerement all the following lessons
+        following_lessons = Lesson.objects.filter(classgroup=self.classgroup, sequence__gt=self.sequence)
+        # Avoid integrity error:
+        self.sequence = 1000
+        self.save()
+        for lesson in following_lessons:
+            lesson.sequence = lesson.sequence - 1
+        super().delete(*args, **kwargs)
+
+
+
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, blank=False, null=False, on_delete=models.CASCADE)
