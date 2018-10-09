@@ -63,6 +63,7 @@ def generate_week_grid(teacher, week_number):
                 timetabled_lesson = "Free"
 
             if timetabled_lesson != "Free":
+                # We still dont' want to display suspended lessons.
                 check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
                 if check.exists():
                     dayrow.append(check)

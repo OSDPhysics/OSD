@@ -68,7 +68,7 @@ class SyllabusTopic(models.Model):
     topic = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return str(self.syllabus + " " + self.topic)
+        return str(str(self.syllabus) + " " + self.topic)
 
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student=student)

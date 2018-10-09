@@ -110,14 +110,17 @@ def check_suspension(date, period, classgroup):
     if suspensions:
         return True
 
+    # Check if whole school is suspended that period
     suspensions = day_suspensions.filter(period=period, whole_school=True).count()
     if suspensions:
         return True
 
+    # check if classgroup is suspended all day
     suspensions = day_suspensions.filter(all_day=True, classgroups=classgroup).count()
     if suspensions:
         return True
 
+    # Check if classgroup is suspended for that period.
     suspensions = day_suspensions.filter(period=period, classgroups=classgroup).count()
     if suspensions:
         return True
@@ -488,7 +491,7 @@ def set_classgroups_lesson_dates(classgroup):
     slots = TimetabledLesson.objects.filter(classgroup=classgroup).order_by('lesson_slot')
 
 
-    total_slots = slots.count() - 1
+    total_slots = slots.count() - 1 # index 0
 
     current_week = 0
     current_slot = 0
@@ -577,7 +580,7 @@ def set_classgroups_lesson_dates(classgroup):
     # clean up any lessons beyond end date
     overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE)
     for lesson in overshot_lessons:
-        if lesson.lesson_title: # only delete unwritten lessons
+        if not lesson.lesson_title: # only delete unwritten lessons
             lesson.delete()
 
         else:
