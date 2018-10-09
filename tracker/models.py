@@ -20,7 +20,6 @@ class Examlevel(models.Model):
     examtype = models.CharField(max_length=20)
 
     def __str__(self):
-
         return self.examtype
 
 
@@ -39,10 +38,9 @@ class Syllabus(models.Model):
         all_marks = Mark.objects.filter(student=student, score__isnull=False)
         completed_points = all_points.filter(question__mark__in=all_marks).distinct()
         if completed_points.count() != 0:
-            return int(round(completed_points.count()/all_points.count()*100,0))
+            return int(round(completed_points.count() / all_points.count() * 100, 0))
         else:
             return 0
-
 
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__exam__syllabus=self).filter(student=student)
@@ -59,17 +57,18 @@ class Syllabus(models.Model):
         else:
             return 0
 
-
     def classgroup_average_rating(self, classgroup):
-        marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(sitting__classgroup=classgroup)
+        marks = Mark.objects.filter(question__syllabuspoint__topic__syllabus=self).filter(
+            sitting__classgroup=classgroup)
         return mark_queryset_to_rating(marks)
+
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
     topic = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.topic
+        return str(self.syllabus + " " + self.topic)
 
     def studentAverageRating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student=student)
@@ -80,7 +79,7 @@ class SyllabusTopic(models.Model):
         with_score = possible.filter(question__mark__student=student)
 
         if possible.count() > 0:
-            return round(with_score.count() / possible.count() *100)
+            return round(with_score.count() / possible.count() * 100)
         else:
             return 0
 
@@ -100,7 +99,7 @@ class SyllabusTopic(models.Model):
         students = classgroup.students()
         with_score = possible.filter(question__mark__student__in=students)
         if possible.count() > 0:
-            return round(with_score.count() / possible.count() *100)
+            return round(with_score.count() / possible.count() * 100)
         else:
             return 0
 
@@ -135,11 +134,12 @@ class SyllabusSubTopic(models.Model):
         for point in syllabus_points:
             ratings.append(point.get_student_rating(student))
 
-            assessments.append(Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
-            relevant_lessons = Lesson.objects.filter(syllabus_points_covered=point, classgroup__in=student.classgroups.all())
+            assessments.append(
+                Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
+            relevant_lessons = Lesson.objects.filter(syllabus_points_covered=point,
+                                                     classgroup__in=student.classgroups.all())
             lessons.append(relevant_lessons)
             for lesson in relevant_lessons:
-
                 resources.append(lesson.student_viewable_resources())
         return list(zip(syllabus_points, ratings, assessments, lessons, resources))
 
@@ -265,7 +265,7 @@ class Sitting(models.Model):
             if self.student_total(student):
                 scores.append(self.student_total(student))
 
-        return round(numpy.std(scores),1)
+        return round(numpy.std(scores), 1)
 
     def class_topic_performance(self):
         topics = self.exam.topics_tested().all()
@@ -276,7 +276,7 @@ class Sitting(models.Model):
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
-        topic_data= list(zip(topics,topic_ratings))
+        topic_data = list(zip(topics, topic_ratings))
 
         return topic_data
 

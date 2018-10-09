@@ -42,9 +42,11 @@ def generate_week_grid(teacher, week_number):
                     current_date = current_date + datetime.timedelta(days=1)
                     continue
 
+
+
         dayrow = [day[0]]
 
-        for period in PERIODS:
+        for period in PERIODS: # The day isn't suspended, but what about the period?
             # Check if that period is whole-school suspended:
             check = suspensions.filter(period=period[0]).filter(whole_school=True)
             if check.exists():
@@ -63,6 +65,12 @@ def generate_week_grid(teacher, week_number):
             if timetabled_lesson != "Free":
                 check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
                 if check.exists():
+                    dayrow.append(check)
+                    continue
+
+                check = suspensions.filter(classgroups=timetabled_lesson.classgroup, all_day=True).exists()
+
+                if check:
                     dayrow.append(check)
                     continue
 
