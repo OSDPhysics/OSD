@@ -4,6 +4,7 @@ from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 from django.db import transaction
 from django.contrib import messages
+from django.db.models import Max
 
 from django.db.models import Max
 
@@ -334,12 +335,17 @@ class Lesson(models.Model):
 
     def delete(self, *args, **kwargs):
         # We've removed a lesson, so we need to decerement all the following lessons
-        following_lessons = Lesson.objects.filter(classgroup=self.classgroup, sequence__gt=self.sequence)
+        following_lessons = Lesson.objects.filter(classgroup=self.classgroup, sequence__gt=self.sequence).order_by('sequence')
         # Avoid integrity error:
-        self.sequence = 1000
-        self.save()
-        for lesson in following_lessons:
-            lesson.sequence = lesson.sequence - 1
+        # Find max sequence
+        max = following_lessons.aggregate(Max('sequence'))
+
+        if max['sequence__max'] is not None:
+            self.sequence = max['sequence__max'] + 1
+            self.save()
+            for lesson in following_lessons:
+                lesson.sequence = lesson.sequence - 1
+                lesson.save()
         super().delete(*args, **kwargs)
 
 
@@ -358,7 +364,7 @@ class LessonResources(models.Model):
 
     def icon(self):
         string = "<a href=" + str(self.link)
-        string = string + ' data-toggle="tooltip" data-placement="top" title="'
+        string = string + ' target="_blank" data-toggle="tooltip" data-placement="top" title="'
         string = string + (str(self.resource_name))
         string = string + '">'
 
@@ -590,7 +596,7 @@ def set_classgroups_lesson_dates(classgroup):
     next_lesson(current_week, current_slot, True)
 
     # clean up any lessons beyond end date
-    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE)
+    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE, classgroup=lesson.classgroup)
     for lesson in overshot_lessons:
         if not lesson.lesson_title: # only delete unwritten lessons
             lesson.delete()
