@@ -4,12 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Added ability to see resources">
-      <change beforePath="$PROJECT_DIR$/.idea/OSD.iml" afterPath="$PROJECT_DIR$/.idea/OSD.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/timetable/models.py" afterPath="$PROJECT_DIR$/timetable/models.py" />
+      <change beforePath="$PROJECT_DIR$/school/templates/school/splash_student.html" afterPath="$PROJECT_DIR$/school/templates/school/splash_student.html" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" afterPath="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html" afterPath="$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,24 +56,48 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6914378">
+    <splitter split-orientation="horizontal" split-proportion="0.36624205">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="217">
+                <state relative-caret-position="3510">
                   <caret line="249" column="89" lean-forward="false" selection-start-line="249" selection-start-column="89" selection-end-line="249" selection-end-column="89" />
+                  <folding>
+                    <marker date="1539056486000" expanded="true" signature="5760:5811" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/timetable/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="337">
+                  <caret line="371" column="38" lean-forward="false" selection-start-line="371" selection-start-column="38" selection-end-line="371" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#0#44#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="splash_student.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="236">
+                  <caret line="39" column="45" lean-forward="false" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/timetable/models.py">
+          <file leaf-file-name="manager.py" pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/manager.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="342" column="39" lean-forward="true" selection-start-line="342" selection-start-column="39" selection-end-line="342" selection-end-column="39" />
+                <state relative-caret-position="2565">
+                  <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -83,8 +106,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/timetable/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1230">
-                  <caret line="90" column="19" lean-forward="false" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="19" />
+                <state relative-caret-position="217">
+                  <caret line="59" column="66" lean-forward="false" selection-start-line="59" selection-start-column="65" selection-end-line="59" selection-end-column="66" />
                   <folding>
                     <element signature="e#0#54#0" expanded="true" />
                   </folding>
@@ -92,20 +115,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="exam_details.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/exam_details.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="570">
-                  <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/timetable/forms.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="555">
+                <state relative-caret-position="480">
                   <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
                   <folding>
                     <element signature="e#0#24#0" expanded="true" />
@@ -114,21 +127,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="adddata.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="585">
-                  <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="138">
-                  <caret line="207" column="10" lean-forward="false" selection-start-line="207" selection-start-column="5" selection-end-line="207" selection-end-column="10" />
+                <state relative-caret-position="900">
+                  <caret line="65" column="23" lean-forward="false" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
@@ -137,30 +140,28 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/school/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1560">
-                  <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+                <state relative-caret-position="675">
+                  <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/school/views.py">
+          <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/base.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2625">
-                  <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
-                  <folding>
-                    <marker date="1539052512000" expanded="true" signature="6104:6151" ph="..." />
-                  </folding>
+                <state relative-caret-position="7200">
+                  <caret line="512" column="0" lean-forward="false" selection-start-line="512" selection-start-column="0" selection-end-line="512" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tracker/forms.py">
+          <file leaf-file-name="pprint.py" pinned="false" current-in-tab="false">
+            <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/pprint.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="645">
-                  <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+                <state relative-caret-position="8250">
+                  <caret line="554" column="0" lean-forward="false" selection-start-line="554" selection-start-column="0" selection-end-line="554" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -170,18 +171,6 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tracker/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4140">
-                  <caret line="292" column="48" lean-forward="false" selection-start-line="292" selection-start-column="36" selection-end-line="292" selection-end-column="48" />
-                  <folding>
-                    <marker date="1539052512000" expanded="true" signature="5760:5811" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/urls.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -214,14 +203,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/timetable/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="226">
-                  <caret line="172" column="4" lean-forward="false" selection-start-line="172" selection-start-column="4" selection-end-line="172" selection-end-column="4" />
+                <state relative-caret-position="271">
+                  <caret line="168" column="4" lean-forward="false" selection-start-line="168" selection-start-column="4" selection-end-line="168" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#54#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="splash.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="525">
+                  <caret line="49" column="147" lean-forward="false" selection-start-line="49" selection-start-column="147" selection-end-line="49" selection-end-column="147" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -249,8 +248,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1035">
-                  <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+                <state relative-caret-position="1050">
+                  <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -259,8 +258,18 @@
           <file leaf-file-name="student_sub_topic_overview.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+                <state relative-caret-position="180">
+                  <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="student_topic_overview.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="201">
+                  <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
                   <folding />
                 </state>
               </provider>
@@ -281,11 +290,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new_sitt</find>
-      <find>choice</find>
-      <find>count</find>
-      <find>lesson</find>
-      <find>period=</find>
       <find>title</find>
       <find>tool</find>
       <find>lesson_list</find>
@@ -311,6 +315,11 @@
       <find>generate</find>
       <find>suspen</find>
       <find>order</find>
+      <find>delete</find>
+      <find>overshot</find>
+      <find>delete()</find>
+      <find>super().</find>
+      <find>def icon</find>
     </findStrings>
     <replaceStrings>
       <replace>td</replace>
@@ -321,15 +330,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="beta" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/school/templates/school/splash.html" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/syllabus_teacher_detail.html" />
         <option value="$PROJECT_DIR$/journal/models.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/enter_journal.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/exam_scores.html" />
@@ -373,12 +380,14 @@
         <option value="$PROJECT_DIR$/timetable/urls.py" />
         <option value="$PROJECT_DIR$/school/functions/adddata.py" />
         <option value="$PROJECT_DIR$/school/views.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" />
         <option value="$PROJECT_DIR$/tracker/views.py" />
         <option value="$PROJECT_DIR$/tracker/autocomplete.py" />
-        <option value="$PROJECT_DIR$/timetable/views.py" />
         <option value="$PROJECT_DIR$/tracker/models.py" />
+        <option value="$PROJECT_DIR$/timetable/views.py" />
         <option value="$PROJECT_DIR$/timetable/models.py" />
+        <option value="$PROJECT_DIR$/school/templates/school/splash_student.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" />
+        <option value="$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html" />
       </list>
     </option>
   </component>
@@ -388,7 +397,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="x" value="16" />
     <option name="y" value="23" />
     <option name="width" value="1280" />
@@ -429,7 +438,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -491,6 +500,13 @@
             <path>
               <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
               <item name="OSD" type="462c0819:PsiDirectoryNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tracker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSD" type="462c0819:PsiDirectoryNode" />
               <item name="teachnet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -546,7 +562,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -578,127 +594,6 @@
       <recent name="$PROJECT_DIR$/osd/settings" />
       <recent name="$PROJECT_DIR$/static/django-dynamic-formset" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/school/import_students.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/school/model_form_upload.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/school/splash_student.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/school/splash_teacher.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/tracker/student_sitting_summary.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/views.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/migrations/0001_initial.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/templates/tracker/base.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/views.py</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/school/templates/school/new_exam1.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/tracker/templates/tracker/404.html</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -782,20 +677,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00067" summary="Mid-point: use this commit to alter database">
-      <created>1534486723825</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1534486723825</updated>
-    </task>
-    <task id="LOCAL-00068" summary="Second phase - use this to delete the date property from lessons.">
-      <created>1534487308921</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1534487308921</updated>
     </task>
     <task id="LOCAL-00069" summary="Second phase - use this to delete the date property from lessons.">
       <created>1534487420902</created>
@@ -1126,7 +1007,21 @@
       <option name="project" value="LOCAL" />
       <updated>1539054216335</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="Fix for lesson deletion and sequencing">
+      <created>1539056122473</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1539056122473</updated>
+    </task>
+    <task id="LOCAL-00117" summary="resource links now open in new window">
+      <created>1539136357648</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1539136357649</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1149,14 +1044,13 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32737276" sideWeight="0.8812601" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844576" sideWeight="0.6898223" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2358643" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23909532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32737276" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39614856" sideWeight="0.7350565" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39614856" sideWeight="0.7350565" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="manage.py@OSD" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32737276" sideWeight="0.45799676" order="13" side_tool="false" content_ui="tabs" />
@@ -1167,6 +1061,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32737276" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1243,8 +1138,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Second phase - use this to delete the date property from lessons." />
-    <MESSAGE value="Trying to make lists work properly" />
     <MESSAGE value="Bugfix: timetable was not saving lesson titles or details." />
     <MESSAGE value="Bugfix: Timetable Autocomplete needed PK set, not just searching for a syllabus by reference. No idea why it was working with GCSE!" />
     <MESSAGE value="Template fix" />
@@ -1268,7 +1161,9 @@
     <MESSAGE value="Added ability to see resources" />
     <MESSAGE value="Modified SyllabusTopic to show syllabus name, allowing easier editing in Admin interface.&#10;Started ensuring that suspensions work for non whole-school, non all-day suspensions." />
     <MESSAGE value="Minor bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor bugfix" />
+    <MESSAGE value="Fix for lesson deletion and sequencing" />
+    <MESSAGE value="resource links now open in new window" />
+    <option name="LAST_COMMIT_MESSAGE" value="resource links now open in new window" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1304,14 +1199,19 @@
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/school/models.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/school/views.py</url>
           <line>187</line>
           <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/timetable/models.py</url>
+          <line>465</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/timetable/models.py</url>
+          <line>447</line>
+          <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1324,7 +1224,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="101" />
+      <option name="time" value="112" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
@@ -1342,31 +1242,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/options.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="369" column="0" lean-forward="false" selection-start-line="369" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/utils/functional.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="193" column="0" lean-forward="false" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="512" column="0" lean-forward="false" selection-start-line="512" selection-start-column="0" selection-end-line="512" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1444,20 +1323,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
           <caret line="49" column="66" lean-forward="false" selection-start-line="57" selection-start-column="24" selection-end-line="58" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="27" column="40" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="27" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="38" column="20" lean-forward="false" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1472,7 +1338,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1545,7 +1410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
           <caret line="68" column="18" lean-forward="false" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1561,7 +1425,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2205">
           <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1569,14 +1432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1365">
           <caret line="90" column="1" lean-forward="false" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="49" column="147" lean-forward="false" selection-start-line="49" selection-start-column="147" selection-end-line="49" selection-end-column="147" />
           <folding />
         </state>
       </provider>
@@ -1621,20 +1476,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/school/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2625">
           <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
           <folding>
-            <marker date="1539052512000" expanded="true" signature="6104:6151" ph="..." />
+            <marker date="1539056486000" expanded="true" signature="6104:6151" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1644,6 +1491,16 @@
         <state relative-caret-position="645">
           <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3510">
+          <caret line="249" column="89" lean-forward="false" selection-start-line="249" selection-start-column="89" selection-end-line="249" selection-end-column="89" />
+          <folding>
+            <marker date="1539056486000" expanded="true" signature="5760:5811" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1665,8 +1522,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+        <state relative-caret-position="465">
+          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -1689,44 +1546,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html">
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+        <state relative-caret-position="2565">
+          <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/views.py">
+    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="90" column="19" lean-forward="false" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="7200">
+          <caret line="512" column="0" lean-forward="false" selection-start-line="512" selection-start-column="0" selection-end-line="512" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/pprint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="249" column="89" lean-forward="false" selection-start-line="249" selection-start-column="89" selection-end-line="249" selection-end-column="89" />
+        <state relative-caret-position="8250">
+          <caret line="554" column="0" lean-forward="false" selection-start-line="554" selection-start-column="0" selection-end-line="554" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="207" column="10" lean-forward="false" selection-start-line="207" selection-start-column="5" selection-end-line="207" selection-end-column="10" />
+        <state relative-caret-position="1050">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="168" column="4" lean-forward="false" selection-start-line="168" selection-start-column="4" selection-end-line="168" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timetable/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="342" column="39" lean-forward="true" selection-start-line="342" selection-start-column="39" selection-end-line="342" selection-end-column="39" />
+        <state relative-caret-position="337">
+          <caret line="371" column="38" lean-forward="false" selection-start-line="371" selection-start-column="38" selection-end-line="371" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school/templates/school/splash_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="39" column="45" lean-forward="false" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timetable/templates/timetable/splash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="49" column="147" lean-forward="false" selection-start-line="49" selection-start-column="147" selection-end-line="49" selection-end-column="147" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/student_topic_overview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
           <folding />
         </state>
       </provider>
