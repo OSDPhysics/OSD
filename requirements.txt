@@ -1,10 +1,9 @@
-dal
 attrs==18.1.0
 chardet==3.0.4
 coverage==4.5.1
-Django==2.0.1
-django-autocomplete-light==3.2.10
-django-ckeditor==5.4.0
+Django==2.1.2
+django-autocomplete-light==3.3.2
+django-ckeditor==5.6.1
 django-csvimport==2.11
 django-debug-toolbar==1.9.1
 django-dynamic-formsets==0.0.8
@@ -25,7 +24,7 @@ more-itertools==4.1.0
 numpy==1.14.2
 openpyxl==2.5.4
 pbr==4.0.2
-Pillow==5.0.0
+Pillow==5.3.0
 pluggy==0.6.0
 py==1.5.3
 pytest==3.5.1
