@@ -128,6 +128,7 @@ def teacher_splash(request):
     # Create a grid to show the days in
 
 
+@teacher_only
 def teacher_tt(request, teacher_pk, week_number):
     teacher = Teacher.objects.get(pk=teacher_pk)
     start_date = get_monday_date_from_weekno(week_number)
