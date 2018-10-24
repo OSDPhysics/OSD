@@ -20,8 +20,6 @@ def home(request):
     user = request.user
     return render(request, 'school/home.html', {'user': user})
 
-
-@login_required
 def splash(request):
     # Different splash pages are served depending on the type of user
 

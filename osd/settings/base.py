@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'osd.wsgi.application'
 # DB stored in settings_secret
 
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 
 # Password validation
