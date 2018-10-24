@@ -30,7 +30,9 @@ def generate_week_grid(teacher, week_number):
 
         # Check if the day is suspended.
         suspensions = LessonSuspension.objects.filter(date=current_date)
+
         if suspensions.exists():
+            first_suspension = suspensions[0]
             # There is at least one suspension on this day
             if suspensions.filter(whole_school=True).exists():
                 if suspensions.filter(all_day=True).exists():
@@ -69,11 +71,12 @@ def generate_week_grid(teacher, week_number):
                     dayrow.append(check)
                     continue
 
-                check = suspensions.filter(classgroups=timetabled_lesson.classgroup, all_day=True).exists()
-
-                if check:
-                    dayrow.append(check)
+                # Now check if the class is suspended all day:
+                check = suspensions.filter(all_day=True, classgroups=timetabled_lesson.classgroup)
+                if check.exists():
+                    dayrow.append(check[0])
                     continue
+
 
                 else:
                     try:
@@ -125,6 +128,7 @@ def teacher_splash(request):
     # Create a grid to show the days in
 
 
+@teacher_only
 def teacher_tt(request, teacher_pk, week_number):
     teacher = Teacher.objects.get(pk=teacher_pk)
     start_date = get_monday_date_from_weekno(week_number)
