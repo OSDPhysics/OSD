@@ -44,11 +44,9 @@ def generate_week_grid(teacher, week_number):
                     current_date = current_date + datetime.timedelta(days=1)
                     continue
 
-
-
         dayrow = [day[0]]
 
-        for period in PERIODS: # The day isn't suspended, but what about the period?
+        for period in PERIODS:  # The day isn't suspended, but what about the period?
             # Check if that period is whole-school suspended:
             check = suspensions.filter(period=period[0]).filter(whole_school=True)
             if check.exists():
@@ -209,7 +207,8 @@ def delete_lesson(request, lesson_pk, class_pk):
     if not lesson.lesson_title:
         lesson.delete()
         messages.add_message(request, messages.SUCCESS, 'Lesson deleted successfully.')
-        return redirect(reverse('timetable:class_lesson_list', args=[class_pk, ]))
+        return class_lesson_check(request, lesson.classgroup.pk)
+
 
     else:
         return render(request, 'timetable/confirm_delete.html', {'lesson': lesson,
@@ -221,7 +220,7 @@ def confirm_delete_lesson(request, lesson_pk, class_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     lesson.delete()
     messages.add_message(request, messages.SUCCESS, 'Lesson deleted successfully.')
-    return redirect(reverse('timetable:class_lesson_list', args=[class_pk, ]))
+    return class_lesson_check(request, class_pk)
 
 
 def get_lesson_from_date(classgroup, date):
@@ -270,3 +269,58 @@ def lesson_details(request, lesson_pk):
 
     else:  # Not a student or a teacher!
         return HttpResponseForbidden()
+
+
+@teacher_only
+def insert_lesson(request, lesson_pk):
+    prev_lesson = Lesson.objects.get(pk=lesson_pk)
+    following_lessons = Lesson.objects.filter(sequence__gt=prev_lesson.sequence).order_by('sequence').reverse()
+    for lesson in following_lessons:
+        lesson.sequence = lesson.sequence + 1
+        lesson.save()
+
+    new_lesson = Lesson.objects.create(classgroup=prev_lesson.classgroup,
+                                       sequence=prev_lesson.sequence + 1,
+                                       lessonslot=prev_lesson.lessonslot
+                                       # this is only temporary as we're about to check this.
+                                       )
+
+    messages.add_message(request, messages.SUCCESS, 'Lesson added successfully')
+
+    return class_lesson_check(request, prev_lesson.classgroup.pk)
+
+
+def move_lesson_up(request, lesson_pk):
+    target_lesson = Lesson.objects.get(pk=lesson_pk)
+    prev_lesson = Lesson.objects.get(classgroup=target_lesson.classgroup,
+                                     sequence=target_lesson.sequence + 1)
+
+    # We need to temporarily re-sequence the previous lesson so it doesn't cause a UNIQUE error
+    max_sequence = Lesson.objects.filter(classgroup=target_lesson.classgroup).aggregate(Max("sequence"))
+    max = max_sequence['sequence__max'] + 1
+    target_lesson.sequence = prev_lesson.sequence
+    prev_lesson.sequence = max
+    prev_lesson.save()
+    target_lesson.save()
+    prev_lesson.sequence = target_lesson.sequence + 1
+    prev_lesson.save()
+
+    return class_lesson_check(request, prev_lesson.classgroup.pk)
+
+
+def move_lesson_down(request, lesson_pk):
+    target_lesson = Lesson.objects.get(pk=lesson_pk)
+    next_lesson = Lesson.objects.get(classgroup=target_lesson.classgroup,
+                                     sequence=target_lesson.sequence + 1)
+
+    # We need to temporarily re-sequence the previous lesson so it doesn't cause a UNIQUE error
+    max_sequence = Lesson.objects.filter(classgroup=target_lesson.classgroup).aggregate(Max("sequence"))
+    max = max_sequence['sequence__max'] + 1
+    target_lesson.sequence = next_lesson.sequence
+    next_lesson.sequence = max
+    next_lesson.save()
+    target_lesson.save()
+    next_lesson.sequence = target_lesson.sequence - 1
+    next_lesson.save()
+
+    return class_lesson_check(request, next_lesson.classgroup.pk)

@@ -11,6 +11,10 @@ urlpatterns = [
     path('copy/<int:lesson_pk>', views.copy_lesson, name='copy_lesson'),
     path('delete/<int:lesson_pk>/<int:class_pk>', views.delete_lesson, name='delete_lesson'),
     path('confirm_delete/<int:lesson_pk>/<int:class_pk>', views.confirm_delete_lesson, name='confirm_delete_lesson'),
+    path('insert/<int:lesson_pk>', views.insert_lesson, name='insert_lesson'),
+    path('move_up/<int:lesson_pk>', views.move_lesson_up, name='move_lesson_up'),
+    path('move_down/<int:lesson_pk>', views.move_lesson_down, name='move_lesson_down'),
     path('lessons/<int:lesson_pk>', views.lesson_details, name='lesson_details'),
+
 
 ]
