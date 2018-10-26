@@ -293,7 +293,7 @@ def insert_lesson(request, lesson_pk):
 def move_lesson_up(request, lesson_pk):
     target_lesson = Lesson.objects.get(pk=lesson_pk)
     prev_lesson = Lesson.objects.get(classgroup=target_lesson.classgroup,
-                                     sequence=target_lesson.sequence + 1)
+                                     sequence=target_lesson.sequence - 1)
 
     # We need to temporarily re-sequence the previous lesson so it doesn't cause a UNIQUE error
     max_sequence = Lesson.objects.filter(classgroup=target_lesson.classgroup).aggregate(Max("sequence"))
