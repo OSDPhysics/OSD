@@ -274,7 +274,8 @@ def lesson_details(request, lesson_pk):
 @teacher_only
 def insert_lesson(request, lesson_pk):
     prev_lesson = Lesson.objects.get(pk=lesson_pk)
-    following_lessons = Lesson.objects.filter(sequence__gt=prev_lesson.sequence).order_by('sequence').reverse()
+    following_lessons = Lesson.objects.filter(sequence__gt=prev_lesson.sequence,
+                                              classgroup=prev_lesson.classgroup).order_by('sequence').reverse()
     for lesson in following_lessons:
         lesson.sequence = lesson.sequence + 1
         lesson.save()

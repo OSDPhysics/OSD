@@ -575,7 +575,7 @@ def set_classgroups_lesson_dates(classgroup):
                     # Note that we don't need to worry about setting correct slots here, as they are about to be re-set
                     for clashing_lesson in clashing_lessons:
 
-                        clashing_lesson.sequence = clashing_lesson.sequence + 1
+                        #clashing_lesson.sequence = clashing_lesson.sequence + 1
                         # This date thing is a horrid hack, but we're about to set a correct date,
                         # and we need to make sure we don't cause further integrity errors
 
