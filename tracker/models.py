@@ -4,6 +4,7 @@ import numpy
 from django.db.models import Sum
 from ckeditor.fields import RichTextField
 from django.apps import apps
+from datetime import datetime
 
 
 # Create your models here.
@@ -132,15 +133,29 @@ class SyllabusSubTopic(models.Model):
         resources = []
         Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
         for point in syllabus_points:
-            ratings.append(point.get_student_rating(student))
+            # None of these can be blank, or zip() will fail
 
-            assessments.append(
-                Exam.objects.filter(question__mark__student=student, question__syllabuspoint=point).distinct())
+            ratings.append(point.get_student_rating(student))  # already gives 0 if no data
+
+            assessment_queryset = Exam.objects.filter(question__mark__student=student,
+                                                      question__syllabuspoint=point).distinct()
+
+            if assessment_queryset.count() > 0:
+                assessments.append(assessment_queryset)
+            else:
+                assessments.append('None')
+
             relevant_lessons = Lesson.objects.filter(syllabus_points_covered=point,
                                                      classgroup__in=student.classgroups.all())
-            lessons.append(relevant_lessons)
-            for lesson in relevant_lessons:
-                resources.append(lesson.student_viewable_resources())
+
+            if relevant_lessons.count() > 0:
+                lessons.append(relevant_lessons)
+                for lesson in relevant_lessons:
+                    resources.append(lesson.student_viewable_resources())
+            else:
+                lessons.append('None')
+                resources.append('None')
+
         return list(zip(syllabus_points, ratings, assessments, lessons, resources))
 
     def lessons_taught(self, classgroup):
@@ -168,8 +183,24 @@ class SyllabusPoint(models.Model):
         return self.topic.topic + " " + self.number + " " + self.syllabusText
 
     def get_student_rating(self, student):
+        ### Disabled until we can get messages working correctly
+        # check if we have already calculated this:
+        # ratings = StudentRating.objects.filter(student=student, syllabus_point=self).order_by('date')
+        # if ratings.count() > 0:
+        #     return ratings.reverse()[0].rating
+        #
+        # else:
+        #
+        #     marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
+        #     rating = mark_queryset_to_rating(marks)
+        #     StudentRating.objects.create(student=student, syllabus_point=self, rating=rating)
+        #
+        #     return mark_queryset_to_rating(marks)
+
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
-        return mark_queryset_to_rating(marks)
+        rating = mark_queryset_to_rating(marks)
+
+        return rating
 
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
@@ -307,6 +338,16 @@ class Mark(models.Model):
 
     class Meta:
         unique_together = (("student", "question", "sitting"),)
+
+
+class StudentRating(models.Model):
+    """ A model that stores computed ratings to speed up render time, and allow for tracking over time."""
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
+    syllabus_point = models.ForeignKey(SyllabusPoint, on_delete=models.CASCADE, blank=False, null=False)
+    date = models.DateTimeField(null=False, blank=False, default=datetime.now)
+    type = models.CharField(max_length=100, blank=False, null=False, default='Calculated')
+    rating = models.DecimalField(blank=False, null=False, max_digits=5, decimal_places=2)
 
 
 class CSVDoc(models.Model):
