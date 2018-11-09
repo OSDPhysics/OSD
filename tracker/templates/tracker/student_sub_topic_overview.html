@@ -38,10 +38,13 @@
 </td>
                             <td>
                                 {% for lesson in lessons %}
+                                    {% if lesson.pk %}
                                     <a href="{% url 'timetable:lesson_details' lesson.pk %}">{{ lesson }}</a><br>
+                                    {% endif %}
                                 {% endfor %}
                             </td>
-                            <td>{% for resource in resources %}{{ resource.icon|safe }}{% endfor %}</td>
+                            <td>{% for resource in resources %}
+                                {% if resource.icon %}{{ resource.icon|safe }}{% endif %}{% endfor %}</td>
                             </tr>
 
                             {% endfor %}
