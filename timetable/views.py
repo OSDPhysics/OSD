@@ -145,8 +145,9 @@ def teacher_tt(request, teacher_pk, week_number):
                                                      'teacher': teacher})
 
 
-@teacher_only
+@teacher_or_own_classgroup
 def class_lesson_list(request, classgroup_pk):
+
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
 
@@ -155,7 +156,17 @@ def class_lesson_list(request, classgroup_pk):
     if overshot_lessons:
         messages.add_message(request, messages.WARNING, 'Lessons exist past end of school year.')
 
-    return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
+
+    # Return an unrestricted view for Teachers
+
+    if request.user.groups.filter(name='Teachers'):
+        return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
+                                                                     'lessons': lessons})
+
+    # And a restricted one for students etc:
+
+    else:
+        return render(request, 'timetable/classgroup_lesson_list_student.html', {'classgroup': classgroup,
                                                                      'lessons': lessons})
 
 
@@ -291,6 +302,7 @@ def insert_lesson(request, lesson_pk):
     return class_lesson_check(request, prev_lesson.classgroup.pk)
 
 
+@teacher_only
 def move_lesson_up(request, lesson_pk):
     target_lesson = Lesson.objects.get(pk=lesson_pk)
     prev_lesson = Lesson.objects.get(classgroup=target_lesson.classgroup,
@@ -309,6 +321,7 @@ def move_lesson_up(request, lesson_pk):
     return class_lesson_check(request, prev_lesson.classgroup.pk)
 
 
+@teacher_only
 def move_lesson_down(request, lesson_pk):
     target_lesson = Lesson.objects.get(pk=lesson_pk)
     next_lesson = Lesson.objects.get(classgroup=target_lesson.classgroup,

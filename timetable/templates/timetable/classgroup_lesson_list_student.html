@@ -19,9 +19,7 @@
                                 <td>Lesson number</td>
                                 <td>Lesson title</td>
                                 <td>Description</td>
-                                <td>Requirements</td>
                                 <td>Resources</td>
-                                <td>Actions</td>
                             </tr>
                             </thead>
                             {% for lesson in lessons %}
@@ -30,25 +28,18 @@
                                 <td>{{ lesson.sequence }}</td>
                                     <td><a href="/admin/timetable/lesson/{{ lesson.pk }}/change">{{ lesson.lesson_title }}</a></td>
                                 <td>{{ lesson.description }}</td>
-                                <td>{{ lesson.requirements }}</td>
+
                                 <td>{% for resource in lesson.resources %}
+                                    {% if resource.student_viewable %}
                                     <a href="{{ resource.link }}" target='_blank'>{{ resource.icon |safe }}</a>
+                                    {% endif %}
                                     {% endfor %}
-
-                                <td>
-                                    <a href="{% url 'timetable:copy_lesson' lesson.pk %}"><i class="fas fa-copy"></i>
-
-</a>
-                                    <a href="{% url 'timetable:delete_lesson' lesson.pk classgroup.pk %}"><i class="fas fa-trash"></i></a>
-                                    <a href="{% url 'timetable:insert_lesson' lesson.pk %}"><i class="far fa-calendar-plus"></i></a>
-                                    <a href="{% url 'timetable:move_lesson_up' lesson.pk %}"><i class="fas fa-arrow-up"></i></a>
-                                    <a href="{% url 'timetable:move_lesson_down' lesson.pk %}"><i class="fas fa-arrow-down"></i></a>
-
                                 </td>
+
                                 </tr>
                             {% endfor %}
                         </table>
-                    <a href="{% url "timetable:class_lesson_check" classgroup.pk %}" class="btn btn-primary">Re-order lessons</a>
+
                     </div>
                 </div>
             </div>

@@ -387,7 +387,17 @@ class LessonResources(models.Model):
 
         return string
 
+    def student_viewable(self):
+        """ Return True if students should be able to see this resource """
+        if self.students_can_view_before:
+            return True
 
+        elif self.students_can_view_after:
+            if self.lesson.date >= datetime.date.today():
+                return True
+
+        else:
+            return False
 
 class LessonSuspension(models.Model):
     """Store suspensions and missing lessons"""
