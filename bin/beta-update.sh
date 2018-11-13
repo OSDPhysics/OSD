@@ -1,6 +1,6 @@
 #!/bin/bash
 
-beta_directory = /home/james/OSD-beta/OSD
+beta_directory = '/home/james/OSD-beta/OSD'
 backup_directory = /home/james/backups/OSD-beta-upgrade
 current_date = date +%Y%m%d%H%M%S
 

@@ -72,8 +72,26 @@ class SyllabusTopic(models.Model):
         return str(str(self.syllabus) + " " + self.topic)
 
     def studentAverageRating(self, student):
-        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student=student)
-        return mark_queryset_to_rating(marks)
+        # check if we have already calculated this:
+        ratings = StudentTopicRating.objects.filter(student=student, syllabus_topic=self).order_by('date')
+        if ratings.count() > 0:
+            return ratings.reverse()[0].rating
+
+        else:
+
+            recorded_rating = self.calculate_student_rating(student)
+
+            return recorded_rating.rating
+
+    def calculate_student_rating(self, student):
+        points = SyllabusPoint.objects.filter(topic=self)
+        marks = Mark.objects.filter(question__syllabuspoint__in=points).filter(student=student)
+        rating = mark_queryset_to_rating(marks)
+        rating, created = StudentTopicRating.objects.get_or_create(student=student,
+                                                                   syllabus_topic=self,
+                                                                   rating=rating,
+                                                                   date=datetime.today())
+        return rating
 
     def studentCompletion(self, student):
         possible = SyllabusPoint.objects.filter(topic=self).distinct()
@@ -120,9 +138,26 @@ class SyllabusSubTopic(models.Model):
         return str(self.topic) + ': ' + str(self.sub_topic)
 
     def studentAverageRating(self, student):
+        # check if we have already calculated this:
+        ratings = StudentSubTopicRating.objects.filter(student=student, syllabus_sub_topic=self).order_by('date')
+        if ratings.count() > 0:
+            return ratings.reverse()[0].rating
+
+        else:
+
+            recorded_rating = self.calculate_student_rating(student)
+
+            return recorded_rating.rating
+
+    def calculate_student_rating(self, student):
         points = SyllabusPoint.objects.filter(sub_topic=self)
-        marks = Mark.objects.filter(question__syllabuspoint__in=points, student=student)
-        return mark_queryset_to_rating(marks)
+        marks = Mark.objects.filter(question__syllabuspoint__in=points).filter(student=student)
+        rating = mark_queryset_to_rating(marks)
+        rating, created = StudentSubTopicRating.objects.get_or_create(student=student,
+                                                                      syllabus_sub_topic=self,
+                                                                      rating=rating,
+                                                                      date=datetime.today())
+        return rating
 
     def student_sub_topic_data(self, student):
 
@@ -182,25 +217,27 @@ class SyllabusPoint(models.Model):
     def __str__(self):
         return self.topic.topic + " " + self.number + " " + self.syllabusText
 
-    def get_student_rating(self, student):
-        ### Disabled until we can get messages working correctly
-        # check if we have already calculated this:
-        # ratings = StudentRating.objects.filter(student=student, syllabus_point=self).order_by('date')
-        # if ratings.count() > 0:
-        #     return ratings.reverse()[0].rating
-        #
-        # else:
-        #
-        #     marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
-        #     rating = mark_queryset_to_rating(marks)
-        #     StudentRating.objects.create(student=student, syllabus_point=self, rating=rating)
-        #
-        #     return mark_queryset_to_rating(marks)
-
+    def calculate_student_rating(self, student):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
         rating = mark_queryset_to_rating(marks)
+        rating, created = StudentPointRating.objects.get_or_create(student=student,
+                                                          syllabus_point=self,
+                                                          rating=rating,
+                                                          date=datetime.today())
 
         return rating
+
+    def get_student_rating(self, student):
+        # check if we have already calculated this:
+        ratings = StudentPointRating.objects.filter(student=student, syllabus_point=self).order_by('date')
+        if ratings.count() > 0:
+            return ratings.reverse()[0].rating
+
+        else:
+
+            recorded_rating = self.calculate_student_rating(student)
+
+            return recorded_rating.rating
 
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
@@ -341,13 +378,42 @@ class Mark(models.Model):
 
 
 class StudentRating(models.Model):
-    """ A model that stores computed ratings to speed up render time, and allow for tracking over time."""
+    """ A model that stores computed point ratings to speed up render time, and allow for tracking over time."""
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
-    syllabus_point = models.ForeignKey(SyllabusPoint, on_delete=models.CASCADE, blank=False, null=False)
+
     date = models.DateTimeField(null=False, blank=False, default=datetime.now)
     type = models.CharField(max_length=100, blank=False, null=False, default='Calculated')
     rating = models.DecimalField(blank=False, null=False, max_digits=5, decimal_places=2)
+
+    class Meta:
+        abstract = True
+
+
+class StudentPointRating(StudentRating):
+    syllabus_point = models.ForeignKey(SyllabusPoint, on_delete=models.CASCADE, blank=False, null=False)
+
+
+class StudentSubTopicRating(StudentRating):
+    """ A model that stores computed sub-topic ratings to speed up render time, and allow for tracking over time."""
+
+    syllabus_sub_topic = models.ForeignKey(SyllabusSubTopic,
+                                           on_delete=models.CASCADE,
+                                           blank=False,
+                                           null=False)
+
+
+class StudentTopicRating(StudentRating):
+    syllabus_topic = models.ForeignKey(SyllabusTopic,
+                                       on_delete=models.CASCADE,
+                                       blank=False,
+                                       null=False)
+
+
+class StudentSyllabusRating(StudentRating):
+    syllabus = models.ForeignKey(Syllabus,
+                                 on_delete=models.CASCADE,
+                                 null=False)
 
 
 class CSVDoc(models.Model):
