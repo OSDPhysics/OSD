@@ -63,6 +63,43 @@ class Syllabus(models.Model):
             sitting__classgroup=classgroup)
         return mark_queryset_to_rating(marks)
 
+    def all_topics(self):
+        return SyllabusTopic.objects.filter(syllabus=self)
+
+    def all_sub_topics(self):
+        return SyllabusSubTopic.objects.filter(topic__syllabus=self)
+
+    def all_syllabus_points(self):
+        return SyllabusPoint.objects.filter(sub_topic__topic__syllabus=self)
+
+    def classgroup_percentage_taught(self, classgroup):
+        all_points = SyllabusPoint.objects.filter(sub_topic__topic__syllabus=self).order_by('sub_topic')
+        total_points = all_points.count()
+
+        if not total_points:
+            return 0
+
+        points_taught = 0
+
+        for point in all_points:
+            if point.lessons_taught(classgroup):
+                points_taught = points_taught +1
+
+        percentage_taught = points_taught / total_points * 100
+        return round(percentage_taught)
+
+    def classgroup_percentage_assessed(self, classgroup):
+        all_points = SyllabusPoint.objects.filter(sub_topic__topic__syllabus=self).order_by('sub_topic')
+        total_points = all_points.count()
+        if not total_points:
+            return 0
+        points_assessed = 0
+        for point in all_points:
+            if point.has_been_assessed(classgroup):
+                points_assessed = points_assessed + 1
+
+        percentage_assessed = points_assessed / total_points * 100
+        return round(percentage_assessed)
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -129,6 +166,37 @@ class SyllabusTopic(models.Model):
         lessons = Lesson.objects.filter(syllabus_points_covered__sub_topic__topic=self, classgroup=classgroup)
         return lessons.distinct()
 
+    def sub_topics(self):
+        return SyllabusSubTopic.objects.filter(topic=self)
+
+    def classgroup_percentage_taught(self, classgroup):
+        all_points = SyllabusPoint.objects.filter(sub_topic__topic=self).order_by('sub_topic')
+        total_points = all_points.count()
+        if not total_points:
+            return 0
+
+        points_taught = 0
+        for point in all_points:
+            if point.lessons_taught(classgroup):
+                points_taught = points_taught +1
+
+        percentage_taught = points_taught / total_points * 100
+        return round(percentage_taught)
+
+    def classgroup_percentage_assessed(self, classgroup):
+        all_points = SyllabusPoint.objects.filter(sub_topic__topic=self).order_by('sub_topic')
+        total_points = all_points.count()
+        if not total_points:
+            return 0
+
+        points_assessed = 0
+        for point in all_points:
+            if point.has_been_assessed(classgroup):
+                points_assessed = points_assessed + 1
+
+        percentage_assessed = points_assessed / total_points * 100
+        return round(percentage_assessed)
+
 
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -136,6 +204,9 @@ class SyllabusSubTopic(models.Model):
 
     def __str__(self):
         return str(self.topic) + ': ' + str(self.sub_topic)
+
+    def syllabus_points(self):
+        return SyllabusPoint.objects.filter(sub_topic=self)
 
     def studentAverageRating(self, student):
         # check if we have already calculated this:
@@ -200,6 +271,32 @@ class SyllabusSubTopic(models.Model):
         lessons = Lesson.objects.filter(syllabus_points_covered__sub_topic=self, classgroup=classgroup)
         return lessons.distinct()
 
+    def classgroup_percent_taught(self, classgroup):
+        points = self.syllabus_points()
+        total = points.count()
+
+        if not total:
+            return 0
+        taught = 0
+        for point in points:
+            if point.lessons_taught(classgroup):
+                taught = taught + 1
+
+        return round(taught/total*100)
+
+    def classgroup_percent_assessed(self, classgroup):
+        points = self.syllabus_points()
+        total = points.count()
+
+        if not total:
+            return 0
+
+        assessed = 0
+        for point in points:
+            if point.has_been_assessed(classgroup):
+                assessed = assessed + 1
+
+        return round(assessed / total * 100)
 
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -245,13 +342,29 @@ class SyllabusPoint(models.Model):
         sittings = Sitting.objects.filter(classgroup__student=student).filter(exam__in=assessments)
         return sittings
 
-    def lessons_taught(self, classgroups):
+    def lessons_taught(self, classgroup):
         """ return all the lessons in which this point has been taught to this classgroup"""
 
         Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
-        lessons = Lesson.objects.filter(syllabus_points_covered=self, classgroup__in=classgroups)
+        lessons = Lesson.objects.filter(syllabus_points_covered=self, classgroup=classgroup)
         return lessons.distinct()
 
+    def has_been_taught(self, classgroup):
+        if self.lessons_taught(classgroup):
+            return True
+        else:
+            return False
+
+    def classgroup_assessments(self, classgroup):
+        assessments = Sitting.objects.filter(exam__question__syllabuspoint=self, classgroup=classgroup).distinct()
+        return assessments
+
+    def has_been_assessed(self, classgroup):
+        assessments = Sitting.objects.filter(exam__question__syllabuspoint=self, classgroup=classgroup).distinct()
+        if assessments.count():
+            return True
+        else:
+            return False
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)

@@ -11,6 +11,14 @@ urlpatterns = [
     path('<int:student_pk>/', views.student_profile, name='student_profile'),
     path('syllabus', views.list_syllabuses, name='syllabuses'),
     path('syllabus/<int:pk>', views.syllabus_detail, name='syllabus_detail'),
+    path('check/<classgroup_pk>', views.classgroup_all_syllabuses_completion,
+         name='classgroup_all_syllabuses_completion'),
+    path('check/syllabus/<int:syllabus_pk>/<classgroup_pk>',
+         views.classgroup_syllabus_completion, name='classgroup_syllabus_completion'),
+    path('check/topic/<int:topic_pk>/<classgroup_pk>',
+         views.classgroup_topic_completion, name='classgroup_topic_completion'),
+    path('sub-topic/<int:sub_topic_pk>/<classgroup_pk>', views.classgroup_sub_topic_completion,
+         name='classgroup_sub_topic_completion'),
     path('exams/new_exam', views.add_test, name='new_exam1'),
     path('syllabus/import', views.import_spec_points, name = 'syllabusimport'),
     path('exams/<int:pk>', views.examDetails, name='examDetail'),
@@ -32,6 +40,7 @@ urlpatterns = [
     path('classgroups-autocomplete/', ClaassgroupAutocomplete.as_view(), name='classgroups-autocomplete'),
     path('syllabus-autocomplete/', SyllabusAutocomplete.as_view(), name='syllabus-autocomplete'),
     path('syllabus-autocomplete2/', SyllabusPointAutocomplete2.as_view(), name='syllabus-autocomplete2'),
-    path('lesson_autocomplete/', LessonAutocomplete.as_view(), name='lesson_autocomplete')
+    path('lesson_autocomplete/', LessonAutocomplete.as_view(), name='lesson_autocomplete'),
+
 
 ]

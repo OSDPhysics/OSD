@@ -593,3 +593,85 @@ def small_assessment_list(request, point_pk, student_pk):
     return render(request, 'tracker/small_assessment_list.html', {'student': student,
                                                                   'point': point,
                                                                   'assessments': assessments})
+
+@teacher_only
+def classgroup_all_syllabuses_completion(request, classgroup_pk):
+    """ REport how much of the syllabus has been taught and assessed """
+    # Make sure we can teach multiple syllabuss
+
+
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    classgroup_syllabuss = classgroup.syllabustaught.all()
+
+    data = []
+
+    for syllabus in classgroup_syllabuss:
+        row = [syllabus]
+        row.append(syllabus.classgroup_percentage_taught(classgroup))
+        row.append(syllabus.classgroup_percentage_assessed(classgroup))
+        data.append(row)
+
+    return render(request, 'tracker/classgroup_all_syllabus_completion.html', {
+        'classgroup': classgroup,
+        'data': data
+    })
+
+
+def classgroup_sub_topic_completion(request, classgroup_pk, sub_topic_pk):
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    sub_topic = SyllabusSubTopic.objects.get(pk=sub_topic_pk)
+
+    syllabus_points = sub_topic.syllabus_points()
+    data = []
+
+    for point in syllabus_points:
+        row = [point]
+
+        if point.has_been_taught(classgroup):
+            row.append(point.lessons_taught(classgroup))
+        else:
+            row.append(False)
+        if point.has_been_assessed(classgroup):
+            row.append(point.classgroup_assessments(classgroup))
+        else:
+            row.append(False)
+
+        data.append(row)
+
+    return render(request, 'tracker/classgroup_sub_topic_completion.html', {'classgroup': classgroup,
+                                                                            'sub_topic': sub_topic,
+                                                                       'data': data})
+
+
+@teacher_only
+def classgroup_topic_completion(request, classgroup_pk, topic_pk):
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    topic = SyllabusTopic.objects.get(pk=topic_pk)
+
+    sub_topics = topic.sub_topics()
+    data = []
+    for sub_topic in sub_topics:
+        row = [sub_topic]
+        row.append(sub_topic.classgroup_percent_taught(classgroup))
+        row.append(sub_topic.classgroup_percent_assessed(classgroup))
+        data.append(row)
+
+    return render(request, 'tracker/classgroup_topic_completion.html', {'classgroup': classgroup,
+                                                                        'topic': topic,
+                                                                        'data': data})
+
+
+def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    syllabus = Syllabus.objects.get(pk=syllabus_pk)
+    topics = SyllabusTopic.objects.filter(syllabus=syllabus)
+
+    data = []
+    for topic in topics:
+        row = [topic]
+        row.append(topic.classgroup_percentage_taught(classgroup))
+        row.append(topic.classgroup_percentage_assessed(classgroup))
+        data.append(row)
+    return render(request, 'tracker/classgroup_syllabus_completion.html', {'classgroup': classgroup,
+                                                                           'syllabus': syllabus,
+                                                                           'data': data})
