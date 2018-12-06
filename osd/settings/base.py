@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import datetime
+from django.contrib import messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -183,6 +184,10 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+# For error messages in bootstrap:
+
+
+
 CALENDAR_START_MONDAY_DAY = 20
 CALENDAR_START_MONTH = 8
 CALENDAR_START_YEAR = 2018
@@ -193,3 +198,7 @@ CALENDAR_END_YEAR = 2019
 
 CALENDAR_START_DATE = datetime.date(CALENDAR_START_YEAR, CALENDAR_START_MONTH, CALENDAR_START_MONDAY_DAY)
 CALENDAR_END_DATE = datetime.date(CALENDAR_END_YEAR, CALENDAR_END_MONTH, CALENDAR_END_MONDAY_DAY)
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

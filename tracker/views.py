@@ -6,6 +6,8 @@ from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
+from django.contrib import messages
+
 from django.db.models import Sum
 from operator import itemgetter
 import datetime
@@ -324,8 +326,11 @@ def input_marks(request, sitting_pk, student_pk):
                 if formset[n].cleaned_data['score'] is not None:
                     if formset[n].cleaned_data['score'] > mark.question.maxscore:
                         formset[n].add_error('score', 'Score is greater than the maximum for this question')
+                        messages.add_message(request, messages.ERROR, 'You have entered a score bigger than the maximum for at least one quesiton!')
                 else:
                     formset[n].add_error('score', 'Please set a score')
+                    messages.add_message(request, messages.ERROR,
+                                         "You have left at least one score blank. Please enter 0 if you didn't get that mark")
                 n = n + 1
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
