@@ -1,4 +1,5 @@
 from .base import *
+from .secret_dev import SOCIAL_AUTH_GOOGLE_OAUTH2_KEY, SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
 
 DEBUG = True
 
