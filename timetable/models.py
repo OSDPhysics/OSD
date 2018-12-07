@@ -349,15 +349,15 @@ class Lesson(models.Model):
         super().delete(*args, **kwargs)
 
 
-
-
 class LessonResources(models.Model):
-    lesson = models.ForeignKey(Lesson, blank=False, null=False, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.SET_NULL)
     resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
     resource_name = models.CharField(max_length=100, null=True, blank=False)
     link = models.URLField(blank=True, null=True)
     students_can_view_before = models.BooleanField()
     students_can_view_after = models.BooleanField()
+    available_to_all_classgroups = models.BooleanField()
+    syllabus_points = models.ManyToManyField(SyllabusPoint, blank=True)
 
     def __str__(self):
         return self.resource_name
@@ -398,6 +398,16 @@ class LessonResources(models.Model):
 
         else:
             return False
+
+    def set_syllabus_points(self):
+        if self.lesson:
+            points = self.lesson.syllabus_points_covered.all()
+            for point in points:
+                self.syllabus_points.add(point)
+            self.save()
+
+        return self.syllabus_points.all()
+
 
 class LessonSuspension(models.Model):
     """Store suspensions and missing lessons"""
