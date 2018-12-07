@@ -8,7 +8,8 @@
     <title>GreenPen{% block subtitle %}{% endblock subtitle %}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -38,10 +39,8 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
 
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tracker:splash' %}">Tracker</a>
-                </li>
+            {% if request.user.is_staff %}
+
 
                 <li class="nav-item dropdown">
 
@@ -51,15 +50,10 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'timetable:teacher_splash' %}">Timetable</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="{% url 'tracker:new_test' %}">Add an exam</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
 
-                </li>
             {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -69,10 +63,8 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}?next=/"> Log out </a></li>
             {% else %}
 
-                <form class='form-inline' method='POST' action="{% url 'login' %}">{% csrf_token %}
-                        <input type='text' class='form-control ml-auto' name='username' placeholder='Username'/>
-                        <input type='password' class='form-control ml-auto' name='password' placeholder='Password'/>
-                    <button type='submit' class='btn btn-default'>Login</button>
+
+                    <a class='btn btn-default' href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google-plus-g"></i>Login</a>
                 </div>
                 </form>
             {% endif %}
