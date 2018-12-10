@@ -9,4 +9,3 @@ def update_rating(sender, instance, **kwargs):
     points = instance.question.syllabuspoint.all()
     for point in points:
         rating = point.calculate_student_rating(instance.student)
-

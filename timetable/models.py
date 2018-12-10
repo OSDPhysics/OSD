@@ -401,12 +401,27 @@ class LessonResources(models.Model):
 
     def set_syllabus_points(self):
         if self.lesson:
-            points = self.lesson.syllabus_points_covered.all()
+            points = self.lesson.syllabus_points_covered.all().order_by('pk')
             for point in points:
                 self.syllabus_points.add(point)
-            self.save()
 
-        return self.syllabus_points.all()
+        return self
+
+    # def save(self, bypass_set_syllabus_pts=False, *args, **kwargs):
+    #     """When we save, we need to update the dates of all affected lessons. """
+    #
+    #     super(LessonResources, self).save(*args, **kwargs)
+    #     if bypass_set_syllabus_pts:
+    #         return self
+    #
+    #     else:
+    #         if self.lesson:
+    #             points = self.lesson.syllabus_points_covered.all()
+    #             for point in points:
+    #                 self.syllabus_points.add(point)
+    #             super(LessonResources, self).save(*args, **kwargs)
+    #
+    #     return self
 
 
 class LessonSuspension(models.Model):
@@ -430,6 +445,8 @@ class LessonSuspension(models.Model):
 
     def __str__(self):
         return str(self.date) + " " + self.reason
+
+
 
 
 def get_monday_date_from_weekno(week_number):
