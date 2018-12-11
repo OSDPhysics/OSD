@@ -14,10 +14,12 @@ def post_update_lesson_syllabus_pts(sender, instance, **kwargs):
 @receiver(post_save, sender=LessonResources)
 def update_resources(sender, instance, **kwargs):
     """ After adding a resource, check its syllabus points match its lesson """
-    resource_pk = instance.pk
-    resource = LessonResources.objects.get(pk=resource_pk)
-    lesson = resource.lesson
-    lesson_points = lesson.syllabus_points_covered.all()
-    resource.set_syllabus_points()
+    print('Before set_syllabus_points')
+    print(instance.pk)
+    print(instance.syllabus_points.all())
+    instance.set_syllabus_points()
+    print('After set_syllabus_points')
+    print(instance.syllabus_points.all())
+
 
 

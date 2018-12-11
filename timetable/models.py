@@ -12,6 +12,7 @@ from django.db.models import Max
 
 import datetime
 
+
 # Create your models here.
 
 DAYS = (
@@ -404,24 +405,11 @@ class LessonResources(models.Model):
             points = self.lesson.syllabus_points_covered.all().order_by('pk')
             for point in points:
                 self.syllabus_points.add(point)
+            print ('In set_syllabus_points')
+            print(self.syllabus_points.all())
+            print('All points:')
+            print(SyllabusPoint.objects.all())
 
-        return self
-
-    # def save(self, bypass_set_syllabus_pts=False, *args, **kwargs):
-    #     """When we save, we need to update the dates of all affected lessons. """
-    #
-    #     super(LessonResources, self).save(*args, **kwargs)
-    #     if bypass_set_syllabus_pts:
-    #         return self
-    #
-    #     else:
-    #         if self.lesson:
-    #             points = self.lesson.syllabus_points_covered.all()
-    #             for point in points:
-    #                 self.syllabus_points.add(point)
-    #             super(LessonResources, self).save(*args, **kwargs)
-    #
-    #     return self
 
 
 class LessonSuspension(models.Model):

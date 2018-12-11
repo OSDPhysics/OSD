@@ -15,6 +15,6 @@ urlpatterns = [
     path('move_up/<int:lesson_pk>', views.move_lesson_up, name='move_lesson_up'),
     path('move_down/<int:lesson_pk>', views.move_lesson_down, name='move_lesson_down'),
     path('lessons/<int:lesson_pk>', views.lesson_details, name='lesson_details'),
-
+    path('lessons/<int:lesson_pk>/edit', views.edit_lesson, name='edit_lesson'),
 
 ]

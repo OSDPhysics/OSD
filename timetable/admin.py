@@ -13,6 +13,7 @@ class LessonAdmin(admin.ModelAdmin):
         ResourcesInLine,
     ]
 
+
 admin.site.register(LessonSlot)
 admin.site.register(TimetabledLesson)
 admin.site.register(Lesson, LessonAdmin)

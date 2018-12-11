@@ -28,10 +28,9 @@ class SyllabusPointAutocomplete2(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return SyllabusPoint.objects.none()
         qs = SyllabusPoint.objects.all()
-        syllabus_pk = self.forwarded.get('syllabus', None)
-        syllabus = Syllabus.objects.get(pk=syllabus_pk)
-
-        if syllabus:
+        if self.forwarded.get('syllabus', None):
+            syllabus_pk = self.forwarded.get('syllabus', None)
+            syllabus = Syllabus.objects.get(pk=syllabus_pk)
             qs = qs.filter(topic__syllabus=syllabus)
 
         if self.q:

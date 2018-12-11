@@ -3,14 +3,14 @@ from dal import autocomplete
 from tracker.models import SyllabusPoint, Syllabus
 from school.models import ClassGroup
 
-from timetable.models import Lesson
+from timetable.models import Lesson, LessonResources
 
 
 class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = ["lesson_title", 'date', 'sequence', 'status', 'syllabus', 'syllabus_points_covered', 'description', 'requirements', 'lessonslot']
+        fields = ["lesson_title",  'syllabus', 'syllabus_points_covered', 'description', 'requirements', ]
 
         widgets = {
             'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
@@ -36,3 +36,28 @@ class LessonCopyForm(forms.Form):
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
         )
+
+
+class LessonResourceForm(forms.Form):
+    """ Resource linked to a particular lesson """
+    class Meta:
+        model = LessonResources
+        fields = {'resource_type',
+                  'resource_name',
+                  'link',
+                  'students_can_view_before',
+                  'students_can_view_after',
+                  'available_to_all_classgroups',
+                  }
+
+
+class ResourceNoLessonForm(forms.Form):
+
+    """ Resource that can be viewed by all students, not linked to a lesson """
+
+    class Meta:
+        model = LessonResources
+        fields = {'resource_type',
+                  'resource_name',
+                  'link',
+                  }

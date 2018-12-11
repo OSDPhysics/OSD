@@ -3,7 +3,7 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
-from timetable.forms import LessonCopyForm
+from timetable.forms import LessonCopyForm, LessonForm
 from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
@@ -338,3 +338,17 @@ def move_lesson_down(request, lesson_pk):
     next_lesson.save()
 
     return class_lesson_check(request, next_lesson.classgroup.pk)
+
+
+def edit_lesson(request, lesson_pk):
+    lesson = Lesson.objects.get(pk=lesson_pk)
+    lesson_form = LessonForm(instance=lesson)
+
+    if request.method == 'POST':
+        lesson_form = LessonForm(request.POST, instance=lesson)
+        if lesson_form.is_valid():
+            lesson_form.save()
+
+    return render(request, 'timetable/edit_lesson.html', {'lesson_form': lesson_form,
+                                                          'lesson': lesson})
+
