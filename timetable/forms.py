@@ -61,3 +61,13 @@ class ResourceNoLessonForm(forms.Form):
                   'resource_name',
                   'link',
                   }
+
+class AddLessonSuspensions(forms.Form):
+
+    all_classgroups = ClassGroup.objects.all()
+    start_date = forms.DateField(label='Start date')
+    end_date = forms.DateField(label = 'End date')
+    whole_school = forms.BooleanField(label = 'Whole school?')
+    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:', queryset=all_classgroups))
+
+
