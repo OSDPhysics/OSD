@@ -6,6 +6,7 @@ from timetable.forms import LessonForm
 
 class ResourcesInLine(admin.TabularInline):
     model = LessonResources
+    exclude = ('syllabus_points',)
 
     exclude = ('syllabus_points',)
 

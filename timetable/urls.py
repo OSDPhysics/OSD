@@ -16,5 +16,5 @@ urlpatterns = [
     path('move_down/<int:lesson_pk>', views.move_lesson_down, name='move_lesson_down'),
     path('lessons/<int:lesson_pk>', views.lesson_details, name='lesson_details'),
     path('lessons/<int:lesson_pk>/edit', views.edit_lesson, name='edit_lesson'),
-
+    path('lessons/<int:lesson_pk>/add_resource/<int:resource_pk>', views.edit_lesson_resource, name='edit_lesson_resource')
 ]

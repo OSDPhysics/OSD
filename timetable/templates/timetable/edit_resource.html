@@ -10,16 +10,13 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Edit A Lesson
+                            Edit A Resource
                         </h2>
 <form method="post">
     {% csrf_token %}
-                        {{ lesson_form.as_p }}
-                        {% for resource in  lesson.resources.all %}
-                        {{ resource.icon | safe }}
-                        {% endfor %}
-    <button type="submit" class="btn btn-primary" name="add_resource">Add Lesson Resource</button>
-    <button type="submit" class="btn btn-primary" name="save">Save</button>
+                        {{ lesson_resource_form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
                     </div>
                 </div>

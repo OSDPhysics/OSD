@@ -38,7 +38,7 @@ class LessonCopyForm(forms.Form):
         )
 
 
-class LessonResourceForm(forms.Form):
+class LessonResourceForm(forms.ModelForm):
     """ Resource linked to a particular lesson """
     class Meta:
         model = LessonResources
@@ -68,6 +68,6 @@ class AddLessonSuspensions(forms.Form):
     start_date = forms.DateField(label='Start date')
     end_date = forms.DateField(label = 'End date')
     whole_school = forms.BooleanField(label = 'Whole school?')
-    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:', queryset=all_classgroups))
+    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:'), queryset=all_classgroups)
 
 

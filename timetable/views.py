@@ -3,10 +3,11 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
-from timetable.forms import LessonCopyForm, LessonForm
+from timetable.forms import LessonCopyForm, LessonForm, LessonResourceForm
 from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 
 # Create your views here.
@@ -348,7 +349,31 @@ def edit_lesson(request, lesson_pk):
         lesson_form = LessonForm(request.POST, instance=lesson)
         if lesson_form.is_valid():
             lesson_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Lesson saved')
+            # redirect depending on whether we're adding a resource or saving:
+            if 'add_resource' in request.POST:
+                resource = LessonResources.objects.create(lesson=lesson)
+                return redirect(reverse('timetable:edit_lesson_resource', args=[lesson_pk, resource.pk]))
 
+
+        else:
+            messages.add_message(request, messages.ERROR, 'Please correct the errors below')
     return render(request, 'timetable/edit_lesson.html', {'lesson_form': lesson_form,
                                                           'lesson': lesson})
 
+
+def edit_lesson_resource(request, lesson_pk, resource_pk):
+    resource = LessonResources.objects.get(pk=resource_pk)
+    lesson_resource_form = LessonResourceForm(instance=resource)
+    lesson = Lesson.objects.get(pk=lesson_pk)
+
+    if request.method == 'POST':
+        lesson_resource_form = LessonResourceForm(request.POST, instance=resource)
+        if lesson_resource_form.is_valid():
+            lesson_resource_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Resource saved')
+            return redirect(reverse('timetable:edit_lesson', args=[lesson_pk,]))
+
+    return render(request, 'timetable/edit_resource.html', {'resource': resource,
+                                                            'lesson': lesson,
+                                                            'lesson_resource_form': lesson_resource_form})

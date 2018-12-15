@@ -352,12 +352,12 @@ class Lesson(models.Model):
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.SET_NULL)
-    resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
+    resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=True, blank=False)
     resource_name = models.CharField(max_length=100, null=True, blank=False)
-    link = models.URLField(blank=True, null=True)
-    students_can_view_before = models.BooleanField()
-    students_can_view_after = models.BooleanField()
-    available_to_all_classgroups = models.BooleanField()
+    link = models.URLField(blank=False, null=True)
+    students_can_view_before = models.BooleanField(null=True)
+    students_can_view_after = models.BooleanField(null=True)
+    available_to_all_classgroups = models.BooleanField(null=True)
     syllabus_points = models.ManyToManyField(SyllabusPoint, blank=True)
 
     def __str__(self):
