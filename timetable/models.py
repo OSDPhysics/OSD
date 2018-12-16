@@ -1,4 +1,5 @@
 from django.db import models, IntegrityError
+from django.shortcuts import reverse
 from school.models import ClassGroup, Teacher
 from tracker.models import SyllabusPoint, Syllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
@@ -355,15 +356,44 @@ class LessonResources(models.Model):
     resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=True, blank=False)
     resource_name = models.CharField(max_length=100, null=True, blank=False)
     link = models.URLField(blank=False, null=True)
-    students_can_view_before = models.BooleanField(null=True)
-    students_can_view_after = models.BooleanField(null=True)
-    available_to_all_classgroups = models.BooleanField(null=True)
+    students_can_view_before = models.BooleanField(default=False)
+    students_can_view_after = models.BooleanField(default=False)
+    available_to_all_classgroups = models.BooleanField(default=False)
     syllabus_points = models.ManyToManyField(SyllabusPoint, blank=True)
 
     def __str__(self):
         return self.resource_name
 
+    def editable_icon(self):
+        """Link to the form to edit a resource """
+        string = "<a href=" + str(reverse('timetable:edit_lesson_resource', args=[self.lesson.pk, self.pk ]))
+        string = string + ' target="_blank" data-toggle="tooltip" data-placement="top" title="'
+        string = string + (str(self.resource_name))
+        string = string + '">'
+
+        if self.resource_type == "Presentation":
+            string = string + "<i class='fas fa-desktop'>"
+
+        elif self.resource_type == "Web Page":
+            string = string + "<i class='fas fa-tablet-alt'>"
+
+        elif self.resource_type == "Worksheet":
+            string = string + '<i class="fas fa-newspaper">'
+
+        elif self.resource_type == "Test":
+            string = string + "<i class='fas fa-pencil-ruler'></i>"
+
+        else:
+            string = string + '<i class="fas fa-question-circle">'
+
+        string = string + "</i></a>"
+
+        return string
+
+
     def icon(self):
+        """ Icon link to the resource itself"""
+
         string = "<a href=" + str(self.link)
         string = string + ' target="_blank" data-toggle="tooltip" data-placement="top" title="'
         string = string + (str(self.resource_name))

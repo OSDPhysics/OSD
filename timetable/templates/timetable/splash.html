@@ -49,7 +49,7 @@
                                         {% elif period.lessonslot %}
                                         >
                                           <a href="{% url 'timetable:class_lesson_list' period.lessonslot.classgroup.pk %}">{{ period.lessonslot.classgroup }}</a><br>
-                                            <strong><a href="/admin/timetable/lesson/{{ period.pk }}/change/">{{ period.lesson_title }}</a></strong><br>
+                                            <strong><a href="{% url 'timetable:edit_lesson' period.pk %}">{{ period.lesson_title }}</a></strong><br>
                                             {{ period.description }}<br>
                                             {% if period.requirements %}
                                             <strong>Order:</strong> {{ period.requirements }}
