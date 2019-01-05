@@ -68,5 +68,5 @@ class AddLessonSuspensions(forms.Form):
     all_classgroups = ClassGroup.objects.all()
     start_date = forms.DateField(label='Start date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
     end_date = forms.DateField(label = 'End date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
-    whole_school = forms.BooleanField(label = 'Whole school?')
+    whole_school = forms.BooleanField(label = 'Whole school?', required=False)
     classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:classgroups-autocomplete'), queryset=all_classgroups, required=False)
