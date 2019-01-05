@@ -3,7 +3,7 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
-from timetable.forms import LessonCopyForm, LessonForm, LessonResourceForm
+from timetable.forms import LessonCopyForm, LessonForm, AddLessonSuspensions, LessonResourceForm
 from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
@@ -148,7 +148,6 @@ def teacher_tt(request, teacher_pk, week_number):
 
 @teacher_or_own_classgroup
 def class_lesson_list(request, classgroup_pk):
-
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
 
@@ -157,18 +156,17 @@ def class_lesson_list(request, classgroup_pk):
     if overshot_lessons:
         messages.add_message(request, messages.WARNING, 'Lessons exist past end of school year.')
 
-
     # Return an unrestricted view for Teachers
 
     if request.user.groups.filter(name='Teachers'):
         return render(request, 'timetable/classgroup_lesson_list.html', {'classgroup': classgroup,
-                                                                     'lessons': lessons})
+                                                                         'lessons': lessons})
 
     # And a restricted one for students etc:
 
     else:
         return render(request, 'timetable/classgroup_lesson_list_student.html', {'classgroup': classgroup,
-                                                                     'lessons': lessons})
+                                                                                 'lessons': lessons})
 
 
 @teacher_only
@@ -341,6 +339,7 @@ def move_lesson_down(request, lesson_pk):
     return class_lesson_check(request, next_lesson.classgroup.pk)
 
 
+@teacher_only
 def edit_lesson(request, lesson_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     lesson_form = LessonForm(instance=lesson)
@@ -362,6 +361,7 @@ def edit_lesson(request, lesson_pk):
                                                           'lesson': lesson})
 
 
+@teacher_only
 def edit_lesson_resource(request, lesson_pk, resource_pk):
     resource = LessonResources.objects.get(pk=resource_pk)
     lesson_resource_form = LessonResourceForm(instance=resource)
@@ -372,8 +372,38 @@ def edit_lesson_resource(request, lesson_pk, resource_pk):
         if lesson_resource_form.is_valid():
             lesson_resource_form.save()
             messages.add_message(request, messages.SUCCESS, 'Resource saved')
-            return redirect(reverse('timetable:edit_lesson', args=[lesson_pk,]))
+            return redirect(reverse('timetable:edit_lesson', args=[lesson_pk, ]))
 
     return render(request, 'timetable/edit_resource.html', {'resource': resource,
                                                             'lesson': lesson,
                                                             'lesson_resource_form': lesson_resource_form})
+
+
+@admin_only
+def create_multiple_lesson_suspensions(request):
+    suspension_form = AddLessonSuspensions
+
+    if request.method == 'POST':
+        suspension_form = AddLessonSuspensions(request.POST)
+        if suspension_form.is_valid():
+            reason = suspension_form.cleaned_data['reason']
+            start_date = suspension_form.cleaned_data['start_date']
+            end_date = suspension_form.cleaned_data['end_date']
+            whole_school = suspension_form.cleaned_data['whole_school']
+            current_date = start_date
+
+            while current_date <= end_date:
+                suspension = LessonSuspension.objects.create(date=current_date,
+                                                             whole_school=whole_school,
+                                                             all_day=True,
+                                                             reason=reason,
+                                                             )
+
+                if not whole_school:
+                    for classgroup in suspension_form.cleaned_data['classgroups']:
+                        suspension.classgroups.add(classgroup)
+
+                current_date = current_date + datetime.timedelta(days=1)
+        return redirect(reverse('timetable:teacher_splash'))
+
+    return render(request, 'timetable/create_multiple_day_suspensions.html', {'suspension_form': suspension_form})

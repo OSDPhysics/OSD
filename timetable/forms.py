@@ -64,10 +64,9 @@ class ResourceNoLessonForm(forms.Form):
 
 class AddLessonSuspensions(forms.Form):
 
+    reason = forms.CharField(max_length=100, required=True)
     all_classgroups = ClassGroup.objects.all()
-    start_date = forms.DateField(label='Start date')
-    end_date = forms.DateField(label = 'End date')
+    start_date = forms.DateField(label='Start date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
+    end_date = forms.DateField(label = 'End date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
     whole_school = forms.BooleanField(label = 'Whole school?')
-    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:'), queryset=all_classgroups)
-
-
+    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:classgroups-autocomplete'), queryset=all_classgroups, required=False)
