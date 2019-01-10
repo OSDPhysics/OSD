@@ -17,6 +17,33 @@ def get_monday_date_from_weekno(week_number):
     return start_date
 
 
+def get_weekno_from_date(date):
+
+    start_year = CALENDAR_START_DATE.isocalendar()[0]
+    date_year = date.isocalendar()[0]
+
+    # Find week of the year
+
+    date_week = datetime.datetime.now().isocalendar()[1]
+    start_week = CALENDAR_START_DATE.isocalendar()[1]
+    week_number = date_week - start_week
+
+    # This is to default to 0 before the school year starts.
+    if week_number < 0:
+        if start_year == date_year:
+            return 0
+        # This is necessary for school years which span calendar years.
+        else:
+            last_day_of_year = datetime.date(start_year, 12, 30)
+            last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
+            final_timetable_week = last_week_of_year - start_week
+
+            return final_timetable_week + date_week
+
+    else:
+        return date_week - start_week
+
+
 def generate_week_grid(teacher, week_number):
     start_date = get_monday_date_from_weekno(week_number)
     next_week = week_number + 1
@@ -118,13 +145,10 @@ def check_suspension(date, period, classgroup):
 @login_required
 def teacher_splash(request):
     teacher = Teacher.objects.get(user=request.user)
-    week_number = datetime.datetime.now().isocalendar()[1] - CALENDAR_START_DATE.isocalendar()[1]
-    if week_number < 0:
-        week_number = 0
+    today = datetime.datetime.now()
+    week_number = get_weekno_from_date(today)
 
     return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number]))
-
-    # Create a grid to show the days in
 
 
 @teacher_only
