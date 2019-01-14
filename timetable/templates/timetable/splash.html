@@ -15,6 +15,12 @@
                             Timetable for {{ teacher }} week commencing {{ start_day }}
                         </h2>
                         <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher.pk last_week %}" role="button"><<</a>
+                        <div align="centre">
+                            <form method="post">
+                                {% csrf_token %}
+
+                            </form>
+                        </div>
                         <div class="btn-group float-right mt-2" role="group">
                             <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher.pk next_week %}" role="button">>></a>
                         </div>
@@ -34,7 +40,7 @@
 
                                     {# display the day number first #}
                                         {% if forloop.first %}
-                                        >{{ period }}
+                                        >{{ period | safe }}
 
                                         {# Check if it's a free #}
 

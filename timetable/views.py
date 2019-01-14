@@ -56,7 +56,11 @@ def generate_week_grid(teacher, week_number):
     weekgrid = []
     for day in DAYS:
 
-        # Check if the day is suspended.
+        # Build the HMTL text to display day and date:
+        day_name = day[0]
+        day_text = str(day_name) + "<br>" + str(current_date.strftime("%d %b %y"))
+
+        # Check if the day is suspended:
         suspensions = LessonSuspension.objects.filter(date=current_date)
 
         if suspensions.exists():
@@ -70,9 +74,9 @@ def generate_week_grid(teacher, week_number):
                     # fill the day row with the suspension objects
                     weekgrid.append([day[0], suspension, suspension, suspension, suspension])
                     current_date = current_date + datetime.timedelta(days=1)
-                    continue
+                    continue # Starts the next day in the loop
 
-        dayrow = [day[0]]
+        dayrow = [day_text]
 
         for period in PERIODS:  # The day isn't suspended, but what about the period?
             # Check if that period is whole-school suspended:
