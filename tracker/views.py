@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
+from .charts import BarChart
 from journal.forms import StudentJournalEntryLarge
 from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
@@ -680,3 +681,12 @@ def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
     return render(request, 'tracker/classgroup_syllabus_completion.html', {'classgroup': classgroup,
                                                                            'syllabus': syllabus,
                                                                            'data': data})
+
+@admin_only
+def chart_test(request):
+
+    chart = BarChart()
+    syllabus = Syllabus.objects.filter(syllabusname__contains='CIE')
+    topics = SyllabusTopic.objects.filter(syllabus__in=syllabus)
+    chart.topics = topics
+    return render(request, 'tracker/chart_test.html', {'chart': chart})

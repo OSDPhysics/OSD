@@ -146,18 +146,28 @@ class SyllabusTopic(models.Model):
             ratings.append(topic.studentAverageRating(student))
         return list(zip(sub_topics, ratings))
 
-    def classAverageRating(self, classgroup):
-        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(sitting__classgroup=classgroup)
+    def groupAverageRating(self, students):
+        marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student__in=students)
         return mark_queryset_to_rating(marks)
 
-    def classAverageCompletion(self, classgroup):
-        possible = SyllabusPoint.objects.filter(topic=self).distinct()
+
+    def classAverageRating(self, classgroup):
         students = classgroup.students()
+        return self.groupAverageRating(students)
+
+    def GoupAverageCompletion(self, students):
+        possible = SyllabusPoint.objects.filter(topic=self).distinct()
         with_score = possible.filter(question__mark__student__in=students)
         if possible.count() > 0:
             return round(with_score.count() / possible.count() * 100)
         else:
             return 0
+
+    def classAverageCompletion(self, classgroup):
+
+        students = classgroup.students()
+        score = self.GroupAverageCompletion(self, students)
+        return score
 
     def lessons_taught(self, classgroup):
         """ return all the lessons in which this point has been taught to this classgroup"""

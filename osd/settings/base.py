@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'dynamic_formsets',
     #'debug_toolbar',
     'django.contrib.admin',
-    'social_django'
+    'social_django',
+    'jchart',
 ]
 
 MIDDLEWARE = [

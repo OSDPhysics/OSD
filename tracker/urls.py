@@ -41,6 +41,6 @@ urlpatterns = [
     path('syllabus-autocomplete/', SyllabusAutocomplete.as_view(), name='syllabus-autocomplete'),
     path('syllabus-autocomplete2/', SyllabusPointAutocomplete2.as_view(), name='syllabus-autocomplete2'),
     path('lesson_autocomplete/', LessonAutocomplete.as_view(), name='lesson_autocomplete'),
-
+    path('chart_test/', views.chart_test, name='chart_test')
 
 ]
