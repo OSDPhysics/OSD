@@ -150,6 +150,21 @@ class SyllabusTopic(models.Model):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student__in=students)
         return mark_queryset_to_rating(marks)
 
+    def groupPercentRatingsWithinBounds(self, students, upper, lower, max=5):
+
+        ''' Calculate number of scores that are within a boundary. The max is what the rating is out of (default 5)'''
+        all_marks = Mark.objects.filter(student__in=students, question__syllabuspoint__topic=self)
+        upper_percentage = upper/max
+        lower_percentage = lower / max
+
+        elibible = 0
+        for mark in all_marks:
+            mark_percentage = mark.score / mark.question.maxscore
+            if mark_percentage >= lower_percentage:
+                if mark.score <= upper_percentage:
+                    elibible = elibible + 1
+
+        return elibible / all_marks.count()
 
     def classAverageRating(self, classgroup):
         students = classgroup.students()
