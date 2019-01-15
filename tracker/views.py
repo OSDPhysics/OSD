@@ -617,6 +617,7 @@ def classgroup_all_syllabuses_completion(request, classgroup_pk):
         row.append(syllabus.classgroup_percentage_assessed(classgroup))
         data.append(row)
 
+
     return render(request, 'tracker/classgroup_all_syllabus_completion.html', {
         'classgroup': classgroup,
         'data': data
@@ -686,7 +687,7 @@ def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
 def chart_test(request):
 
     chart = BarChart()
-    syllabus = Syllabus.objects.filter(syllabusname__contains='CIE')
-    topics = SyllabusTopic.objects.filter(syllabus__in=syllabus)
-    chart.topics = topics
+    points = SyllabusPoint.objects.filter(topic__topic="Motion and Measurement")
+    chart.syllabus_points = points
+    chart.students = Student.objects.filter(classgroups__groupname__contains="10")
     return render(request, 'tracker/chart_test.html', {'chart': chart})

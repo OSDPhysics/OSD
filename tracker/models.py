@@ -361,6 +361,31 @@ class SyllabusPoint(models.Model):
 
             return recorded_rating.rating
 
+    def cohort_rating_number(self, cohort, min_rating, max_rating):
+        """ Takes a queryset of students (cohort) and returns the number of
+        ratings that are between min_rating and max_rating """
+
+        total = 0
+        for student in cohort:
+            rating = self.get_student_rating(student)
+            if rating <= min_rating:
+                if rating > max_rating:
+                    total = total + 1
+        return total
+
+    def generate_cohort_ratings_dictionary(self, cohort):
+        """ For a queryset of students, return a dictionary of the number of ratings for each score level. """
+
+        points = {'point': self,
+                  'number_zero_to_one': self.cohort_rating_number(cohort, 0, 1),
+                  'number_one_to_two': self.cohort_rating_number(cohort, 1, 2),
+                  'number_two_to_three': self.cohort_rating_number(cohort, 2, 3),
+                  'number_three_to_four': self.cohort_rating_number(cohort, 3, 4),
+                  'number_four_to_five': self.cohort_rating_number(cohort, 4, 5)}
+
+        return points
+
+
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
 
