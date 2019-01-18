@@ -8,17 +8,7 @@ class TopicScoreHBarChart(Chart):
     chart_type = 'horizontalBar'
 
 
-class BarChart(Chart):
-    # Let's start by including no data
-    # this can be overriden when declaring the chart, but having none to start with
-    # will let us quickly see if we've forgotten anything.
-
-    syllabus_points = SyllabusPoint.objects.none()
-    students = Student.objects.none()
-
-    data = []
-
-
+class CohortGraph(Chart):
     chart_type = 'horizontalBar'
 
     scales = {
@@ -28,7 +18,7 @@ class BarChart(Chart):
 
     def get_labels(self, **kwargs):
         labels = []
-        for point in self.syllabus_points:
+        for point in self.syllabus_areas:
             labels.append(str(point))
 
         return labels
@@ -36,58 +26,87 @@ class BarChart(Chart):
     def get_datasets(self, **kwargs):
         """ For each point, generate a new point in the correct range. """
 
-        total_points = self.syllabus_points.count()
+        total_students = self.students.count()
 
         points_0_to_1 = []
 
-        for point in self.syllabus_points:
-            count = point.cohort_rating_number(self.students, 0, 1)
-            points_0_to_1.append(count/total_points * 100)
+        for point in self.syllabus_areas:
+            # Need to include -1 here to catch the 0s.
+            count = point.cohort_rating_number(self.students, -1, 1)
+            points_0_to_1.append(count/total_students)
 
         points_1_to_2 = []
 
-        for point in self.syllabus_points:
+        for point in self.syllabus_areas:
             count = point.cohort_rating_number(self.students, 1, 2)
-            points_1_to_2.append(count / total_points * 100)
+            points_1_to_2.append(count/total_students)
 
         points_2_to_3 = []
 
-        for point in self.syllabus_points:
+        for point in self.syllabus_areas:
             count = point.cohort_rating_number(self.students, 2, 3)
-            points_2_to_3.append(count / total_points * 100)
+            points_2_to_3.append(count/total_students)
 
         points_3_to_4 = []
 
-        for point in self.syllabus_points:
+        for point in self.syllabus_areas:
             count = point.cohort_rating_number(self.students, 3, 4)
-            points_3_to_4.append(count / total_points * 100)
+            points_3_to_4.append(count/total_students)
 
         points_4_to_5 = []
 
-        for point in self.syllabus_points:
-            count = point.cohort_rating_number(self.students, 0, 1)
-            points_4_to_5.append(count / total_points * 100)
+        for point in self.syllabus_areas:
+            count = point.cohort_rating_number(self.students, 4, 5)
+            points_4_to_5.append(count/total_students)
 
         return_data = []
 
         return_data.append(DataSet(label='0-1',
                                    data=points_0_to_1,
-                                   borderWidth=1,
+                                   borderWidth=2,
+                                   color=(171, 9, 0),
                                    ))
         return_data.append(DataSet(label='1-2',
                                    data=points_1_to_2,
-                                   borderWidth=1,
+                                   borderWidth=2,
+                                   color=(166, 78, 46),
                                    ))
         return_data.append(DataSet(label='2-3',
                                    data=points_2_to_3,
-                                   borderWidth=1,
+                                   borderWidth=2,
+                                   color=(255, 190, 67),
                                    ))
         return_data.append(DataSet(label='3-4',
                                    data=points_3_to_4,
-                                   borderWidth=1,
+                                   borderWidth=2,
+                                   color=(163, 191, 63),
                                    ))
         return_data.append(DataSet(label='4-5',
                                    data=points_4_to_5,
-                                   borderWidth=1,
+                                   borderWidth=2,
+                                   color=(122, 159, 191),
                                    ))
         return return_data
+
+
+class CohortPointGraph(CohortGraph):
+    # Let's start by including no data
+    # this can be overriden when declaring the chart, but having none to start with
+    # will let us quickly see if we've forgotten anything.
+
+    # IMPORTANT: These are 'areas' so we can either use points, sub topics, or topics
+    syllabus_areas = SyllabusPoint.objects.none()
+    students = Student.objects.none()
+
+    data = []
+
+
+
+
+class CohortSubTopicChart(CohortGraph):
+
+    syllabus_areas = SyllabusSubTopic.objects.none()
+    students = Student.objects.none()
+
+    data = []
+

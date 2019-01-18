@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from .charts import BarChart
+from .charts import CohortPointGraph, CohortSubTopicChart
 from journal.forms import StudentJournalEntryLarge
 from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
@@ -686,8 +686,46 @@ def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
 @admin_only
 def chart_test(request):
 
-    chart = BarChart()
-    points = SyllabusPoint.objects.filter(topic__topic="Motion and Measurement")
-    chart.syllabus_points = points
-    chart.students = Student.objects.filter(classgroups__groupname__contains="10")
+    chart = CohortPointGraph()
+    points = SyllabusPoint.objects.filter(topic__pk=1)
+    chart.syllabus_areas = points
+    chart.students = Student.objects.filter(classgroups__groupname="10B/Ph2")
     return render(request, 'tracker/chart_test.html', {'chart': chart})
+
+@admin_only
+def rating_ouput_check(request, classgroup_pk, topic_pk):
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    students = Student.objects.filter(classgroups=classgroup)
+    topic = SyllabusTopic.objects.get(pk=topic_pk)
+    points = SyllabusSubTopic.objects.filter(topic=topic)
+
+    data = []
+
+    # Construct first row
+    row = [""]
+    for student in students:
+        row.append(student)
+    row.append("4-5")
+    data.append(row)
+
+    for point in points:
+        row = []
+        row.append(point)
+        for student in students:
+            row.append(point.get_student_rating(student).rating)
+        row.append(point.cohort_rating_number(students, 4, 5))
+        data.append(row)
+
+    return render(request, 'tracker/rating_output_check.html', {'data': data})
+
+
+@admin_only
+def sub_topic_chart_test(request):
+
+    chart = CohortSubTopicChart()
+    points = SyllabusSubTopic.objects.filter(topic__pk=1)
+    chart.syllabus_areas = points
+    chart.students = Student.objects.filter(classgroups__groupname="10B/Ph2")
+    return render(request, 'tracker/chart_test.html', {'chart': chart})
+
+

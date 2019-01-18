@@ -5,6 +5,8 @@ from django.db.models import Sum
 from ckeditor.fields import RichTextField
 from django.apps import apps
 from datetime import datetime
+from django.utils import timezone
+import pytz
 
 
 # Create your models here.
@@ -83,7 +85,7 @@ class Syllabus(models.Model):
 
         for point in all_points:
             if point.lessons_taught(classgroup):
-                points_taught = points_taught +1
+                points_taught = points_taught + 1
 
         percentage_taught = points_taught / total_points * 100
         return round(percentage_taught)
@@ -100,6 +102,7 @@ class Syllabus(models.Model):
 
         percentage_assessed = points_assessed / total_points * 100
         return round(percentage_assessed)
+
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -127,7 +130,20 @@ class SyllabusTopic(models.Model):
         rating, created = StudentTopicRating.objects.get_or_create(student=student,
                                                                    syllabus_topic=self,
                                                                    rating=rating,
-                                                                   date=datetime.today())
+                                                                   date=timezone.now())
+
+        if created:
+            # Check no others are set to 'current':
+            others = StudentTopicRating.objects.filter(student=student,
+                                                       syllabus_topic=self,
+                                                       current=True)
+            for other in others:
+                other.current = False
+                other.save()
+
+            rating.current = True
+            rating.save()
+
         return rating
 
     def studentCompletion(self, student):
@@ -154,7 +170,7 @@ class SyllabusTopic(models.Model):
 
         ''' Calculate number of scores that are within a boundary. The max is what the rating is out of (default 5)'''
         all_marks = Mark.objects.filter(student__in=students, question__syllabuspoint__topic=self)
-        upper_percentage = upper/max
+        upper_percentage = upper / max
         lower_percentage = lower / max
 
         elibible = 0
@@ -170,7 +186,7 @@ class SyllabusTopic(models.Model):
         students = classgroup.students()
         return self.groupAverageRating(students)
 
-    def GoupAverageCompletion(self, students):
+    def GroupAverageCompletion(self, students):
         possible = SyllabusPoint.objects.filter(topic=self).distinct()
         with_score = possible.filter(question__mark__student__in=students)
         if possible.count() > 0:
@@ -181,7 +197,7 @@ class SyllabusTopic(models.Model):
     def classAverageCompletion(self, classgroup):
 
         students = classgroup.students()
-        score = self.GroupAverageCompletion(self, students)
+        score = self.GroupAverageCompletion(students)
         return score
 
     def lessons_taught(self, classgroup):
@@ -203,7 +219,7 @@ class SyllabusTopic(models.Model):
         points_taught = 0
         for point in all_points:
             if point.lessons_taught(classgroup):
-                points_taught = points_taught +1
+                points_taught = points_taught + 1
 
         percentage_taught = points_taught / total_points * 100
         return round(percentage_taught)
@@ -252,8 +268,45 @@ class SyllabusSubTopic(models.Model):
         rating, created = StudentSubTopicRating.objects.get_or_create(student=student,
                                                                       syllabus_sub_topic=self,
                                                                       rating=rating,
-                                                                      date=datetime.today())
+                                                                      date=timezone.now())
+        if created:
+            # Check no others are set to 'current':
+            others = StudentSubTopicRating.objects.filter(student=student,
+                                                          syllabus_sub_topic=self,
+                                                          current=True)
+            for other in others:
+                other.current = False
+                other.save()
+
+            rating.current = True
+            rating.save()
+
         return rating
+
+    def get_student_rating(self, student):
+        # check if we have already calculated this:
+        try:
+            rating = StudentSubTopicRating.objects.get(student=student,
+                                                       syllabus_sub_topic=self,
+                                                       current=True)
+        except StudentPointRating.DoesNotExist:
+            rating = self.calculate_student_rating(student)
+
+        return rating
+
+    def cohort_rating_number(self, cohort, min_rating, max_rating):
+        """ Takes a queryset of students (cohort) and returns the number of
+        ratings that are between min_rating and max_rating """
+
+        points = self.syllabus_points()
+
+        total = StudentPointRating.objects.filter(student__in=cohort,
+                                                  syllabus_point__in=points,
+                                                  rating__gt=min_rating,
+                                                  rating__lte=max_rating,
+                                                  current=True).count()
+
+        return total
 
     def student_sub_topic_data(self, student):
 
@@ -307,7 +360,7 @@ class SyllabusSubTopic(models.Model):
             if point.lessons_taught(classgroup):
                 taught = taught + 1
 
-        return round(taught/total*100)
+        return round(taught / total * 100)
 
     def classgroup_percent_assessed(self, classgroup):
         points = self.syllabus_points()
@@ -322,6 +375,7 @@ class SyllabusSubTopic(models.Model):
                 assessed = assessed + 1
 
         return round(assessed / total * 100)
+
 
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -343,34 +397,47 @@ class SyllabusPoint(models.Model):
         marks = Mark.objects.filter(question__syllabuspoint=self).filter(student=student)
         rating = mark_queryset_to_rating(marks)
         rating, created = StudentPointRating.objects.get_or_create(student=student,
-                                                          syllabus_point=self,
-                                                          rating=rating,
-                                                          date=datetime.today())
+                                                                   syllabus_point=self,
+                                                                   rating=rating,
+                                                                   date=timezone.now())
+
+        if created:
+            # Check no others are set to 'current':
+            others = StudentPointRating.objects.filter(student=student,
+                                                       syllabus_point=self,
+                                                       current=True)
+            for other in others:
+                other.current = False
+                other.save()
+
+            rating.current = True
+            rating.save()
 
         return rating
 
     def get_student_rating(self, student):
         # check if we have already calculated this:
-        ratings = StudentPointRating.objects.filter(student=student, syllabus_point=self).order_by('date')
-        if ratings.count() > 0:
-            return ratings.reverse()[0].rating
+        try:
+            rating = StudentPointRating.objects.get(student=student,
+                                                    syllabus_point=self,
+                                                    current=True)
+        except StudentPointRating.DoesNotExist:
+            rating = self.calculate_student_rating(student)
 
-        else:
-
-            recorded_rating = self.calculate_student_rating(student)
-
-            return recorded_rating.rating
+        return rating
 
     def cohort_rating_number(self, cohort, min_rating, max_rating):
         """ Takes a queryset of students (cohort) and returns the number of
         ratings that are between min_rating and max_rating """
 
         total = 0
-        for student in cohort:
-            rating = self.get_student_rating(student)
-            if rating <= min_rating:
-                if rating > max_rating:
-                    total = total + 1
+
+        total = StudentPointRating.objects.filter(student__in=cohort,
+                                                  syllabus_point=self,
+                                                  rating__gt=min_rating,
+                                                  rating__lte=max_rating,
+                                                  current=True).count()
+
         return total
 
     def generate_cohort_ratings_dictionary(self, cohort):
@@ -384,7 +451,6 @@ class SyllabusPoint(models.Model):
                   'number_four_to_five': self.cohort_rating_number(cohort, 4, 5)}
 
         return points
-
 
     def student_assesments(self, student):
         assessments = Exam.objects.filter(question__syllabuspoint=self).distinct()
@@ -415,6 +481,7 @@ class SyllabusPoint(models.Model):
             return True
         else:
             return False
+
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
@@ -549,12 +616,35 @@ class StudentRating(models.Model):
     type = models.CharField(max_length=100, blank=False, null=False, default='Calculated')
     rating = models.DecimalField(blank=False, null=False, max_digits=5, decimal_places=2)
 
+    current = models.BooleanField(blank=True, null=True, default=False)
+
     class Meta:
         abstract = True
 
 
 class StudentPointRating(StudentRating):
     syllabus_point = models.ForeignKey(SyllabusPoint, on_delete=models.CASCADE, blank=False, null=False)
+
+
+def set_current_student_point_ratings():
+    all_ratings = StudentPointRating.objects.filter(date__lte=datetime.today())
+    points = SyllabusPoint.objects.all()
+    students = Student.objects.all()
+    for point in points:
+        for student in students:
+            rating = all_ratings.filter(syllabus_point=point,
+                                        student=student).order_by('date').reverse()
+        rating[0].current = True
+        rating[0].update()
+
+
+def set_current_student_stopic_ratings():
+    all_ratings = StudentSubTopicRating.objects.filter(date__lte=timezone.now())
+    points = SyllabusSubTopic.objects.all()
+    students = Student.objects.all()
+    for point in points:
+        for student in students:
+            point.calculate_student_rating(student)
 
 
 class StudentSubTopicRating(StudentRating):
