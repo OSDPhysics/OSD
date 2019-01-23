@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from .charts import CohortPointGraph, CohortSubTopicChart
+from .charts import CohortPointGraph, CohortSubTopicChart, StudentChart, StudentSubTopicGraph
 from journal.forms import StudentJournalEntryLarge
 from journal.functions import move_mark_reflection_to_journal_student
 from osd.decorators import *
@@ -729,3 +729,60 @@ def sub_topic_chart_test(request):
     return render(request, 'tracker/chart_test.html', {'chart': chart})
 
 
+@teacher_only
+def coverage_check(request, syllabus_pk):
+    syllabus = Syllabus.objects.get(pk=syllabus_pk)
+
+    classes = ClassGroup.objects.filter(syllabustaught=syllabus)
+
+    points = SyllabusPoint.objects.filter(topic__syllabus=syllabus).order_by('sub_topic', 'number')
+
+    data = []
+    row = ["", ]
+
+    for classgroup in classes:
+        row.append(str(classgroup))
+
+    data.append(row)
+
+    for point in points:
+        row = [str(point)]
+        for classgroup in classes:
+            if point.has_been_taught(classgroup):
+                row.append("Y")
+            else:
+                row.append("N")
+        data.append(row)
+
+    return render(request, "tracker/coverage_check.html", {'syllabus': syllabus,
+                                                           'data': data})
+
+
+@own_or_teacher_only
+def sub_topic_student_graph_check(request, student_pk, sub_topic_pk):
+    student = Student.objects.filter(pk=student_pk)
+    topic = SyllabusTopic.objects.get(pk=sub_topic_pk)
+    points = SyllabusSubTopic.objects.filter(topic=topic)
+    chart = StudentChart()
+    chart.students = student
+    chart.syllabus_areas = points
+
+    return render(request, "tracker/student_s_topic_chart_test.html", {'student': student,
+                                                       'sub_topic': topic,
+                                                       'chart': chart})
+
+@admin_only
+def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
+    student = Student.objects.filter(pk=student_pk)
+    points = SyllabusSubTopic.objects.filter(pk=sub_topic_pk)
+    chart = StudentSubTopicGraph()
+    chart.students = student
+    chart.syllabus_areas = points
+
+    return render(request, "tracker/student_single_s_topic_chart.html", {'student': student,
+                                                                       'sub_topic': points,
+                                                                       'chart': chart})
+
+@admin_only
+def set_current_ratings(request):
+    set_current_student_point_ratings()

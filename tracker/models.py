@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 from django.apps import apps
 from datetime import datetime
 from django.utils import timezone
+from .charts import StudentSubTopicGraph
 import pytz
 
 
@@ -157,10 +158,25 @@ class SyllabusTopic(models.Model):
 
     def studentSubTopicData(self, student):
         sub_topics = SyllabusSubTopic.objects.filter(topic=self)
+        classgroup = ClassGroup.objects.filter(student=student,
+                                            syllabustaught__syllabustopic=self,
+                                               archived=False)
         ratings = []
+        assessments = []
+        lessons = []
+        resources = []
+        charts = []
         for topic in sub_topics:
             ratings.append(topic.studentAverageRating(student))
-        return list(zip(sub_topics, ratings))
+            assessments.append("")
+            lessons.append("")
+            resources.append("")
+            chart = StudentSubTopicGraph()
+            chart.students = Student.objects.filter(pk=student.pk)
+            chart.syllabus_areas = SyllabusSubTopic.objects.filter(pk=topic.pk)
+            print(chart.syllabus_areas)
+            charts.append(chart)
+        return list(zip(sub_topics, ratings, assessments, lessons, resources, charts))
 
     def groupAverageRating(self, students):
         marks = Mark.objects.filter(question__syllabuspoint__topic=self).filter(student__in=students)
@@ -315,6 +331,7 @@ class SyllabusSubTopic(models.Model):
         assessments = []
         lessons = []
         resources = []
+        charts = []
         Lesson = apps.get_model(app_label='timetable', model_name='Lesson')
         for point in syllabus_points:
             # None of these can be blank, or zip() will fail
@@ -340,7 +357,12 @@ class SyllabusSubTopic(models.Model):
                 lessons.append('None')
                 resources.append('None')
 
-        return list(zip(syllabus_points, ratings, assessments, lessons, resources))
+            chart = StudentSubTopicGraph()
+            chart.students = Student.objects.filter(pk=student.pk)
+            chart.syllabus_areas = point
+            charts.append(chart)
+
+        return list(zip(syllabus_points, ratings, assessments, lessons, resources, charts))
 
     def lessons_taught(self, classgroup):
         """ return all the lessons in which this point has been taught to this classgroup"""
@@ -632,6 +654,7 @@ def set_current_student_point_ratings():
     students = Student.objects.all()
     for point in points:
         for student in students:
+            point.get_student_rating(student)
             rating = all_ratings.filter(syllabus_point=point,
                                         student=student).order_by('date').reverse()
         rating[0].current = True

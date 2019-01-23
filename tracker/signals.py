@@ -34,10 +34,11 @@ def update_current(sender, instance, **kwargs):
         if current.date < instance.date:
             current.current = False
             instance.current = True
-            current.update()
-            instance.update()
+            current.save()
+            instance.save()
+
 
     except StudentPointRating.DoesNotExist:
         # This will occur if no object is set to be the current.
         instance.current = True
-        instance.update()
+        instance.save()

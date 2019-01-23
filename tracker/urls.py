@@ -44,5 +44,9 @@ urlpatterns = [
     path('chart_test/', views.chart_test, name='chart_test'),
     path('chart_test2/', views.sub_topic_chart_test, name='sub_topic_test_chart'),
     path('output_check/<int:classgroup_pk>/<int:topic_pk>', views.rating_ouput_check, name='rating_output_check'),
+    path('coverage_check/<int:syllabus_pk>', views.coverage_check, name='coverage_check'),
+    path('student_s_topic_graph/<int:student_pk>/<int:sub_topic_pk>', views.sub_topic_student_graph_check, name='student_s_topic_chart'),
+    path('student_single_graph/<int:student_pk>/<int:sub_topic_pk>', views.single_sub_topic_graph_check,
+         name='student_single_graph_check'),
 
 ]

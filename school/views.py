@@ -20,6 +20,7 @@ def home(request):
     user = request.user
     return render(request, 'school/home.html', {'user': user})
 
+
 def splash(request):
     # Different splash pages are served depending on the type of user
 
@@ -27,7 +28,7 @@ def splash(request):
 
     if request.user.groups.filter(name='Teachers').exists():
         # Get the teacher's classes and assessments:
-        classes = ClassGroup.objects.filter(groupteacher__user=request.user)
+        classes = ClassGroup.objects.filter(groupteacher__user=request.user).exclude(archived=True)
         assessments = Sitting.objects.filter(classgroup__groupteacher__user=request.user).order_by('-datesat')
         return render(request, 'school/splash_teacher.html', {'classes': classes,
                                                               'assessments': assessments})

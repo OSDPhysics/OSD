@@ -20,14 +20,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for syllabus_point, rating, assessments, lessons, resources in point_data %}
-                            <tr {% if rating >= 4 %} class="table-success"
-                                {% elif rating >= 3 %} class = "table-info"
-                                {% elif rating >= 2 %} class="table-warning"
-                                {% elif rating < 2 %} class="table-danger"
+                            {% for syllabus_point, rating, assessments, lessons, resources, chart in point_data %}
+                            <tr {% if rating.rating >= 4 %} class="table-success"
+                                {% elif rating.rating >= 3 %} class = "table-info"
+                                {% elif rating.rating >= 2 %} class="table-warning"
+                                {% elif rating.rating < 2 %} class="table-danger"
                             {% endif %}>
                             <td>{{ syllabus_point }}</td>
-                            <td>{{ rating }}</td>
+                            <td>{{ rating.rating }}</td>
                             <td>{% if assessments %}
                                <a href="{% url 'tracker:small_assessment_list' syllabus_point.pk student.pk %}"><i class="fas fa-check-circle"></i>
 
