@@ -28,7 +28,7 @@
                                 <tr>
                                 <td>{{ lesson.date }}</td>
                                 <td>{{ lesson.sequence }}</td>
-                                    <td><a href="/admin/timetable/lesson/{{ lesson.pk }}/change">{{ lesson.lesson_title }}</a></td>
+                                    <td><a href="{% url 'timetable:edit_lesson' lesson.pk %}">{{ lesson.lesson_title }}</a></td>
                                 <td>{{ lesson.description }}</td>
                                 <td>{{ lesson.requirements }}</td>
                                 <td>{% for resource in lesson.resources %}

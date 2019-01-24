@@ -175,7 +175,6 @@ class StudentChart(Chart):
                                    data=points_0_to_1,
                                    borderWidth=2,
                                    color=(171, 9, 0),
-                                   fillOpacity=1
                                    ))
         return_data.append(DataSet(label='1-2',
                                    data=points_1_to_2,

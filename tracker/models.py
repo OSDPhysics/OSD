@@ -174,7 +174,6 @@ class SyllabusTopic(models.Model):
             chart = StudentSubTopicGraph()
             chart.students = Student.objects.filter(pk=student.pk)
             chart.syllabus_areas = SyllabusSubTopic.objects.filter(pk=topic.pk)
-            print(chart.syllabus_areas)
             charts.append(chart)
         return list(zip(sub_topics, ratings, assessments, lessons, resources, charts))
 

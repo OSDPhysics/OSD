@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'social_django',
     'jchart',
+
+
 ]
 
 MIDDLEWARE = [
