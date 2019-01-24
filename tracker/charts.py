@@ -112,8 +112,9 @@ class CohortSubTopicChart(CohortGraph):
 class StudentChart(Chart):
     chart_type = 'horizontalBar'
     height = 50
+
     scales = {
-        'xAxes': [Axes(stacked=True)],
+        'xAxes': [Axes(stacked=True, display=False)],
         'yAxes': [Axes(stacked=True)],
     }
 
@@ -139,7 +140,7 @@ class StudentChart(Chart):
             total_points = point.syllabus_points().count()
             count = point.cohort_rating_number(self.students, -1, 1)
             points_0_to_1.append(round(count / total_points*100, 0))
-            print(self.syllabus_areas)
+
         points_1_to_2 = []
 
         for point in self.syllabus_areas:
@@ -189,12 +190,12 @@ class StudentChart(Chart):
         return_data.append(DataSet(label='3-4',
                                    data=points_3_to_4,
                                    borderWidth=2,
-                                   color=(163, 191, 63),
+                                   color=(122, 159, 191),
                                    ))
         return_data.append(DataSet(label='4-5',
                                    data=points_4_to_5,
                                    borderWidth=2,
-                                   color=(122, 159, 191),
+                                   color=(163, 191, 63),
                                    ))
         return return_data
 
