@@ -46,7 +46,7 @@ class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
     groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE)
     syllabustaught = models.ManyToManyField('tracker.Syllabus')
-    archived = models.BooleanField(blank=True, null=True, default=False)
+    archived = models.BooleanField(blank=True, default=False)
 
 
     def __str__(self):
