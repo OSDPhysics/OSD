@@ -27,15 +27,15 @@ def update_current(sender, instance, **kwargs):
 
     # Check if the just-saved rating is newer than the 'current' one:
     try:
-        current = StudentPointRating.objects.get(student=instance.student,
+        current = StudentPointRating.objects.filter(student=instance.student,
                                                  syllabus_point=instance.syllabus_point,
                                                  current=True)
-
-        if current.date < instance.date:
-            current.current = False
-            instance.current = True
-            current.save()
-            instance.save()
+        for x in current:
+            if x.date < instance.date:
+                x.current = False
+                instance.current = True
+                x.save()
+                instance.save()
 
 
     except StudentPointRating.DoesNotExist:

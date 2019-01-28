@@ -74,7 +74,7 @@
           <entry key="gitignore" value="4" />
           <entry key="html" value="130" />
           <entry key="js" value="1" />
-          <entry key="py" value="405" />
+          <entry key="py" value="406" />
           <entry key="sh" value="3" />
         </counts>
       </usages-collector>
@@ -84,7 +84,7 @@
           <entry key="HTML" value="130" />
           <entry key="JavaScript" value="1" />
           <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="405" />
+          <entry key="Python" value="406" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -92,7 +92,7 @@
           <entry key="Django Console" value="2773" />
           <entry key="dummy" value="16" />
           <entry key="html" value="2461" />
-          <entry key="py" value="23345" />
+          <entry key="py" value="23351" />
           <entry key="py@OSD" value="292" />
           <entry key="sh" value="635" />
           <entry key="txt" value="1308" />
@@ -104,7 +104,7 @@
           <entry key="CommandLine" value="253" />
           <entry key="HTML" value="2461" />
           <entry key="PLAIN_TEXT" value="1996" />
-          <entry key="Python" value="26118" />
+          <entry key="Python" value="26124" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -164,7 +164,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3944563">
+    <splitter split-orientation="horizontal" split-proportion="0.5940594">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -197,7 +197,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/journal/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="195">
@@ -208,6 +208,15 @@
                     <element signature="e#2412#3255#0" />
                     <element signature="e#3330#4380#0" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/tracker/signals.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -261,7 +270,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tracker/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="276">
+                <state relative-caret-position="396">
                   <caret line="659" column="23" selection-start-line="659" selection-start-column="23" selection-end-line="659" selection-end-column="23" />
                 </state>
               </provider>
@@ -365,7 +374,6 @@
         <option value="$PROJECT_DIR$/tracker/templates/tracker/student_s_topic_chart_test.html" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/student_s_topic_chart_test.html.html" />
         <option value="$PROJECT_DIR$/tracker/urls.py" />
-        <option value="$PROJECT_DIR$/tracker/signals.py" />
         <option value="$PROJECT_DIR$/tracker/templates/tracker/student_sub_topic_overview.html" />
         <option value="$PROJECT_DIR$/tracker/views.py" />
         <option value="$USER_HOME$/django-test/lib/python3.6/site-packages/jchart/config.py" />
@@ -380,6 +388,7 @@
         <option value="$PROJECT_DIR$/tracker/models.py" />
         <option value="$PROJECT_DIR$/school/templates/school/splash_student.html" />
         <option value="$PROJECT_DIR$/school/views.py" />
+        <option value="$PROJECT_DIR$/tracker/signals.py" />
       </list>
     </option>
   </component>
@@ -630,13 +639,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00095" summary="temp bugbix">
-      <created>1536744785554</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1536744785554</updated>
     </task>
     <task id="LOCAL-00096" summary="temp bugbix">
       <created>1536744973284</created>
@@ -974,7 +976,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548635091832</updated>
     </task>
-    <option name="localTasksCounter" value="144" />
+    <task id="LOCAL-00144" summary="Simplified working example of charts.">
+      <created>1548644165319</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1548644165319</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1456,19 +1465,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/journal/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="e#456#866#0" />
-            <element signature="e#989#2221#0" />
-            <element signature="e#2412#3255#0" />
-            <element signature="e#3330#4380#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tracker/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1520,13 +1516,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/signals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/osd/settings/beta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1559,7 +1548,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
+        <state relative-caret-position="396">
           <caret line="659" column="23" selection-start-line="659" selection-start-column="23" selection-end-line="659" selection-end-column="23" />
         </state>
       </provider>
@@ -1585,6 +1574,26 @@
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/journal/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+          <folding>
+            <element signature="e#456#866#0" />
+            <element signature="e#989#2221#0" />
+            <element signature="e#2412#3255#0" />
+            <element signature="e#3330#4380#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tracker/signals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
         </state>
       </provider>
     </entry>
