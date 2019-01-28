@@ -61,12 +61,16 @@ def splash(request):
 
             # Let's get the ratings for each one
             ratings = []  # List of all the ratings, in order of topic
+            charts = []
 
             for topic in current_group['topics']:
                 ratings.append(topic.studentAverageRating(student))
-
+                chart = StudentSubTopicGraph()
+                chart.students = Student.objects.filter(pk=student.pk)
+                chart.syllabus_areas = SyllabusTopic.objects.filter(pk=topic.pk)
+                charts.append(chart)
             # Put the topic ratings alongside  a reference to each topic
-            current_group['topics'] = list(zip(current_group['topics'], ratings))
+            current_group['topics'] = list(zip(current_group['topics'], ratings, charts))
 
             # Send the final set of data to the rest of the data for all classes.
             classgroup_data.append(current_group)
