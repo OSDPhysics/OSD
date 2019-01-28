@@ -124,6 +124,20 @@ class SyllabusTopic(models.Model):
 
             return recorded_rating.rating
 
+    def cohort_rating_number(self, cohort, min_rating, max_rating):
+        """ Takes a queryset of students (cohort) and returns the number of
+        ratings that are between min_rating and max_rating """
+
+        points = self.syllabus_points()
+
+        total = StudentPointRating.objects.filter(student__in=cohort,
+                                                  syllabus_point__in=points,
+                                                  rating__gt=min_rating,
+                                                  rating__lte=max_rating,
+                                                  current=True).count()
+
+        return total
+
     def calculate_student_rating(self, student):
         points = SyllabusPoint.objects.filter(topic=self)
         marks = Mark.objects.filter(question__syllabuspoint__in=points).filter(student=student)
@@ -252,6 +266,9 @@ class SyllabusTopic(models.Model):
 
         percentage_assessed = points_assessed / total_points * 100
         return round(percentage_assessed)
+
+    def syllabus_points(self):
+        return SyllabusPoint.objects.filter(topic=self)
 
 
 class SyllabusSubTopic(models.Model):
@@ -708,3 +725,15 @@ def mark_queryset_to_rating(marks):
         return round(numpy.mean(pcs) * 5, 1)
     else:
         return 0  # If we have no marks recorded, don't try to round - give zero.
+
+
+def set_current_student_stopic_ratings():
+    all_ratings = StudentSubTopicRating.objects.filter(date__lte=timezone.now())
+    points = SyllabusSubTopic.objects.all()
+    students = Student.objects.all()
+    for point in points:
+        print("Now on points: ", point)
+
+        for student in students:
+            point.calculate_student_rating(student)
+        print("Last point for student:", student)

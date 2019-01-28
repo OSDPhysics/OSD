@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from .forms import *
 from .functions.adddata import *
+from tracker.charts import StudentSubTopicGraph
 from osd.decorators import *
 from tracker.models import Sitting, SyllabusTopic
 
@@ -202,11 +203,19 @@ def student_class_overview(request, student_pk, class_pk):
     topics = classgroup.topics()
     completion = []
     score = []
+    charts = []
+    students = Student.objects.filter(pk=student_pk)
     for topic in topics:
         completion.append(topic.studentCompletion(student))
         score.append(topic.studentAverageRating(student))
+        points = topic.syllabus_points()
+        chart = StudentSubTopicGraph()
 
-    topics_data = list(zip(topics, completion, score))
+        chart.students = students
+        chart.syllabus_areas = SyllabusTopic.objects.filter(pk=topic.pk)
+        charts.append(chart)
+
+    topics_data = list(zip(topics, completion, score, charts))
 
     return render(request, 'school/student_class_overview.html', {'student': student,
                                                                    'classgroup': classgroup,
