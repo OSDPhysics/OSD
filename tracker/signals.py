@@ -9,7 +9,7 @@ def update_rating_after_mark_change(sender, instance, **kwargs):
     """ This needs to be run as we've changed a mark """
     student = instance.student
     question = instance.question
-    points = question.syllabuspoint
+    points = question.syllabuspoint.all()
 
     for point in points:
         point.calculate_student_rating(student)
