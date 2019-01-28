@@ -654,7 +654,7 @@ class StudentRating(models.Model):
     type = models.CharField(max_length=100, blank=False, null=False, default='Calculated')
     rating = models.DecimalField(blank=False, null=False, max_digits=5, decimal_places=2)
 
-    current = models.BooleanField(blank=True, null=True, default=False)
+    current = models.BooleanField(blank=True, default=False)
 
     class Meta:
         abstract = True
