@@ -9,6 +9,9 @@ from django.utils import timezone
 from .charts import StudentSubTopicGraph
 import pytz
 
+from mptt.models import MPTTModel, TreeForeignKey
+
+
 
 # Create your models here.
 
@@ -737,3 +740,18 @@ def set_current_student_stopic_ratings():
         for student in students:
             point.calculate_student_rating(student)
         print("Last point for student:", student)
+
+# There are the models required for django MPTT:
+
+
+class MPTTSyllabus(MPTTModel):
+    text = models.CharField(max_length=500, unique=False)
+    tier = models.CharField(max_length=50, unique=False)
+    number = models.CharField(max_length=20, unique=False)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['number', 'text']
+
+    def __str__(self):
+        return self.text

@@ -1,5 +1,6 @@
 from django import forms
 from dal import autocomplete
+from django.forms.widgets import CheckboxSelectMultiple
 from tracker.models import SyllabusPoint, Syllabus
 from school.models import ClassGroup
 
@@ -12,10 +13,14 @@ class LessonForm(forms.ModelForm):
         model = Lesson
         fields = ["lesson_title",  'syllabus', 'syllabus_points_covered', 'description', 'requirements', ]
 
+        # widgets = {
+        #     'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
+        #                                                                   url='tracker:syllabus-autocomplete2',
+        #                                                                   forward=('syllabus',))
+        # }
+
         widgets = {
-            'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
-                                                                          url='tracker:syllabus-autocomplete2',
-                                                                          forward=('syllabus',))
+            'syllabus_points_covered': CheckboxSelectMultiple()
         }
 
     class Media:

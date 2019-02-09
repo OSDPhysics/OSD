@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'social_django',
     'jchart',
-
-
+    'crispy_forms',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -205,3 +205,5 @@ CALENDAR_END_DATE = datetime.date(CALENDAR_END_YEAR, CALENDAR_END_MONTH, CALENDA
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

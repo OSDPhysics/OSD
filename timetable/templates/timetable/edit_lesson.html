@@ -1,6 +1,7 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
+    {% load crispy_forms_tags %}
  <h1>Edit Lesson</h1>
  <div class="container">
         <div class="row">
@@ -14,7 +15,7 @@
                         </h2>
 <form method="post">
     {% csrf_token %}
-                        {{ lesson_form.as_p }}
+                        {{ lesson_form | crispy }}
 <p>
                         {% for resource in  lesson.resources.all %}
                         {{ resource.editable_icon | safe }}
