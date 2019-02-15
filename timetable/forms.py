@@ -1,17 +1,19 @@
 from django import forms
 from dal import autocomplete
 from django.forms.widgets import CheckboxSelectMultiple
-from tracker.models import SyllabusPoint, Syllabus
+from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from school.models import ClassGroup
+from mptt.forms import TreeNodeMultipleChoiceField
 
 from timetable.models import Lesson, LessonResources
 
 
 class LessonForm(forms.ModelForm):
+    syllabus_points = TreeNodeMultipleChoiceField(queryset=MPTTSyllabus.objects.all(), widget=CheckboxSelectMultiple)
 
     class Meta:
         model = Lesson
-        fields = ["lesson_title",  'syllabus', 'syllabus_points_covered', 'description', 'requirements', ]
+        fields = ["lesson_title",  'syllabus', 'description', 'requirements', ]
 
         # widgets = {
         #     'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
@@ -20,7 +22,7 @@ class LessonForm(forms.ModelForm):
         # }
 
         widgets = {
-            'syllabus_points_covered': CheckboxSelectMultiple()
+            'mptt_syllabus_points': CheckboxSelectMultiple()
         }
 
     class Media:

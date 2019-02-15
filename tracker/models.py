@@ -527,6 +527,7 @@ class SyllabusPoint(models.Model):
 class Exam(models.Model):
     name = models.CharField(max_length=100)
     syllabus = models.ManyToManyField(Syllabus)
+    weighting = models.FloatField(default=1, blank=False, null=False)
 
     def __str__(self):
         return self.name
@@ -547,6 +548,7 @@ class Question(models.Model):
     qorder = models.DecimalField(decimal_places=2, max_digits=6)
     syllabuspoint = models.ManyToManyField(SyllabusPoint)
     maxscore = models.IntegerField()
+    weighting = models.FloatField(default=1.0, blank=False, null=False)
 
     def __str__(self):
         return self.qnumber
@@ -632,17 +634,46 @@ class Mark(models.Model):
     sitting = models.ForeignKey(Sitting, on_delete=models.CASCADE)
     notes = RichTextField(null=True, blank=True, config_name='small')
 
+    # Calculated fields
+
+    percent = models.FloatField(blank=True, null=True)
+    maximum = models.IntegerField(blank=True, null=True)
+    weighted_maximum = models.IntegerField(blank=True, null=True)
+    weighted_percent = models.FloatField(blank=True, null=True)
+
+    # Used so we can force an update, triggering all the signals when changing an exam or question.
+    updates = models.IntegerField(blank=False, null=False, default=0)
+
     def __str__(self):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(
             self.score) + ')'
 
     def percentage(self):
 
-        if self.score:
-            return round(self.score / self.question.maxscore * 100, 2)
-        # CSV Uploads
+        if self.percent:
+            return self.percent
+
         else:
-            return False
+            if self.score:
+                self.percent = round(self.score / self.question.maxscore * 100, 2)
+                return self.percent
+
+            else:
+                return False
+
+    def calculate_percentage(self):
+        percent = round(self.score / self.question.maxscore * 100, 2)
+        self.save()
+        return percent
+
+
+    def calculate_weighted_percent(self):
+        weighting = self.question.weighting * self.question.exam.weighting
+        return weighting * self.score
+
+    def calculate_weighted_max(self):
+        weighting = self.question.weighting * self.question.exam.weighting
+        return self.question.maxscore * weighting
 
     class Meta:
         unique_together = (("student", "question", "sitting"),)
@@ -746,12 +777,52 @@ def set_current_student_stopic_ratings():
 
 class MPTTSyllabus(MPTTModel):
     text = models.CharField(max_length=500, unique=False)
-    tier = models.CharField(max_length=50, unique=False)
-    number = models.CharField(max_length=20, unique=False)
+    tier = models.CharField(max_length=50, unique=False, blank=True, null=True)
+    number = models.CharField(max_length=20, unique=False, blank=True, null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    related_syllabus = models.ForeignKey(Syllabus, on_delete=models.SET_NULL, blank=True, null=True)
+    related_topic = models.ForeignKey(SyllabusTopic, on_delete=models.SET_NULL, blank=True, null=True)
+    related_sub_topic = models.ForeignKey(SyllabusSubTopic, on_delete=models.SET_NULL, blank=True, null=True)
+    related_point = models.ForeignKey(SyllabusPoint, on_delete=models.SET_NULL, blank=True, null=True)
 
     class MPTTMeta:
         order_insertion_by = ['number', 'text']
 
     def __str__(self):
         return self.text
+
+
+def create_MPTT_syllabus():
+    """ Take our existing syllabus structure and convert to MPTT type. """
+    # Steps are as follows;
+    # 0. Delete all existing ones to prevent duplication
+    # 1. Get all the Levels.
+    # 2. Get all the syllabus'
+    # 3. For each syllabus, get its topics
+    # 4. For each topic, get all the sub topics
+    # 5. Create a point for each one.
+
+
+    # 0 Delete all existing:
+    MPTTSyllabus.objects.all().delete()
+    # 1. Get and create each level:
+
+
+    levels = Examlevel.objects.all()
+    for level in levels:
+        current_level = MPTTSyllabus.objects.create(text=level.examtype)
+        syllabuses = Syllabus.objects.filter(examtype=level)
+
+        for syllabus in syllabuses:
+            print("Currently on: ", syllabus)
+            mptt_syllabus = MPTTSyllabus.objects.create(text=syllabus.syllabusname, parent=current_level, related_syllabus=syllabus)
+            topics = syllabus.all_topics()
+            for topic in topics:
+                print("Currently on: ", topic)
+                mptt_topic = MPTTSyllabus.objects.create(text=topic.topic, parent=mptt_syllabus, related_topic=topic, related_syllabus=syllabus)
+                sub_topics = topic.sub_topics()
+                for sub_topic in sub_topics:
+                    mptt_sub_topic = MPTTSyllabus.objects.create(parent=mptt_topic, text=sub_topic.sub_topic, related_sub_topic=sub_topic, related_topic=topic, related_syllabus=syllabus)
+                    points = sub_topic.syllabus_points()
+                    for point in points:
+                        MPTTSyllabus.objects.create(parent=mptt_sub_topic, text=point.syllabusText, tier=point.syllabusLevel, related_point=point, number=point.number, related_sub_topic=sub_topic, related_topic=topic, related_syllabus=syllabus)

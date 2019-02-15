@@ -1,7 +1,7 @@
 from django.db import models, IntegrityError
 from django.shortcuts import reverse
 from school.models import ClassGroup, Teacher
-from tracker.models import SyllabusPoint, Syllabus
+from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 from django.db import transaction
 from django.contrib import messages
@@ -196,6 +196,7 @@ class Lesson(models.Model):
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
+    mptt_syllabus_points = models.ForeignKey(MPTTSyllabus, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         unique_together = (("lessonslot", "date"),
