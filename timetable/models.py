@@ -395,7 +395,7 @@ class LessonResources(models.Model):
         """ Icon link to the resource itself"""
 
         string = "<a href=" + str(self.link)
-        string = string + ' target="_blank" data-toggle="tooltip" data-placement="top" title="'
+        string = string + ' target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" title="'
         string = string + (str(self.resource_name))
         string = string + '">'
 
