@@ -107,6 +107,9 @@ class Syllabus(models.Model):
         percentage_assessed = points_assessed / total_points * 100
         return round(percentage_assessed)
 
+    def mptt_equivalent(self):
+        return MPTTSyllabus.objects.get(related_syllabus=self)
+
 
 class SyllabusTopic(models.Model):
     syllabus = models.ForeignKey(Syllabus, on_delete=models.CASCADE)
@@ -273,6 +276,8 @@ class SyllabusTopic(models.Model):
     def syllabus_points(self):
         return SyllabusPoint.objects.filter(topic=self)
 
+    def mptt_equivalent(self):
+        return MPTTSyllabus.objects.get(related_topic=self)
 
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -417,6 +422,8 @@ class SyllabusSubTopic(models.Model):
 
         return round(assessed / total * 100)
 
+    def mptt_equivalent(self):
+        return MPTTSyllabus.objects.get(related_sub_topic=self)
 
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -523,6 +530,16 @@ class SyllabusPoint(models.Model):
         else:
             return False
 
+    def mptt_equivalent(self):
+        try:
+            equivalent = MPTTSyllabus.objects.get(related_point=self)
+        except(models.ObjectDoesNotExist):
+            print("No equivalent found for point id", self.pk)
+            equivalent = False
+        if equivalent:
+            return equivalent
+        else:
+            return False
 
 class Exam(models.Model):
     name = models.CharField(max_length=100)
@@ -549,6 +566,7 @@ class Question(models.Model):
     syllabuspoint = models.ManyToManyField(SyllabusPoint)
     maxscore = models.IntegerField()
     weighting = models.FloatField(default=1.0, blank=False, null=False)
+    MPTTsyllabuspoint = models.ManyToManyField('MPTTSyllabus')
 
     def __str__(self):
         return self.qnumber
@@ -665,7 +683,6 @@ class Mark(models.Model):
         percent = round(self.score / self.question.maxscore * 100, 2)
         self.save()
         return percent
-
 
     def calculate_weighted_percent(self):
         weighting = self.question.weighting * self.question.exam.weighting
@@ -792,37 +809,3 @@ class MPTTSyllabus(MPTTModel):
         return self.text
 
 
-def create_MPTT_syllabus():
-    """ Take our existing syllabus structure and convert to MPTT type. """
-    # Steps are as follows;
-    # 0. Delete all existing ones to prevent duplication
-    # 1. Get all the Levels.
-    # 2. Get all the syllabus'
-    # 3. For each syllabus, get its topics
-    # 4. For each topic, get all the sub topics
-    # 5. Create a point for each one.
-
-
-    # 0 Delete all existing:
-    MPTTSyllabus.objects.all().delete()
-    # 1. Get and create each level:
-
-
-    levels = Examlevel.objects.all()
-    for level in levels:
-        current_level = MPTTSyllabus.objects.create(text=level.examtype)
-        syllabuses = Syllabus.objects.filter(examtype=level)
-
-        for syllabus in syllabuses:
-            print("Currently on: ", syllabus)
-            mptt_syllabus = MPTTSyllabus.objects.create(text=syllabus.syllabusname, parent=current_level, related_syllabus=syllabus)
-            topics = syllabus.all_topics()
-            for topic in topics:
-                print("Currently on: ", topic)
-                mptt_topic = MPTTSyllabus.objects.create(text=topic.topic, parent=mptt_syllabus, related_topic=topic, related_syllabus=syllabus)
-                sub_topics = topic.sub_topics()
-                for sub_topic in sub_topics:
-                    mptt_sub_topic = MPTTSyllabus.objects.create(parent=mptt_topic, text=sub_topic.sub_topic, related_sub_topic=sub_topic, related_topic=topic, related_syllabus=syllabus)
-                    points = sub_topic.syllabus_points()
-                    for point in points:
-                        MPTTSyllabus.objects.create(parent=mptt_sub_topic, text=point.syllabusText, tier=point.syllabusLevel, related_point=point, number=point.number, related_sub_topic=sub_topic, related_topic=topic, related_syllabus=syllabus)

@@ -9,11 +9,10 @@ from timetable.models import Lesson, LessonResources
 
 
 class LessonForm(forms.ModelForm):
-    syllabus_points = TreeNodeMultipleChoiceField(queryset=MPTTSyllabus.objects.all(), widget=CheckboxSelectMultiple)
 
     class Meta:
         model = Lesson
-        fields = ["lesson_title",  'syllabus', 'description', 'requirements', ]
+        fields = ["lesson_title",  'syllabus', 'description', 'requirements', 'syllabus_points_covered', 'mptt_syllabus_points']
 
         # widgets = {
         #     'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
@@ -22,8 +21,8 @@ class LessonForm(forms.ModelForm):
         # }
 
         widgets = {
-            'mptt_syllabus_points': CheckboxSelectMultiple()
-        }
+             'mptt_syllabus_points': CheckboxSelectMultiple()
+         }
 
     class Media:
         js = (

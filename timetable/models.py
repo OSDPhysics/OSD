@@ -6,7 +6,7 @@ from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 from django.db import transaction
 from django.contrib import messages
 from django.db.models import Max
-
+from mptt.models import TreeManyToManyField
 from django.db.models import Max
 
 # from .functions import *
@@ -196,7 +196,7 @@ class Lesson(models.Model):
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
-    mptt_syllabus_points = models.ForeignKey(MPTTSyllabus, blank=True, null=True, on_delete=models.SET_NULL)
+    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus)
 
     class Meta:
         unique_together = (("lessonslot", "date"),
@@ -361,6 +361,7 @@ class LessonResources(models.Model):
     students_can_view_after = models.BooleanField(default=False)
     available_to_all_classgroups = models.BooleanField(default=False)
     syllabus_points = models.ManyToManyField(SyllabusPoint, blank=True)
+    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus)
 
     def __str__(self):
         return self.resource_name
