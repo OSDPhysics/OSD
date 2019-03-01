@@ -786,3 +786,32 @@ def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
 @admin_only
 def set_current_ratings(request):
     set_current_student_point_ratings()
+
+
+@teacher_only
+def new_teacher_overview(request, teacher_pk):
+    """ New splash screen using MPTT Models """
+
+    teacher = Teacher.objects.get(pk=teacher_pk)
+    classgroups = ClassGroup.objects.filter(archived=False, groupteacher=teacher)
+
+    classgroup_data = [] #format is: Classgruop, Syllabuses_taught, progress_dictionary
+    for group in classgroups:
+        row = []
+        # Construct a table set:
+        row.append(group)
+        syllabuses = []
+        progress_dics = []
+        for syllabus in group.mptt_syllabustaught.all():
+            syllabuses.append(syllabus)
+            progress_dics.append(syllabus.group_ratings_data(group.students()))
+        row.append(syllabuses)
+        row.append(progress_dics)
+        classgroup_data.append(row)
+
+    sittings = Sitting.objects.filter(classgroup__in=classgroups).order_by('datesat').reverse()
+
+    return render(request, "tracker/mptt_teacher_overview.html", {'teacher': teacher,
+                                                          'classgroups': classgroups,
+                                                          'sittings': sittings,
+                                                          'classgroup_data': classgroup_data})

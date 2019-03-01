@@ -48,5 +48,6 @@ urlpatterns = [
     path('student_s_topic_graph/<int:student_pk>/<int:sub_topic_pk>', views.sub_topic_student_graph_check, name='student_s_topic_chart'),
     path('student_single_graph/<int:student_pk>/<int:sub_topic_pk>', views.single_sub_topic_graph_check,
          name='student_single_graph_check'),
+    path('newsplash/<int:teacher_pk>', views.new_teacher_overview, name='new_teacher_overview')
 
 ]

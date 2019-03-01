@@ -1,7 +1,7 @@
 from django.db import models
 from school.models import Student, ClassGroup
 import numpy
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 from ckeditor.fields import RichTextField
 from django.apps import apps
 from datetime import datetime
@@ -9,7 +9,8 @@ from django.utils import timezone
 from .charts import StudentSubTopicGraph
 import pytz
 
-from mptt.models import MPTTModel, TreeForeignKey
+
+from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField, TreeManager
 
 
 
@@ -541,6 +542,16 @@ class SyllabusPoint(models.Model):
         else:
             return False
 
+    def mptt_rating(self, students):
+        ''' Find the rating for a group of students '''
+        marks = Mark.objects.filter(student__in=students, question__syllabuspoint=self)
+        average = marks.aggregate(Avg('percent'))
+        return round(average*5, 1)
+
+    def mptt_weighted_rating(self, students):
+        marks = Mark.objects.filter(student__in=students, question__syllabuspoint=self)
+
+
 class Exam(models.Model):
     name = models.CharField(max_length=100)
     syllabus = models.ManyToManyField(Syllabus)
@@ -566,7 +577,7 @@ class Question(models.Model):
     syllabuspoint = models.ManyToManyField(SyllabusPoint)
     maxscore = models.IntegerField()
     weighting = models.FloatField(default=1.0, blank=False, null=False)
-    MPTTsyllabuspoint = models.ManyToManyField('MPTTSyllabus')
+    MPTTsyllabuspoint = TreeManyToManyField('MPTTSyllabus')
 
     def __str__(self):
         return self.qnumber
@@ -644,6 +655,37 @@ class Sitting(models.Model):
         self.openForStudentRecording = not self.openForStudentRecording
 
 
+    def create_ratings(self):
+        single_points = MPTTSyllabus.objects.filter(question__exam__sitting=self)
+
+        points = MPTTSyllabus.objects.get_queryset_ancestors(queryset=single_points, include_self=True)
+        for student in self.students():
+            for point in points:
+                rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total_contributions = point.calculate_student_rating(student, eff_date=self.datesat)
+                if not rating:
+                    # Rating will be Null if no points exist yet.
+                    continue
+                # Check if we've done a rating including this sitting before
+                # (This would occur if we've updated a mark)
+                ratings = MPTTRating.objects.filter(student=student, assessment=self, syllabus=point)
+                if ratings.count() > 0:
+                    # The rating has already been done; so we're just updating it.
+                    rating_instance = ratings[0]
+                else:
+                    rating_instance = MPTTRating.objects.create(student=student, created=self.datesat, syllabus=point)
+                    rating_instance.assessment.add(self)
+
+                rating_instance.rating = rating
+                rating_instance.zero_to_one = zero_to_one
+                rating_instance.one_to_two = one_to_two
+                rating_instance.two_to_three = two_to_three
+                rating_instance.three_to_four = three_to_four
+                rating_instance.four_to_five = four_to_five
+                rating_instance.total_contributions = total_contributions
+
+                rating_instance.save()
+
+
 class Mark(models.Model):
     # TODO: This should be updated whenever a sitting is modified
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -654,7 +696,7 @@ class Mark(models.Model):
 
     # Calculated fields
 
-    percent = models.FloatField(blank=True, null=True)
+    percent = models.IntegerField(blank=True, null=True, max_length=3)
     maximum = models.IntegerField(blank=True, null=True)
     weighted_maximum = models.IntegerField(blank=True, null=True)
     weighted_percent = models.FloatField(blank=True, null=True)
@@ -666,31 +708,39 @@ class Mark(models.Model):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(
             self.score) + ')'
 
-    def percentage(self):
-
-        if self.percent:
-            return self.percent
-
-        else:
-            if self.score:
-                self.percent = round(self.score / self.question.maxscore * 100, 2)
-                return self.percent
-
-            else:
-                return False
 
     def calculate_percentage(self):
-        percent = round(self.score / self.question.maxscore * 100, 2)
-        self.save()
+        # TODO: Fix this, as currently a score of 0 is also null!
+        if self.score:
+            percent = round(self.score / self.question.maxscore * 100, 2)
+        elif self.score == 0:
+            percent = 0
+        else:
+            percent = None
         return percent
 
     def calculate_weighted_percent(self):
-        weighting = self.question.weighting * self.question.exam.weighting
-        return weighting * self.score
+        if self.score:
+            weighting = self.question.weighting * self.question.exam.weighting
+            weighted_score = weighting * self.score
+            weighted_percent = round(weighted_score/self.calculate_weighted_max() * 100, 0)
+        else:
+            weighted_percent = None
+        return weighted_percent
 
     def calculate_weighted_max(self):
         weighting = self.question.weighting * self.question.exam.weighting
         return self.question.maxscore * weighting
+
+    def get_maxscore(self):
+        return self.question.maxscore
+
+    def set_calculated_values(self):
+        self.maximum = self.get_maxscore()
+        self.percent = self.calculate_percentage()
+        self.weighted_maximum = self.calculate_weighted_max()
+        self.weighted_percent = self.calculate_weighted_percent()
+        self.save()
 
     class Meta:
         unique_together = (("student", "question", "sitting"),)
@@ -808,4 +858,89 @@ class MPTTSyllabus(MPTTModel):
     def __str__(self):
         return self.text
 
+    def get_group_ratings(self, students):
 
+        '''Return a rating / 5 for a cohort, not weighted '''
+        # We need to search not just this instance, but all children too (so we get a complete view of it.
+        points = self.get_descendants(include_self=True)
+        marks = Mark.objects.filter(question__MPTTsyllabuspoint__in=points, student__in=students)
+        marks.aggregate(average=Avg('percent'))
+
+    def calculate_student_rating(self, student, eff_date=datetime.today()):
+        points = self.get_descendants(include_self=True)
+        marks = Mark.objects.filter(question__MPTTsyllabuspoint__in=points, student=student, sitting__datesat__lte=eff_date, score__isnull=False)
+
+        if marks.count() == 0:
+            return None, None, None, None, None, None, None
+        percent = marks.aggregate(average=Avg('percent'))['average']
+        if percent:
+            rating = round(percent / 20, 1)
+
+            zero_to_one = marks.filter(percent__gte=0, percent__lt=20).count()
+            one_to_two = marks.filter(percent__gte=20, percent__lt=40).count()
+            two_to_three = marks.filter(percent__gte=40, percent__lt=60).count()
+            three_to_four = marks.filter(percent__gte=60, percent__lt=80).count()
+            four_to_five = marks.filter(percent__gte=80, percent__lte=100).count()
+            total_contributions = marks.count()
+
+        else:
+            return None, None, None, None, None, None, None
+
+        return rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total_contributions
+
+    def calculate_group_rating(self, students, eff_date=datetime.today()):
+        points = self.get_descendants(include_self=True)
+        marks = Mark.objects.filter(question__MPTTsyllabuspoint__in=points, student__in=students,
+                                    sitting__datesat__lte=eff_date, score__isnull=False)
+
+        if marks.count() == 0:
+            return None, None, None, None, None, None, None
+        percent = marks.aggregate(average=Avg('percent'))['average']
+        if percent:
+            rating = round(percent / 20, 1)
+
+            zero_to_one = marks.filter(percent__gte=0, percent__lt=20).count()
+            one_to_two = marks.filter(percent__gte=20, percent__lt=40).count()
+            two_to_three = marks.filter(percent__gte=40, percent__lt=60).count()
+            three_to_four = marks.filter(percent__gte=60, percent__lt=80).count()
+            four_to_five = marks.filter(percent__gte=80, percent__lte=100).count()
+            total_contributions = marks.count()
+
+
+
+        else:
+            return None, None, None, None, None, None, None
+
+        return rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total_contributions
+
+    def group_ratings_data(self, students):
+        rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total = self.calculate_group_rating(students=students)
+        data = {'rating': rating,
+                'zero_to_one': zero_to_one,
+                'one_to_two': one_to_two,
+                'two_to_three': two_to_three,
+                'three_to_four': three_to_four,
+                'four_to_five': four_to_five,
+                'total': total}
+        return data
+
+class MPTTRating(models.Model):
+    syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, null=False, blank=False, on_delete=models.CASCADE)
+    rating = models.FloatField(null=True, blank=True)
+
+    # these store the total instance of a score in each range
+    # These should store the count of each in this range
+    zero_to_one = models.IntegerField(null=True, blank=True)
+    one_to_two = models.IntegerField(null=True, blank=True)
+    two_to_three = models.IntegerField(null=True, blank=True)
+    three_to_four = models.IntegerField(null=True, blank=True)
+    four_to_five = models.IntegerField(null=True, blank=True)
+    total_contributions = models.IntegerField(null=False, default=0)
+
+    created = models.DateTimeField(blank=False, null=False, default=datetime.now())
+    reason = models.CharField(blank=False, null=False, default="Assessment", max_length=100)
+    assessment = models.ManyToManyField(Sitting)
+
+    def __str__(self):
+        return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"

@@ -1,5 +1,6 @@
-from tracker.models import MPTTSyllabus, Syllabus, Examlevel
+from tracker.models import MPTTSyllabus, Syllabus, Examlevel, Question, Mark, Sitting
 from timetable.models import Lesson, LessonResources
+from school.models import ClassGroup
 
 def convert_to_mptt():
     """ Take our existing syllabus structure and convert to MPTT type. """
@@ -44,6 +45,7 @@ def convert_to_mptt():
     # Now add MPTTSyllabus items where needed:
 
     # LESSONS
+    print("Updating lessons to use MPTTSyllabus")
     for lesson in Lesson.objects.filter(lesson_title__isnull=False):
         lesson.mptt_syllabus_points.clear()
         spoints = lesson.syllabus_points_covered.all()
@@ -55,6 +57,7 @@ def convert_to_mptt():
                 print("No equivalent found for point id", point.pk)
     # RESOURCES
 
+    print("Updating resources to use MPTT syllabus")
     for resource in LessonResources.objects.filter(syllabus_points__isnull=False):
         resource.mptt_syllabus_points.clear()
         points = resource.syllabus_points.all()
@@ -65,3 +68,41 @@ def convert_to_mptt():
                 resource.mptt_syllabus_points.add(point.mptt_equivalent())
             else:
                 print("No equivalent found for point id", point.pk)
+
+    # QUESTIONS
+    print("Now updating questions to use new MPTTSyllabus")
+    for question in Question.objects.filter(syllabuspoint__isnull=False):
+        question.MPTTsyllabuspoint.clear()
+        points = question.syllabuspoint.all()
+
+        for point in points:
+            question.MPTTsyllabuspoint.add(point.mptt_equivalent())
+
+    # MARKS
+    print("Now updaitng marks to have calculated fields")
+    for mark in Mark.objects.filter(score__isnull=False):
+        mark.set_calculated_values()
+
+    # Ratings
+
+    print("Now creating student ratings")
+    for sitting in Sitting.objects.all():
+        print("Currently on: " + str(sitting))
+        sitting.create_ratings()
+
+    convert_classgroup_syllabai()
+
+def calculate_sitting_ratings():
+    print("Now creating student ratings")
+    for sitting in Sitting.objects.all():
+        print("Currently on: " + str(sitting))
+        sitting.create_ratings()
+
+def convert_classgroup_syllabai():
+    print ("Now converting classgroup Syllabai")
+    for classgroup in ClassGroup.objects.all():
+        print("Now on classgroup: " + str(classgroup))
+        for syllabus in classgroup.syllabustaught.all():
+            print("Now on syllabus: " + str(syllabus))
+            equivalent = MPTTSyllabus.objects.get(related_syllabus=syllabus, related_topic__isnull=True)
+            classgroup.mptt_syllabustaught.add(equivalent)
