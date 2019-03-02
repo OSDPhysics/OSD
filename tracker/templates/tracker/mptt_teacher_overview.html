@@ -25,22 +25,12 @@
                             {% for row in classgroup_data %}
                                 <tr>
                                 <td>{{ row.0 }}</td>
-                                <td>{% for syllabus in row.1 %}{{ syllabus }}<br> {% endfor %} </td>
+                                    <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a><br> {% endfor %} </td>
                                 <td>{% for data in row.2 %}
+                                    {%  include 'tracker/progressbar.html' %}
 
-  <div class="progress">
-  <div class="progress-bar bg-danger" role="progressbar" style="width: {% widthratio data.zero_to_one data.total 100 %}%" aria-valuenow="{{ data.zero_to_one }}" aria-valuemin="0" aria-valuemax="{{ data.total }}"></div>
-  <div class="progress-bar bg-warning" role="progressbar" style="width: {% widthratio data.one_to_Two data.total 100 %}%" aria-valuenow="{{ data.one_to_Two }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">1-2</div>
-  <div class="progress-bar bg-info" role="progressbar" style="width: {% widthratio data.two_to_three data.total 100 %}%" aria-valuenow="{{ data.two_to_three }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">2-3</div>
-  <div class="progress-bar bg-success" role="progressbar" style="width: {% widthratio data.three_to_four data.total 100 %}%" aria-valuenow="{{ data.three_to_four }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">3-4</div>
-  <div class="progress-bar" role="progressbar" style="width: {% widthratio data.four_to_five data.total 100 %}%" aria-valuenow="{{ data.four_to_five }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">4-5</div>
-</div>
-                                    Rating: {{ data.rating }}<br>
-                                    0-1: {{ data.zero_to_one }}<br>
-                                    1-2: {{ data.one_to_two }}<br>
-                                    2-3: {{ data.two_to_three }}<br>
-                                    3-4: {{ data.three_to_four }}<br>
-                                    4-5: {{ data.four_to_five }}
+                                    Average Rating: {{ data.rating }}<br>
+
                                     {% endfor %}</td>
                                 </tr>
                             {% endfor %}

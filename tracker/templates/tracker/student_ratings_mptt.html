@@ -1,0 +1,51 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Data for {{ student }} studying {{ syllabus }}</h1>
+    {% if parent %}
+                            <a class="btn btn-primary" href="{% url 'tracker:student_ratings' student.pk parent.pk %}" role="button"><< {{ parent }}</a>
+        {% if isteacher %}
+            {% for group in classgroups %}
+                 <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' group.pk syllabus.pk %}" role="button"><< {{ group }}</a>
+            {% endfor %}
+            {% endif %}
+                        {% endif %}
+ <div class="container">
+        <div class="row"></div>
+            <div class="col md">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Assessment data of {{ syllabus }} for {{ student }}
+                        </h2>
+
+                        <table class="table w-auto">
+                            <thead>
+                            <tr>
+                                <th>Point</th>
+                                <th class="th-sm">Average rating</th>
+                                <th class="th-lg" style="width: 50%"> </th>
+                            </tr>
+                            {% for row in sub_topic_data %}
+                                <tr>
+                                    <td><a href="{% url 'tracker:student_ratings' student.pk row.0.pk %}">{{ row.0 }}</a></td>
+                                <td>{{ row.1.rating }}</td>
+                                <td>{% include 'tracker/progressbar.html' with data=row.1 %}</td>
+                                </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

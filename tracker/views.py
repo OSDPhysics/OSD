@@ -8,6 +8,7 @@ from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.contrib import messages
+from timetable.models import Lesson, LessonResources
 
 from django.db.models import Sum
 from operator import itemgetter
@@ -815,3 +816,146 @@ def new_teacher_overview(request, teacher_pk):
                                                           'classgroups': classgroups,
                                                           'sittings': sittings,
                                                           'classgroup_data': classgroup_data})
+
+@teacher_only
+def classgroup_ratings(request, classgroup_pk, syllabus_pk):
+    """ Displays the ratings for a classroup for a given syllabus """
+
+    classgroup = ClassGroup.objects.get(pk=classgroup_pk)
+    syllabus = MPTTSyllabus.objects.get(pk=syllabus_pk)
+    if not syllabus.is_root_node():
+        parent = syllabus.get_ancestors(ascending=True)[0]
+    else:
+        parent = False
+
+    students = classgroup.students()
+
+    # Create the data for students:
+    student_data = []
+    for student in students:
+        row = []
+        data = syllabus.group_ratings_data(students=Student.objects.filter(pk=student.pk))
+        row.append(student)
+        row.append(student.tutorgroup)
+        row.append(student.Gender)
+        row.append(data)
+        student_data.append(row)
+
+    # Now let's do the topics they've been taught
+    # We need two different takes here; one if we're at the bottom of a tree,
+    # one if we're at a parent object.
+
+    # For parents topics:
+
+    if syllabus.get_descendant_count():
+        sub_topic_data = []
+        # We are not at the bottom:
+        sub_points = syllabus.get_children()
+        for point in sub_points:
+            row = []
+            row.append(point)
+            row.append(point.group_ratings_data(students))
+            sub_topic_data.append(row)
+    else:
+        # We are at the bottom of a row:
+        sub_topic_data = [[syllabus, syllabus.group_ratings_data(students)],]
+
+
+
+    return render(request, 'tracker/classgroup_ratings_mptt.html', {'classgroup': classgroup,
+                                                                    'syllabus': syllabus,
+                                                                    'students': students,
+                                                                    'student_data': student_data,
+                                                                    'sub_topic_data': sub_topic_data,
+                                                                    'parent': parent})
+
+
+@own_or_teacher_only
+def student_ratings(request, student_pk, syllabus_pk):
+    student = Student.objects.get(pk=student_pk)
+    syllabus = MPTTSyllabus.objects.get(pk=syllabus_pk)
+
+    # For the back buttons:
+
+    if not syllabus.is_root_node():
+        parent = syllabus.get_ancestors(ascending=True)[0]
+    else:
+        parent = False
+
+    # Create a bunch of buttons for each classgroup the student is in,
+    # so that a teacher can return to the overview for that group.
+
+    classgroups = ClassGroup.objects.filter(student=student, mptt_syllabustaught__in=syllabus.get_ancestors(include_self=True), archived=False)
+    # We only want to enable the group overview buttons for teachers:
+    if request.user.groups.filter(name='Teachers').exists():
+        isteacher = True
+    else:
+        isteacher = False
+
+    student_as_queryset = Student.objects.filter(pk=student_pk)
+
+    # Data for an overview bar:
+    overview_data = syllabus.group_ratings_data(students=student_as_queryset)
+
+    # Data for sub-point raings:
+
+    sub_topic_data = []
+    for point in syllabus.get_children():
+        row = []
+        row.append(point)
+
+        row.append(point.group_ratings_data(student_as_queryset))
+
+        # Add some lessons and resource:
+        lessons = Lesson.objects.filter(mptt_syllabus_points=point, classgroup__in=student.classgroups.all())
+        resources = []
+
+        # Only allow students to see the correct resources:
+        if isteacher:
+
+            for lesson in lessons:
+                resources.append(lesson.resources())
+        else:
+            for lesson in lessons:
+                resources.append(lesson.student_viewable_resources())
+        row.append(lessons)
+        row.append(resources)
+
+        sub_topic_data.append(row)
+
+    # If we're at the second-to-last level, we will
+    # have to display the journal etc.
+    # If not, we just want the data on the topic.
+    test = syllabus.get_descendant_count()
+    if syllabus.get_children()[0].get_descendant_count() != 0:
+        # We are not at the bottom, so no journal
+        return render(request, 'tracker/student_ratings_mptt.html', {'student': student,
+                                                                     'syllabus': syllabus,
+                                                                     'sub_topic_data': sub_topic_data,
+                                                                     'parent': parent,
+                                                                     'isteacher': isteacher,
+                                                                     'classgroups': classgroups})
+    else:
+        # we are at the bottom, so need a journal.
+        journal, created = StudentJournalEntry.objects.get_or_create(student=student, mptt_syllabus=syllabus)
+
+        if request.method == 'POST':
+            journal_form = StudentJournalEntryLarge(request.POST, instance=journal)
+            if journal_form.is_valid():
+                journal_entry = StudentJournalEntry.objects.get(student=student, mptt_syllabus=syllabus)
+                journal_entry.entry = journal_form.cleaned_data['entry']
+                journal_entry.save()
+                messages.add(request, messages.SUCCESS, 'Jouranl saved.')
+            else:
+                messages.add(request, messages.ERROR, 'Something went wrong, and jour journal has not been saved.')
+
+        else:
+            journal_form = StudentJournalEntryLarge(instance=journal)
+
+        return render(request, 'tracker/student_ratings_mptt_w_journal.html', {'student': student,
+                                                                     'syllabus': syllabus,
+                                                                     'sub_topic_data': sub_topic_data,
+                                                                     'parent': parent,
+                                                                     'isteacher': isteacher,
+                                                                     'classgroups': classgroups,
+                                                                     'journal_form': journal_form})

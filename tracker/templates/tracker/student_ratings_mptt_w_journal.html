@@ -1,0 +1,70 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Data for {{ student }} studying {{ syllabus }}</h1>
+    {% if parent %}
+                            <a class="btn btn-primary" href="{% url 'tracker:student_ratings' student.pk parent.pk %}" role="button"><< {{ parent }}</a>
+        {% if isteacher %}
+            {% for group in classgroups %}
+                 <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' group.pk syllabus.pk %}" role="button"><< {{ group }}</a>
+            {% endfor %}
+            {% endif %}
+                        {% endif %}
+ <div class="container">
+        <div class="row"></div>
+            <div class="col md">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Assessment data of {{ syllabus }} for {{ student }}
+                        </h2>
+
+                        <table class="table w-auto">
+                            <thead>
+                            <tr>
+                                <th>Point</th>
+                                <th class="th-sm">Average rating</th>
+                                <th class="th-lg" style="width: 50%"> </th>
+                                <th class="th-sm">Lessons</th>
+                                <th class="th-sm">Resources</th>
+                            </tr>
+                            {% for row in sub_topic_data %}
+                                <tr>
+                                    <td>{{ row.0 }}</td>
+                                <td>{{ row.1.rating }}</td>
+                                <td>{% include 'tracker/progressbar.html' with data=row.1 %}</td>
+                                <td>{% for lesson in row.2 %}
+                                    <a href {% url 'timetable:lesson_details' lesson.pk %}>{{ lesson.lesson_title }}</a>
+                                    {% endfor %}</td>
+                                <td>
+                                    {% for lesson in row.3 %}
+                                        {% for resource in lesson %}
+                                        {{ resource.icon|safe }}
+                                        {% endfor %}
+                                        {% endfor %}
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+
+                    <form method="post">
+                    {% csrf_token %}
+                        {{ journal_form.media }}
+                        {{ journal_form.entry }}
+                        <br><button class="btn btn-primary" type="submit">Save Journal</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}
