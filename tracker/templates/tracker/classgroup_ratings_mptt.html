@@ -1,0 +1,78 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>Data for class {{ classgroup }} studying {{ syllabus }}</h1>
+    {% if parent %}
+                            <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' classgroup.pk parent.pk %}" role="button"><< {{ parent }}</a>
+                        {% endif %}
+ <div class="container">
+        <div class="row">
+            <div class="col md">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Students in {{ classgroup }}
+                        </h2>
+                        <table class="table w-auto">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="th-sm">Tutor Group</th>
+                                <th class="th-sm">Gender</th>
+                                <th class="th-lg" style="width: 50%">Ratings </th>
+                            </tr>
+                            {% for student in student_data %}
+                                <tr>
+                                    <td><a href="{% url 'tracker:student_ratings' student.0.pk syllabus.pk %}">{{ student.0 }}</a></td>
+                                <td>{{ student.1 }}</td>
+                                <td>{{ student.2 }}</td>
+                                <td>{% include 'tracker/progressbar.html' with data=student.3 %}</td>
+                                </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col md">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Assessment data of {{ syllabus }} for {{ classgroup }}
+                        </h2>
+
+                        <table class="table w-auto">
+                            <thead>
+                            <tr>
+                                <th>Point</th>
+                                <th class="th-sm">Average rating</th>
+                                <th class="th-lg" style="width: 50%"> </th>
+                            </tr>
+                            {% for row in sub_topic_data %}
+                                <tr>
+                                    <td><a href="{% url 'tracker:classgroup_ratings' classgroup.pk row.0.pk %}">{{ row.0 }}</a></td>
+                                <td>{{ row.1.rating }}</td>
+                                <td>{% include 'tracker/progressbar.html' with data=row.1 %}</td>
+                                </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

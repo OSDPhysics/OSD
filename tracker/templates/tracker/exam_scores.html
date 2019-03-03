@@ -11,14 +11,14 @@
 {% csrf_token %}
 {{ formset.management_form }}
 {{ formset.media }}
-    <table class="table table-striped">
+    <table class="table w-auto">
         <thead>
         <tr>
-            <td>Question</td>
-            <td>Maximum score</td>
-            <td class="col-md-1">Score</td>
-            <td>Syllabus Points</td>
-            <td>Notes</td>
+            <th class="th-sm">Question</th>
+            <th class="th-sm">Maximum score</th>
+            <th class="th-sm">Score</th>
+            <th class="th-sm">Syllabus Points</th>
+            <th class="thlg" style="width: 70%">Notes</th>
         </tr>
         </thead>
 
@@ -34,8 +34,8 @@
                 {% endfor %}
             </td>
             <td>
-                {% for point in question.syllabuspoint.all %}
-                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button>
+                {% for point in question.MPTTsyllabuspoint.all %}
+                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.text }}">{{ point.number }}</button>
                     {% endfor %}
              </td>
 
@@ -44,11 +44,13 @@
             </td>
             </tr>
         {% endfor %}
+        <tr><td colspan="5"><button class="btn-primary" type="submit">Save</button>
+</td></tr>
         </tbody>
     </table>
-<button type="submit">Submit</button>
 </form>
-
+<br>
+    <br>
     {% endblock content %}
 
 {% block script %}

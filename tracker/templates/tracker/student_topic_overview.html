@@ -13,26 +13,27 @@
                             <thead>
                             <tr>
                                 <td>Sub-Topic</td>
-                                <td>Average rating</td>
+                                <td>Average rating /5</td>
                                 <td>Journal</td>
                                 <td>Assessments</td>
                                 <td>Resources</td>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for sub_topic, rating in sub_topic_data %}
-                            <tr {% if rating >= 4 %} class="table-success"
+                            {% for sub_topic, rating, assessments, lessons, resources, chart in sub_topic_data %}
+                            <tr height="50" {% if rating >= 4 %} class="table-success"
                                 {% elif rating >= 3 %} class = "table-info"
                                 {% elif rating >= 2 %} class="table-warning"
                                 {% elif rating < 2 %} class="table-danger"
                             {% endif %}>
                                 <td><a href="{% url 'tracker:student_sub_topic_overview' sub_topic.pk student.pk %}">{{ sub_topic.sub_topic }}</a></td>
-                            <td>{{ rating }}</td>
+                            <td>{{ rating }}
+                                <div height="50">{{ chart.as_html }}</div></td>
                             <td><i class="fas fa-book-open"></i>
 
 </td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ assessments }}</td>
+                            <td>{{ resources }}</td>
                             </tr>
 
                             {% endfor %}

@@ -53,7 +53,7 @@
      {% endfor %}
     </tbody>
     </table>
-    <a class="btn btn-primary btn-lg" href="{% url 'school:student_class_overview' student.pk sitting.classgroup.pk %}" role="button">Return to your class overview</a>
+    <a class="btn btn-primary btn-lg" href="{% url 'tracker:student_ratings' student.pk sitting.classgroup.mptt_syllabustaught.all.0.pk %}" role="button">Return to your class overview</a>
 
 
     {% endblock content %}

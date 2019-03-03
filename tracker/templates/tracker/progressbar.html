@@ -1,0 +1,16 @@
+ <div class="progress" style="height: 30px">
+  {% if data.zero_to_one %}
+  <div class="progress-bar bg-danger" role="progressbar" style="width: {% widthratio data.zero_to_one data.total 100 %}%; height: 30px" aria-valuenow="{{ data.zero_to_one }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">0-1</div>
+      {% endif %}
+   {% if data.one_to_two %}
+  <div class="progress-bar bg-warning" role="progressbar" style="width: {% widthratio data.one_to_Two data.total 100 %}%" aria-valuenow="{{ data.one_to_Two }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">1-2</div>
+  {% endif %}
+   {% if data.two_to_three %}
+  <div class="progress-bar bg-info" role="progressbar" style="width: {% widthratio data.two_to_three data.total 100 %}%" aria-valuenow="{{ data.two_to_three }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">2-3</div>
+  {% endif %}
+   {% if data.three_to_four %}
+  <div class="progress-bar bg-success" role="progressbar" style="width: {% widthratio data.three_to_four data.total 100 %}%" aria-valuenow="{{ data.three_to_four }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">3-4</div>
+   {% endif %}
+   {% if data.four_to_five %}
+  <div class="progress-bar" role="progressbar" style="width: {% widthratio data.four_to_five data.total 100 %}%" aria-valuenow="{{ data.four_to_five }}" aria-valuemin="0" aria-valuemax="{{ data.total }}">4-5</div>{% endif %}
+</div>

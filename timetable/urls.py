@@ -11,6 +11,11 @@ urlpatterns = [
     path('copy/<int:lesson_pk>', views.copy_lesson, name='copy_lesson'),
     path('delete/<int:lesson_pk>/<int:class_pk>', views.delete_lesson, name='delete_lesson'),
     path('confirm_delete/<int:lesson_pk>/<int:class_pk>', views.confirm_delete_lesson, name='confirm_delete_lesson'),
+    path('insert/<int:lesson_pk>', views.insert_lesson, name='insert_lesson'),
+    path('move_up/<int:lesson_pk>', views.move_lesson_up, name='move_lesson_up'),
+    path('move_down/<int:lesson_pk>', views.move_lesson_down, name='move_lesson_down'),
     path('lessons/<int:lesson_pk>', views.lesson_details, name='lesson_details'),
-
+    path('lessons/<int:lesson_pk>/edit', views.edit_lesson, name='edit_lesson'),
+    path('lessons/<int:lesson_pk>/add_resource/<int:resource_pk>', views.edit_lesson_resource, name='edit_lesson_resource'),
+    path('suspend_multiple', views.create_multiple_lesson_suspensions, name='create_multiple_lesson_suspensions'),
 ]

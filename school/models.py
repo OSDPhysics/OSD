@@ -4,6 +4,7 @@ from teachnet.models import Skill
 from django.apps import apps
 from numpy import average
 from itertools import chain
+from mptt.models import TreeManyToManyField
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
 #from tracker.models import SyllabusPoint
@@ -46,6 +47,9 @@ class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
     groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE)
     syllabustaught = models.ManyToManyField('tracker.Syllabus')
+    mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
+    archived = models.BooleanField(blank=True, default=False)
+
 
     def __str__(self):
         return self.groupname
@@ -161,7 +165,6 @@ class ClassGroup(models.Model):
             taught_points = taught_points.distinct().count()
 
             return round(taught_points/total_points * 100, 0)
-
 
 
 class TutorGroup(models.Model):

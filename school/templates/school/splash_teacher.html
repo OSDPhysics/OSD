@@ -50,8 +50,8 @@
 
                             {% for assessment in assessments %}
                                 <tr>
-                                <td><a href="{% url 'tracker:sitting_detail' assessment.pk %}">{{ assessment.exam }}</a></td>
-                                <td><a href="{% url 'school:class_details' assessment.classgroup.pk %}">{{ assessment.classgroup }}</a></td>
+                                <td><a href="{% url 'tracker:examDetail' assessment.exam.pk %}">{{ assessment.exam }}</a></td>
+                                <td><a href="{% url 'tracker:sitting_detail' assessment.pk %}">{{ assessment.classgroup }}</a></td>
                                 <td>{{ assessment.datesat }}</td>
                                 <td>{% if assessment.openForStudentRecording %}
                                 <span style="color: Tomato;">
@@ -63,7 +63,7 @@
                             {% endfor %}
                             </tr>
                         </table>
-                        <a href="/admin/tracker/exam/add/" class="btn btn-primary">Add Assessment</a>
+                        <a href="{% url 'tracker:new_test' %}" class="btn btn-primary">Add Assessment</a>
                     </div>
                 </div>
             </div>
