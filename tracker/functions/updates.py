@@ -77,6 +77,7 @@ def convert_to_mptt():
         points = question.syllabuspoint.all()
 
         for point in points:
+            if point.mptt_equivalent():
             question.MPTTsyllabuspoint.add(point.mptt_equivalent())
 
     # MARKS

@@ -109,7 +109,10 @@ class Syllabus(models.Model):
         return round(percentage_assessed)
 
     def mptt_equivalent(self):
-        return MPTTSyllabus.objects.get(related_syllabus=self)
+        if MPTTSyllabus.objects.get(related_syllabus=self).exists():
+            return MPTTSyllabus.objects.get(related_syllabus=self)
+        else:
+            return False
 
 
 class SyllabusTopic(models.Model):
