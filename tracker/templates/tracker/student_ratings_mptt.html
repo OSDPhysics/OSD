@@ -37,6 +37,24 @@
                             {% endfor %}
                             </thead>
                         </table>
+                    <h2>Assessments</h2>
+                                            <table class="table w-auto">
+                            <thead>
+                            <tr>
+                                <th>Assessment Name</th>
+                                <th class="th-sm">Date</th>
+                                <th class="th-sm">Score</th>
+                            </tr>
+                            {% for row in assessment_data %}
+                                <tr>
+                                    <td><a href="{% url 'tracker:input_marks' row.0.pk student.pk %}">{{ row.0 }}</a></td>
+                                <td>{{ row.0.datesat }}</td>
+                                <td>{{ row.1 }}</td>
+                                </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+
                     </div>
                 </div>
             </div>

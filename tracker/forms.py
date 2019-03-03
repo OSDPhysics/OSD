@@ -2,7 +2,7 @@ from django import forms
 from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
-
+from mptt.forms import TreeNodeChoiceField
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
 
@@ -39,10 +39,10 @@ class SetQuestions(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ['qorder', 'qnumber', 'maxscore', 'syllabuspoint', 'exam']
+        fields = ['qorder', 'qnumber', 'maxscore', 'MPTTsyllabuspoint', 'exam']
         widgets = { # TODO: any way to filter this?
-            'syllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:syllabus-point-autocomplete',
-                                                               forward=['exam'],
+            'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
+                                                               forward=['parent'],
                                                                ),
             'exam': forms.HiddenInput()
         }
@@ -71,4 +71,9 @@ class MarkForm(forms.ModelForm):
     class Meta:
         model = Mark
         fields = ['score']
+
+
+class MPTTSyllabusForm(forms.Form):
+
+    parent = TreeNodeChoiceField(queryset=MPTTSyllabus.objects.all(), required=False)
 

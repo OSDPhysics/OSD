@@ -574,7 +574,7 @@ class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     qnumber = models.CharField(max_length=100)
     qorder = models.DecimalField(decimal_places=2, max_digits=6)
-    syllabuspoint = models.ManyToManyField(SyllabusPoint)
+    syllabuspoint = models.ManyToManyField(SyllabusPoint, blank=True)
     maxscore = models.IntegerField()
     weighting = models.FloatField(default=1.0, blank=False, null=False)
     MPTTsyllabuspoint = TreeManyToManyField('MPTTSyllabus')

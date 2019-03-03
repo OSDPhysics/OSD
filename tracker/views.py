@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .charts import CohortPointGraph, CohortSubTopicChart, StudentChart, StudentSubTopicGraph
 from journal.forms import StudentJournalEntryLarge
-from journal.functions import move_mark_reflection_to_journal_student
+from journal.functions import move_mark_reflection_to_journal_student_mptt
 from osd.decorators import *
 from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
@@ -27,21 +27,14 @@ def splash(request):
     if request.user.groups.filter(name='Students'):
         student = Student.objects.get(user=request.user)
 
-        return redirect(reverse('tracker:student_profile', args=(student.pk,)))
+        return redirect(reverse('tracker:student_ratings', args=(student.pk,)))
 
     if request.user.groups.filter(name='Teachers'):
         teacher = Teacher.objects.get(user=request.user)
 
         # Show the teacher's students
-        students = Student.objects.filter(classgroups__groupteacher=teacher).order_by('user__last_name').order_by('classgroups__groupname')
+        return redirect(reverse('tracker:new_teacher_overview', args=(teacher.pk,)))
 
-        # Show the teacher's exams
-
-        sittings = Sitting.objects.filter(classgroup__groupteacher=teacher)
-
-        return render(request, 'tracker/splash_teacher.html', {'teacher': teacher,
-                                                               'students': students,
-                                                               'sittings': sittings})
 
 
 @own_or_teacher_only
@@ -190,7 +183,7 @@ def examDetails(request, pk):
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
     SetQuestionsFormset = modelformset_factory(Question,  form=SetQuestions, extra=10)
-
+    parent_form = MPTTSyllabusForm()
     if request.method == 'POST':
         qform = SetQuestionsFormset(request.POST)
 
@@ -240,7 +233,8 @@ def examDetails(request, pk):
         return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                              'sittings': sittings,
                                                              'questions': questions,
-                                                             'qform': qform})
+                                                             'qform': qform,
+                                                             'parent_form': parent_form})
 
 
 @teacher_only
@@ -340,7 +334,7 @@ def input_marks(request, sitting_pk, student_pk):
 
                 # Now we insert the notes into the journals.
 
-                move_mark_reflection_to_journal_student(student, sitting)
+                move_mark_reflection_to_journal_student_mptt(student, sitting)
 
                 if request.user.groups.filter(name='Students'):
                     return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
@@ -928,13 +922,22 @@ def student_ratings(request, student_pk, syllabus_pk):
     # If not, we just want the data on the topic.
     test = syllabus.get_descendant_count()
     if syllabus.get_children()[0].get_descendant_count() != 0:
-        # We are not at the bottom, so no journal
+        # We are not at the bottom, so no journal, and let's show assessments:
+
+        assessments = Sitting.objects.filter(classgroup__student=student, classgroup__in=classgroups).order_by('datesat').reverse()
+        assessment_data = []
+        for assessment in assessments:
+            row = []
+            row.append(assessment)
+            row.append(assessment.student_total(student))
+            assessment_data.append(row)
         return render(request, 'tracker/student_ratings_mptt.html', {'student': student,
                                                                      'syllabus': syllabus,
                                                                      'sub_topic_data': sub_topic_data,
                                                                      'parent': parent,
                                                                      'isteacher': isteacher,
-                                                                     'classgroups': classgroups})
+                                                                     'classgroups': classgroups,
+                                                                     'assessment_data': assessment_data})
     else:
         # we are at the bottom, so need a journal.
         journal, created = StudentJournalEntry.objects.get_or_create(student=student, mptt_syllabus=syllabus)

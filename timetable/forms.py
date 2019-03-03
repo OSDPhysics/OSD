@@ -21,7 +21,8 @@ class LessonForm(forms.ModelForm):
         # }
 
         widgets = {
-             'mptt_syllabus_points': CheckboxSelectMultiple()
+             'mptt_syllabus_points': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
+                                                                       forward=('parent', ))
          }
 
     class Media:

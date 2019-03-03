@@ -1,6 +1,7 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
+    {% load crispy_forms_filters %}
  <h1>Edit Lesson</h1>
  <div class="container">
         <div class="row">
@@ -14,8 +15,12 @@
                         </h2>
 <form method="post">
     {% csrf_token %}
-                        {{ lesson_resource_form.as_p }}
-
+                        {{ lesson_resource_form.resource_name | as_crispy_field:"bootstrap" }}
+{{ lesson_resource_form.link | as_crispy_field:"bootstrap" }}
+    {{ lesson_resource_form.resource_type | as_crispy_field:"bootstrap" }}
+    {{ lesson_resource_form.available_to_all_classgroups | as_crispy_field:"bootstrap" }}
+    {{ lesson_resource_form.students_can_view_before | as_crispy_field:"bootstrap" }}
+    {{ lesson_resource_form.students_can_view_before | as_crispy_field:"bootstrap" }}
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
                     </div>

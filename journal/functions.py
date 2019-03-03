@@ -62,7 +62,7 @@ def move_mark_reflection_to_journal_student_mptt(student , sitting):
         syllabus_points = reflection.question.MPTTsyllabuspoint.all()
         for mark_point in syllabus_points:
 
-            journal_entry, created = StudentJournalEntry.objects.get_or_create(student=student, mptt_syllabus=syllabus_points)
+            journal_entry, created = StudentJournalEntry.objects.get_or_create(student=student, mptt_syllabus=mark_point.get_ancestors(include_self=False, ascending=True)[0])
 
             text_to_insert = "<p><strong>Entered from Assessment: " + str(reflection.sitting.exam) + " on " + str(reflection.sitting.datesat) + "<a href='/tracker/sittings/"+ str(reflection.sitting.pk) + "/" +str(reflection.student.pk) + "'> Question  " + str(reflection.question) + "</a></strong></p>" + reflection.notes
 

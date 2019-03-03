@@ -41,6 +41,7 @@ urlpatterns = [
     path('syllabus-autocomplete/', SyllabusAutocomplete.as_view(), name='syllabus-autocomplete'),
     path('syllabus-autocomplete2/', SyllabusPointAutocomplete2.as_view(), name='syllabus-autocomplete2'),
     path('lesson_autocomplete/', LessonAutocomplete.as_view(), name='lesson_autocomplete'),
+    path('mptt_syllabus_autocomplete/', MPTTSyllabusAutocomplete.as_view(), name='mptt_syllabus_autocomplete'),
     path('chart_test/', views.chart_test, name='chart_test'),
     path('chart_test2/', views.sub_topic_chart_test, name='sub_topic_test_chart'),
     path('output_check/<int:classgroup_pk>/<int:topic_pk>', views.rating_ouput_check, name='rating_output_check'),

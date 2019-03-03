@@ -4,6 +4,7 @@ from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
 from timetable.forms import LessonCopyForm, LessonForm, AddLessonSuspensions, LessonResourceForm
+from tracker.forms import MPTTSyllabusForm
 from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
@@ -371,7 +372,7 @@ def move_lesson_down(request, lesson_pk):
 def edit_lesson(request, lesson_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     lesson_form = LessonForm(instance=lesson)
-
+    parent_form = MPTTSyllabusForm()
     if request.method == 'POST':
         lesson_form = LessonForm(request.POST, instance=lesson)
         if lesson_form.is_valid():
@@ -386,7 +387,8 @@ def edit_lesson(request, lesson_pk):
         else:
             messages.add_message(request, messages.ERROR, 'Please correct the errors below')
     return render(request, 'timetable/edit_lesson.html', {'lesson_form': lesson_form,
-                                                          'lesson': lesson})
+                                                          'lesson': lesson,
+                                                          'parent_form': parent_form})
 
 
 @teacher_only

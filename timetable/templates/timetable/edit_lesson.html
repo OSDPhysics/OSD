@@ -15,7 +15,13 @@
                         </h2>
 <form method="post">
     {% csrf_token %}
-                        {{ lesson_form | crispy }}
+                        {{ lesson_form.lesson_title | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.description | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.requirements | as_crispy_field:"bootstrap"  }}
+Search for syllabus points within:
+                        {{ parent_form | crispy  }}
+                        {{ lesson_form.mptt_syllabus_points | as_crispy_field:"bootstrap"  }}
+
 <p>
                         {% for resource in  lesson.resources.all %}
                         {{ resource.editable_icon | safe }}
@@ -26,6 +32,7 @@
 </form>
                     </div>
                 </div>
+
             </div>
         </div>
  </div>

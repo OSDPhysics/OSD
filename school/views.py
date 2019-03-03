@@ -28,55 +28,16 @@ def splash(request):
     # TEACHERS splash page:
 
     if request.user.groups.filter(name='Teachers').exists():
+        teacher = Teacher.objects.get(user=request.user)
         # Get the teacher's classes and assessments:
-        classes = ClassGroup.objects.filter(groupteacher__user=request.user).exclude(archived=True)
-        assessments = Sitting.objects.filter(classgroup__groupteacher__user=request.user).order_by('-datesat')
-        return render(request, 'school/splash_teacher.html', {'classes': classes,
-                                                              'assessments': assessments})
+        return redirect(reverse('tracker:new_teacher_overview', args=(teacher.pk,)))
+
 
     # STUDENTS spash page
     elif request.user.groups.filter(name='Students').exists():
         student = Student.objects.get(user=request.user)
-        classgroups = student.classgroups.all()
 
-        classgroup_data = []  # Holds key data about each class the student is a member of
-        for classgroup in classgroups:
-            current_group = {}  # A dictionary containing key info about the class
-            current_group[
-                'classgroup'] = classgroup  # Store the class object so we can access everything else (teacher etc) in views
-
-            # Find the most recent 5 assessments
-            recent_assessments = Sitting.objects.filter(classgroup=classgroup).order_by('-datesat')[:5]
-
-            # Get the scores for each one:
-            assessment_scores = []
-            for assessment in recent_assessments:
-
-                assessment_scores.append(str(assessment.student_total(student)) + "/" + str(assessment.exam.max_score()['maxscore__sum']))
-
-            current_group['assessments'] = list(zip(recent_assessments, assessment_scores))
-
-            # Find all the main topics of this class' syllabus
-            current_group['topics'] = SyllabusTopic.objects.filter(syllabus__classgroup=classgroup)
-
-            # Let's get the ratings for each one
-            ratings = []  # List of all the ratings, in order of topic
-            charts = []
-
-            for topic in current_group['topics']:
-                ratings.append(topic.studentAverageRating(student))
-                chart = StudentSubTopicGraph()
-                chart.students = Student.objects.filter(pk=student.pk)
-                chart.syllabus_areas = SyllabusTopic.objects.filter(pk=topic.pk)
-                charts.append(chart)
-            # Put the topic ratings alongside  a reference to each topic
-            current_group['topics'] = list(zip(current_group['topics'], ratings, charts))
-
-            # Send the final set of data to the rest of the data for all classes.
-            classgroup_data.append(current_group)
-
-        return render(request, 'school/splash_student.html', {'student': student,
-                                                              'classgroup_data': classgroup_data})
+        return redirect(reverse('tracker:student_ratings', args=(student.pk,)))
 
     else:
         return render(request, 'school/splash.html', {})

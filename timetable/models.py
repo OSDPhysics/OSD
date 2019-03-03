@@ -196,7 +196,7 @@ class Lesson(models.Model):
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
-    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus)
+    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus, blank=True)
 
     class Meta:
         unique_together = (("lessonslot", "date"),
@@ -433,13 +433,10 @@ class LessonResources(models.Model):
 
     def set_syllabus_points(self):
         if self.lesson:
-            points = self.lesson.syllabus_points_covered.all().order_by('pk')
+            points = self.lesson.mptt_syllabus_points.all().order_by('pk')
             for point in points:
-                self.syllabus_points.add(point)
-            print('In set_syllabus_points')
-            print(self.syllabus_points.all())
-            print('All points:')
-            print(SyllabusPoint.objects.all())
+                self.mptt_syllabus_points.add(point)
+
 
 
 class LessonSuspension(models.Model):

@@ -36,6 +36,29 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                    <h2>Assessments</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Assessment</th>
+                            <th>Date</th>
+                            <th>Average Score</th>
+                            <th>Topic Performance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for sitting in sittings %}
+                            <tr>
+                                <td><a href="{% url 'tracker:classgroup_ratings' sitting.classgroup.pk sitting.classgroup.syllabustaught.all.0.pk %}">{{ sitting.classgroup }}</a></td>
+                                <td><a href="{% url 'tracker:sitting_detail' sitting.pk %}">{{ sitting.exam }}</a></td>
+                            <td>{{ sitting.datesat }}</td>
+                            <td>{{ sitting.class_average_score_str }}</td>
+                            <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>
