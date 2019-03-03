@@ -78,7 +78,7 @@ def convert_to_mptt():
 
         for point in points:
             if point.mptt_equivalent():
-            question.MPTTsyllabuspoint.add(point.mptt_equivalent())
+                question.MPTTsyllabuspoint.add(point.mptt_equivalent())
 
     # MARKS
     print("Now updaitng marks to have calculated fields")
