@@ -26,8 +26,10 @@ logger = logging.getLogger(__name__)
 def splash(request):
     if request.user.groups.filter(name='Students'):
         student = Student.objects.get(user=request.user)
-
-        return redirect(reverse('tracker:student_ratings', args=(student.pk,)))
+        classgroups = ClassGroup.objects.filter(student=student)
+        first_syllabus = classgroups[0].mptt_syllabustaught.all()[0]
+        tree_root = first_syllabus.get_root()
+        return redirect(reverse('tracker:student_ratings', args=(student.pk, tree_root.pk)))
 
     if request.user.groups.filter(name='Teachers'):
         teacher = Teacher.objects.get(user=request.user)

@@ -1,7 +1,7 @@
-# from tracker.models import Mark, StudentPointRating, Exam, Question, SyllabusPoint
-# from school.models import Student
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+from tracker.models import Mark, StudentPointRating, Exam, Question, SyllabusPoint
+from school.models import Student
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 #
 #
 # @receiver(post_save, sender=Mark)
@@ -23,12 +23,12 @@
 #         instance.save()
 #
 #
-# @receiver(post_save, sender=Mark)
-# def calculate_weighted(sender, instance, **kwargs):
-#     percent = instance.calculate_percentage()
-#     if percent != instance.percent:
-#         instance.percent = percent
-#         instance.save()
+@receiver(post_save, sender=Mark)
+def calculate_mark_values(sender, instance, **kwargs):
+    """ Add calculated values """
+    if instance.percent != instance.calculate_percentage():
+        instance.set_calculated_values()
+
 #
 #
 # @receiver(post_save, sender=Mark)

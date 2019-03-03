@@ -9,7 +9,7 @@ from .forms import *
 from .functions.adddata import *
 from tracker.charts import StudentSubTopicGraph
 from osd.decorators import *
-from tracker.models import Sitting, SyllabusTopic
+from tracker.models import Sitting, SyllabusTopic, MPTTSyllabus
 
 from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
@@ -36,8 +36,10 @@ def splash(request):
     # STUDENTS spash page
     elif request.user.groups.filter(name='Students').exists():
         student = Student.objects.get(user=request.user)
-
-        return redirect(reverse('tracker:student_ratings', args=(student.pk,)))
+        classgroups = ClassGroup.objects.filter(student=student)
+        first_syllabus = classgroups[0].mptt_syllabustaught.all()[0]
+        tree_root = first_syllabus.get_root()
+        return redirect(reverse('tracker:student_ratings', args=(student.pk, tree_root.pk)))
 
     else:
         return render(request, 'school/splash.html', {})
