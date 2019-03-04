@@ -950,9 +950,9 @@ def student_ratings(request, student_pk, syllabus_pk):
                 journal_entry = StudentJournalEntry.objects.get(student=student, mptt_syllabus=syllabus)
                 journal_entry.entry = journal_form.cleaned_data['entry']
                 journal_entry.save()
-                messages.add(request, messages.SUCCESS, 'Jouranl saved.')
+                messages.add_message(request, messages.SUCCESS, 'Journal saved.')
             else:
-                messages.add(request, messages.ERROR, 'Something went wrong, and jour journal has not been saved.')
+                messages.add(request, messages.ERROR, 'Something went wrong, and your journal has not been saved.')
 
         else:
             journal_form = StudentJournalEntryLarge(instance=journal)
