@@ -964,3 +964,30 @@ def student_ratings(request, student_pk, syllabus_pk):
                                                                      'isteacher': isteacher,
                                                                      'classgroups': classgroups,
                                                                      'journal_form': journal_form})
+
+
+@teacher_only
+def student_standardised_data(request, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    standardised_data = []
+
+    pass_parents = StandardisedData.objects.get(name="PASS")
+    pass_data_objects = pass_parents.get_children()
+
+    CAT4_parent = StandardisedData.objects.get(name="CAT4")
+    CAT4_data_objects = CAT4_parent.get_children()
+
+    pass_data = StandardisedResult.objects.filter(student=student, standardised_data__in=pass_data_objects)
+    CAT4_data = StandardisedResult.objects.filter(student=student, standardised_data__in=CAT4_data_objects)
+
+
+    standardised_data.append(pass_data)
+    standardised_data.append(CAT4_data)
+
+    assessments = Sitting.objects.filter(classgroup__student=student).order_by('datesat').reverse()
+
+    return render(request, 'tracker/student_standardised_overview.html', {'student': student,
+                      'standardised_data': standardised_data,
+                                                                          'assessments': assessments})
+
+

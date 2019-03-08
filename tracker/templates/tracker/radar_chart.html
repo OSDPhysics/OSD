@@ -1,0 +1,41 @@
+<canvas id="myChart{{forloop.counter}}" width="200" height="200"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+<script>
+var ctx = document.getElementById("myChart{{forloop.counter}}");
+var myChart{{forloop.counter}} = new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: [{% for data in standardised_data %} "{{data.standardised_data}}", {%endfor%}],
+        datasets: [{
+            label: 'Standardised Score',
+            data: [{%for data in standardised_data %}"{{data.result}}", {%endfor%}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scale: {
+
+                ticks: {
+                    beginAtZero:true
+                }
+
+        }
+    }
+});
+</script>

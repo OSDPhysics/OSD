@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load auth_extras %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +21,8 @@
     <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
    <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
 
-
+    {% block import_js %}
+{% endblock import_js %}
 
 
 </head>
@@ -39,7 +41,7 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
 
-            {% if request.user.is_staff %}
+            {% if request.user|has_group:"Teachers" %}
 
 
                 <li class="nav-item dropdown">
@@ -114,7 +116,7 @@
 {% block script %}
 {% endblock script %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+
 
 </body>
 </html>

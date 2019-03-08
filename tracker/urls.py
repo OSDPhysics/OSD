@@ -52,4 +52,5 @@ urlpatterns = [
     path('splash/<int:teacher_pk>', views.new_teacher_overview, name='new_teacher_overview'),
     path('class/<int:classgroup_pk>/<int:syllabus_pk>', views.classgroup_ratings, name='classgroup_ratings',),
     path('student/<int:student_pk>/<int:syllabus_pk>', views.student_ratings, name='student_ratings'),
+    path('student_standardised/<int:student_pk>', views.student_standardised_data, name='student_standardised_data')
 ]

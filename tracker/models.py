@@ -947,3 +947,24 @@ class MPTTRating(models.Model):
 
     def __str__(self):
         return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"
+
+
+class StandardisedData(MPTTModel):
+
+    name = models.CharField(max_length=50)
+    max_value = models.DecimalField(max_digits=5, decimal_places=1)
+    min_value = models.DecimalField(max_digits=5, decimal_places=1)
+    step = models.DecimalField(max_digits=5, decimal_places=1)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    def __str__(self):
+        return self.name
+
+
+class StandardisedResult(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
+    standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
+    result = models.DecimalField(max_digits=5, decimal_places=1)
+
+    def __str__(self):
+        return self.standardised_data.name + str(self.student) + str(self.result)
