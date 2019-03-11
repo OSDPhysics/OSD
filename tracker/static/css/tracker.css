@@ -42,3 +42,9 @@ th.rotate > div {
 
 }
 
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+

@@ -206,3 +206,24 @@ class CSVDoc(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
+class Phase(models.Model):
+    leaders = models.ManyToManyField(Teacher, blank=True)
+
+
+class KeyStage(models.Model):
+    leaders = models.ManyToManyField(Teacher, blank=True)
+    phase = models.ForeignKey(Phase, blank=False, null=False, on_delete=models.CASCADE)
+
+
+class YearGroup(models.Model):
+    leaders = models.ManyToManyField(Teacher, blank=True)
+    key_stage = models.ForeignKey(KeyStage, blank=False, null=False, on_delete=models.CASCADE)
+
+
+class Faculty(models.Model):
+    leaders = models.ManyToManyField(Teacher, blank=True)
+
+
+class Department(models.Model):
+    leaders = models.ManyToManyField(Teacher, blank=True)
+    faculty = models.ForeignKey(Faculty, blank=False, null=False, on_delete=models.CASCADE)

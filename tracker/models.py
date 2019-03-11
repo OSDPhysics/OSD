@@ -699,7 +699,7 @@ class Mark(models.Model):
 
     # Calculated fields
 
-    percent = models.IntegerField(blank=True, null=True, max_length=3)
+    percent = models.IntegerField(blank=True, null=True)
     maximum = models.IntegerField(blank=True, null=True)
     weighted_maximum = models.IntegerField(blank=True, null=True)
     weighted_percent = models.FloatField(blank=True, null=True)
@@ -960,11 +960,75 @@ class StandardisedData(MPTTModel):
     def __str__(self):
         return self.name
 
+    def cohort_average_result(self, cohort):
+        results = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = results.aggregate(average=Avg('result'))
+        return average['average']
+
+
+    def cohort_average_target(self, cohort):
+        results = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = results.aggregate(average=Avg('target'))
+        return average['average']
+
+    def cohort_target_vs_current_data(self, cohort):
+        data = [self,
+                self.cohort_average_target(cohort),
+                self.cohort_average_result(cohort)]
+        return data
+
 
 class StandardisedResult(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
     standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
     result = models.DecimalField(max_digits=5, decimal_places=1)
+    target = models.DecimalField(max_digits=5, decimal_places=1, null=True)
+    date_created = models.DateField(blank=True, null=True, default=datetime.today)
+    reason_created = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.standardised_data.name + str(self.student) + str(self.result)
+
+    def replace(self,
+                new_result=False,
+                new_target=False,
+                new_date=datetime.today,
+                new_reason=False):
+
+        PastStandardisedResult.objects.create(
+            student=self.student,
+            standardised_dat=self.standardised_data,
+            result=self.result,
+            target=self.target,
+            date_created=self.date_created,
+            reason_created=self.reason_created
+        )
+
+        if new_result:
+            self.result = new_result
+
+        if new_date:
+            self.date_created = new_date
+
+        if new_target:
+            self.target = new_target
+
+        if new_reason:
+            self.reason_created = new_reason
+        self.save()
+
+        return self
+
+
+class PastStandardisedResult(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
+    standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
+    result = models.DecimalField(max_digits=5, decimal_places=1)
+    target = models.DecimalField(max_digits=5, decimal_places=1)
+    date_created = models.DateField(blank=True, null=True, default=datetime.today)
+    reason_created = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)

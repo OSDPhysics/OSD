@@ -991,3 +991,14 @@ def student_standardised_data(request, student_pk):
                                                                           'assessments': assessments})
 
 
+@teacher_only
+def cohort_standardised_data_vs_target(request, cohort_pk):
+    cohort = Student.objects.all()
+    IGCSE_parent = StandardisedData.objects.get(name="IGCSE Grades")
+    IGCSE_data_objects = IGCSE_parent.get_children()
+
+    IGCSE_graph_data = []
+    for subject in IGCSE_data_objects:
+        IGCSE_graph_data.append(subject.cohort_target_vs_current_data(cohort))
+
+    return render(request, 'tracker/cohort_std_data_vs_tgt.html', {'IGCSE_graph_data': IGCSE_graph_data})
