@@ -4,12 +4,12 @@ from teachnet.models import Skill
 from django.apps import apps
 from numpy import average
 from itertools import chain
-from mptt.models import TreeManyToManyField
+from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey
 
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
-#from tracker.models import SyllabusPoint
-#from timetable.models import Lesson
+from tracker.models import *
+from timetable.models import Lesson
 
 # Create your models here.
 
@@ -207,25 +207,39 @@ class CSVDoc(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
-class Phase(models.Model):
+class SchoolStructure(MPTTModel):
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    name = models.CharField(max_length=100, blank=False, null=False)
     leaders = models.ManyToManyField(Teacher, blank=True)
+    kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
 
 
-class KeyStage(models.Model):
-    leaders = models.ManyToManyField(Teacher, blank=True)
-    phase = models.ForeignKey(Phase, blank=False, null=False, on_delete=models.CASCADE)
+class PastoralStructure(SchoolStructure):
 
-    kpis = models.ManyToManyField('tracker.StandardisedData')
+    def all_leaders(self):
+        superiors = self.get_ancestors(include_self=True)
+        return Teacher.objects.filter(pastoralstructure__leaders__in=superiors)
 
-class YearGroup(models.Model):
-    leaders = models.ManyToManyField(Teacher, blank=True)
-    key_stage = models.ForeignKey(KeyStage, blank=False, null=False, on_delete=models.CASCADE)
+    def all_kpis(self):
+        ancestors = self.get_ancestors(include_self=True)
 
+        # StandardisedData = apps.get_model(app_label='tracker', model_name='StandardisedData')
+        return StandardisedData.objects.filter(pastor)
 
-class Faculty(models.Model):
-    leaders = models.ManyToManyField(Teacher, blank=True)
+class AcademicStructure(SchoolStructure):
 
+    def all_leaders(self):
+        superiors = self.get_ancestors(include_self=True)
+        return Teacher.objects.filter(academicstructure__leaders__in=superiors)
 
-class Department(models.Model):
-    leaders = models.ManyToManyField(Teacher, blank=True)
-    faculty = models.ForeignKey(Faculty, blank=False, null=False, on_delete=models.CASCADE)
+    def all_kpis(self):
+        ancestors = self.get_ancestors(include_self=True)
+
+        StandardisedData = apps.get_model(app_label='tracker', model_name='StandardisedData')
+        return StandardisedData.objects.filter(pastoralstructure__kpis__in=ancestors)

@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.contrib import messages
 from timetable.models import Lesson, LessonResources
-from school.models import KeyStage, YearGroup, Faculty, Department
+from school.models import PastoralStructure, AcademicStructure
 from django.db.models import Sum
 from operator import itemgetter
 import datetime
@@ -1008,6 +1008,4 @@ def cohort_standardised_data_vs_target(request, cohort_pk):
 
 @teacher_only
 def school_standardised_data_vs_target(request):
-    key_stages = KeyStage.objects.all()
-    for ks in key_stages:
-        pass
+    pass

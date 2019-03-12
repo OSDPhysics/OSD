@@ -987,6 +987,7 @@ class StandardisedResult(models.Model):
     target = models.DecimalField(max_digits=5, decimal_places=1, null=True)
     date_created = models.DateField(blank=True, null=True, default=datetime.today)
     reason_created = models.TextField(blank=True, null=True)
+    residual = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
@@ -1003,7 +1004,8 @@ class StandardisedResult(models.Model):
             result=self.result,
             target=self.target,
             date_created=self.date_created,
-            reason_created=self.reason_created
+            reason_created=self.reason_created,
+            residual=self.residual
         )
 
         if new_result:
@@ -1021,6 +1023,13 @@ class StandardisedResult(models.Model):
 
         return self
 
+    def save(self, *args, **kwargs):
+        if self.result:
+            if self.target:
+                self.residual = self.result - self.target
+
+        super(StandardisedResult, self).save(*args, **kwargs)
+
 
 class PastStandardisedResult(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
@@ -1029,6 +1038,7 @@ class PastStandardisedResult(models.Model):
     target = models.DecimalField(max_digits=5, decimal_places=1)
     date_created = models.DateField(blank=True, null=True, default=datetime.today)
     reason_created = models.TextField(blank=True, null=True)
+    residual = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
