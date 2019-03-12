@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.contrib import messages
 from timetable.models import Lesson, LessonResources
-
+from school.models import KeyStage, YearGroup, Faculty, Department
 from django.db.models import Sum
 from operator import itemgetter
 import datetime
@@ -999,6 +999,15 @@ def cohort_standardised_data_vs_target(request, cohort_pk):
 
     IGCSE_graph_data = []
     for subject in IGCSE_data_objects:
-        IGCSE_graph_data.append(subject.cohort_target_vs_current_data(cohort))
+        row = subject.cohort_target_vs_current_data(cohort)
+        row.append("/" + str(row[0]) + "/")
+        IGCSE_graph_data.append(row)
 
     return render(request, 'tracker/cohort_std_data_vs_tgt.html', {'IGCSE_graph_data': IGCSE_graph_data})
+
+
+@teacher_only
+def school_standardised_data_vs_target(request):
+    key_stages = KeyStage.objects.all()
+    for ks in key_stages:
+        pass

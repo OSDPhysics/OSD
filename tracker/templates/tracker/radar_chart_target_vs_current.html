@@ -8,6 +8,7 @@ var myChart{{forloop.counter}} = new Chart(ctx, {
     type: 'radar',
     data: {
         labels: [{% for point in IGCSE_graph_data %} "{{point.0}}", {%endfor%}],
+        links: [{% for point in IGCSE_graph_data %}"{{point.3}}", {% endfor %}],
         datasets: [{
             label: 'Target Score',
             data: [{%for point in IGCSE_graph_data %}"{{point.1}}", {%endfor%}],
@@ -52,4 +53,20 @@ var myChart{{forloop.counter}} = new Chart(ctx, {
         }
     }
 });
+
+ctx.onclick = function(evt) {
+
+    // => activePoints is an array of points on the canvas that are at the same position as the click event.
+    var activePoint = myChart.getElementsAtEvent(evt)[0];
+
+    if (activePoint !== undefined) {
+        var dataset = myChart.data.datasets[activePoint._datasetIndex];
+        var title = myChart.data.labels[activePoint._index];
+        var link = myChart.data.links[activePoint._index];
+        window.location = link
+    }
+
+
+};
 </script>
+

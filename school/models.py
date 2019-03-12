@@ -6,6 +6,7 @@ from numpy import average
 from itertools import chain
 from mptt.models import TreeManyToManyField
 
+
 # Remove before starting server - this is to help PyCharm auto syntax completion!
 #from tracker.models import SyllabusPoint
 #from timetable.models import Lesson
@@ -214,6 +215,7 @@ class KeyStage(models.Model):
     leaders = models.ManyToManyField(Teacher, blank=True)
     phase = models.ForeignKey(Phase, blank=False, null=False, on_delete=models.CASCADE)
 
+    kpis = models.ManyToManyField('tracker.StandardisedData')
 
 class YearGroup(models.Model):
     leaders = models.ManyToManyField(Teacher, blank=True)
