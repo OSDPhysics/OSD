@@ -38,7 +38,6 @@ def splash(request):
         return redirect(reverse('tracker:new_teacher_overview', args=(teacher.pk,)))
 
 
-
 @own_or_teacher_only
 def student_profile(request, student_pk):
     # For the first (classgroups) table
@@ -107,7 +106,6 @@ def list_syllabuses(request):
 
 @login_required
 def syllabus_detail(request, pk):
-
     syllabus = get_object_or_404(Syllabus, pk=pk)
     topics = SyllabusTopic.objects.filter(syllabus=syllabus)
     allpoints = []
@@ -118,7 +116,6 @@ def syllabus_detail(request, pk):
             allpoints.append(point)
 
     if request.user.groups.filter(name='Students'):
-
         return render(request, 'tracker/syllabusdetail.html', {'syllabus': syllabus,
                                                                'specpoints': allpoints})
 
@@ -135,9 +132,10 @@ def syllabus_detail(request, pk):
         student_topic_data = list(zip(topics, ratings))
 
         return render(request, 'tracker/syllabus_teacher_detail.html', {'syllabus': syllabus,
-                                                               'specpoints': allpoints,
+                                                                        'specpoints': allpoints,
                                                                         'student_topic_data': student_topic_data,
                                                                         'students': students})
+
 
 # CSV Uplods
 @admin_only
@@ -168,7 +166,6 @@ def construction(request):
     return render(request, 'school/404.html', {})
 
 
-
 @teacher_only
 def tracker_overview(request):
     syllabuses = Syllabus.objects.order_by('examtype')
@@ -184,7 +181,7 @@ def examDetails(request, pk):
     syllabus = exam.syllabus.all()
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
-    SetQuestionsFormset = modelformset_factory(Question,  form=SetQuestions, extra=10)
+    SetQuestionsFormset = modelformset_factory(Question, form=SetQuestions, extra=10)
     parent_form = MPTTSyllabusForm()
     if request.method == 'POST':
         qform = SetQuestionsFormset(request.POST)
@@ -192,10 +189,11 @@ def examDetails(request, pk):
         # Quite a nasty hack to remove the hidden 'exam' field from only those forms without data.
 
         for form in qform:
-            if form['qorder'].value == '' and form['qnumber'].value == '' and form['syllabuspoint'].value =='' and form['maxsore'].value == '':
-                form.data['exam'].value = '' # set the exam to nothing.
+            if form['qorder'].value == '' and form['qnumber'].value == '' and form['syllabuspoint'].value == '' and \
+                    form['maxsore'].value == '':
+                form.data['exam'].value = ''  # set the exam to nothing.
 
-        #if qform.is_valid():
+        # if qform.is_valid():
         for form in qform:
             form.is_valid()
             # Only process formsets with data in them
@@ -215,22 +213,21 @@ def examDetails(request, pk):
         for question in questions:
             question.qorder = n
             question.save()
-            n = n+1
+            n = n + 1
 
         return redirect(reverse('tracker:examDetail', args=(pk,)))
 
-        #else:
-            #return render(request, 'tracker/exam_details.html', {'exam': exam,
-                                                                 #'sittings': sittings,
-                                                                 #'questions': questions,
-                                                                 #'qform': qform})
+        # else:
+        # return render(request, 'tracker/exam_details.html', {'exam': exam,
+        # 'sittings': sittings,
+        # 'questions': questions,
+        # 'qform': qform})
 
     else:
         qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
 
         for form in qform:
             form.initial['exam'] = exam.pk
-
 
         return render(request, 'tracker/exam_details.html', {'exam': exam,
                                                              'sittings': sittings,
@@ -258,6 +255,7 @@ def sitting_detail(request, pk):
                                                            'scores': scores,
                                                            'data': data,
                                                            'topic_data': topic_data})
+
 
 @teacher_only
 def new_sitting(request, exampk):
@@ -290,7 +288,7 @@ def sitting_toggle_open_for_recording(request, sitting_pk):
     sitting = Sitting.objects.get(pk=sitting_pk)
     classgroup = sitting.classgroup
     sitting.toggle_open_for_recording()
-    return redirect(reverse('school:class_detail', args=[classgroup.pk,]))
+    return redirect(reverse('school:class_detail', args=[classgroup.pk, ]))
 
 
 @own_or_teacher_only
@@ -305,8 +303,8 @@ def input_marks(request, sitting_pk, student_pk):
         marks.append(Mark.objects.get_or_create(sitting=sitting, student=student, question=question))
     # Formset to enter the student's mark
     MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets={
-          'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
-        })
+        'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
+    })
 
     marks = Mark.objects.filter(student=student, sitting=sitting).order_by('question__qorder')
     formset = MarkFormset(queryset=marks)
@@ -317,14 +315,15 @@ def input_marks(request, sitting_pk, student_pk):
 
         if formset.is_valid():
             formset.save(commit=False)
-            n = 0 # Loop counter
+            n = 0  # Loop counter
 
-            for mark in marks: #TODO: move this to the __clean__ method of formset
+            for mark in marks:  # TODO: move this to the __clean__ method of formset
                 # Check marks are correct:
                 if formset[n].cleaned_data['score'] is not None:
                     if formset[n].cleaned_data['score'] > mark.question.maxscore:
                         formset[n].add_error('score', 'Score is greater than the maximum for this question')
-                        messages.add_message(request, messages.ERROR, 'You have entered a score bigger than the maximum for at least one quesiton!')
+                        messages.add_message(request, messages.ERROR,
+                                             'You have entered a score bigger than the maximum for at least one quesiton!')
                 else:
                     formset[n].add_error('score', 'Please set a score')
                     messages.add_message(request, messages.ERROR,
@@ -332,7 +331,7 @@ def input_marks(request, sitting_pk, student_pk):
                 n = n + 1
             # Call is_valid() again. This will return false if we've added an error (from too high score) above.
             if formset.is_valid():
-                formset.save() # Data is now saved.
+                formset.save()  # Data is now saved.
 
                 # Now we insert the notes into the journals.
 
@@ -344,7 +343,7 @@ def input_marks(request, sitting_pk, student_pk):
                 if request.user.groups.filter(name='Teachers'):
                     return redirect(reverse('tracker:student_sitting_summary', args=[sitting_pk, student_pk]))
 
-            else:   # Either an initial validation error or the mark checking picked up too high a score
+            else:  # Either an initial validation error or the mark checking picked up too high a score
                 data = list(zip(questions, formset))
                 return render(request, 'tracker/exam_scores.html', {'data': data,
                                                                     'sitting': sitting,
@@ -368,11 +367,13 @@ def input_marks(request, sitting_pk, student_pk):
                                                             'student': student,
                                                             'formset': formset}, )
 
+
 @teacher_only
 def input_class_marks(request, sitting_pk):
     # Get the main data we'll need
     sitting = Sitting.objects.get(pk=sitting_pk)
-    students = Student.objects.filter(classgroups=sitting.classgroup).order_by('user__last_name', 'user__first_name', 'pk')
+    students = Student.objects.filter(classgroups=sitting.classgroup).order_by('user__last_name', 'user__first_name',
+                                                                               'pk')
     questions = Question.objects.filter(exam=sitting.exam).order_by('qorder')
 
     # make sure that all the marks exist
@@ -395,10 +396,11 @@ def input_class_marks(request, sitting_pk):
 
     if request.method == 'GET':
         for question in questions:
-            marks = Mark.objects.filter(student__in=students, sitting=sitting, question=question).order_by('student__user__last_name', 'student__user__first_name', 'student__pk')
+            marks = Mark.objects.filter(student__in=students, sitting=sitting, question=question).order_by(
+                'student__user__last_name', 'student__user__first_name', 'student__pk')
             formset = MarkFormset(queryset=marks, prefix=n)
             formsets.append(formset)
-            n = n+1
+            n = n + 1
 
         entry_rows = list(zip(questions, formsets))
 
@@ -416,17 +418,15 @@ def input_class_marks(request, sitting_pk):
             else:
                 entry_rows = list(zip(questions, formsets))
                 return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
-                                                               'sitting': sitting,
-                                                               'students': students})
+                                                                          'sitting': sitting,
+                                                                          'students': students})
             n = n + 1
-
 
         entry_rows = list(zip(questions, formsets))
 
         return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
                                                                   'sitting': sitting,
                                                                   'students': students})
-
 
 
 @own_or_teacher_only
@@ -492,11 +492,10 @@ def student_sitting_summary(request, sitting_pk, student_pk):
 
     else:
 
-
         point_journal_formset = journal_formset(
             queryset=StudentJournalEntry.objects.filter(student=student,
                                                         syllabus_point__in=syllabus_point_tested).order_by(
-                'syllabus_point__number') .order_by('syllabus_point__topic'))
+                'syllabus_point__number').order_by('syllabus_point__topic'))
 
         syllabus_data = list(zip(syllabus_point_tested, student_ratings, point_notes, point_journal_formset))
 
@@ -533,8 +532,8 @@ def sitting_by_q(request, pk):
     score_data = list(zip(questions, scores))
 
     return render(request, 'tracker/sitting_detail_by_q.html', {'sitting': sitting,
-                                                           'scores': scores,
-                                                           'score_data': score_data,
+                                                                'scores': scores,
+                                                                'score_data': score_data,
                                                                 'students': students})
 
 
@@ -546,8 +545,8 @@ def student_topic_overview(request, topic_pk, student_pk):
     sub_topic_data = topic.studentSubTopicData(student)
 
     return render(request, 'tracker/student_topic_overview.html', {'student': student,
-                  'topic': topic,
-                  'sub_topic_data': sub_topic_data})
+                                                                   'topic': topic,
+                                                                   'sub_topic_data': sub_topic_data})
 
 
 @own_or_teacher_only
@@ -566,7 +565,7 @@ def student_sub_topic_overview(request, sub_topic_pk, student_pk):
             journal_entry.entry = journal_form.cleaned_data['entry']
             journal_entry.save()
             parent_topic_pk = sub_topic.topic.pk
-            return redirect(reverse('tracker:student_topic_overview', args=(parent_topic_pk, student_pk )))
+            return redirect(reverse('tracker:student_topic_overview', args=(parent_topic_pk, student_pk)))
 
         else:
             return render(request, 'tracker/student_sub_topic_overview.html', {'student': student,
@@ -597,11 +596,11 @@ def small_assessment_list(request, point_pk, student_pk):
                                                                   'point': point,
                                                                   'assessments': assessments})
 
+
 @teacher_only
 def classgroup_all_syllabuses_completion(request, classgroup_pk):
     """ REport how much of the syllabus has been taught and assessed """
     # Make sure we can teach multiple syllabuss
-
 
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     classgroup_syllabuss = classgroup.syllabustaught.all()
@@ -613,7 +612,6 @@ def classgroup_all_syllabuses_completion(request, classgroup_pk):
         row.append(syllabus.classgroup_percentage_taught(classgroup))
         row.append(syllabus.classgroup_percentage_assessed(classgroup))
         data.append(row)
-
 
     return render(request, 'tracker/classgroup_all_syllabus_completion.html', {
         'classgroup': classgroup,
@@ -644,7 +642,7 @@ def classgroup_sub_topic_completion(request, classgroup_pk, sub_topic_pk):
 
     return render(request, 'tracker/classgroup_sub_topic_completion.html', {'classgroup': classgroup,
                                                                             'sub_topic': sub_topic,
-                                                                       'data': data})
+                                                                            'data': data})
 
 
 @teacher_only
@@ -680,14 +678,15 @@ def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
                                                                            'syllabus': syllabus,
                                                                            'data': data})
 
+
 @admin_only
 def chart_test(request):
-
     chart = CohortPointGraph()
     points = SyllabusPoint.objects.filter(topic__pk=1)
     chart.syllabus_areas = points
     chart.students = Student.objects.filter(classgroups__groupname="10B/Ph2")
     return render(request, 'tracker/chart_test.html', {'chart': chart})
+
 
 @admin_only
 def rating_ouput_check(request, classgroup_pk, topic_pk):
@@ -718,7 +717,6 @@ def rating_ouput_check(request, classgroup_pk, topic_pk):
 
 @admin_only
 def sub_topic_chart_test(request):
-
     chart = CohortSubTopicChart()
     points = SyllabusSubTopic.objects.filter(topic__pk=1)
     chart.syllabus_areas = points
@@ -765,8 +763,9 @@ def sub_topic_student_graph_check(request, student_pk, sub_topic_pk):
     chart.syllabus_areas = points
 
     return render(request, "tracker/student_s_topic_chart_test.html", {'student': student,
-                                                       'sub_topic': topic,
-                                                       'chart': chart})
+                                                                       'sub_topic': topic,
+                                                                       'chart': chart})
+
 
 @admin_only
 def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
@@ -777,8 +776,9 @@ def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
     chart.syllabus_areas = points
 
     return render(request, "tracker/student_single_s_topic_chart.html", {'student': student,
-                                                                       'sub_topic': points,
-                                                                       'chart': chart})
+                                                                         'sub_topic': points,
+                                                                         'chart': chart})
+
 
 @admin_only
 def set_current_ratings(request):
@@ -792,7 +792,7 @@ def new_teacher_overview(request, teacher_pk):
     teacher = Teacher.objects.get(pk=teacher_pk)
     classgroups = ClassGroup.objects.filter(archived=False, groupteacher=teacher)
 
-    classgroup_data = [] #format is: Classgruop, Syllabuses_taught, progress_dictionary
+    classgroup_data = []  # format is: Classgruop, Syllabuses_taught, progress_dictionary
     for group in classgroups:
         row = []
         # Construct a table set:
@@ -809,9 +809,10 @@ def new_teacher_overview(request, teacher_pk):
     sittings = Sitting.objects.filter(classgroup__in=classgroups).order_by('datesat').reverse()
 
     return render(request, "tracker/mptt_teacher_overview.html", {'teacher': teacher,
-                                                          'classgroups': classgroups,
-                                                          'sittings': sittings,
-                                                          'classgroup_data': classgroup_data})
+                                                                  'classgroups': classgroups,
+                                                                  'sittings': sittings,
+                                                                  'classgroup_data': classgroup_data})
+
 
 @teacher_only
 def classgroup_ratings(request, classgroup_pk, syllabus_pk):
@@ -854,9 +855,7 @@ def classgroup_ratings(request, classgroup_pk, syllabus_pk):
             sub_topic_data.append(row)
     else:
         # We are at the bottom of a row:
-        sub_topic_data = [[syllabus, syllabus.group_ratings_data(students)],]
-
-
+        sub_topic_data = [[syllabus, syllabus.group_ratings_data(students)], ]
 
     return render(request, 'tracker/classgroup_ratings_mptt.html', {'classgroup': classgroup,
                                                                     'syllabus': syllabus,
@@ -881,7 +880,9 @@ def student_ratings(request, student_pk, syllabus_pk):
     # Create a bunch of buttons for each classgroup the student is in,
     # so that a teacher can return to the overview for that group.
 
-    classgroups = ClassGroup.objects.filter(student=student, mptt_syllabustaught__in=syllabus.get_ancestors(include_self=True), archived=False)
+    classgroups = ClassGroup.objects.filter(student=student,
+                                            mptt_syllabustaught__in=syllabus.get_ancestors(include_self=True),
+                                            archived=False)
     # We only want to enable the group overview buttons for teachers:
     if request.user.groups.filter(name='Teachers').exists():
         isteacher = True
@@ -926,7 +927,8 @@ def student_ratings(request, student_pk, syllabus_pk):
     if syllabus.get_children()[0].get_descendant_count() != 0:
         # We are not at the bottom, so no journal, and let's show assessments:
 
-        assessments = Sitting.objects.filter(classgroup__student=student, classgroup__in=classgroups).order_by('datesat').reverse()
+        assessments = Sitting.objects.filter(classgroup__student=student, classgroup__in=classgroups).order_by(
+            'datesat').reverse()
         assessment_data = []
         for assessment in assessments:
             row = []
@@ -958,12 +960,12 @@ def student_ratings(request, student_pk, syllabus_pk):
             journal_form = StudentJournalEntryLarge(instance=journal)
 
         return render(request, 'tracker/student_ratings_mptt_w_journal.html', {'student': student,
-                                                                     'syllabus': syllabus,
-                                                                     'sub_topic_data': sub_topic_data,
-                                                                     'parent': parent,
-                                                                     'isteacher': isteacher,
-                                                                     'classgroups': classgroups,
-                                                                     'journal_form': journal_form})
+                                                                               'syllabus': syllabus,
+                                                                               'sub_topic_data': sub_topic_data,
+                                                                               'parent': parent,
+                                                                               'isteacher': isteacher,
+                                                                               'classgroups': classgroups,
+                                                                               'journal_form': journal_form})
 
 
 @teacher_only
@@ -980,14 +982,13 @@ def student_standardised_data(request, student_pk):
     pass_data = StandardisedResult.objects.filter(student=student, standardised_data__in=pass_data_objects)
     CAT4_data = StandardisedResult.objects.filter(student=student, standardised_data__in=CAT4_data_objects)
 
-
     standardised_data.append(pass_data)
     standardised_data.append(CAT4_data)
 
     assessments = Sitting.objects.filter(classgroup__student=student).order_by('datesat').reverse()
 
     return render(request, 'tracker/student_standardised_overview.html', {'student': student,
-                      'standardised_data': standardised_data,
+                                                                          'standardised_data': standardised_data,
                                                                           'assessments': assessments})
 
 
@@ -1007,5 +1008,29 @@ def cohort_standardised_data_vs_target(request, cohort_pk):
 
 
 @teacher_only
-def school_standardised_data_vs_target(request):
+def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
+    """ Display clickable radial graphs for a cohort, as narrowed by both their pastoral and academic position in the data structure. """
+    # Set up containers for our two charts:
+    pastoral_data = []
+    academic_data = []
+
+    # 1. GET THE SUB-LEVELS FOR EACH REQUESTED VIEW: **
+    pastoral_level = PastoralStructure.objects.get(pk=pastoral_pk)
+    pastroal_sub_levels = pastoral_level.get_children()
+
+    academic_level = AcademicStructure.objects.get(pk=academic_pk)
+    academic_sub_levels = academic_level.get_children()
+
+    # 2. Get the students for our current level
+    students = Student.objects.filter(classgroups__academicstructure__in=academic_level.get_descendants(include_self=True),
+                                      classgroups__pastoralstructure__in=pastoral_level.get_descendants(include_self=True))
+
+    # 3. Generate the average residual for each sub-level
+
+    # 4. Grenerate graph data with urls to next view
+    for level in pastroal_sub_levels:
+        row = [level]
+        row.append()
+    # 5. Render the page.
+
     pass

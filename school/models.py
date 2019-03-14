@@ -8,8 +8,8 @@ from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey
 
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
-from tracker.models import *
-from timetable.models import Lesson
+# from tracker.models import *
+# from timetable.models import Lesson
 
 # Create your models here.
 
@@ -50,6 +50,7 @@ class ClassGroup(models.Model):
     syllabustaught = models.ManyToManyField('tracker.Syllabus')
     mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
     archived = models.BooleanField(blank=True, default=False)
+
 
 
     def __str__(self):
@@ -183,12 +184,22 @@ class Student(models.Model):
         ('Undisclosed', 'Undisclosed'),
     )
 
+    LS_TYPES = (
+        ('S', 'S'),
+        ('SA', 'SA'),
+        ('M', 'M'),
+        ('SS', 'SS'),
+        ('N', 'N'),
+    )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     Gender = models.CharField(max_length=20, choices=GENDER, blank=True)
     idnumber = models.IntegerField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     classgroups = models.ManyToManyField('school.ClassGroup')
     tutorgroup = models.ForeignKey('school.TutorGroup', blank=True, null=True, on_delete=models.SET_NULL)
+    learning_support = models.CharField(max_lnegth=5, choices=LS_TYPES, blank=True, null=True)
+    eal = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):
         space = ' '
@@ -212,12 +223,19 @@ class SchoolStructure(MPTTModel):
     name = models.CharField(max_length=100, blank=False, null=False)
     leaders = models.ManyToManyField(Teacher, blank=True)
     kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
+    classgroups = models.ManyToManyField(ClassGroup, blank=True)
 
     class Meta:
         abstract = True
 
     def __str__(self):
         return self.name
+
+    def cohort_kpi_av_residual(self, cohort):
+        all_kpis = self.all_kpis()
+
+
+
 
 
 class PastoralStructure(SchoolStructure):
@@ -229,8 +247,12 @@ class PastoralStructure(SchoolStructure):
     def all_kpis(self):
         ancestors = self.get_ancestors(include_self=True)
 
-        # StandardisedData = apps.get_model(app_label='tracker', model_name='StandardisedData')
-        return StandardisedData.objects.filter(pastor)
+        StandardisedData = apps.get_model(app_label='tracker', model_name='StandardisedData')
+        return StandardisedData.objects.filter(pastoralstructure__in=ancestors)
+
+    def students(self):
+        return Student.objects.filter(classgroups__academicstructure=self.get_descendants(include_self=True))
+
 
 class AcademicStructure(SchoolStructure):
 
@@ -242,4 +264,7 @@ class AcademicStructure(SchoolStructure):
         ancestors = self.get_ancestors(include_self=True)
 
         StandardisedData = apps.get_model(app_label='tracker', model_name='StandardisedData')
-        return StandardisedData.objects.filter(pastoralstructure__kpis__in=ancestors)
+        return StandardisedData.objects.filter(academicstructure__in=ancestors)
+
+    def students(self):
+        return Student.objects.filter(classgroups__academicstructure=self.get_descendants(include_self=True))

@@ -956,9 +956,16 @@ class StandardisedData(MPTTModel):
     min_value = models.DecimalField(max_digits=5, decimal_places=1)
     step = models.DecimalField(max_digits=5, decimal_places=1)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    quickname = models.CharField(blank=True, null=True, max_length=20)
 
     def __str__(self):
         return self.name
+
+    def cohort_average_residual(self, cohort):
+        residuals = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = residuals.aggregate(average=Avg('residual'))
+        return average['average']
 
     def cohort_average_result(self, cohort):
         results = StandardisedResult.objects.filter(student__in=cohort,
@@ -988,6 +995,7 @@ class StandardisedResult(models.Model):
     date_created = models.DateField(blank=True, null=True, default=datetime.today)
     reason_created = models.TextField(blank=True, null=True)
     residual = models.DecimalField(max_digits=5, decimal_places=2)
+
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
