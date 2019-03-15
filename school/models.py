@@ -198,7 +198,7 @@ class Student(models.Model):
     year = models.IntegerField(blank=True, null=True)
     classgroups = models.ManyToManyField('school.ClassGroup')
     tutorgroup = models.ForeignKey('school.TutorGroup', blank=True, null=True, on_delete=models.SET_NULL)
-    learning_support = models.CharField(max_lnegth=5, choices=LS_TYPES, blank=True, null=True)
+    learning_support = models.CharField(max_length=5, choices=LS_TYPES, blank=True, null=True)
     eal = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):

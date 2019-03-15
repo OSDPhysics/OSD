@@ -991,7 +991,7 @@ class StandardisedResult(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
     standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
     result = models.DecimalField(max_digits=5, decimal_places=1)
-    target = models.DecimalField(max_digits=5, decimal_places=1, null=True)
+    target = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
     date_created = models.DateField(blank=True, null=True, default=datetime.today)
     reason_created = models.TextField(blank=True, null=True)
     residual = models.DecimalField(max_digits=5, decimal_places=2)

@@ -109,45 +109,54 @@ def process_student_wsst_dataset(path):
     with open(path, newline='') as csvfile:
         students = csv.reader(csvfile, delimiter=',', quotechar='|')
         newstudents = []  # list of all the newly-created students
+        row_labels = students[0]
         for row in students:
-            newstudent = {'last_name': row[0],
-                          'first_name': row[1],
-                          'tutorgroup': row[2],
-                          'gender': row[3], ## Must change to F or M
-                          'learning_support': row[4],
-                          'eal': row[5],
-                          'catv': row[6],
-                          'cat4q': row[7],
-                          'cat4nv': row[8],
-                          'cat4s': row[9],
-                          'cat4mean': row[10],
-                          'verbal_def': row[11],
-                          'maths_car': row[12],
-                          'reading_age': row[13],
-                          'nrss': row[14],
-                          'actual_age': row[15],
-                          'pte_mean': row[16],
-                          'english_achievement_mean': row[17],
-                          'ptm_mean': row[18],
-                          'maths_achievement': row[19],
-                          'pts_mean': row[20],
-                          'sci_achievement': row[21],
-                          'av_achievement': row[22],
-                          'pass_dom1': row[23],
-                          'pass_dom2': row[24],
-                          'pass_dom3': row[25],
-                          'pass1': row[26],
-                          'pass2': row[27],
-                          'pass3': row[28],
-                          'pass4': row[29],
-                          'pass5': row[30],
-                          'pass6': row[31],
-                          'pass7': row[32],
-                          'pass8': row[33],
-                          'pass9': row[34],
-                          ## IMPORTANT TO ADD!!
-                          'student_id': row[35],
-                          newstudents.append(addstudent_wsst_data(newstudent))
+            newstudent = {}
+            n = 0
+            for label in row_labels:
+                newstudent[label] = row[n]
+                n += 1
+            newstudents.append(newstudent)
+            #         newstudent
+            # newstudent = {'last_name': row[0],
+            #               'first_name': row[1],
+            #               'year': row[1.1]
+            #               'tutorgroup': row[2],
+            #               'gender': row[3], ## Must change to F or M
+            #               'learning_support': row[4],
+            #               'eal': row[5],
+            #               'cat4v': row[6],
+            #               'cat4q': row[7],
+            #               'cat4nv': row[8],
+            #               'cat4s': row[9],
+            #               'cat4mean': row[10],
+            #               'verbal_def': row[11],
+            #               'maths_car': row[12],
+            #               'reading_age': row[13],
+            #               'nrss': row[14],
+            #               'actual_age': row[15],
+            #               'pte_mean': row[16],
+            #               'english_achievement_mean': row[17],
+            #               'ptm_mean': row[18],
+            #               'maths_achievement': row[19],
+            #               'pts_mean': row[20],
+            #               'sci_achievement': row[21],
+            #               'av_achievement': row[22],
+            #               'pass_dom1': row[23],
+            #               'pass_dom2': row[24],
+            #               'pass_dom3': row[25],
+            #               'pass1': row[26],
+            #               'pass2': row[27],
+            #               'pass3': row[28],
+            #               'pass4': row[29],
+            #               'pass5': row[30],
+            #               'pass6': row[31],
+            #               'pass7': row[32],
+            #               'pass8': row[33],
+            #               'pass9': row[34],
+            #               ## IMPORTANT TO ADD!!
+            #               'student_id': row[35],
+            #               newstudents.append(addstudent_wsst_data(newstudent))
 
         return newstudents
 
@@ -176,7 +185,7 @@ def addstudent_wsst_data(newstudent):
         student = Student.objects.create(user=newuser,
                                          Gender=newstudent['Gender'],
                                          idnumber=newstudent['studentid'],
-                                         # year=int(newstudent['year'])
+                                         year=int(newstudent['year'])
 
                                          )
     else:
@@ -186,21 +195,20 @@ def addstudent_wsst_data(newstudent):
         student = Student.objects.get(user=newuser)
 
     # Add student to CLASS GROUP (NOT USER GROUP)
-    newclassgroupname = newstudent['classgroup']
-    newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
-    student.classgroups.add(newclassgroup)
+    if newstudent['classgroup']:
+        newclassgroupname = newstudent['classgroup']
+        newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
+        student.classgroups.add(newclassgroup)
 
     # Add the students standardised data:
 
-    for row in newstudent:
-        if StandardisedData.objects.get(quickname=row.)
-
+    for key in newstudent.keys():
+        point = StandardisedData.objects.get(quickname=newstudent[key])
+        if point.exists():
+            student_result, created = StandardisedResult.objects.get_or_create(student=student,
+                                                                               StandardisedData=point)
+            if created:
+                student_result.result=newstudent[key]
+                student_result.reason_created = 'WSST Import'
     return student
 
-def add_student_standardised_data(student, result, target, point):
-
-    # Remove this line in production; it's to make later stuff easier.
-    point = StandardisedResult.objects.get_or_create(standardised_data=point, student=student)
-
-    point.replace(new_result=result, new_target=target, reason="WSST Spreadsheet Import")
-    return point
