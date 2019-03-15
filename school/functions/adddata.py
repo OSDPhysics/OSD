@@ -106,17 +106,29 @@ def addteacher(newteacher):
 
 
 def process_student_wsst_dataset(path):
-    with open(path, newline='') as csvfile:
+    with open(path, newline='', encoding='utf-8') as csvfile:
         students = csv.reader(csvfile, delimiter=',', quotechar='|')
         newstudents = []  # list of all the newly-created students
-        row_labels = students[0]
+
+        row_labels = []
+        first = True
+        i = 0
         for row in students:
+            if first:
+                row_labels = row
+                first = False
+                print("Labels done)")
+                continue
+
             newstudent = {}
+
+            print("On row " + str(i))
+            i += 1
             n = 0
             for label in row_labels:
                 newstudent[label] = row[n]
-                n += 1
-            newstudents.append(newstudent)
+
+
             #         newstudent
             # newstudent = {'last_name': row[0],
             #               'first_name': row[1],
@@ -158,12 +170,15 @@ def process_student_wsst_dataset(path):
             #               'student_id': row[35],
             #               newstudents.append(addstudent_wsst_data(newstudent))
 
+                n += 1
+            student = addstudent_wsst_data(newstudent)
+            newstudents.append(student)
         return newstudents
 
 def addstudent_wsst_data(newstudent):
     # Test to see whether the user exists yet
 
-    newuser, created = User.objects.get_or_create(username=newstudent['username'],
+    newuser, created = User.objects.get_or_create(username=newstudent['student_id'],
                                                  )
 
     # created will be true if the user didn't already exist.
@@ -171,7 +186,7 @@ def addstudent_wsst_data(newstudent):
     if created:
 
         # New user won't have a password yet
-        newuser.set_password("asdfoiqwefasidofu298bfkajs")
+        # newuser.set_password("asdfoiqwefasidofu298bfkajs")
         newuser.email = str(newstudent['student_id']) + "@gardenschool.edu.my"
         newuser.first_name = newstudent['first_name']
         newuser.last_name = newstudent['last_name']
@@ -183,8 +198,8 @@ def addstudent_wsst_data(newstudent):
         students_user_group.user_set.add(newuser)
 
         student = Student.objects.create(user=newuser,
-                                         Gender=newstudent['Gender'],
-                                         idnumber=newstudent['studentid'],
+                                         # Gender=newstudent['Gender'],
+                                         idnumber=newstudent['student_id'],
                                          year=int(newstudent['year'])
 
                                          )
@@ -195,7 +210,7 @@ def addstudent_wsst_data(newstudent):
         student = Student.objects.get(user=newuser)
 
     # Add student to CLASS GROUP (NOT USER GROUP)
-    if newstudent['classgroup']:
+    if 'classgroup' in newstudent.keys():
         newclassgroupname = newstudent['classgroup']
         newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
         student.classgroups.add(newclassgroup)
@@ -203,10 +218,10 @@ def addstudent_wsst_data(newstudent):
     # Add the students standardised data:
 
     for key in newstudent.keys():
-        point = StandardisedData.objects.get(quickname=newstudent[key])
+        point = StandardisedData.objects.filter(quickname=newstudent[key])
         if point.exists():
             student_result, created = StandardisedResult.objects.get_or_create(student=student,
-                                                                               StandardisedData=point)
+                                                                               StandardisedData=point[0])
             if created:
                 student_result.result=newstudent[key]
                 student_result.reason_created = 'WSST Import'
