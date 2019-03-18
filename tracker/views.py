@@ -259,8 +259,7 @@ def sitting_detail(request, pk):
 
 @teacher_only
 def new_sitting(request, exampk):
-    # TODO: USE THE FORMAT for x, y in z
-    #       by using 'zip'.
+
     exam = Exam.objects.get(pk=exampk)
     questions = Question.objects.filter(exam=exam)
     sittingform = NewSittingForm()

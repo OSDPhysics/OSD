@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from school.models import Student, Teacher, ClassGroup
+from school.models import Student, Teacher, ClassGroup, TutorGroup
 from tracker.models import StandardisedResult, StandardisedData
 import csv
 import codecs
@@ -209,21 +209,33 @@ def addstudent_wsst_data(newstudent):
         # and has been set to the matching student.
         student = Student.objects.get(user=newuser)
 
+    # Set the tutor group:
+    tg, created = TutorGroup.objects.get_or_create(tgname=newstudent['tutorgroup'])
+    student.tutorgroup = tg
+    student.save()
+
     # Add student to CLASS GROUP (NOT USER GROUP)
     if 'classgroup' in newstudent.keys():
         newclassgroupname = newstudent['classgroup']
         newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
         student.classgroups.add(newclassgroup)
 
+
     # Add the students standardised data:
 
     for key in newstudent.keys():
-        point = StandardisedData.objects.filter(quickname=newstudent[key])
-        if point.exists():
-            student_result, created = StandardisedResult.objects.get_or_create(student=student,
-                                                                               StandardisedData=point[0])
-            if created:
-                student_result.result=newstudent[key]
-                student_result.reason_created = 'WSST Import'
+        point = StandardisedData.objects.filter(quickname=key)
+        if point.exists() and newstudent[key]:
+            student_result = StandardisedResult.objects.filter(student=student,
+                                                                               standardised_data=point[0])
+            if student_result.exists():
+                student_result[0].replace(new_result=newstudent[key], new_reason='WSST Import')
+
+            else:
+                student_result = StandardisedResult.objects.create(result=newstudent[key],
+                                                                   reason_created='WSST Import',
+                                                                   student=student,
+                                                                   standardised_data=point[0])
+
     return student
 

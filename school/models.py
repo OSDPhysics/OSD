@@ -4,7 +4,7 @@ from teachnet.models import Skill
 from django.apps import apps
 from numpy import average
 from itertools import chain
-from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey
+from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey, TreeOneToOneField
 
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
@@ -46,7 +46,7 @@ class Teacher(models.Model):
 
 class ClassGroup(models.Model):
     groupname = models.CharField(max_length=50)
-    groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE)
+    groupteacher = models.ForeignKey('school.Teacher', on_delete=models.CASCADE, null=True, blank=True)
     syllabustaught = models.ManyToManyField('tracker.Syllabus')
     mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
     archived = models.BooleanField(blank=True, default=False)
@@ -198,6 +198,7 @@ class Student(models.Model):
     year = models.IntegerField(blank=True, null=True)
     classgroups = models.ManyToManyField('school.ClassGroup')
     tutorgroup = models.ForeignKey('school.TutorGroup', blank=True, null=True, on_delete=models.SET_NULL)
+    academic_tutorgroup = TreeForeignKey('school.PastoralStructure', on_delete=models.SET_NULL, null=True, blank=True)
     learning_support = models.CharField(max_length=5, choices=LS_TYPES, blank=True, null=True)
     eal = models.BooleanField(blank=False, null=False, default=False)
 
@@ -251,7 +252,7 @@ class PastoralStructure(SchoolStructure):
         return StandardisedData.objects.filter(pastoralstructure__in=ancestors)
 
     def students(self):
-        return Student.objects.filter(classgroups__academicstructure=self.get_descendants(include_self=True))
+        return Student.objects.filter(academic_tutorgroup__in=self.get_descendants(include_self=True))
 
 
 class AcademicStructure(SchoolStructure):

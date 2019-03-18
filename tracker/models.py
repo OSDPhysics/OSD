@@ -8,7 +8,7 @@ from datetime import datetime
 from django.utils import timezone
 from .charts import StudentSubTopicGraph
 import pytz
-
+from django.utils import timezone
 
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField, TreeManager
 
@@ -713,7 +713,7 @@ class Mark(models.Model):
 
 
     def calculate_percentage(self):
-        # TODO: Fix this, as currently a score of 0 is also null!
+
         if self.score:
             percent = round(self.score / self.question.maxscore * 100, 2)
         elif self.score == 0:
@@ -941,7 +941,7 @@ class MPTTRating(models.Model):
     four_to_five = models.IntegerField(null=True, blank=True)
     total_contributions = models.IntegerField(null=False, default=0)
 
-    created = models.DateTimeField(blank=False, null=False, default=datetime.now())
+    created = models.DateTimeField(blank=False, null=False, default=datetime.now)
     reason = models.CharField(blank=False, null=False, default="Assessment", max_length=100)
     assessment = models.ManyToManyField(Sitting)
 
@@ -992,10 +992,9 @@ class StandardisedResult(models.Model):
     standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
     result = models.DecimalField(max_digits=5, decimal_places=1)
     target = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
-    date_created = models.DateField(blank=True, null=True, default=datetime.today)
+    date_created = models.DateField(blank=True, null=True, default=timezone.now)
     reason_created = models.TextField(blank=True, null=True)
-    residual = models.DecimalField(max_digits=5, decimal_places=2)
-
+    residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
@@ -1003,12 +1002,12 @@ class StandardisedResult(models.Model):
     def replace(self,
                 new_result=False,
                 new_target=False,
-                new_date=datetime.today,
+                new_date=datetime.today(),
                 new_reason=False):
 
         PastStandardisedResult.objects.create(
             student=self.student,
-            standardised_dat=self.standardised_data,
+            standardised_data=self.standardised_data,
             result=self.result,
             target=self.target,
             date_created=self.date_created,
@@ -1042,11 +1041,11 @@ class StandardisedResult(models.Model):
 class PastStandardisedResult(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
     standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
-    result = models.DecimalField(max_digits=5, decimal_places=1)
-    target = models.DecimalField(max_digits=5, decimal_places=1)
-    date_created = models.DateField(blank=True, null=True, default=datetime.today)
+    result = models.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True)
+    target = models.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True)
+    date_created = models.DateField(blank=True, null=True, default=timezone.now)
     reason_created = models.TextField(blank=True, null=True)
-    residual = models.DecimalField(max_digits=5, decimal_places=2)
+    residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)

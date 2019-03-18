@@ -37,9 +37,9 @@ def teacher_or_own_only(function):
         if request.user.groups.filter(name='Teachers').exists():
             return function(request, *args, **kwargs)
 
-        # TODO: this is broken!
+        # TODO: check this works
         requested_student = Student.objects.get(pk=kwargs['pk'])
-        if request.user.pk == requested_student:
+        if request.user == requested_student.user:
             return function(request, *args, **kwargs)
 
         else:

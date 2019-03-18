@@ -40,7 +40,7 @@ class SetQuestions(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['qorder', 'qnumber', 'maxscore', 'MPTTsyllabuspoint', 'exam']
-        widgets = { # TODO: any way to filter this?
+        widgets = {
             'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
                                                                forward=['parent'],
                                                                ),
