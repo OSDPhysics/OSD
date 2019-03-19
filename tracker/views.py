@@ -1009,9 +1009,7 @@ def cohort_standardised_data_vs_target(request, cohort_pk):
 @teacher_only
 def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
     """ Display clickable radial graphs for a cohort, as narrowed by both their pastoral and academic position in the data structure. """
-    # Set up containers for our two charts:
-    pastoral_data = []
-    academic_data = []
+
 
     # 1. GET THE SUB-LEVELS FOR EACH REQUESTED VIEW: **
     pastoral_level = PastoralStructure.objects.get(pk=pastoral_pk)
@@ -1022,14 +1020,50 @@ def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
 
     # 2. Get the students for our current level
     students = Student.objects.filter(classgroups__academicstructure__in=academic_level.get_descendants(include_self=True),
-                                      classgroups__pastoralstructure__in=pastoral_level.get_descendants(include_self=True))
+                                      tutorgroup__pastoral_link__in=pastoral_level.get_descendants(include_self=True))
 
+    # KPIs for the whole-cohort overview
+
+    pastroal_kpis = KPIPair.objects.filter(pastoralstructure=pastoral_level)
+
+    # KPIs for the individual sub-group residuals:
+    group_kpis=pastoral_level.all_kpis()
     # 3. Generate the average residual for each sub-level
 
-    # 4. Grenerate graph data with urls to next view
-    for level in pastroal_sub_levels:
-        row = [level]
-        row.append()
-    # 5. Render the page.
+    # GEnerate graphs:
+    pastoral_data = generate_kpi_graph_for_cohort(students, pastroal_kpis)
 
-    pass
+    group_breakdown = generate_sub_pastoral_graph(pastoral_level=pastoral_level,
+                                                 kpis=group_kpis)
+    return render(request, 'tracker/school_overview.html', {'pastoral_level': pastoral_level,
+                                                            'academic_level': academic_level,
+                                                            'pastoral_data': pastoral_data,
+                                                            'group_breakdown': group_breakdown,
+                                                            'pastoral_sub_levels': pastroal_sub_levels})
+
+
+def generate_kpi_graph_for_cohort(cohort=Student.objects.all(), kpis=KPIPair.objects.all()):
+    """ Returns graph data as a list for a KPI pair"""
+    data = []
+    for pair in kpis:
+        row = {'kpi_pair': pair}
+        result = pair.student_result
+        averages = StandardisedResult.objects.filter(student__in=cohort, standardised_data=result).aggregate(avg_tg=Avg('target'), avg_result=Avg('result'))
+        row['avg_target'] = averages['avg_tg']
+        row['avg_result'] = averages['avg_result']
+        data.append(row)
+
+    return data
+
+def generate_sub_pastoral_graph(pastoral_level=PastoralStructure.objects.all(), kpis=StandardisedData.objects.all()):
+    next_levels = pastoral_level.get_children()
+
+    data = []
+    for group in next_levels:
+        students = group.students()
+        row = {'group': group}
+        averages = StandardisedResult.objects.filter(student__in=students, standardised_data__in=kpis).aggregate(residual=Avg('residual'))
+        row['avg_residual'] = averages['residual']
+        data.append(row)
+
+    return data
