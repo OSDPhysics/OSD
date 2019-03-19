@@ -12,7 +12,6 @@ from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey, TreeOneT
 # from timetable.models import Lesson
 
 # Create your models here.
-
 class Teacher(models.Model):
     TITLES = (
         ('Miss', 'Miss'),
@@ -27,7 +26,6 @@ class Teacher(models.Model):
     staffcode = models.CharField(max_length=10, blank=True)
     skills = models.ManyToManyField(Skill)
     line_manager = models.ForeignKey(User, related_name='line_manager', on_delete=models.SET_NULL, null=True, blank=True)
-
     def __str__(self):
         space = ' '
         fullname = self.title + space + self.user.first_name + space + self.user.last_name + space + '(' + self.staffcode + ')'

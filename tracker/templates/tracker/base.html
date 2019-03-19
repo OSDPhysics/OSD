@@ -11,20 +11,14 @@
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
     <link href="{% static 'bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
-
     <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
-   <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
 
     {% block import_js %}
-{% endblock import_js %}
-
-
+    {% endblock import_js %}
 </head>
 
 <body>
@@ -42,12 +36,8 @@
             </li>
 
             {% if request.user|has_group:"Teachers" %}
-
-
                 <li class="nav-item dropdown">
-
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Teacher Resources
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -56,20 +46,28 @@
                         <a class="dropdown-item" href="{% url 'timetable:create_multiple_lesson_suspensions' %}">Suspend multiple days</a>
                     </div>
                 </li>
+            {% endif %}
 
+            {% if request.user.is_superuser %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Superuser
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'school:school' %}">Whole school</a>
+                    </div>
+                </li>
             {% endif %}
         </ul>
+
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="/accounts/profile">{{ user.first_name }} {{ user.last_name }}</a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}?next=/"> Log out </a></li>
             {% else %}
-
-
-                    <a class='btn btn-default' href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google-plus-g"></i>Login</a>
+                <a class='btn btn-default' href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google-plus-g"></i>Login</a>
                 </div>
-                </form>
             {% endif %}
         </ul>
     </div>
@@ -78,18 +76,14 @@
 {# Show warning messages #}
 
 {% if messages %}
-
     {% for message in messages %}
-
-
-        <div class="alert alert-{{ message.tags }} alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
- {{ message }}
-</div>
-
+    <div class="alert alert-{{ message.tags }} alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ message }}
+    </div>
     {% endfor %}
-
 {% endif %}
+
 <div class="container">
     <h5>{% block title %}{% endblock title %}</h5>
 </div>
@@ -100,23 +94,18 @@
     {% block content %}
     {% endblock content %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-
-
-
 <script src="{% static 'bootstrap3-editable/js/bootstrap-editable.js' %}"></script>
 
 {% block script %}
 {% endblock script %}
-
-
 
 </body>
 </html>

@@ -791,7 +791,7 @@ def new_teacher_overview(request, teacher_pk):
     teacher = Teacher.objects.get(pk=teacher_pk)
     classgroups = ClassGroup.objects.filter(archived=False, groupteacher=teacher)
 
-    classgroup_data = []  # format is: Classgruop, Syllabuses_taught, progress_dictionary
+    classgroup_data = []  # format is: Classgroup, Syllabuses_taught, progress_dictionary
     for group in classgroups:
         row = []
         # Construct a table set:

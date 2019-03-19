@@ -1,6 +1,6 @@
 h1,h2,h3{ 
-    color: rgb(139, 124, 124);
-    font-family: 'Cuprum';
+    color: rgb(0, 0, 0);
+    font-family: 'Arial';
 }
 
 table {
@@ -9,7 +9,6 @@ table {
 table th {
   border-bottom:1px solid black;
 }
-
 
 th.rotate {
   height:80px;

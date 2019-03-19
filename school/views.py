@@ -44,10 +44,15 @@ def splash(request):
     else:
         return render(request, 'school/splash.html', {})
 
-
 @login_required
 def school(request):
-    return render(request, 'school/school.html', {})
+    syllabus = MPTTSyllabus.objects.root_nodes()
+    parents = []
+    for item in syllabus:
+        children = item.get_children()
+        parents.append(children)
+    return render(request, 'school/school.html', {'syllabus': syllabus,
+                                                  'parents': parents})
 
 
 @admin_only

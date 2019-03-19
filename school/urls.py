@@ -6,7 +6,7 @@ from . import views
 app_name = "school"
 
 urlpatterns = [
-    path('', views.home, name='school_home'),
+#   path('', views.home, name='school_home'), REDUNDANT?
     path('teachers/', views.teachers,name = 'teachers'),
     path('teachers/<int:pk>', views.teacher_details, name='teacher_details'),
     path('teachers/new/', views.new_teacher, name='new_teacher'),

@@ -3,8 +3,8 @@
 {% block content %}
  <h1>Data for class {{ classgroup }} studying {{ syllabus }}</h1>
     {% if parent %}
-                            <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' classgroup.pk parent.pk %}" role="button"><< {{ parent }}</a>
-                        {% endif %}
+    <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' classgroup.pk parent.pk %}" role="button"><< {{ parent }}</a>
+    {% endif %}
  <div class="container">
         <div class="row">
             <div class="col md">
