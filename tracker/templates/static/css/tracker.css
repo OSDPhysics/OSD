@@ -46,3 +46,7 @@ th.rotate > div {
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.btn{
+    color: #00dc00;
+}
