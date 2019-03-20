@@ -1,3 +1,10 @@
+from school.models import PastoralStructure, AcademicStructure
+from django.db.models import Sum
+from operator import itemgetter
+import datetime
+
+from tracker.models import *
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from tracker.forms import *
@@ -9,17 +16,12 @@ from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.contrib import messages
 from timetable.models import Lesson, LessonResources
-from school.models import PastoralStructure, AcademicStructure
-from django.db.models import Sum
-from operator import itemgetter
-import datetime
-
-from tracker.models import *
 import logging
 from tracker.functions.adddata import *
 import os
 
 logger = logging.getLogger(__name__)
+
 
 @login_required()
 def splash(request):
@@ -35,6 +37,7 @@ def splash(request):
 
         # Show the teacher's students
         return redirect(reverse('tracker:new_teacher_overview', args=(teacher.pk,)))
+
 
 @own_or_teacher_only
 def student_profile(request, student_pk):
@@ -75,6 +78,7 @@ def student_profile(request, student_pk):
 
     return render(request, 'tracker/splash_student.html', data)
 
+
 @login_required
 def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
@@ -107,6 +111,8 @@ def syllabus_detail(request, pk):
                                                                         'student_topic_data': student_topic_data,
                                                                         'students': students})
 # CSV Uplods
+
+
 @admin_only
 def import_spec_points(request):
     # Deal with getting a CSV file
@@ -126,6 +132,7 @@ def import_spec_points(request):
 
 def construction(request):
     return render(request, 'school/404.html', {})
+
 
 @own_or_teacher_only
 def input_marks(request, sitting_pk, student_pk):
@@ -202,6 +209,7 @@ def input_marks(request, sitting_pk, student_pk):
                                                             'marks': marks,
                                                             'student': student,
                                                             'formset': formset}, )
+
 
 @own_or_teacher_only
 def student_sitting_summary(request, sitting_pk, student_pk):
@@ -287,6 +295,7 @@ def student_sitting_summary(request, sitting_pk, student_pk):
                                                                         'topic_data': topic_data,
                                                                         'point_journal_formset': point_journal_formset})
 
+
 @own_or_teacher_only
 def student_topic_overview(request, topic_pk, student_pk):
     student = Student.objects.get(pk=student_pk)
@@ -346,6 +355,7 @@ def small_assessment_list(request, point_pk, student_pk):
                                                                   'point': point,
                                                                   'assessments': assessments})
 
+
 def classgroup_sub_topic_completion(request, classgroup_pk, sub_topic_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     sub_topic = SyllabusSubTopic.objects.get(pk=sub_topic_pk)
@@ -370,6 +380,8 @@ def classgroup_sub_topic_completion(request, classgroup_pk, sub_topic_pk):
     return render(request, 'tracker/classgroup_sub_topic_completion.html', {'classgroup': classgroup,
                                                                             'sub_topic': sub_topic,
                                                                             'data': data})
+
+
 def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     syllabus = Syllabus.objects.get(pk=syllabus_pk)
@@ -384,6 +396,8 @@ def classgroup_syllabus_completion(request, classgroup_pk, syllabus_pk):
     return render(request, 'tracker/classgroup_syllabus_completion.html', {'classgroup': classgroup,
                                                                            'syllabus': syllabus,
                                                                            'data': data})
+
+
 @admin_only
 def chart_test(request):
     chart = CohortPointGraph()
@@ -391,6 +405,7 @@ def chart_test(request):
     chart.syllabus_areas = points
     chart.students = Student.objects.filter(classgroups__groupname="10B/Ph2")
     return render(request, 'tracker/chart_test.html', {'chart': chart})
+
 
 @admin_only
 def rating_ouput_check(request, classgroup_pk, topic_pk):
@@ -427,6 +442,7 @@ def sub_topic_chart_test(request):
     chart.students = Student.objects.filter(classgroups__groupname="10B/Ph2")
     return render(request, 'tracker/chart_test.html', {'chart': chart})
 
+
 @own_or_teacher_only
 def sub_topic_student_graph_check(request, student_pk, sub_topic_pk):
     student = Student.objects.filter(pk=student_pk)
@@ -439,6 +455,7 @@ def sub_topic_student_graph_check(request, student_pk, sub_topic_pk):
     return render(request, "tracker/student_s_topic_chart_test.html", {'student': student,
                                                                        'sub_topic': topic,
                                                                        'chart': chart})
+
 
 @admin_only
 def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
@@ -456,6 +473,7 @@ def single_sub_topic_graph_check(request, student_pk, sub_topic_pk):
 @admin_only
 def set_current_ratings(request):
     set_current_student_point_ratings()
+
 
 @own_or_teacher_only
 def student_ratings(request, student_pk, syllabus_pk):

@@ -15,8 +15,9 @@ from operator import itemgetter
 import datetime
 
 from tracker.models import *
-import logging
 from tracker.functions.adddata import *
 import os
+
+import logging
 
 logger = logging.getLogger(__name__)

@@ -1,25 +1,27 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from tracker.forms import *
 from tracker.charts import CohortPointGraph, CohortSubTopicChart, StudentChart, StudentSubTopicGraph
 from journal.forms import StudentJournalEntryLarge
 from journal.functions import move_mark_reflection_to_journal_student_mptt
-from osd.decorators import *
-from django.urls import reverse, reverse_lazy
 from journal.models import StudentJournalEntry
 from django.contrib import messages
 from timetable.models import Lesson, LessonResources
-from school.models import PastoralStructure, AcademicStructure
 from django.db.models import Sum
 from operator import itemgetter
 import datetime
-
 from tracker.models import *
-import logging
-from tracker.functions.adddata import *
 import os
 
+from django.shortcuts import render, redirect, get_object_or_404
+from tracker.forms import *
+from osd.decorators import *
+from django.urls import reverse, reverse_lazy
+from school.models import PastoralStructure, AcademicStructure
+import logging
+from tracker.functions.adddata import *
+
+
 logger = logging.getLogger(__name__)
+
 
 @teacher_only
 def add_test(request):
@@ -40,15 +42,18 @@ def add_test(request):
         form = NewExamForm()
     return render(request, 'tracker/new_exam1.html', {'form': form})
 
+
 @teacher_only
 def list_syllabuses(request):
     syllabuses = Syllabus.objects.order_by('examtype')
     return render(request, 'tracker/syllabus.html', {'syllabuses': syllabuses})
 
+
 @teacher_only
 def list_exams(request):
     exams = Exam.objects.all()
     return render(request, 'tracker/exams.html', {'exams': exams})
+
 
 @teacher_only
 def tracker_overview(request):
@@ -57,16 +62,18 @@ def tracker_overview(request):
 
     return render(request, 'tracker/tracker_overview.html', {'syllabuses': syllabuses,
                                                              'sittings': sittings})
+
+
 @teacher_only
 def examDetails(request, pk):
     exam = Exam.objects.get(pk=pk)
     syllabus = exam.syllabus.all()
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
-    SetQuestionsFormset = modelformset_factory(Question, form=SetQuestions, extra=10)
+    setquestionsformset = modelformset_factory(Question, form=SetQuestions, extra=10)
     parent_form = MPTTSyllabusForm()
     if request.method == 'POST':
-        qform = SetQuestionsFormset(request.POST)
+        qform = setquestionsformset(request.POST)
 
         # Quite a nasty hack to remove the hidden 'exam' field from only those forms without data.
 
@@ -106,7 +113,7 @@ def examDetails(request, pk):
         # 'qform': qform})
 
     else:
-        qform = SetQuestionsFormset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
+        qform = setquestionsformset(queryset=Question.objects.filter(exam=exam).order_by('qorder'))
 
         for form in qform:
             form.initial['exam'] = exam.pk
@@ -116,6 +123,7 @@ def examDetails(request, pk):
                                                              'questions': questions,
                                                              'qform': qform,
                                                              'parent_form': parent_form})
+
 
 @teacher_only
 def sitting_detail(request, pk):
@@ -136,6 +144,7 @@ def sitting_detail(request, pk):
                                                            'scores': scores,
                                                            'data': data,
                                                            'topic_data': topic_data})
+
 
 @teacher_only
 def new_sitting(request, exampk):
@@ -168,6 +177,7 @@ def sitting_toggle_open_for_recording(request, sitting_pk):
     classgroup = sitting.classgroup
     sitting.toggle_open_for_recording()
     return redirect(reverse('school:class_detail', args=[classgroup.pk, ]))
+
 
 @teacher_only
 def input_class_marks(request, sitting_pk):
@@ -228,6 +238,8 @@ def input_class_marks(request, sitting_pk):
         return render(request, 'tracker/input_class_marks.html', {'entry_rows': entry_rows,
                                                                   'sitting': sitting,
                                                                   'students': students})
+
+
 @teacher_only
 def sitting_by_q(request, pk):
     sitting = Sitting.objects.get(pk=pk)
@@ -249,6 +261,8 @@ def sitting_by_q(request, pk):
                                                                 'scores': scores,
                                                                 'score_data': score_data,
                                                                 'students': students})
+
+
 @teacher_only
 def classgroup_all_syllabuses_completion(request, classgroup_pk):
     """ REport how much of the syllabus has been taught and assessed """
@@ -270,6 +284,7 @@ def classgroup_all_syllabuses_completion(request, classgroup_pk):
         'data': data
     })
 
+
 @teacher_only
 def classgroup_topic_completion(request, classgroup_pk, topic_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
@@ -286,6 +301,8 @@ def classgroup_topic_completion(request, classgroup_pk, topic_pk):
     return render(request, 'tracker/classgroup_topic_completion.html', {'classgroup': classgroup,
                                                                         'topic': topic,
                                                                         'data': data})
+
+
 @teacher_only
 def coverage_check(request, syllabus_pk):
     syllabus = Syllabus.objects.get(pk=syllabus_pk)
@@ -313,6 +330,7 @@ def coverage_check(request, syllabus_pk):
 
     return render(request, "tracker/coverage_check.html", {'syllabus': syllabus,
                                                            'data': data})
+
 
 @teacher_only
 def new_teacher_overview(request, teacher_pk):
@@ -392,6 +410,8 @@ def classgroup_ratings(request, classgroup_pk, syllabus_pk):
                                                                     'student_data': student_data,
                                                                     'sub_topic_data': sub_topic_data,
                                                                     'parent': parent})
+
+
 @teacher_only
 def student_standardised_data(request, student_pk):
     student = Student.objects.get(pk=student_pk)
@@ -453,7 +473,7 @@ def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
 
     # 4. Grenerate graph data with urls to next view
     for level in pastroal_sub_levels:
-        row = [level]
+        row = list([level])
         row.append()
     # 5. Render the page.
 
