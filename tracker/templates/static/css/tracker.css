@@ -1,6 +1,5 @@
-h1,h2,h3{ 
-    color: rgb(0, 0, 0);
-    font-family: 'Arial';
+h1,h2,h3{
+    color: rgb(200, 0, 0);
 }
 
 table {
@@ -47,6 +46,6 @@ th.rotate > div {
     flex-wrap: wrap;
 }
 
-.btn{
-    color: #00dc00;
-}
+.btn-primary { background-color: red; }
+
+
