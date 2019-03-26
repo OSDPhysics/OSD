@@ -1034,7 +1034,8 @@ def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
     pastoral_data = generate_kpi_graph_for_cohort(students, pastroal_kpis)
 
     group_breakdown = generate_sub_pastoral_graph(pastoral_level=pastoral_level,
-                                                 kpis=group_kpis)
+                                                 kpis=group_kpis,
+                                                  academic_level=academic_level)
     return render(request, 'tracker/school_overview.html', {'pastoral_level': pastoral_level,
                                                             'academic_level': academic_level,
                                                             'pastoral_data': pastoral_data,
@@ -1055,13 +1056,19 @@ def generate_kpi_graph_for_cohort(cohort=Student.objects.all(), kpis=KPIPair.obj
 
     return data
 
-def generate_sub_pastoral_graph(pastoral_level=PastoralStructure.objects.all(), kpis=StandardisedData.objects.all()):
+
+def generate_sub_pastoral_graph(pastoral_level=PastoralStructure.objects.all()[0], kpis=StandardisedData.objects.all(),
+                                academic_level=AcademicStructure.objects.all()[0]):
     next_levels = pastoral_level.get_children()
 
     data = []
     for group in next_levels:
         students = group.students()
         row = {'group': group}
+
+        # Add the link code
+        row['link'] = reverse('tracker:school_standardised_overview', args=[group.pk, academic_level.pk])
+
         averages = StandardisedResult.objects.filter(student__in=students, standardised_data__in=kpis).aggregate(residual=Avg('residual'))
         row['avg_residual'] = averages['residual']
         data.append(row)
