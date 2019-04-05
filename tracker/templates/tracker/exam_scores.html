@@ -6,49 +6,61 @@
     Editing the scores for {{ student}} of test {{ sitting.exam }} on {{ sitting.datesat }}.
 {% endblock description %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <form method="post">
 {% csrf_token %}
 {{ formset.management_form }}
 {{ formset.media }}
-    <table class="table w-auto">
-        <thead>
-        <tr>
-            <th class="th-sm">Question</th>
-            <th class="th-sm">Maximum score</th>
-            <th class="th-sm">Score</th>
-            <th class="th-sm">Syllabus Points</th>
-            <th class="thlg" style="width: 70%">Notes</th>
-        </tr>
-        </thead>
-
-        <tbody>
+<div>
         {% for question, form in data %}
-            <tr>
-            <td>{{ question }}</td>
-            <td>{{ question.maxscore }}</td>
-            <td {% if form.errors %}class="danger"{% endif %}>
-                {{ form.score }}{{ form.errors }}
-                {% for field in form.hidden_fields %}
+            <div class="card">
+                <h2 class="card-title">
+                    Question {{ question }}
+                </h2>
+
+            <div class="card-body row">
+
+                <div class="col-12">
+                    {% for error in form.score.errors %}
+                        <p class="warn" style="color: red"><strong>{{ error  }}</strong></p>
+                        {% endfor %}
+                </div>
+                <div class="col-sm-1">
+
+                    {{ form.score  }}
+
+                </div>
+
+                <div class="col-sm-1">
+                    / {{ question.maxscore }}
+                </div>
+
+                <div class="col-md-4">
+                    {% for point in question.MPTTsyllabuspoint.all %}
+                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.text }}">{{ point.parent.text }}</button>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-6">
+                    {{ form.notes }}
+                </div>
+                <div class="hidden">
+                    {% for field in form.hidden_fields %}
                     {{ field }}
                 {% endfor %}
-            </td>
-            <td>
-                {% for point in question.MPTTsyllabuspoint.all %}
-                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.text }}">{{ point.number }}</button>
-                    {% endfor %}
-             </td>
+                </div>
+            </div>
+            </div>
 
-            <td>
-                {{ form.notes }}
-            </td>
-            </tr>
         {% endfor %}
-        <tr><td colspan="5"><button class="btn-primary" type="submit">Save</button>
-</td></tr>
-        </tbody>
-    </table>
+
+       <button class="btn-primary" type="submit">Save</button>
+
 </form>
+
+</div>
 <br>
     <br>
     {% endblock content %}

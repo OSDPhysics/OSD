@@ -170,6 +170,7 @@ class ClassGroup(models.Model):
 class TutorGroup(models.Model):
     tgname = models.CharField(max_length=5)
     tgtutor = models.ForeignKey('school.Teacher', on_delete=models.CASCADE, blank=True, null=True)
+    pastoral_link = TreeOneToOneField('school.PastoralStructure', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.tgname
@@ -223,18 +224,14 @@ class SchoolStructure(MPTTModel):
     leaders = models.ManyToManyField(Teacher, blank=True)
     kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
     classgroups = models.ManyToManyField(ClassGroup, blank=True)
+    kpi_pairs = models.ManyToManyField('tracker.KPIPair', blank=True)
+
 
     class Meta:
         abstract = True
 
     def __str__(self):
         return self.name
-
-    def cohort_kpi_av_residual(self, cohort):
-        all_kpis = self.all_kpis()
-
-
-
 
 
 class PastoralStructure(SchoolStructure):

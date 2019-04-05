@@ -995,6 +995,7 @@ class StandardisedResult(models.Model):
     date_created = models.DateField(blank=True, null=True, default=timezone.now)
     reason_created = models.TextField(blank=True, null=True)
     residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    normalised_residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
@@ -1031,11 +1032,36 @@ class StandardisedResult(models.Model):
         return self
 
     def save(self, *args, **kwargs):
-        if self.result:
-            if self.target:
-                self.residual = self.result - self.target
+        self.target = self.find_missing_result_or_target()
+        self.residual = self.calculate_residual()
+        self.normalised_residual = self.calculate_normalised_residual()
 
         super(StandardisedResult, self).save(*args, **kwargs)
+
+    def calculate_residual(self):
+        if self.result:
+            if self.target:
+                return float(self.result) - float(self.target)
+
+    def calculate_normalised_residual(self):
+        if self.residual:
+            return self.residual / float(self.standardised_data.max_value)
+
+
+    def find_missing_result_or_target(self):
+        # Check if this is a result in the kpi_pairs:
+        pairs = KPIPair.objects.filter(student_result=self.standardised_data)
+        for pair in pairs:
+            # Now get the target
+            result_target = pair.sudent_target
+            if StandardisedResult.objects.filter(student=self.student,
+                                                         standardised_data=result_target).exists():
+
+                target_data = StandardisedResult.objects.get(student=self.student,
+                                                         standardised_data=result_target)
+
+                return target_data.result
+
 
 
 class PastStandardisedResult(models.Model):
@@ -1049,3 +1075,17 @@ class PastStandardisedResult(models.Model):
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
+
+
+class KPIPair(models.Model):
+    sudent_target = TreeForeignKey(StandardisedData, on_delete=models.CASCADE, related_name='student_target')
+    student_result = TreeForeignKey(StandardisedData, on_delete=models.CASCADE, related_name='student_result')
+    name = models.CharField(max_length=100, blank=False, null=False)
+
+    def calculate_residual(self, student):
+
+        difference = self.student_taget - self.student_result
+        normalised_difference = difference / self.student_result.standar
+
+    def __str__(self):
+        return self.name
