@@ -176,7 +176,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
         'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
 
-        'width': 500,
+        'width': '100%',
 
         'height': 100,
 

@@ -46,5 +46,30 @@ th.rotate > div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: flex-start;
+    border: 1px
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.contact-form-cntr {
+  width: 100%;
+  border: 1px solid #00426B;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 20px;
+  overflow:auto;
+}
