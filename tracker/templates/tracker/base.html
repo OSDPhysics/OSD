@@ -43,11 +43,18 @@
                     </li>
                 {% endif %}
 
+
+
                 {% if request.user.is_superuser %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Superuser</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'school:school' %}">Whole school</a>
+
+
+                            <a class="dropdown-item" href="{% url 'tracker:school_standardised_data_vs_target' 18 12%}">Y5 WSST Overview</a
+                            >
+
                         </div>
                     </li>
                 {% endif %}

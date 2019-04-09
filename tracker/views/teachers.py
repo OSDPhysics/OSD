@@ -460,21 +460,73 @@ def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
 
     # 1. GET THE SUB-LEVELS FOR EACH REQUESTED VIEW: **
     pastoral_level = PastoralStructure.objects.get(pk=pastoral_pk)
-    pastroal_sub_levels = pastoral_level.get_children()
 
     academic_level = AcademicStructure.objects.get(pk=academic_pk)
-    academic_sub_levels = academic_level.get_children()
 
-    # 2. Get the students for our current level
-    students = Student.objects.filter(classgroups__academicstructure__in=academic_level.get_descendants(include_self=True),
-                                      classgroups__pastoralstructure__in=pastoral_level.get_descendants(include_self=True))
+    return dashboard(request,
+              academic_level=academic_level,
+              pastoral_level=pastoral_level)
 
-    # 3. Generate the average residual for each sub-level
+
+def dashboard(request,
+              student=Student.objects.none(),
+              academic_level=AcademicStructure.objects.none(),
+              pastoral_level=AcademicStructure.objects.none()):
+
+    pastroal_sub_levels = pastoral_level.get_descendants(include_self=True)
+    academic_sub_levels = academic_level.get_descendants(include_self=True)
+
+    if student.exists():
+        # This happens if we've been sent a single student.
+        students = Student.objects.filter(pk=student.pk)
+
+        student_tutorgroup = student.tutorgroup
+        pastoral_level = PastoralStructure.objects.get(name=student_tutorgroup.tgname)
+        academic_level = PastoralStructure.objects.get(name="Garden International School")
+
+
+    else:
+        students = Student.objects.filter(classgroups__academicstructure__in=academic_sub_levels,
+                                          classgroups__pastoralstructure__in=pastroal_sub_levels)
+
+    academic_kpis = academic_level.all_kpis()
+    pastoral_kpis = pastoral_level.all_kpis()
 
     # 4. Grenerate graph data with urls to next view
-    for level in pastroal_sub_levels:
-        row = list([level])
-        row.append()
+    def generate_kpi_radar_data(kpis=StandardisedData.objects.none(), cohort=Student.objects.none()):
+        data = []
+        for kpi in kpis:
+            dataset = StandardisedResult.objects.filter(student__in=cohort, standardised_data=kpi)
+            avgs = dataset.aggregate(av_target=Avg('target'), av_result=Avg('result'))
+            row = []
+            row.append(kpi)
+            row.append(avgs['av_target'])
+            row.append(avgs['av_result'])
+            data.append(row)
+        return data
+
+    def generate_residual_radar_data(pastoral_level=PastoralStructure.objects.none()):
+        pastoral_sub_levels = pastoral_level.get_children()
+        data = []
+        for level in pastoral_sub_levels:
+            row = [level]
+            students = Student.objects.filter(academic_tutorgroup__in=level.get_descendants(include_self=True))
+
+            residual = StandardisedResult.objects.filter(student__in=students).aggregate(average_residual=Avg('residual'))['average_residual']
+            row.append(residual)
+            data.append(row)
+        return data
+
+    academic_data = generate_kpi_radar_data(kpis=academic_kpis, cohort=students)
+
+    pastoral_data = generate_kpi_radar_data(kpis=pastoral_kpis, cohort=students)
+
+    residuals = generate_residual_radar_data(pastoral_level)
+
     # 5. Render the page.
 
-    pass
+    return render(request, 'tracker/cohort_std_data_vs_tgt_plotly.html', {'pastoral_level': pastoral_level,
+                                                                          'academic_level': academic_level,
+                                                                          'academic_data': academic_data,
+                                                                          'pastroal_data': pastoral_data,
+                                                                          'residuals': residuals})

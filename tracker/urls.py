@@ -70,5 +70,7 @@ urlpatterns = [
     path('student/<int:student_pk>/<int:syllabus_pk>', common.student_ratings, name='student_ratings'),
     path('student_standardised/<int:student_pk>', teachers.student_standardised_data, name='student_standardised_data'),
 
-    path('cohort_standardised/<int:cohort_pk>', teachers.cohort_standardised_data_vs_target, name='cohort_std_data_vs_tgt')
+    path('cohort_standardised/<int:cohort_pk>', teachers.cohort_standardised_data_vs_target, name='cohort_std_data_vs_tgt'),
+
+    path('wsst/<int:pastoral_pk>/<int:academic_pk>/' , teachers.school_standardised_data_vs_target, name='school_standardised_data_vs_target'),
 ]

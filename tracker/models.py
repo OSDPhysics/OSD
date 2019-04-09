@@ -1,7 +1,7 @@
 from django.db import models
 from school.models import Student, ClassGroup
 import numpy
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, F
 from ckeditor.fields import RichTextField
 from django.apps import apps
 from datetime import datetime
@@ -987,6 +987,11 @@ class StandardisedData(MPTTModel):
         return data
 
 
+class StandardisedResultQueryset(models.QuerySet):
+    def add_residuals(self, target=StandardisedData.objects.none()):
+        return self.annotate(calc_residual=F('result') - F('target'))
+
+
 class StandardisedResult(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
     standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
@@ -996,6 +1001,8 @@ class StandardisedResult(models.Model):
     reason_created = models.TextField(blank=True, null=True)
     residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     normalised_residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    objects = StandardisedResultQueryset.as_manager()
 
     def __str__(self):
         return self.standardised_data.name + str(self.student) + str(self.result)
