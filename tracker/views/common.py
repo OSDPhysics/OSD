@@ -1,10 +1,3 @@
-from school.models import PastoralStructure, AcademicStructure
-from django.db.models import Sum
-from operator import itemgetter
-import datetime
-
-from tracker.models import *
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from tracker.forms import *
@@ -576,3 +569,112 @@ def student_ratings(request, student_pk, syllabus_pk):
                                                                                'isteacher': isteacher,
                                                                                'classgroups': classgroups,
                                                                                'journal_form': journal_form})
+
+
+@teacher_only
+def student_standardised_data(request, student_pk):
+    student = Student.objects.get(pk=student_pk)
+    standardised_data = []
+
+    pass_parents = StandardisedData.objects.get(name="PASS")
+    pass_data_objects = pass_parents.get_children()
+
+    CAT4_parent = StandardisedData.objects.get(name="CAT4")
+    CAT4_data_objects = CAT4_parent.get_children()
+
+    pass_data = StandardisedResult.objects.filter(student=student, standardised_data__in=pass_data_objects)
+    CAT4_data = StandardisedResult.objects.filter(student=student, standardised_data__in=CAT4_data_objects)
+
+    standardised_data.append(pass_data)
+    standardised_data.append(CAT4_data)
+
+    assessments = Sitting.objects.filter(classgroup__student=student).order_by('datesat').reverse()
+
+    return render(request, 'tracker/student_standardised_overview.html', {'student': student,
+                                                                          'standardised_data': standardised_data,
+                                                                          'assessments': assessments})
+
+
+@teacher_only
+def cohort_standardised_data_vs_target(request, cohort_pk):
+    cohort = Student.objects.all()
+    IGCSE_parent = StandardisedData.objects.get(name="IGCSE Grades")
+    IGCSE_data_objects = IGCSE_parent.get_children()
+
+    IGCSE_graph_data = []
+    for subject in IGCSE_data_objects:
+        row = subject.cohort_target_vs_current_data(cohort)
+        row.append("/" + str(row[0]) + "/")
+        IGCSE_graph_data.append(row)
+
+    return render(request, 'tracker/cohort_std_data_vs_tgt.html', {'IGCSE_graph_data': IGCSE_graph_data})
+
+
+@teacher_only
+def school_standardised_data_vs_target(request, pastoral_pk, academic_pk):
+    """ Display clickable radial graphs for a cohort, as narrowed by both their pastoral and academic position in the data structure. """
+
+
+    # 1. GET THE SUB-LEVELS FOR EACH REQUESTED VIEW: **
+    pastoral_level = PastoralStructure.objects.get(pk=pastoral_pk)
+    pastroal_sub_levels = pastoral_level.get_children()
+
+    academic_level = AcademicStructure.objects.get(pk=academic_pk)
+    academic_sub_levels = academic_level.get_children()
+
+    # 2. Get the students for our current level
+    students = Student.objects.filter(classgroups__academicstructure__in=academic_level.get_descendants(include_self=True),
+                                      tutorgroup__pastoral_link__in=pastoral_level.get_descendants(include_self=True))
+
+    # KPIs for the whole-cohort overview
+
+    pastroal_kpis = KPIPair.objects.filter(pastoralstructure=pastoral_level)
+
+    # KPIs for the individual sub-group residuals:
+    group_kpis=pastoral_level.all_kpis()
+    # 3. Generate the average residual for each sub-level
+
+    # GEnerate graphs:
+    pastoral_data = generate_kpi_graph_for_cohort(students, pastroal_kpis)
+
+    group_breakdown = generate_sub_pastoral_graph(pastoral_level=pastoral_level,
+                                                 kpis=group_kpis,
+                                                  academic_level=academic_level)
+    return render(request, 'tracker/school_overview.html', {'pastoral_level': pastoral_level,
+                                                            'academic_level': academic_level,
+                                                            'pastoral_data': pastoral_data,
+                                                            'group_breakdown': group_breakdown,
+                                                            'pastoral_sub_levels': pastroal_sub_levels})
+
+
+def generate_kpi_graph_for_cohort(cohort=Student.objects.all(), kpis=KPIPair.objects.all()):
+    """ Returns graph data as a list for a KPI pair"""
+    data = []
+    for pair in kpis:
+        row = {'kpi_pair': pair}
+        result = pair.student_result
+        averages = StandardisedResult.objects.filter(student__in=cohort, standardised_data=result).aggregate(avg_tg=Avg('target'), avg_result=Avg('result'))
+        row['avg_target'] = averages['avg_tg']
+        row['avg_result'] = averages['avg_result']
+        data.append(row)
+
+    return data
+
+
+def generate_sub_pastoral_graph(pastoral_level=PastoralStructure.objects.all()[0], kpis=StandardisedData.objects.all(),
+                                academic_level=AcademicStructure.objects.all()[0]):
+    next_levels = pastoral_level.get_children()
+
+    data = []
+    for group in next_levels:
+        students = group.students()
+        row = {'group': group}
+
+        # Add the link code
+        row['link'] = reverse('tracker:school_standardised_overview', args=[group.pk, academic_level.pk])
+
+        averages = StandardisedResult.objects.filter(student__in=students, standardised_data__in=kpis).aggregate(residual=Avg('residual'))
+        row['avg_residual'] = averages['residual']
+        data.append(row)
+
+    return data

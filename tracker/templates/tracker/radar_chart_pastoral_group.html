@@ -8,7 +8,7 @@ var myPastoral_groupChart{{forloop.counter}} = new Chart(ctx, {
     type: 'radar',
     data: {
         labels: [{% for group in chart_data %} "{{group.group }}", {%endfor%}],
-        links: [{% for kpi in chart_data %}"{{kpi.link}}", {% endfor %}],
+        links: [{% for group in chart_data %}"{{group.link}}", {% endfor %}],
         datasets: [{
             label: 'Average Residual',
             data: [{% for group in chart_data %}"{{group.avg_residual }}", {%endfor%}],
@@ -39,12 +39,12 @@ var myPastoral_groupChart{{forloop.counter}} = new Chart(ctx, {
 ctx.onclick = function(evt) {
 
     // => activePoints is an array of points on the canvas that are at the same position as the click event.
-    var activePoint = myPastoral_groupChart.getElementsAtEvent(evt)[0];
+    var activePoint = myPastoral_groupChart{{forloop.counter}}.getElementsAtEvent(evt)[0];
 
     if (activePoint !== undefined) {
-        var dataset = myPastoral_groupChart.data.datasets[activePoint._datasetIndex];
-        var title = myPastoral_groupChart.data.labels[activePoint._index];
-        var myPastoral_groupChart = myPastoral_groupChart.data.links[activePoint._index];
+        var dataset = myPastoral_groupChart{{forloop.counter}}.data.datasets[activePoint._datasetIndex];
+        var title = myPastoral_groupChart{{forloop.counter}}.data.labels[activePoint._index];
+        var link = myPastoral_groupChart.data.links[activePoint._index];
         window.location = link
     }
 
