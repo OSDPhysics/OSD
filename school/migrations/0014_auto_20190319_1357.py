@@ -4,8 +4,8 @@
 from django.db import migrations
 
 def link_tgs(apps, schema_editor):
-    TutorGroup = apps.get_models('school', 'TutorGroup')
-    PastoralStructure = apps.get_models('school', 'PastoralStructure')
+    TutorGroup = apps.get_model('school', 'TutorGroup')
+    PastoralStructure = apps.get_model('school', 'PastoralStructure')
 
     tgs = TutorGroup.objects.all()
     for tg in tgs:

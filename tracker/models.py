@@ -1,5 +1,5 @@
 from django.db import models
-from school.models import Student, ClassGroup
+from school.models import Student, ClassGroup, PastoralStructure, AcademicStructure
 import numpy
 from django.db.models import Sum, Avg, F
 from ckeditor.fields import RichTextField
