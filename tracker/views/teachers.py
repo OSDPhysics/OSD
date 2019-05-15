@@ -517,9 +517,22 @@ def dashboard(request,
             data.append(row)
         return data
 
+    pass_data = StandardisedData.objects.filter(name__contains='PASS')
+    def generate_pass_radar(pass_data=pass_data, cohort=Student.objects.all()):
+        data = []
+        for point in pass_data:
+            row = [point]
+            average_pass = StandardisedResult.objects.filter(student__in=cohort, standardised_data=point).aggregate(result=Avg('result'))['result']
+            row.append(average_pass)
+            data.append(row)
+
+        return data
+
     academic_data = generate_kpi_radar_data(kpis=academic_kpis, cohort=students)
 
     pastoral_data = generate_kpi_radar_data(kpis=pastoral_kpis, cohort=students)
+
+    pass_data = generate_pass_radar(cohort=students)
 
     residuals = generate_residual_radar_data(pastoral_level)
 
@@ -529,4 +542,5 @@ def dashboard(request,
                                                                           'academic_level': academic_level,
                                                                           'academic_data': academic_data,
                                                                           'pastroal_data': pastoral_data,
-                                                                          'residuals': residuals})
+                                                                          'residuals': residuals,
+                                                                          'pass_data': pass_data})

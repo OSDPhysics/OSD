@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from school.models import Student, Teacher, ClassGroup, TutorGroup
+from school.models import Student, Teacher, ClassGroup, TutorGroup, PastoralStructure
 from tracker.models import StandardisedResult, StandardisedData
 import csv
 import codecs
@@ -209,15 +209,20 @@ def addstudent_wsst_data(newstudent):
         # and has been set to the matching student.
         student = Student.objects.get(user=newuser)
 
-    # Set the tutor group:
+    # Set the tutor group using the old method:
     tg, created = TutorGroup.objects.get_or_create(tgname=newstudent['tutorgroup'])
     student.tutorgroup = tg
     student.save()
 
-    # Add student to CLASS GROUP (NOT USER GROUP)
+    # Now do the same with the MPTT model
+    academic_level, created = PastoralStructure.objects.get_or_create(name=newstudent['tutorgroup'])
+    student.academic_tutorgroup = academic_level
+    student.save()
+
+    # Add student to CLASS GROUP (NOT USER GROUP) - old method
     if 'classgroup' in newstudent.keys():
         newclassgroupname = newstudent['classgroup']
-        newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
+        newclassgroup, created = ClassGroup.objects.get_or_create(groupname=newclassgroupname)
         student.classgroups.add(newclassgroup)
 
 

@@ -48,7 +48,7 @@ class ClassGroup(models.Model):
     syllabustaught = models.ManyToManyField('tracker.Syllabus')
     mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
     archived = models.BooleanField(blank=True, default=False)
-
+    academic_position = TreeForeignKey('school.AcademicStructure', null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
@@ -201,6 +201,7 @@ class Student(models.Model):
     learning_support = models.CharField(max_length=5, choices=LS_TYPES, blank=True, null=True)
     eal = models.BooleanField(blank=False, null=False, default=False)
 
+
     def __str__(self):
         space = ' '
         fullname = self.user.first_name + space + self.user.last_name  # + space + '(' + self.tg.tgname + ')'
@@ -220,7 +221,7 @@ class CSVDoc(models.Model):
 
 class SchoolStructure(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    name = models.CharField(max_length=100, blank=False, null=False)
+    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
     leaders = models.ManyToManyField(Teacher, blank=True)
     kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
     classgroups = models.ManyToManyField(ClassGroup, blank=True)
@@ -248,6 +249,7 @@ class PastoralStructure(SchoolStructure):
 
     def students(self):
         return Student.objects.filter(academic_tutorgroup__in=self.get_descendants(include_self=True))
+
 
 
 class AcademicStructure(SchoolStructure):

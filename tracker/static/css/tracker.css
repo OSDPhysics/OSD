@@ -72,4 +72,12 @@ th.rotate > div {
   overflow:auto;
 }
 
+.django-ckeditor-widget {
+    width: 100%;
+    min-width: 300px;
 
+}
+
+.exam-entry-row {
+    text-align: center;
+}

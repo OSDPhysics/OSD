@@ -1,6 +1,7 @@
 {% extends 'tracker/base.html' %}
 {% load staticfiles %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}Set exam scores{% endblock title %}
 {% block description %}
     Editing the scores for {{ student}} of test {{ sitting.exam }} on {{ sitting.datesat }}.
@@ -15,35 +16,36 @@
 {{ formset.media }}
 <div>
         {% for question, form in data %}
-            <div class="card">
+            <div class="card" id="q_{{ forloop.counter }}" max="{{ question.maxscore }}">
+                <div class="max_score" hidden='true'>{{ question.maxscore }}</div>
                 <h2 class="card-title">
                     Question {{ question }}
                 </h2>
 
-            <div class="card-body row">
+            <div class="card-body row exam-entry-row">
 
                 <div class="col-12">
                     {% for error in form.score.errors %}
                         <p class="warn" style="color: red"><strong>{{ error  }}</strong></p>
                         {% endfor %}
                 </div>
-                <div class="col-sm-1">
+                <div class="col-xs-1 markEntry">
 
                     {{ form.score  }}
 
                 </div>
 
-                <div class="col-sm-1">
+                <div class="col-xs-1" max={{ question.maxscore }}>
                     / {{ question.maxscore }}
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-xs-auto">
                     {% for point in question.MPTTsyllabuspoint.all %}
                 <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.text }}">{{ point.parent.text }}</button>
                     {% endfor %}
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col">
                     {{ form.notes }}
                 </div>
                 <div class="hidden">

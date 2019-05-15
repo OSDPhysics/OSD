@@ -14,11 +14,13 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Data
+                            Averages vs. Targets
                         </h2>
-                        <div id="pastoral_data" style="width:600px;height:500px;"></div>
-
-                        <div id="residual_data" style="width:600px;height:500px;"></div>
+                        <div id="pastoral_data" ></div>
+                            Pastoral Residuals
+                        <div id="residual_data" ></div>
+                            PASS Data
+                        <div id="pass_data" ></div>
 
                         <script>
 	pastoral_data = document.getElementById('pastoral_data');
@@ -74,6 +76,32 @@
             }
 
     Plotly.plot("residual_data", data, layout)
+
+</script>
+
+                    <script>
+	pass_data = document.getElementById('pass_data');
+
+	data = [{
+        type: 'scatterpolar',
+        r: [{% for result in pass_data %}'{{ result.1 }}',{% endfor %}],
+        theta: [{% for result in pass_data %}'{{ result.0 }}',{% endfor %}],
+        fill: 'toself',
+        name: 'PASS Data'
+        },
+        ]
+
+    layout = {
+        polar: {
+            radialaxis: {
+                visible: true,
+
+                 }
+                },
+        showlegend: true
+            }
+
+    Plotly.plot("pass_data", data, layout)
 
 </script>
                     </div>
