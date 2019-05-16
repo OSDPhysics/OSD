@@ -81,3 +81,29 @@ th.rotate > div {
 .exam-entry-row {
     text-align: center;
 }
+
+.score-field-warning {
+    color: red;
+}
+
+.score-warning {
+
+    display: none;
+}
+
+.max_score {
+    display: none;
+}
+
+.mark_entry {
+
+}
+
+.last-button {
+    margin: 20px;
+}
+
+.change-warning {
+    position: fixed;
+    z-index: 200;
+}

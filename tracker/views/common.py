@@ -139,7 +139,7 @@ def input_marks(request, sitting_pk, student_pk):
         marks.append(Mark.objects.get_or_create(sitting=sitting, student=student, question=question))
     # Formset to enter the student's mark
     MarkFormset = modelformset_factory(Mark, fields=('score', 'notes'), extra=0, widgets={
-        'score': forms.Textarea(attrs={'rows': 1, 'cols': 2}),
+        'score': forms.Textarea(attrs={'rows': 1, 'cols': 2, 'class': 'mark-box'}),
     })
 
     marks = Mark.objects.filter(student=student, sitting=sitting).order_by('question__qorder')
