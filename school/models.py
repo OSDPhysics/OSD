@@ -219,23 +219,13 @@ class CSVDoc(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
-class SchoolStructure(MPTTModel):
+class PastoralStructure(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     name = models.CharField(max_length=100, blank=False, null=False, unique=True)
     leaders = models.ManyToManyField(Teacher, blank=True)
     kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
     classgroups = models.ManyToManyField(ClassGroup, blank=True)
     kpi_pairs = models.ManyToManyField('tracker.KPIPair', blank=True)
-
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name
-
-
-class PastoralStructure(SchoolStructure):
 
     def all_leaders(self):
         superiors = self.get_ancestors(include_self=True)
@@ -252,7 +242,13 @@ class PastoralStructure(SchoolStructure):
 
 
 
-class AcademicStructure(SchoolStructure):
+class AcademicStructure(MPTTModel):
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    leaders = models.ManyToManyField(Teacher, blank=True)
+    kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
+    classgroups = models.ManyToManyField(ClassGroup, blank=True)
+    kpi_pairs = models.ManyToManyField('tracker.KPIPair', blank=True)
 
     def all_leaders(self):
         superiors = self.get_ancestors(include_self=True)
