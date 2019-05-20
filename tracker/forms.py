@@ -49,7 +49,7 @@ class SetQuestions(forms.ModelForm):
 
     class Media:
         js = (
-            'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'https://code.jquery.com/jquery-3.2.1.min.js',
         )
 
 
