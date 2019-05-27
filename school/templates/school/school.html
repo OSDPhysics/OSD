@@ -1,10 +1,18 @@
 {% extends 'tracker/base.html' %}
-
+{% load mptt_tags %}
 {% block content %}
 
+<h1>School data</h1>
     <body>
         <p>Teacher access to school related data.</p>
+        {% for item  in syllabus %}
+            <p>{{item}}</p>
+                {% for children in parents %}
+                    {% for point in children %}
+                        {{point}}
+                    {% endfor %}
+                {% endfor %}
+        {% endfor %}
     </body>
-
 
 {% endblock content %}

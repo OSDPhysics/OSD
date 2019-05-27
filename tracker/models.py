@@ -1,14 +1,14 @@
 from django.db import models
-from school.models import Student, ClassGroup
+from school.models import Student, ClassGroup, PastoralStructure, AcademicStructure
 import numpy
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, F
 from ckeditor.fields import RichTextField
 from django.apps import apps
 from datetime import datetime
 from django.utils import timezone
 from .charts import StudentSubTopicGraph
 import pytz
-
+from django.utils import timezone
 
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField, TreeManager
 
@@ -699,7 +699,7 @@ class Mark(models.Model):
 
     # Calculated fields
 
-    percent = models.IntegerField(blank=True, null=True, max_length=3)
+    percent = models.IntegerField(blank=True, null=True)
     maximum = models.IntegerField(blank=True, null=True)
     weighted_maximum = models.IntegerField(blank=True, null=True)
     weighted_percent = models.FloatField(blank=True, null=True)
@@ -713,7 +713,7 @@ class Mark(models.Model):
 
 
     def calculate_percentage(self):
-        # TODO: Fix this, as currently a score of 0 is also null!
+
         if self.score:
             percent = round(self.score / self.question.maxscore * 100, 2)
         elif self.score == 0:
@@ -941,9 +941,158 @@ class MPTTRating(models.Model):
     four_to_five = models.IntegerField(null=True, blank=True)
     total_contributions = models.IntegerField(null=False, default=0)
 
-    created = models.DateTimeField(blank=False, null=False, default=datetime.now())
+    created = models.DateTimeField(blank=False, null=False, default=datetime.now)
     reason = models.CharField(blank=False, null=False, default="Assessment", max_length=100)
     assessment = models.ManyToManyField(Sitting)
 
     def __str__(self):
         return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"
+
+
+class StandardisedData(MPTTModel):
+
+    name = models.CharField(max_length=50)
+    max_value = models.DecimalField(max_digits=5, decimal_places=1)
+    min_value = models.DecimalField(max_digits=5, decimal_places=1)
+    step = models.DecimalField(max_digits=5, decimal_places=1)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    quickname = models.CharField(blank=True, null=True, max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    def cohort_average_residual(self, cohort):
+        residuals = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = residuals.aggregate(average=Avg('residual'))
+        return average['average']
+
+    def cohort_average_result(self, cohort):
+        results = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = results.aggregate(average=Avg('result'))
+        return average['average']
+
+
+    def cohort_average_target(self, cohort):
+        results = StandardisedResult.objects.filter(student__in=cohort,
+                                                    standardised_data=self)
+        average = results.aggregate(average=Avg('target'))
+        return average['average']
+
+    def cohort_target_vs_current_data(self, cohort):
+        data = [self,
+                self.cohort_average_target(cohort),
+                self.cohort_average_result(cohort)]
+        return data
+
+
+class StandardisedResultQueryset(models.QuerySet):
+    def add_residuals(self, target=StandardisedData.objects.none()):
+        return self.annotate(calc_residual=F('result') - F('target'))
+
+
+class StandardisedResult(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
+    standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
+    result = models.DecimalField(max_digits=5, decimal_places=1)
+    target = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    date_created = models.DateField(blank=True, null=True, default=timezone.now)
+    reason_created = models.TextField(blank=True, null=True)
+    residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    normalised_residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    objects = StandardisedResultQueryset.as_manager()
+
+    def __str__(self):
+        return self.standardised_data.name + str(self.student) + str(self.result)
+
+    def replace(self,
+                new_result=False,
+                new_target=False,
+                new_date=datetime.today(),
+                new_reason=False):
+
+        PastStandardisedResult.objects.create(
+            student=self.student,
+            standardised_data=self.standardised_data,
+            result=self.result,
+            target=self.target,
+            date_created=self.date_created,
+            reason_created=self.reason_created,
+            residual=self.residual
+        )
+
+        if new_result:
+            self.result = new_result
+
+        if new_date:
+            self.date_created = new_date
+
+        if new_target:
+            self.target = new_target
+
+        if new_reason:
+            self.reason_created = new_reason
+        self.save()
+
+        return self
+
+    def save(self, *args, **kwargs):
+        self.target = self.find_missing_result_or_target()
+        self.residual = self.calculate_residual()
+        self.normalised_residual = self.calculate_normalised_residual()
+
+        super(StandardisedResult, self).save(*args, **kwargs)
+
+    def calculate_residual(self):
+        if self.result:
+            if self.target:
+                return float(self.result) - float(self.target)
+
+    def calculate_normalised_residual(self):
+        if self.residual:
+            return self.residual / float(self.standardised_data.max_value)
+
+
+    def find_missing_result_or_target(self):
+        # Check if this is a result in the kpi_pairs:
+        pairs = KPIPair.objects.filter(student_result=self.standardised_data)
+        for pair in pairs:
+            # Now get the target
+            result_target = pair.sudent_target
+            if StandardisedResult.objects.filter(student=self.student,
+                                                         standardised_data=result_target).exists():
+
+                target_data = StandardisedResult.objects.get(student=self.student,
+                                                         standardised_data=result_target)
+
+                return target_data.result
+
+
+
+class PastStandardisedResult(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
+    standardised_data = TreeForeignKey(StandardisedData, on_delete=models.CASCADE)
+    result = models.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True)
+    target = models.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True)
+    date_created = models.DateField(blank=True, null=True, default=timezone.now)
+    reason_created = models.TextField(blank=True, null=True)
+    residual = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return self.standardised_data.name + str(self.student) + str(self.result)
+
+
+class KPIPair(models.Model):
+    sudent_target = TreeForeignKey(StandardisedData, on_delete=models.CASCADE, related_name='student_target')
+    student_result = TreeForeignKey(StandardisedData, on_delete=models.CASCADE, related_name='student_result')
+    name = models.CharField(max_length=100, blank=False, null=False)
+
+    def calculate_residual(self, student):
+
+        difference = self.student_taget - self.student_result
+        normalised_difference = difference / self.student_result.standar
+
+    def __str__(self):
+        return self.name

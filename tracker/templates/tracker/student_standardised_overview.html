@@ -1,0 +1,58 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+<div class="container" style="display: flex; flex-direction: row; flex-wrap: wrap">
+<div class="card card-sm-6 flex">
+                    <div class="card-body" >
+ <h1>Standadised Overview for {{student }}</h1>
+
+                        <h2 class="card-title text-center">
+                            Standardised Data
+                        </h2>
+
+
+                        {% for data in standardised_data %}
+                        <div>
+                        {% include 'tracker/radar_chart.html' with standardised_data=data %}</div>
+                        {% endfor %}
+
+                    </div>
+
+
+                            <div class="card card-sm-6 flex">
+                    <div class="card-body">
+ <h1>Standadised Overview for {{student }}</h1>
+
+                        <h2 class="card-title text-center">
+                    Assessments
+                        </h2>
+
+                            <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for assessment in assessments %}
+                            <tr>
+                                <td>{{assessment.exam}}</td>
+                                <td>{{assessment.datesat}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+{% endblock script %}

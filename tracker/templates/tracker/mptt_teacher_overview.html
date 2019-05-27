@@ -1,42 +1,52 @@
 {% extends 'tracker/base.html' %}
 
+{% block title %}
+{{ teacher.title }} {{ teacher.user.last_name }}'s Dashboard
+{% endblock title %}
+
 {% block content %}
- <h1>GENERAL TITLE</h1>
- <div class="container">
-        <div class="row">
-            <div class="col xl">
+<div class="container">
+    <div class="row">
+        <div class="col xl">
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="card-title text-center">
+                        Classes taught by {{ teacher.title }} {{ teacher.user.first_name }} {{ teacher.user.last_name }} ({{teacher.staffcode }})
+                    </h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Classgroup</td>
+                            <td>Syllabus(s) Taught</td>
+                            <td>Current Average Rating</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in classgroup_data %}
+                        <tr>
+                            <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ row.0 }}</a><br> {% endfor %} </td>
+                            <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a><br> {% endfor %} </td>
+                            <td>{% for data in row.2 %}
+                                {%  include 'tracker/progressbar.html' %}
 
+                                Average Rating: {{ data.rating }}<br>
 
-                <div class="card card-md">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">
-                            Classes taught by {{ teacher.title }} {{ teacher.user.first_name }} {{ teacher.user.last_name }} ({{teacher.staffcode }}
-                        </h2>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <td>Class code</td>
-                                <td>Syllabus(s) Taught</td>
-                                <td>Current Average Rating</td>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {% for row in classgroup_data %}
-                                <tr>
-                                <td>{{ row.0 }}</td>
-                                    <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a><br> {% endfor %} </td>
-                                <td>{% for data in row.2 %}
-                                    {%  include 'tracker/progressbar.html' %}
-
-                                    Average Rating: {{ data.rating }}<br>
-
-                                    {% endfor %}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    <h2>Assessments</h2>
+                                {% endfor %}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col xl">
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Assessments</h2>
                     <table class="table">
                         <thead>
                         <tr>
@@ -59,12 +69,11 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    </div>
                 </div>
             </div>
         </div>
- </div>
-
+    </div>
+</div>
 
 {% endblock content %}
 

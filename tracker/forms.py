@@ -40,7 +40,7 @@ class SetQuestions(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['qorder', 'qnumber', 'maxscore', 'MPTTsyllabuspoint', 'exam']
-        widgets = { # TODO: any way to filter this?
+        widgets = {
             'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
                                                                forward=['parent'],
                                                                ),
@@ -49,7 +49,7 @@ class SetQuestions(forms.ModelForm):
 
     class Media:
         js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'https://code.jquery.com/jquery-3.2.1.min.js',
         )
 
 

@@ -1,0 +1,118 @@
+{% extends 'tracker/base.html' %}
+{% block import_js %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock import_js %}
+
+
+{% block content %}
+ <h1>Student Cohort Data for {{ pastoral_level }}, {{ academic_level }}</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Averages vs. Targets
+                        </h2>
+                        <div id="pastoral_data" ></div>
+                            Pastoral Residuals
+                        <div id="residual_data" ></div>
+                            PASS Data
+                        <div id="pass_data" ></div>
+
+                        <script>
+	pastoral_data = document.getElementById('pastoral_data');
+
+	data = [{
+        type: 'scatterpolar',
+        r: [{% for result in pastroal_data %}'{{ result.1 }}',{% endfor %}],
+        theta: [{% for result in pastroal_data %}'{{ result.0 }}',{% endfor %}],
+        fill: 'toself',
+        name: 'Targets'
+        },
+        {
+            type: 'scatterpolar',
+            r: [{% for result in pastroal_data %}'{{ result.2 }}',{% endfor %}],
+            theta: [{% for result in pastroal_data %}'{{ result.0 }}',{% endfor %}],
+            fill: 'toself',
+            name: 'Results'
+        }]
+
+    layout = {
+        polar: {
+            radialaxis: {
+                visible: true,
+                range: [60, 140]
+                 }
+                },
+        showlegend: true
+            }
+
+    Plotly.plot("pastoral_data", data, layout)
+
+</script>
+                    <script>
+	residual_data = document.getElementById('residual_data');
+
+	data = [{
+        type: 'scatterpolar',
+        r: [{% for result in residuals %}'{{ result.1 }}',{% endfor %}],
+        theta: [{% for result in residuals %}'{{ result.0 }}',{% endfor %}],
+        fill: 'toself',
+        name: 'Average Residual'
+        },
+        ]
+
+    layout = {
+        polar: {
+            radialaxis: {
+                visible: true,
+
+                 }
+                },
+        showlegend: true
+            }
+
+    Plotly.plot("residual_data", data, layout)
+
+</script>
+
+                    <script>
+	pass_data = document.getElementById('pass_data');
+
+	data = [{
+        type: 'scatterpolar',
+        r: [{% for result in pass_data %}'{{ result.1 }}',{% endfor %}],
+        theta: [{% for result in pass_data %}'{{ result.0 }}',{% endfor %}],
+        fill: 'toself',
+        name: 'PASS Data'
+        },
+        ]
+
+    layout = {
+        polar: {
+            radialaxis: {
+                visible: true,
+
+                 }
+                },
+        showlegend: true
+            }
+
+    Plotly.plot("pass_data", data, layout)
+
+</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}
