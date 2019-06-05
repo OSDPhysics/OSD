@@ -200,7 +200,8 @@ class Student(models.Model):
     academic_tutorgroup = TreeForeignKey('school.PastoralStructure', on_delete=models.SET_NULL, null=True, blank=True)
     learning_support = models.CharField(max_length=5, choices=LS_TYPES, blank=True, null=True)
     eal = models.BooleanField(blank=False, null=False, default=False)
-
+    dob = models.DateField(blank=True, null=True)
+    SIMS_name = models.CharField(blank=True, null=True, max_length=200)
 
     def __str__(self):
         space = ' '
@@ -208,8 +209,10 @@ class Student(models.Model):
         # fullname = 'temporary'
         return fullname
 
-
-
+    def age(self):
+        if self.dob:
+            import datetime
+            return datetime.date.today() - self.dob
 
 # For CSV Imports:
 
