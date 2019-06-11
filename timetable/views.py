@@ -13,20 +13,20 @@ from django.contrib import messages
 
 # Create your views here.
 
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
+def get_monday_date_from_weekno(week_number, year):
+    start_date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=week_number)
     return start_date
 
 
-def get_weekno_from_date(date):
+def get_weekno_from_date(date, year):
 
-    start_year = CALENDAR_START_DATE.isocalendar()[0]
+    start_year = CALENDAR_START_DATE[year].isocalendar()[0]
     date_year = date.isocalendar()[0]
 
     # Find week of the year
 
     date_week = datetime.datetime.now().isocalendar()[1]
-    start_week = CALENDAR_START_DATE.isocalendar()[1]
+    start_week = CALENDAR_START_DATE[year].isocalendar()[1]
     week_number = date_week - start_week
 
     # This is to default to 0 before the school year starts.
@@ -45,8 +45,8 @@ def get_weekno_from_date(date):
         return date_week - start_week
 
 
-def generate_week_grid(teacher, week_number):
-    start_date = get_monday_date_from_weekno(week_number)
+def generate_week_grid(teacher, week_number, year):
+    start_date = get_monday_date_from_weekno(week_number, year)
     next_week = week_number + 1
     if week_number is not 0:
         last_week = week_number - 1
@@ -115,7 +115,7 @@ def generate_week_grid(teacher, week_number):
                         dayrow.append(lesson)
                     except models.ObjectDoesNotExist:
                         from timetable.models import set_classgroups_lesson_dates
-                        set_classgroups_lesson_dates(timetabled_lesson.classgroup)
+                        set_classgroups_lesson_dates(timetabled_lesson.classgroup, year)
                         lesson = Lesson.objects.get(lessonslot=timetabled_lesson, date=current_date)
                         dayrow.append(lesson)
 
@@ -150,29 +150,36 @@ def check_suspension(date, period, classgroup):
 @login_required
 def teacher_splash(request):
     teacher = Teacher.objects.get(user=request.user)
-    today = datetime.datetime.now()
-    week_number = get_weekno_from_date(today)
+    today = datetime.date.today()
+    from .models import get_year_from_date
+    year = get_year_from_date(today)
+    week_number = get_weekno_from_date(today, year)
 
-    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number]))
+    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number, year]))
 
 
 @teacher_only
-def teacher_tt(request, teacher_pk, week_number):
+def teacher_tt(request, teacher_pk, week_number, year):
     teacher = Teacher.objects.get(pk=teacher_pk)
-    start_date = get_monday_date_from_weekno(week_number)
+    start_date = get_monday_date_from_weekno(week_number, year)
     next_week = week_number + 1
+    if get_monday_date_from_weekno(next_week, year) > CALENDAR_END_DATE[year]:
+        next_week = get_weekno_from_date(CALENDAR_START_DATE[year+1])
+
     if week_number is not 0:
         last_week = week_number - 1
+        if get
     else:
         last_week = 0
 
-    weekgrid = generate_week_grid(teacher, week_number)
+    weekgrid = generate_week_grid(teacher, week_number, year)
 
     return render(request, 'timetable/splash.html', {'weekgrid': weekgrid,
                                                      'start_day': start_date,
                                                      'next_week': next_week,
                                                      'last_week': last_week,
-                                                     'teacher': teacher})
+                                                     'teacher': teacher,
+                                                     'year': year})
 
 
 @teacher_or_own_classgroup
@@ -273,11 +280,11 @@ def get_lesson_from_date(classgroup, date):
 
 
 @teacher_only
-def class_lesson_check(request, classgroup_pk):
+def class_lesson_check(request, classgroup_pk, year):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 
-    message = set_classgroups_lesson_dates(classgroup)
+    message = set_classgroups_lesson_dates(classgroup, year)
 
     if message:
         messages.add_message(request, messages.WARNING, message)

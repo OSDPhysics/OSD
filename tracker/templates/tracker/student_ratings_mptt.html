@@ -1,5 +1,5 @@
 {% extends 'tracker/base.html' %}
-
+{% block subtitle %}{{student}} {{syllabus}}{% endblock subtitle %}
 {% block content %}
  <h1>Data for {{ student }} studying {{ syllabus }}</h1>
     {% if parent %}
