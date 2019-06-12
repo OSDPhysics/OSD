@@ -45,10 +45,6 @@ def get_year_from_date(date):
         if CALENDAR_START_DATE[n] <= date <=CALENDAR_END_DATE[n]:
             return n
 
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
-    return start_date
-
 
 def generate_week_grid(teacher, week_number):
     start_date = get_monday_date_from_weekno(week_number)
@@ -135,18 +131,13 @@ def check_suspension(date, period, classgroup):
     return False
 
 
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
-    return start_date
-
-
 class LessonSlot(models.Model):
     day = models.CharField(max_length=10, choices=DAYS, blank=False, null=False)
     period = models.IntegerField(choices=PERIODS, blank=False, null=False)
-    year = models.IntegerField(blank=False, null=True)
+    year = models.IntegerField(blank=False, null=False)
 
     class Meta:
-        unique_together = ['day', 'period']
+        unique_together = ['day', 'period', 'year']
 
     def __str__(self):
         return self.day + " P" + str(self.period)
@@ -470,11 +461,6 @@ class LessonSuspension(models.Model):
         return str(self.date)   +   " " + self.reason
 
 
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
-    return start_date
-
-
 def check_suspension(date, period, classgroup):
     # Check if the whole school is suspended that day:
     day_suspensions = LessonSuspension.objects.filter(date=date)
@@ -544,7 +530,7 @@ def set_classgroups_lesson_dates(classgroup, year):
             if check_suspension(date, period, classgroup):
                 # lesson is suspended, so skip
                 current_slot, current_week = next_lesson(current_slot, current_week)
-                date = CALENDAR_START_DATE + datetime.timedelta(weeks=current_week,
+                date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=current_week,
                                                                 days=slots[current_slot].lesson_slot.dow())
                 continue  # Go back to the start and try again
             else:

@@ -9,49 +9,13 @@ from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
 from django.contrib import messages
+from .functions import get_monday_date_from_weekno, get_weekno_from_date, get_next_tt_week_year
 
 
 # Create your views here.
 
-def get_monday_date_from_weekno(week_number, year):
-    start_date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=week_number)
-    return start_date
-
-
-def get_weekno_from_date(date, year):
-
-    start_year = CALENDAR_START_DATE[year].isocalendar()[0]
-    date_year = date.isocalendar()[0]
-
-    # Find week of the year
-
-    date_week = datetime.datetime.now().isocalendar()[1]
-    start_week = CALENDAR_START_DATE[year].isocalendar()[1]
-    week_number = date_week - start_week
-
-    # This is to default to 0 before the school year starts.
-    if week_number < 0:
-        if start_year == date_year:
-            return 0
-        # This is necessary for school years which span calendar years.
-        else:
-            last_day_of_year = datetime.date(start_year, 12, 30)
-            last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
-            final_timetable_week = last_week_of_year - start_week
-
-            return final_timetable_week + date_week
-
-    else:
-        return date_week - start_week
-
-
 def generate_week_grid(teacher, week_number, year):
     start_date = get_monday_date_from_weekno(week_number, year)
-    next_week = week_number + 1
-    if week_number is not 0:
-        last_week = week_number - 1
-    else:
-        last_week = 0
 
     current_date = start_date
     weekgrid = []
@@ -164,11 +128,12 @@ def teacher_tt(request, teacher_pk, week_number, year):
     start_date = get_monday_date_from_weekno(week_number, year)
     next_week = week_number + 1
     if get_monday_date_from_weekno(next_week, year) > CALENDAR_END_DATE[year]:
-        next_week = get_weekno_from_date(CALENDAR_START_DATE[year+1])
+        next_week = get_weekno_from_date(CALENDAR_START_DATE[year+1], year+1)
 
     if week_number is not 0:
         last_week = week_number - 1
-        if get
+        if get_monday_date_from_weekno(last_week, year) < CALENDAR_START_DATE[year]:
+            last_week = get_monday_date_from_weekno(CALENDAR_END_DATE, year-1)
     else:
         last_week = 0
 
