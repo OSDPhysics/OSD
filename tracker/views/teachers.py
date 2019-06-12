@@ -353,7 +353,10 @@ def new_teacher_overview(request, teacher_pk):
         row.append(progress_dics)
         classgroup_data.append(row)
 
-    sittings = Sitting.objects.filter(classgroup__in=classgroups).order_by('datesat').reverse()
+    sittings = Sitting.objects.\
+        filter(classgroup__in=classgroups,
+               classgroup__archived=False).\
+        order_by('datesat').reverse()
 
     return render(request, "tracker/mptt_teacher_overview.html", {'teacher': teacher,
                                                                   'classgroups': classgroups,

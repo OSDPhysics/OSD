@@ -140,7 +140,7 @@ class LessonSlot(models.Model):
         unique_together = ['day', 'period', 'year']
 
     def __str__(self):
-        return self.day + " P" + str(self.period)
+        return self.day + " P" + str(self.period) + " " + str(self.year)
 
     def dow(self):
         """Return the day of the week"""
@@ -341,7 +341,7 @@ class Lesson(models.Model):
         max = following_lessons.aggregate(Max('sequence'))
 
         if max['sequence__max'] is not None:
-            self.sequence = max['sequence__max'] + 1
+            self.sequence = max['sequence__max'] + 10
             self.save()
             for lesson in following_lessons:
                 lesson.sequence = lesson.sequence - 1
@@ -483,9 +483,10 @@ def check_suspension(date, period, classgroup):
     return False
 
 
-def set_classgroups_lesson_dates(classgroup, year):
+def set_classgroups_lesson_dates(classgroup):
     # slots must be ordered for it to work - weirdly this doesn't happen on local!
     slots = TimetabledLesson.objects.filter(classgroup=classgroup).order_by('lesson_slot')
+    year = classgroup.year_taught
 
     total_slots = slots.count() - 1  # index 0
 
@@ -497,6 +498,7 @@ def set_classgroups_lesson_dates(classgroup, year):
 
     def next_lesson(current_slot, current_week, reset=False):
         if current_slot == total_slots:
+        # Occurs if the last slot we filled was the last of the weeek
             current_slot = 0
             current_week = current_week + 1
 
@@ -510,6 +512,7 @@ def set_classgroups_lesson_dates(classgroup, year):
         return current_slot, current_week
 
     date = CALENDAR_START_DATE[year]
+    # We start at the beginning of the school year
     current_week, current_slot = next_lesson(current_week, current_slot, True)
 
     while date < CALENDAR_END_DATE[year]:
@@ -562,7 +565,7 @@ def set_classgroups_lesson_dates(classgroup, year):
                         if clashing_lesson.date:
                             clashing_lesson.date = clashing_lesson.date + datetime.timedelta(weeks=1000)
                         else:
-                            clashing_lesson.date = CALENDAR_START_DATE + datetime.timedelta(weeks=1000)
+                            clashing_lesson.date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=1000)
                         clashing_lesson.save()
                     lesson.save()  # Finally save our original lesson
 
@@ -575,12 +578,13 @@ def set_classgroups_lesson_dates(classgroup, year):
     next_lesson(current_week, current_slot, True)
 
     # clean up any lessons beyond end date
-    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE, classgroup=lesson.classgroup)
-    for lesson in overshot_lessons:
-        if not lesson.lesson_title:  # only delete unwritten lessons
-            lesson.delete()
+    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE[year], classgroup=lesson.classgroup)
 
-        else:
-            message = "Warning! Your scheduled lessons extend beyond the last day of term."
+    # Delete only unwritten lessons
+    overshot_lessons.filter(lesson_title__isnull=True).delete()
+
+    # Check if any are left - this means that some had titles
+    if Lesson.objects.filter(date__gte=CALENDAR_END_DATE[year], classgroup=lesson.classgroup).count():
+        message = "Warning! Your scheduled lessons extend beyond the last day of term."
 
     return message

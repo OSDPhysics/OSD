@@ -1,6 +1,6 @@
 from django.test import TestCase
 import datetime
-from .functions import get_next_tt_week_year, get_monday_date_from_weekno
+from .functions import get_next_tt_week_year, get_monday_date_from_weekno, get_previous_tt_week_year
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 # Create your tests here.
 
@@ -57,3 +57,23 @@ class Get_next_TT_WW_TestCase(TestCase):
         next_week = get_next_tt_week_year(start_week, start_year)
 
         self.assertEqual(next_week, (0, 1))
+
+
+class Get_last_TT_WW_TestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_no_year_change(self):
+        start_week = 4
+        start_year = 0
+        next_week = get_previous_tt_week_year(start_week, start_year)
+
+        self.assertEqual(next_week, (3, 0))
+
+    def test_end_of_year_change(self):
+        start_week = 0 # There are 44 weeks in our school year
+        start_year = 1
+
+        next_week = get_previous_tt_week_year(start_week, start_year)
+
+        self.assertEqual(next_week, (44, 0))

@@ -5,6 +5,7 @@ from django.apps import apps
 from numpy import average
 from itertools import chain
 from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey, TreeOneToOneField
+from osd.settings.base import ACADEMIC_YEARS
 
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
@@ -49,10 +50,14 @@ class ClassGroup(models.Model):
     mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
     archived = models.BooleanField(blank=True, default=False)
     academic_position = TreeForeignKey('school.AcademicStructure', null=True, on_delete=models.SET_NULL)
+    year_taught = models.IntegerField(null=False, blank=False)
+    rollover_classgroup = models.ForeignKey('school.ClassGroup', blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
-        return self.groupname
+
+        return self.groupname + " " +\
+               ACADEMIC_YEARS[self.year_taught]
 
     def assessments(self):
 

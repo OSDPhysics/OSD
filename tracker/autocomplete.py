@@ -64,7 +64,8 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
         qs = ClassGroup.objects.all()
 
         if self.q:
-            qs = qs.filter(groupname__icontains=self.q)
+            qs = qs.filter(groupname__icontains=self.q,
+                           archived=False)
 
         return qs
 

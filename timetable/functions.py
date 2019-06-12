@@ -1,5 +1,5 @@
 import datetime
-from osd.settings.base import CALENDAR_END_DATE, CALENDAR_START_DATE
+from osd.settings.base import CALENDAR_END_DATE, CALENDAR_START_DATE, CALENDAR_TOTAL_WEEKS
 
 def get_monday_date_from_weekno(week_number, year):
     start_date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=week_number)
@@ -40,6 +40,13 @@ def get_next_tt_week_year(week, year):
     else:
         return 0, year + 1
 
+
+def get_previous_tt_week_year(week, year):
+    week = week - 1
+    if get_monday_date_from_weekno(week, year) > CALENDAR_START_DATE[year]:
+        return week, year
+    else:
+        return int(CALENDAR_TOTAL_WEEKS[year - 1]), year - 1
 
 
 def check_suspension(date, period, classgroup):

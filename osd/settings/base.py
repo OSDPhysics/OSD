@@ -191,7 +191,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-# For error messages in bootstrap:
+# ACADEMIC YEAR SETUP
 
 # These lists should be for each academic year, in the following format:
 
@@ -201,20 +201,40 @@ CALENDAR_START_MONDAY_DAY = [20, 19]
 CALENDAR_START_MONTH = [8, 8]
 CALENDAR_START_YEAR = [2018, 2019]
 
-CALENDAR_END_MONDAY_DAY = [1,1]
-CALENDAR_END_MONTH = [7, 7]
+CALENDAR_END_DAY = [29, 1]
+CALENDAR_END_MONTH = [6, 7]
 CALENDAR_END_YEAR = [2019, 2020]
+
+
+
+ACADEMIC_YEARS = {0: "2018-19",
+                  1: "2019-20"}
+
+# AUTOMATIC academic year setup - do not edit.
 
 CALENDAR_START_DATE = []
 CALENDAR_END_DATE = []
 
+CURRENT_ACADEMIC_YEAR = 0
+PRINTABLE_CUR_A_YEAR = ACADEMIC_YEARS[CURRENT_ACADEMIC_YEAR]
+
 n = 0
-for day in CALENDAR_END_MONDAY_DAY:
+for day in CALENDAR_END_DAY:
 
     CALENDAR_START_DATE.append(datetime.date(CALENDAR_START_YEAR[n], CALENDAR_START_MONTH[n], CALENDAR_START_MONDAY_DAY[n]))
 
-    CALENDAR_END_DATE.append(datetime.date(CALENDAR_END_YEAR[n], CALENDAR_END_MONTH[n], CALENDAR_END_MONDAY_DAY[n]))
+    CALENDAR_END_DATE.append(datetime.date(CALENDAR_END_YEAR[n], CALENDAR_END_MONTH[n], CALENDAR_END_DAY[n]))
     n = n+1
+
+CALENDAR_TOTAL_WEEKS = []
+n = 0
+for day in CALENDAR_START_DATE:
+    monday1 = (CALENDAR_START_DATE[n] - datetime.timedelta(days=CALENDAR_START_DATE[n].weekday()))
+    monday2 = (CALENDAR_END_DATE[n] - datetime.timedelta(days=CALENDAR_END_DATE[n].weekday()))
+    CALENDAR_TOTAL_WEEKS.append((monday2 - monday1).days / 7)
+
+
+# For error messages in bootstrap:
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
