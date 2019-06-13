@@ -258,6 +258,9 @@ class AcademicStructure(MPTTModel):
     classgroups = models.ManyToManyField(ClassGroup, blank=True)
     kpi_pairs = models.ManyToManyField('tracker.KPIPair', blank=True)
 
+    def __str__(self):
+        return self.name
+
     def all_leaders(self):
         superiors = self.get_ancestors(include_self=True)
         return Teacher.objects.filter(academicstructure__leaders__in=superiors)
