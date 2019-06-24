@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from school.models import Teacher, ClassGroup
 from tracker.models import MPTTSyllabus
+from tracker.tests import createSimpleSyllabus
+
 
 # Create your tests here.
 
@@ -19,8 +21,18 @@ def setUpTeacher():
     return teacher
 
 
-def setUpSyllabus():
-    top_level = MPTTSyllabus.objects.create()
+def setUpClassGroup():
+    group, created = ClassGroup.objects. \
+        get_or_create(groupname='Test Group',
+                      defaults={
+                          'groupteacher': setUpTeacher(),
+                          'year_taught': 1})
+
+    createSimpleSyllabus()
+
+    syllabus = MPTTSyllabus.objects.get(text='S1: Top Level')
+    group.mptt_syllabustaught.add(syllabus)
+    return group
 
 
 class TeacherTestCase(TestCase):
@@ -34,6 +46,9 @@ class TeacherTestCase(TestCase):
 
 
 class ClassGroupTestCase(TestCase):
-    def setUp(sefl):
-        teacher = setUpTeacher()
+    def setUp(self):
+        setUpClassGroup()
 
+    def test_name(self):
+        group = ClassGroup.objects.get(groupname='Test Group')
+        self.assertEqual(str(group), 'Test Group 2019-20')

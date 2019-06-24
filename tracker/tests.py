@@ -2,14 +2,18 @@ from django.test import TestCase
 from tracker.models import MPTTSyllabus
 # Create your tests here.
 
+def createSimpleSyllabus():
+    top, created = MPTTSyllabus.objects.get_or_create(text='S1: Top Level')
+    sibling, created = MPTTSyllabus.objects.get_or_create(text='S2: Top level')
+    top_child, created = MPTTSyllabus.objects.get_or_create(text='S1: First Child',
+                                            parent=top)
+    sibling_child, created = MPTTSyllabus.objects.get_or_create(text='S2: First Child',
+                                                parent=sibling)
+
+
 class SyllabusCheck(TestCase):
     def setUp(self):
-        top = MPTTSyllabus.objects.create(text='S1: Top Level')
-        sibling = MPTTSyllabus.objects.create(text='S2: Top level')
-        top_child = MPTTSyllabus.objects.create(text='S1: First Child',
-                                                parent=top)
-        sibling_child = MPTTSyllabus.objects.create(text='S2: First Child',
-                                                    parent=sibling)
+        createSimpleSyllabus()
 
     def test_get_descendants(self):
         """ Name prints as expected """

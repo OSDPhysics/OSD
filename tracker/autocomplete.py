@@ -63,6 +63,16 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = ClassGroup.objects.all()
 
+        if self.forwarded.get('syllabus', None):
+            syllabus_pk = self.forwarded.get('parent', None)
+            qs = qs.filter(mptt_syllabustaught__pk=syllabus_pk)
+
+        if self.forwarded.get('include_archived', None):
+            qs.filter(archived=False)
+
+        else:
+            qs.filter(archived=True)
+
         if self.q:
             qs = qs.filter(groupname__icontains=self.q,
                            archived=False)
