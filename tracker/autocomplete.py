@@ -55,6 +55,7 @@ class MPTTSyllabusAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -67,15 +68,11 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
             syllabus_pk = self.forwarded.get('parent', None)
             qs = qs.filter(mptt_syllabustaught__pk=syllabus_pk)
 
-        if self.forwarded.get('include_archived', None):
+        if not self.forwarded.get('include_archived', None):
             qs.filter(archived=False)
 
-        else:
-            qs.filter(archived=True)
-
         if self.q:
-            qs = qs.filter(groupname__icontains=self.q,
-                           archived=False)
+            qs = qs.filter(groupname__icontains=self.q)
 
         return qs
 
