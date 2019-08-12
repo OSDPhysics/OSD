@@ -1,7 +1,7 @@
 
 
 {% extends 'tracker/base.html' %}
-
+{% load mptt_tags %}
 {% block content %}
 
         <div class="container">
@@ -10,32 +10,33 @@
 
         <div class="container">
 
-                <h3>These are the syllabuses we currently work with:</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Exam Level</th>
-                            <th>Exam Board</th>
-                            <th>Syllabus Name</th>
-                        </tr>
-                    </thead>
+                <h3>Explore our syllabuses here.</h3>
+                <ul class="mptt_tree">
+                    {% recursetree syllabuses %}
+                        <li {% if node.is_leaf_node %} class="no-children"{% endif %}>{% if not node.is_leaf_node %}
+                            <input type="checkbox" name={{ node.pk }} id="{{ node.pk }}" class="syllabus-checkbox">
+                            <span class="caret">
+                            <label for="{{ node.pk }}">{{ node.text }}</label>
+                            </span>
+                            {% else %}
+                            <span class="no-children">{{ node.text }}</span>
 
-                        {% for syllabus in syllabuses%}
-                        <tr>
-                            <td>{{syllabus.examtype}}</td>
-                            <td>{{syllabus.board}}</td>
-                            <td><a href="{% url 'syllabuses' %}/{{ syllabus.pk }}">{{syllabus.syllabusname}}</a></td>
-                        </tr>
-                        {% endfor %}
-                </table>
+                            {% endif %}
+                            {% if not node.is_leaf_node %}
+                                <ul class="has-children nested">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                </ul>
 
 
 
         </div>
-        <script type="text/JavaScript">
 
-        $(document).ready(function() {
-            $('.xeditable').editable();
-        });
-        </script>
+{% endblock %}
+{% block script %}
+    {% load static %}
+    <script src="{% static "tracker/collapse_list_view.js" %}"></script>
 {% endblock %}
