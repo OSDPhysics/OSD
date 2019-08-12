@@ -45,7 +45,7 @@ def add_test(request):
 
 @teacher_only
 def list_syllabuses(request):
-    syllabuses = Syllabus.objects.order_by('examtype')
+    syllabuses = MPTTSyllabus.objects.all()
     return render(request, 'tracker/syllabus.html', {'syllabuses': syllabuses})
 
 

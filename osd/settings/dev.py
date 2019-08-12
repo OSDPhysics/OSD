@@ -13,8 +13,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'greenpen_dev',
         'USER': 'greenpen',
-        'PASSWORD': 'OArFj4vztKbQBf2J6U',
+        'PASSWORD': 'OArFj5vznKbFBf2J6U',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }

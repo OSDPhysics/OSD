@@ -42,8 +42,11 @@ RESOURCE_TYPES = (
 
 def get_year_from_date(date):
     for n in range(len(CALENDAR_START_DATE)):
-        if CALENDAR_START_DATE[n] <= date <=CALENDAR_END_DATE[n]:
+        if CALENDAR_START_DATE[n] <= date <= CALENDAR_END_DATE[n]:
             return n
+    # we'll only reach this if no date matches; this occurs
+    # in the gap between school years.
+    return len(CALENDAR_START_DATE) - 1  # since lists start at 0 and len is an absolute number!
 
 
 def generate_week_grid(teacher, week_number):
@@ -435,7 +438,6 @@ class LessonResources(models.Model):
                 self.mptt_syllabus_points.add(point)
 
 
-
 class LessonSuspension(models.Model):
     """Store suspensions and missing lessons"""
     whole_school = models.BooleanField(default=True)
@@ -458,7 +460,7 @@ class LessonSuspension(models.Model):
         return self
 
     def __str__(self):
-        return str(self.date)   +   " " + self.reason
+        return str(self.date) + " " + self.reason
 
 
 def check_suspension(date, period, classgroup):
@@ -498,7 +500,7 @@ def set_classgroups_lesson_dates(classgroup):
 
     def next_lesson(current_slot, current_week, reset=False):
         if current_slot == total_slots:
-        # Occurs if the last slot we filled was the last of the weeek
+            # Occurs if the last slot we filled was the last of the weeek
             current_slot = 0
             current_week = current_week + 1
 
@@ -524,7 +526,8 @@ def set_classgroups_lesson_dates(classgroup):
             lesson = Lesson.objects.create(sequence=current_lesson, classgroup=classgroup,
                                            lessonslot=slots[current_slot])
 
-        date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=current_week, days=slots[current_slot].lesson_slot.dow())
+        date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=current_week,
+                                                              days=slots[current_slot].lesson_slot.dow())
 
         period = slots[current_slot].lesson_slot.period
 
@@ -534,7 +537,7 @@ def set_classgroups_lesson_dates(classgroup):
                 # lesson is suspended, so skip
                 current_slot, current_week = next_lesson(current_slot, current_week)
                 date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=current_week,
-                                                                days=slots[current_slot].lesson_slot.dow())
+                                                                      days=slots[current_slot].lesson_slot.dow())
                 continue  # Go back to the start and try again
             else:
 
