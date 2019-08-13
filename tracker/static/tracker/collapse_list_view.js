@@ -17,7 +17,7 @@ for (j=0; j < points.length; j++) {
       var child_points = parent.getElementsByTagName("input");
       var l;
 
-      // Check all children
+      // When we check a box, check all children
       if(this.checked === true){
           this.classList.add("checked");
           for(l = 0; l < child_points.length; l++){
@@ -25,13 +25,25 @@ for (j=0; j < points.length; j++) {
           child_points[l].classList.add("checked")
       }}
 
-      // uncheck all children
+      // When we uncheck a box...
       if (this.checked === false) {
           this.classList.remove("checked");
-      for(l = 0; l < child_points.length; l++){
-          child_points[l].checked = false;
-          child_points[l].classList.remove("checked")
+          // Clear all the parents (setIndeterminate will set them to indeterminate)
+          var unchecked_parents = $(this).parent().parents();
+          var parent_checkboxes = unchecked_parents.filter('li');
+          var m;
+          for (m = 0; m < parent_checkboxes.length; m++) {
+              var parent_boxes = parent_checkboxes[m].children[0];
+              parent_boxes.checked = false;
+              parent_boxes.indeterminate = false;
+              parent_boxes.classList.remove("checked")
           }
+
+          // Uncheck all children
+          for(l = 0; l < child_points.length; l++){
+              child_points[l].checked = false;
+              child_points[l].classList.remove("checked")
+              }
       setIndeterminate()
       }
 
@@ -46,8 +58,7 @@ for (j=0; j < points.length; j++) {
           }
 
       // clear the indeterminates if all children are also checkedd
-
-
+          setIndeterminate()
       }
     });
 }
@@ -56,19 +67,38 @@ function setIndeterminate() {
     var checkboxes = document.getElementsByClassName("syllabus-checkbox");
     var p;
     for (p = 0; p < checkboxes.length; p++) {
-    var current_box = checkboxes[p];
+        var current_box = checkboxes[p];
 
-    var all_selected = current_box.parentElement.querySelectorAll('.checked');
-    if(all_selected.length) {
-        current_box.indeterminate = true;
-        current_box.checked = false;
-        current_box.classList.remove('checked');
-    }
-    else{
-        current_box.indeterminate = false;
+        if(current_box.checked) {
+            continue;
+        }
 
+        var all_selected = current_box.parentElement.getElementsByClassName('checked');
+        var all_children = current_box.parentElement.getElementsByClassName("syllabus-checkbox");
+
+        // Ticked if all the children are ticked.
+
+
+        if(all_selected.length) {
+
+            if (all_selected.length === all_children.length - 1) {
+                current_box.indeterminate = false;
+                current_box.checked = true;
+                current_box.classList.add('checked');
+
+            } else {
+                current_box.indeterminate = true;
+                current_box.checked = false;
+                current_box.classList.remove('checked');
+
+            }
+        }
+
+        else{
+            current_box.indeterminate = false;
+
+        }
     }
-}
 
 
 }
