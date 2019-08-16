@@ -4,17 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Timetable is now compatible with multiple academic years!">
-      <change afterPath="$PROJECT_DIR$/.idea/OSD.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tracker/templates/tracker/mpttselect.html" afterDir="false" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Checkbox select now working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/static/tracker/collapse_list_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/tracker/collapse_list_view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osd/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/prod.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,12 +79,12 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="prod" />
+        <entry key="$PROJECT_DIR$" value="beta" />
       </map>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -138,19 +130,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/osd/settings" />
-      <recent name="$PROJECT_DIR$/school/templates/school" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
+      <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/school/templates/school" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -320,20 +312,6 @@
       <updated>1525734200755</updated>
       <workItem from="1565668778093" duration="352000" />
       <workItem from="1565685689147" duration="15147000" />
-    </task>
-    <task id="LOCAL-00094" summary="Timetabling beta release">
-      <created>1536743876561</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1536743876561</updated>
-    </task>
-    <task id="LOCAL-00095" summary="temp bugbix">
-      <created>1536744785554</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1536744785554</updated>
     </task>
     <task id="LOCAL-00096" summary="temp bugbix">
       <created>1536744973284</created>
@@ -664,7 +642,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565689271329</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="Corrected static root">
+      <created>1565931837387</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1565931837387</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Corrected static root">
+      <created>1565932002521</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932002522</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TodoView">
@@ -707,7 +699,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Minor bugfix" />
     <MESSAGE value="Fix for lesson deletion and sequencing" />
     <MESSAGE value="resource links now open in new window" />
     <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
@@ -732,7 +723,8 @@
     <MESSAGE value="Made academic structures display their names in str()" />
     <MESSAGE value="Started work on being able to search for and copy lessons from another classgroup." />
     <MESSAGE value="Treeview javascript now fully working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Treeview javascript now fully working" />
+    <MESSAGE value="Corrected static root" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected static root" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
