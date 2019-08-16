@@ -87,6 +87,9 @@ class CustomModelChoiceIterator(forms.models.ModelChoiceIterator):
 class CustomModelChoiceField(TreeNodeMultipleChoiceField):
     level_indicator = ""
 
+    def _get_level_indicator(self, obj):
+        return ""
+
     def _get_choices(self):
         if hasattr(self, '_choices'):
             return self._choices

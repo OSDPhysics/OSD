@@ -17,7 +17,7 @@ class LessonForm(forms.ModelForm):
         #     'mptt_syllabus_points': forms.CheckboxSelectMultiple(),
         # }
 
-        field_classes = {'mptt_syllabus_points': CustomModelChoiceField(level_indicator="", queryset=MPTTSyllabus.objects.all(), widget=forms.CheckboxSelectMultiple),}
+        field_classes = {'mptt_syllabus_points': CustomModelChoiceField}
 
     class Media:
         js = (
