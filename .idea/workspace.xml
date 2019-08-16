@@ -4,8 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Checkbox select now working">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
       <change beforePath="$PROJECT_DIR$/osd/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/prod.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -312,27 +311,6 @@
       <updated>1525734200755</updated>
       <workItem from="1565668778093" duration="352000" />
       <workItem from="1565685689147" duration="15147000" />
-    </task>
-    <task id="LOCAL-00096" summary="temp bugbix">
-      <created>1536744973284</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1536744973284</updated>
-    </task>
-    <task id="LOCAL-00097" summary="temp bugbix">
-      <created>1536745125082</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1536745125082</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Begin working on copy lessons">
-      <created>1536808076668</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1536808076668</updated>
     </task>
     <task id="LOCAL-00099" summary="Lessons can now be copied. TODO: work around copying onto an existing lesson.">
       <created>1536829547737</created>
@@ -656,7 +634,28 @@
       <option name="project" value="LOCAL" />
       <updated>1565932002522</updated>
     </task>
-    <option name="localTasksCounter" value="145" />
+    <task id="LOCAL-00145" summary="Corrected allowed hosts">
+      <created>1565932333308</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932333308</updated>
+    </task>
+    <task id="LOCAL-00146" summary="Corrected allowed hosts">
+      <created>1565932405592</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932405592</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Corrected allowed hosts">
+      <created>1565932482456</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932482456</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TodoView">
@@ -699,7 +698,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Fix for lesson deletion and sequencing" />
     <MESSAGE value="resource links now open in new window" />
     <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
     <MESSAGE value="Added the ability to move and insert lessons" />
@@ -724,7 +722,8 @@
     <MESSAGE value="Started work on being able to search for and copy lessons from another classgroup." />
     <MESSAGE value="Treeview javascript now fully working" />
     <MESSAGE value="Corrected static root" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected static root" />
+    <MESSAGE value="Corrected allowed hosts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected allowed hosts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
