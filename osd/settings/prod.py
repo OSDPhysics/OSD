@@ -3,7 +3,7 @@ from .secret import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.greenpen.net',
+ALLOWED_HOSTS = [
                  'greenpen.net'
 ]
 
