@@ -18,9 +18,42 @@
                         {{ lesson_form.lesson_title | as_crispy_field:"bootstrap"  }}
                         {{ lesson_form.description | as_crispy_field:"bootstrap"  }}
                         {{ lesson_form.requirements | as_crispy_field:"bootstrap"  }}
-Search for syllabus points within:
-                        {{ parent_form | crispy  }}
-                        {{ lesson_form.mptt_syllabus_points | as_crispy_field:"bootstrap"  }}
+<ul class="mptt_tree">
+    {% for value, label, point in lesson_form.mptt_syllabus_points.field.choices %}
+
+                            {% if not point.is_leaf_node %}
+                                    <li class="no-children">
+                                    <input type="checkbox" name="mptt_syllabus_points" value="{{ point.pk}}" id="mptt_syllabus_points_{{ point.pk }}" class="syllabus-checkbox" {% if point in lesson.mptt_syllabus_points.all %}checked="checked"{% endif %}>
+                                    <span class="caret">
+                                    <label for="mptt_syllabus_points_{{ point.pk }}"></label>{{ label }}
+                                    </span>
+                                    <ul class="has-children nested">
+
+                            {% else %}
+                                    <li>
+                                    <span class="no-children">
+                                    <input type="checkbox" name="mptt_syllabus_points"  value="{{ point.pk }}"class="syllabus-checkbox {% if point in lesson.mptt_syllabus_points.all %}checked" checked="checked" {% else %}"{% endif %}>
+                                    <label for="mptt_syllabus_points_{{ point.pk }}"></label>{{ label }}</span>
+                                    </li>
+
+                                    {% if not point.get_next_sibling.pk %}
+                                        </li></ul>
+                                        {% if not point.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                            {% if not point.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                            {% if not point.parent.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                                {% if not point.parent.parent.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                        {% endif %}
+                                                {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                            {% endif %}
+                    {% endfor %}
+
 
 <p>
                         {% for resource in  lesson.resources.all %}
@@ -53,4 +86,7 @@ Search for syllabus points within:
 
 {% block script %}
 {{ lesson_form.media }}
+    {% load static %}
+        <script src="{% static "tracker/collapse_list_view.js" %}"></script>
+
 {% endblock script %}

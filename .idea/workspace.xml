@@ -7,8 +7,14 @@
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Timetable is now compatible with multiple academic years!">
       <change afterPath="$PROJECT_DIR$/.idea/OSD.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tracker/templates/tracker/mpttselect.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tracker/static/tracker/collapse_list_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/tracker/collapse_list_view.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,8 +72,10 @@
     </expand>
     <select />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="OSD" is-module-sdk="true">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+    <option name="myUseModuleSdk" value="true" />
+    <option name="myModuleName" value="OSD" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -77,43 +85,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>def student_sub</find>
-      <find>check</find>
-      <find>comple</find>
-      <find>sub_</find>
-      <find>backends</find>
-      <find>scores</find>
-      <find>messa</find>
-      <find>font</find>
-      <find>save</find>
-      <find>set_sylla</find>
-      <find>toolb</find>
-      <find>def save</find>
-      <find>suspension</find>
-      <find>suspend</find>
-      <find>multiple</find>
-      <find>class Stu</find>
-      <find>SIM</find>
-      <find>class Student</find>
-      <find>.now</find>
-      <find>MPTTS</find>
-      <find>CALEN</find>
-      <find>url</find>
-      <find>year</find>
-      <find>TimeTabledL</find>
-      <find>class Time</find>
-      <find>splash</find>
-      <find>teacher</find>
-      <find>previous</find>
-      <find>class Academi</find>
-      <find>edit</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>td</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -161,24 +132,25 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/templates/tracker" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
+      <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/school/templates/school" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/osd/settings" />
-      <recent name="$PROJECT_DIR$/school/templates/school" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -347,14 +319,7 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
       <workItem from="1565668778093" duration="352000" />
-      <workItem from="1565685689147" duration="2726000" />
-    </task>
-    <task id="LOCAL-00093" summary="Timetabling beta release">
-      <created>1536743613876</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1536743613876</updated>
+      <workItem from="1565685689147" duration="15147000" />
     </task>
     <task id="LOCAL-00094" summary="Timetabling beta release">
       <created>1536743876561</created>
@@ -692,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561366160832</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="Treeview javascript now fully working">
+      <created>1565689271329</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1565689271329</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="TodoView">
@@ -735,7 +707,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Modified SyllabusTopic to show syllabus name, allowing easier editing in Admin interface.&#10;Started ensuring that suspensions work for non whole-school, non all-day suspensions." />
     <MESSAGE value="Minor bugfix" />
     <MESSAGE value="Fix for lesson deletion and sequencing" />
     <MESSAGE value="resource links now open in new window" />
@@ -760,7 +731,8 @@
     <MESSAGE value="Timetable is now compatible with multiple academic years!" />
     <MESSAGE value="Made academic structures display their names in str()" />
     <MESSAGE value="Started work on being able to search for and copy lessons from another classgroup." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started work on being able to search for and copy lessons from another classgroup." />
+    <MESSAGE value="Treeview javascript now fully working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Treeview javascript now fully working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -797,6 +769,7 @@
     <watches-manager>
       <configuration name="Python.DjangoServer">
         <watch expression="current_date" language="Python" />
+        <watch expression="lesson" />
       </configuration>
     </watches-manager>
   </component>

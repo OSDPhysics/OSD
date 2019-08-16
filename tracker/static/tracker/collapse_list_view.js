@@ -70,6 +70,7 @@ function setIndeterminate() {
         var current_box = checkboxes[p];
 
         if(current_box.checked) {
+            current_box.classList.remove("nested");
             continue;
         }
 
@@ -96,6 +97,7 @@ function setIndeterminate() {
 
         else{
             current_box.indeterminate = false;
+            current_box.classList.remove("nested")
 
         }
     }
@@ -103,4 +105,6 @@ function setIndeterminate() {
 
 }
 
-document.onload = setIndeterminate;
+window.onload = function(){
+    setIndeterminate();
+}

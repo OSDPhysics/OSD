@@ -547,3 +547,9 @@ def dashboard(request,
                                                                           'pastroal_data': pastoral_data,
                                                                           'residuals': residuals,
                                                                           'pass_data': pass_data})
+
+
+@admin_only
+def mpttselect(request):
+    form = mpttSyllabusPointSelect()
+    return render(request, 'tracker/mpttselect.html', {'form': form})
