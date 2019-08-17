@@ -179,35 +179,27 @@ def addstudent_wsst_data(newstudent):
     # Test to see whether the user exists yet
 
     newuser, created = User.objects.get_or_create(username=newstudent['student_id'],
+                                                  defaults={'email': str(newstudent['student_id']),
+                                                            'first_name': newstudent['first_name'],
+                                                            'last_name': newstudent['last_name']}
                                                  )
+    print(newuser)
 
     # created will be true if the user didn't already exist.
 
-    if created:
 
-        # New user won't have a password yet
-        # newuser.set_password("asdfoiqwefasidofu298bfkajs")
-        newuser.email = str(newstudent['student_id']) + "@gardenschool.edu.my"
-        newuser.first_name = newstudent['first_name']
-        newuser.last_name = newstudent['last_name']
-        newuser.save()
 
-        # Place new user in the Students Auth group
+    # Place new user in the Students Auth group
 
-        students_user_group = Group.objects.get(name='Students')
-        students_user_group.user_set.add(newuser)
+    students_user_group = Group.objects.get(name='Students')
+    students_user_group.user_set.add(newuser)
 
-        student = Student.objects.create(user=newuser,
-                                         # Gender=newstudent['Gender'],
-                                         idnumber=newstudent['student_id'],
-                                         year=int(newstudent['year'])
-
+    student, created = Student.objects.get_or_create(user=newuser,
+                                         defaults={'Gender': newstudent['Gender'],
+                                         'idnumber': newstudent['student_id'],
+                                         'year': int(newstudent['year'])}
                                          )
-    else:
-        # This will execute if 'created' is False
-        # which would mean that the student already existed
-        # and has been set to the matching student.
-        student = Student.objects.get(user=newuser)
+
 
     # Set the tutor group using the old method:
     tg, created = TutorGroup.objects.get_or_create(tgname=newstudent['tutorgroup'])
@@ -224,6 +216,7 @@ def addstudent_wsst_data(newstudent):
         newclassgroupname = newstudent['classgroup']
         newclassgroup, created = ClassGroup.objects.get_or_create(groupname=newclassgroupname)
         student.classgroups.add(newclassgroup)
+
 
 
     # Add the students standardised data:

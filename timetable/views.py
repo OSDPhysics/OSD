@@ -3,55 +3,20 @@ from .models import *
 from school.models import Teacher
 from django.contrib.auth.decorators import login_required
 from osd.settings.base import CALENDAR_START_DATE
-from timetable.forms import LessonCopyForm, LessonForm, AddLessonSuspensions, LessonResourceForm
+from timetable.forms import LessonCopyForm, LessonForm, AddLessonSuspensions, LessonResourceForm, LessonSearchForm
 from tracker.forms import MPTTSyllabusForm
 from osd.decorators import *
 import datetime
 from django.http import HttpResponseForbidden
 from django.contrib import messages
+from .functions import get_monday_date_from_weekno, get_weekno_from_date, get_next_tt_week_year, \
+    get_previous_tt_week_year
 
 
 # Create your views here.
 
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
-    return start_date
-
-
-def get_weekno_from_date(date):
-
-    start_year = CALENDAR_START_DATE.isocalendar()[0]
-    date_year = date.isocalendar()[0]
-
-    # Find week of the year
-
-    date_week = datetime.datetime.now().isocalendar()[1]
-    start_week = CALENDAR_START_DATE.isocalendar()[1]
-    week_number = date_week - start_week
-
-    # This is to default to 0 before the school year starts.
-    if week_number < 0:
-        if start_year == date_year:
-            return 0
-        # This is necessary for school years which span calendar years.
-        else:
-            last_day_of_year = datetime.date(start_year, 12, 30)
-            last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
-            final_timetable_week = last_week_of_year - start_week
-
-            return final_timetable_week + date_week
-
-    else:
-        return date_week - start_week
-
-
-def generate_week_grid(teacher, week_number):
-    start_date = get_monday_date_from_weekno(week_number)
-    next_week = week_number + 1
-    if week_number is not 0:
-        last_week = week_number - 1
-    else:
-        last_week = 0
+def generate_week_grid(teacher, week_number, year):
+    start_date = get_monday_date_from_weekno(week_number, year)
 
     current_date = start_date
     weekgrid = []
@@ -75,7 +40,7 @@ def generate_week_grid(teacher, week_number):
                     # fill the day row with the suspension objects
                     weekgrid.append([day[0], suspension, suspension, suspension, suspension])
                     current_date = current_date + datetime.timedelta(days=1)
-                    continue # Starts the next day in the loop
+                    continue  # Starts the next day in the loop
 
         dayrow = [day_text]
 
@@ -83,20 +48,22 @@ def generate_week_grid(teacher, week_number):
             # Check if that period is whole-school suspended:
             check = suspensions.filter(period=period[0]).filter(whole_school=True)
             if check.exists():
-                dayrow.append(check[0])  # Add that the day is suspended
+                dayrow.append(check[0])  # Add that the lesson is suspended
 
                 continue
 
             try:
-                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0],
-                                                                 classgroup__groupteacher=teacher,
-                                                                 lesson_slot__period=period[0])
+                timetabled_lesson = TimetabledLesson.objects \
+                    .get(lesson_slot__day=day[0],
+                         classgroup__groupteacher=teacher,
+                         lesson_slot__period=period[0],
+                         lesson_slot__year=year)
             except TimetabledLesson.DoesNotExist:
                 dayrow.append("Free")
                 timetabled_lesson = "Free"
 
             if timetabled_lesson != "Free":
-                # We still dont' want to display suspended lessons.
+                # We might have suspended just this classgroup
                 check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
                 if check.exists():
                     dayrow.append(check)
@@ -150,29 +117,33 @@ def check_suspension(date, period, classgroup):
 @login_required
 def teacher_splash(request):
     teacher = Teacher.objects.get(user=request.user)
-    today = datetime.datetime.now()
-    week_number = get_weekno_from_date(today)
+    today = datetime.date.today()
+    from .models import get_year_from_date
+    year = get_year_from_date(today)
+    week_number = get_weekno_from_date(today, year)
 
-    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number]))
+    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number, year]))
 
 
 @teacher_only
-def teacher_tt(request, teacher_pk, week_number):
+def teacher_tt(request, teacher_pk, week_number, year):
     teacher = Teacher.objects.get(pk=teacher_pk)
-    start_date = get_monday_date_from_weekno(week_number)
-    next_week = week_number + 1
-    if week_number is not 0:
-        last_week = week_number - 1
-    else:
-        last_week = 0
+    start_date = get_monday_date_from_weekno(week_number, year)
+    next_week, next_year = get_next_tt_week_year(week_number, year)
 
-    weekgrid = generate_week_grid(teacher, week_number)
+    last_week, last_year = get_previous_tt_week_year(week_number, year)
+    weekgrid = generate_week_grid(teacher, week_number, year)
 
-    return render(request, 'timetable/splash.html', {'weekgrid': weekgrid,
-                                                     'start_day': start_date,
-                                                     'next_week': next_week,
-                                                     'last_week': last_week,
-                                                     'teacher': teacher})
+    return render(request,
+                  'timetable/splash.html',
+                  {'weekgrid': weekgrid,
+                   'start_day': start_date,
+                   'next_week': next_week,
+                   'next_year': next_year,
+                   'last_week': last_week,
+                   'last_year': last_year,
+                   'teacher': teacher,
+                   'year': year})
 
 
 @teacher_or_own_classgroup
@@ -181,7 +152,7 @@ def class_lesson_list(request, classgroup_pk):
     lessons = Lesson.objects.filter(lessonslot__classgroup=classgroup_pk).order_by("sequence")
 
     # Check for any lessons beyond end date
-    overshot_lessons = Lesson.objects.filter(date__gt=CALENDAR_END_DATE, classgroup=classgroup).count()
+    overshot_lessons = Lesson.objects.filter(date__gt=CALENDAR_END_DATE[classgroup.year_taught], classgroup=classgroup).count()
     if overshot_lessons:
         messages.add_message(request, messages.WARNING, 'Lessons exist past end of school year.')
 
@@ -273,11 +244,11 @@ def get_lesson_from_date(classgroup, date):
 
 
 @teacher_only
-def class_lesson_check(request, classgroup_pk):
+def class_lesson_check(request, classgroup_pk, year):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 
-    message = set_classgroups_lesson_dates(classgroup)
+    message = set_classgroups_lesson_dates(classgroup, year)
 
     if message:
         messages.add_message(request, messages.WARNING, message)
@@ -373,6 +344,7 @@ def edit_lesson(request, lesson_pk):
     lesson = Lesson.objects.get(pk=lesson_pk)
     lesson_form = LessonForm(instance=lesson)
     parent_form = MPTTSyllabusForm()
+    lesson_search_form = LessonSearchForm()
     if request.method == 'POST':
         lesson_form = LessonForm(request.POST, instance=lesson)
         if lesson_form.is_valid():
@@ -388,7 +360,8 @@ def edit_lesson(request, lesson_pk):
             messages.add_message(request, messages.ERROR, 'Please correct the errors below')
     return render(request, 'timetable/edit_lesson.html', {'lesson_form': lesson_form,
                                                           'lesson': lesson,
-                                                          'parent_form': parent_form})
+                                                          'parent_form': parent_form,
+                                                          'lesson_search_form': lesson_search_form})
 
 
 @teacher_only

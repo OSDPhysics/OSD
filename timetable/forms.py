@@ -3,27 +3,21 @@ from dal import autocomplete
 from django.forms.widgets import CheckboxSelectMultiple
 from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from school.models import ClassGroup
-from mptt.forms import TreeNodeMultipleChoiceField
-
+from tracker.forms import CustomModelChoiceField
 from timetable.models import Lesson, LessonResources
 
 
 class LessonForm(forms.ModelForm):
-
     class Meta:
         model = Lesson
-        fields = ["lesson_title",  'syllabus', 'description', 'requirements', 'syllabus_points_covered', 'mptt_syllabus_points']
+        fields = ["lesson_title", 'syllabus', 'description', 'requirements', 'syllabus_points_covered',
+                  'mptt_syllabus_points']
 
         # widgets = {
-        #     'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
-        #                                                                   url='tracker:syllabus-autocomplete2',
-        #                                                                   forward=('syllabus',))
+        #     'mptt_syllabus_points': forms.CheckboxSelectMultiple(),
         # }
 
-        widgets = {
-             'mptt_syllabus_points': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
-                                                                       forward=('parent', ))
-         }
+        field_classes = {'mptt_syllabus_points': CustomModelChoiceField}
 
     class Media:
         js = (
@@ -37,7 +31,24 @@ class LessonCopyForm(forms.Form):
                                         )
     lesson_to_copy_to = forms.ModelChoiceField(Lesson.objects.all(),
                                                widget=autocomplete.ModelSelect2(url='tracker:lesson_autocomplete',
-                                                                               forward=('classgroup', )))
+                                                                                forward=('classgroup',)))
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+        )
+
+
+class LessonSearchForm(forms.Form):
+    syllabus = forms.ModelChoiceField \
+        (MPTTSyllabus.objects.all(),
+         widget=autocomplete.ModelSelect2 \
+             (url='tracker:mptt_syllabus_autocomplete'))
+    include_archived = forms.BooleanField()
+    classgroup = forms.ModelChoiceField \
+        (ClassGroup.objects.all(),
+         widget=autocomplete.ModelSelect2(url='tracker:classgroups-autocomplete',
+         forward=('syllabus', 'include_archived')))
 
     class Media:
         js = (
@@ -47,6 +58,7 @@ class LessonCopyForm(forms.Form):
 
 class LessonResourceForm(forms.ModelForm):
     """ Resource linked to a particular lesson """
+
     class Meta:
         model = LessonResources
         fields = {'resource_type',
@@ -59,7 +71,6 @@ class LessonResourceForm(forms.ModelForm):
 
 
 class ResourceNoLessonForm(forms.Form):
-
     """ Resource that can be viewed by all students, not linked to a lesson """
 
     class Meta:
@@ -69,11 +80,13 @@ class ResourceNoLessonForm(forms.Form):
                   'link',
                   }
 
-class AddLessonSuspensions(forms.Form):
 
+class AddLessonSuspensions(forms.Form):
     reason = forms.CharField(max_length=100, required=True)
     all_classgroups = ClassGroup.objects.all()
     start_date = forms.DateField(label='Start date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
-    end_date = forms.DateField(label = 'End date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
-    whole_school = forms.BooleanField(label = 'Whole school?', required=False)
-    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:classgroups-autocomplete'), queryset=all_classgroups, required=False)
+    end_date = forms.DateField(label='End date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
+    whole_school = forms.BooleanField(label='Whole school?', required=False)
+    classgroups = forms.ModelMultipleChoiceField(
+        widget=autocomplete.ModelSelect2Multiple(url='tracker:classgroups-autocomplete'), queryset=all_classgroups,
+        required=False)

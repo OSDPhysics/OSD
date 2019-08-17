@@ -45,7 +45,7 @@ def add_test(request):
 
 @teacher_only
 def list_syllabuses(request):
-    syllabuses = Syllabus.objects.order_by('examtype')
+    syllabuses = MPTTSyllabus.objects.all()
     return render(request, 'tracker/syllabus.html', {'syllabuses': syllabuses})
 
 
@@ -353,7 +353,10 @@ def new_teacher_overview(request, teacher_pk):
         row.append(progress_dics)
         classgroup_data.append(row)
 
-    sittings = Sitting.objects.filter(classgroup__in=classgroups).order_by('datesat').reverse()
+    sittings = Sitting.objects.\
+        filter(classgroup__in=classgroups,
+               classgroup__archived=False).\
+        order_by('datesat').reverse()
 
     return render(request, "tracker/mptt_teacher_overview.html", {'teacher': teacher,
                                                                   'classgroups': classgroups,
@@ -544,3 +547,9 @@ def dashboard(request,
                                                                           'pastroal_data': pastoral_data,
                                                                           'residuals': residuals,
                                                                           'pass_data': pass_data})
+
+
+@admin_only
+def mpttselect(request):
+    form = mpttSyllabusPointSelect()
+    return render(request, 'tracker/mpttselect.html', {'form': form})

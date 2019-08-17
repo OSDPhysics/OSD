@@ -4,60 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Updated migrations to correctly convert TutorGroups">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exambuilder/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exambuilder/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exambuilder/migrations/0002_question_syllabus.py" beforeDir="false" afterPath="$PROJECT_DIR$/exambuilder/migrations/0002_question_syllabus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/journal/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/journal/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/journal/migrations/0002_auto_20190308_1413.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/school/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0002_auto_20190308_1413.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0003_auto_20190311_1441.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0004_auto_20190312_1301.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0005_auto_20190315_1212.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0006_student_academic_tutorgroup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0007_auto_20190318_1355.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0008_auto_20190318_1357.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0009_auto_20190318_1550.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0010_auto_20190319_1234.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0011_tutorgroup_pastoral_link.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0012_auto_20190319_1349.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0013_auto_20190319_1357.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0014_auto_20190319_1357.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0015_auto_20190411_0850.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0016_classgroup_academic_position.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0017_auto_20190411_0900.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0018_auto_20190411_0906.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/migrations/0019_auto_20190411_1125.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/school/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teachnet/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/teachnet/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0002_auto_20190308_1414.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0003_auto_20190308_1415.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0004_auto_20190311_1505.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0005_auto_20190311_1518.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0006_auto_20190312_1301.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0007_auto_20190315_1212.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0008_auto_20190318_1037.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0009_auto_20190318_1051.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0010_auto_20190318_1052.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0011_auto_20190318_1055.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0012_auto_20190318_1057.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0013_auto_20190318_1058.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0014_auto_20190318_1350.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0015_auto_20190318_1355.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0016_auto_20190318_1357.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0017_auto_20190318_1550.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0018_auto_20190318_1550.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0019_auto_20190318_1559.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0020_auto_20190319_0755.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0021_auto_20190319_0756.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0022_auto_20190319_1025.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/migrations/0023_kpipair_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/views/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/common.py" afterDir="false" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
+      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.idea/shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +14,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/OSD$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1558079653912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_MPTTSyllabusTestCase.coverage" NAME="Test: tracker.tests.MPTTSyllabusTestCase Coverage Results" MODIFIED="1559874661072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck_test_get_siblings.coverage" NAME="Test: tracker.tests.SyllabusCheck.test_get_siblings Coverage Results" MODIFIED="1559878732328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1561363184525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__tracker.coverage" NAME="Test: tracker Coverage Results" MODIFIED="1559874393874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__school_tests_ClassGroupTestCase.coverage" NAME="Test: school.tests.ClassGroupTestCase Coverage Results" MODIFIED="1561360833659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__school_tests_TeacherTestCase_test_correct_display_name.coverage" NAME="Test: school.tests.TeacherTestCase.test_correct_display_name Coverage Results" MODIFIED="1559872563852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__school.coverage" NAME="Test: school Coverage Results" MODIFIED="1559871601778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck_test_correct_display_name.coverage" NAME="Test: tracker.tests.SyllabusCheck.test_correct_display_name Coverage Results" MODIFIED="1559878659339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck.coverage" NAME="Test: tracker.tests.SyllabusCheck Coverage Results" MODIFIED="1561362616209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__timetable.coverage" NAME="Test: timetable Coverage Results" MODIFIED="1560320979500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests_TimetabledLessonTestCase.coverage" NAME="Test: timetable.tests.TimetabledLessonTestCase Coverage Results" MODIFIED="1561362182169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/OSD$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1552878229951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests_GetMondayDateFromWeekNoTestCase.coverage" NAME="Test: timetable.tests.GetMondayDateFromWeekNoTestCase Coverage Results" MODIFIED="1560925625629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests.coverage" NAME="Test: timetable.tests Coverage Results" MODIFIED="1561363215798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -102,186 +63,10 @@
     </expand>
     <select />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="OSD" is-module-sdk="true">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1478086331">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="13" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.11" value="2" />
-          <entry key="project.open.time.132" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.18" value="2" />
-          <entry key="project.open.time.31" value="2" />
-          <entry key="project.open.time.4" value="3" />
-          <entry key="project.open.time.53" value="1" />
-          <entry key="project.open.time.56" value="1" />
-          <entry key="project.open.time.60" value="1" />
-          <entry key="project.open.time.65" value="1" />
-          <entry key="project.open.time.69" value="1" />
-          <entry key="project.opened" value="17" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="3" />
-          <entry key="gitignore" value="5" />
-          <entry key="html" value="84" />
-          <entry key="py" value="319" />
-          <entry key="sh" value="4" />
-          <entry key="test" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Bash" value="3" />
-          <entry key="CSS" value="3" />
-          <entry key="HTML" value="84" />
-          <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="319" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Django Console" value="2323" />
-          <entry key="css" value="70" />
-          <entry key="html" value="2202" />
-          <entry key="py" value="12063" />
-          <entry key="py@OSD" value="385" />
-          <entry key="sh" value="635" />
-          <entry key="txt" value="1012" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Bash" value="2" />
-          <entry key="CSS" value="70" />
-          <entry key="CommandLine" value="345" />
-          <entry key="HTML" value="2202" />
-          <entry key="PLAIN_TEXT" value="1685" />
-          <entry key="Python" value="14386" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.vcs.git.usages">
-        <counts>
-          <entry key="git.branch.checkout.local" value="13" />
-          <entry key="git.branch.checkout.remote" value="1" />
-          <entry key="git.branch.create.new" value="3" />
-          <entry key="git.branch.delete.local" value="5" />
-          <entry key="git.branch.delete.remote" value="2" />
-          <entry key="git.branch.merge" value="10" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="1479733857">
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="html" value="16" />
-          <entry key="py" value="24" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="16" />
-          <entry key="Python" value="24" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Django Console" value="398" />
-          <entry key="html" value="372" />
-          <entry key="py" value="2463" />
-          <entry key="py@OSD" value="11" />
-          <entry key="txt" value="94" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="CommandLine" value="11" />
-          <entry key="HTML" value="372" />
-          <entry key="PLAIN_TEXT" value="94" />
-          <entry key="Python" value="2861" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.28" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.vcs.git.usages">
-        <counts>
-          <entry key="git.branch.checkout.local" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="-676451803">
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="html" value="2" />
-          <entry key="py" value="3" />
-          <entry key="txt" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="2" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.28" value="1" />
-          <entry key="project.open.time.51" value="1" />
-          <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="html" value="18" />
-          <entry key="py" value="162" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="HTML" value="18" />
-          <entry key="Python" value="162" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/osd/settings/dev.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tracker/static/css/tracker.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="107" column="16" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <option name="myUseModuleSdk" value="true" />
+    <option name="myModuleName" value="OSD" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -292,125 +77,21 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>delete</find>
-      <find>overshot</find>
-      <find>delete()</find>
-      <find>super().</find>
-      <find>def icon</find>
-      <find>Lesson.objects.create</find>
-      <find>Max</find>
-      <find>clashing_lessons</find>
-      <find>class_lesson</find>
-      <find>Resource</find>
-      <find>class LessonRE</find>
-      <find>lesson_li</find>
-      <find>StudentSubTopic</find>
-      <find>rating =</find>
-      <find>def student_sub</find>
-      <find>check</find>
-      <find>comple</find>
-      <find>sub_</find>
-      <find>backends</find>
-      <find>scores</find>
-      <find>messa</find>
-      <find>font</find>
-      <find>save</find>
-      <find>set_sylla</find>
-      <find>toolb</find>
-      <find>def save</find>
-      <find>suspension</find>
-      <find>suspend</find>
-      <find>multiple</find>
-      <find>class Stu</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>td</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="JWR" />
+        <entry key="$PROJECT_DIR$" value="beta" />
       </map>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list.html" />
-        <option value="$PROJECT_DIR$/school/templates/school/splash_student.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/classgroup_lesson_list_student.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/confirm_delete.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/move_lesson.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/teacher_lesson_details.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/student_lesson_details.html" />
-        <option value="$PROJECT_DIR$/bin/beta-update.sh" />
-        <option value="$PROJECT_DIR$/osd/app.py" />
-        <option value="$PROJECT_DIR$/osd/__init__.py" />
-        <option value="$PROJECT_DIR$/tracker/apps.py" />
-        <option value="$PROJECT_DIR$/tracker/__init__.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/classgroup_all_syllabus_completion.html" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/classgroup_syllabus_completion.html" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/classgroup_topic_completion.html" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/classgroup_sub_topic_completion.html" />
-        <option value="$PROJECT_DIR$/school/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/osd/urls.py" />
-        <option value="$PROJECT_DIR$/tracker/signals.py" />
-        <option value="$PROJECT_DIR$/timetable/apps.py" />
-        <option value="$PROJECT_DIR$/timetable/__init__.py" />
-        <option value="$PROJECT_DIR$/timetable/signals.py" />
-        <option value="$PROJECT_DIR$/tracker/autocomplete.py" />
-        <option value="$PROJECT_DIR$/timetable/admin.py" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/edit_resource.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/splash.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" />
-        <option value="$PROJECT_DIR$/timetable/urls.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/new_sitting.html" />
-        <option value="$PROJECT_DIR$/timetable/templates/timetable/create_multiple_day_suspensions.html" />
-        <option value="$PROJECT_DIR$/timetable/forms.py" />
-        <option value="$PROJECT_DIR$/timetable/views.py" />
-        <option value="$PROJECT_DIR$/timetable/models.py" />
-        <option value="$PROJECT_DIR$/osd/settings/secret_dev.py" />
-        <option value="$PROJECT_DIR$/tracker/urls.py" />
-        <option value="$PROJECT_DIR$/tracker/views.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/radar_chart_pastoral_group.html" />
-        <option value="$PROJECT_DIR$/tracker/models.py" />
-        <option value="$PROJECT_DIR$/school/migrations/0014_auto_20190319_1357.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/base.html" />
-        <option value="$PROJECT_DIR$/school/functions/adddata.py" />
-        <option value="$PROJECT_DIR$/school/signals.py" />
-        <option value="$PROJECT_DIR$/school/migrations/0017_auto_20190411_0900.py" />
-        <option value="$PROJECT_DIR$/tracker/views/teachers.py" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/cohort_std_data_vs_tgt_plotly.html" />
-        <option value="$PROJECT_DIR$/tracker/templates/tracker/exam_scores.html" />
-        <option value="$PROJECT_DIR$/osd/settings/base.py" />
-        <option value="$PROJECT_DIR$/tracker/static/css/tracker.css" />
-        <option value="$PROJECT_DIR$/school/models.py" />
-        <option value="$PROJECT_DIR$/tracker/views/common.py" />
-        <option value="$PROJECT_DIR$/osd/settings/dev.py" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="777" />
-  </component>
+  <component name="ProjectId" id="1PM0g0pISccgXWMJbsqR9QhVfdU" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -431,130 +112,36 @@
     </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="osd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="osd" type="462c0819:PsiDirectoryNode" />
-              <item name="settings" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="school" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OSD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OSD" type="462c0819:PsiDirectoryNode" />
-              <item name="tracker" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="OSD" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="OSD" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="osd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="OSD" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="osd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="OSD" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="tracker" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="OSD" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="tracker" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="migrations" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/timetable/templates/timetable/confirm_delete.html&#10;student_profile&#9;null&#9;null&#10;ckedi&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/static/ckeditor&#10;base.html&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/tracker/templates/tracker/base.html" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="Data for class&#9;null&#9;null&#10;student_profile&#9;null&#9;null&#10;ckedi&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/static/ckeditor&#10;base.html&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/tracker/templates/tracker/base.html" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/templates/tracker" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/osd/settings" />
-      <recent name="$PROJECT_DIR$/school/templates/school" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
+      <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/school/templates/school" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -569,8 +156,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Django server.OSD">
-    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Django server.Dev Server">
+    <configuration name="Test: school.tests.ClassGroupTestCase" type="DjangoTestsConfigurationType" temporary="true">
       <module name="OSD" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -578,30 +165,108 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tracker" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tracker/views.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="TARGET" value="school.tests.ClassGroupTestCase" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="OSD" type="Python.DjangoServer" factoryName="Django server">
+    <configuration name="Test: timetable.tests" type="DjangoTestsConfigurationType" temporary="true">
       <module name="OSD" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="osd.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="timetable.tests" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: timetable.tests.GetMondayDateFromWeekNoTestCase" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="timetable.tests.GetMondayDateFromWeekNoTestCase" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: timetable.tests.TimetabledLessonTestCase" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="timetable.tests.TimetabledLessonTestCase" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: tracker.tests.SyllabusCheck" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="tracker.tests.SyllabusCheck" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Dev Server" type="Python.DjangoServer" factoryName="Django server">
+      <module name="OSD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="osd.settings.dev" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -617,16 +282,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django server.OSD" />
-      <item itemvalue="Python.views" />
+      <item itemvalue="Django server.Dev Server" />
+      <item itemvalue="Django tests.Test: school.tests.ClassGroupTestCase" />
+      <item itemvalue="Django tests.Test: timetable.tests" />
+      <item itemvalue="Django tests.Test: timetable.tests.GetMondayDateFromWeekNoTestCase" />
+      <item itemvalue="Django tests.Test: timetable.tests.TimetabledLessonTestCase" />
+      <item itemvalue="Django tests.Test: tracker.tests.SyllabusCheck" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.views" />
+        <item itemvalue="Django tests.Test: timetable.tests" />
+        <item itemvalue="Django tests.Test: tracker.tests.SyllabusCheck" />
+        <item itemvalue="Django tests.Test: timetable.tests.TimetabledLessonTestCase" />
+        <item itemvalue="Django tests.Test: school.tests.ClassGroupTestCase" />
+        <item itemvalue="Django tests.Test: timetable.tests.GetMondayDateFromWeekNoTestCase" />
       </list>
     </recent_temporary>
   </component>
@@ -640,118 +309,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Added new icons for resource types">
-      <created>1535362511987</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1535362511987</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Refactored icon generating function">
-      <created>1535961844920</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1535961844920</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1535965922769</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1535965922769</updated>
-    </task>
-    <task id="LOCAL-00087" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1536137958865</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1536137958865</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1536224951169</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1536224951169</updated>
-    </task>
-    <task id="LOCAL-00089" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1536310405173</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1536310405173</updated>
-    </task>
-    <task id="LOCAL-00090" summary="Timetabling beta release">
-      <created>1536740312389</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1536740312390</updated>
-    </task>
-    <task id="LOCAL-00091" summary="Timetabling beta release">
-      <created>1536741861731</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1536741861731</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Timetabling beta release">
-      <created>1536743214236</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1536743214236</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Timetabling beta release">
-      <created>1536743613876</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1536743613876</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Timetabling beta release">
-      <created>1536743876561</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1536743876561</updated>
-    </task>
-    <task id="LOCAL-00095" summary="temp bugbix">
-      <created>1536744785554</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1536744785554</updated>
-    </task>
-    <task id="LOCAL-00096" summary="temp bugbix">
-      <created>1536744973284</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1536744973284</updated>
-    </task>
-    <task id="LOCAL-00097" summary="temp bugbix">
-      <created>1536745125082</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1536745125082</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Begin working on copy lessons">
-      <created>1536808076668</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1536808076668</updated>
-    </task>
-    <task id="LOCAL-00099" summary="Lessons can now be copied. TODO: work around copying onto an existing lesson.">
-      <created>1536829547737</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1536829547737</updated>
+      <workItem from="1565668778093" duration="352000" />
+      <workItem from="1565685689147" duration="15147000" />
     </task>
     <task id="LOCAL-00100" summary="Minor bugfix">
       <created>1536887259809</created>
@@ -984,13 +543,120 @@
       <option name="project" value="LOCAL" />
       <updated>1554942926055</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Updated migrations to correctly convert TutorGroups">
+      <created>1559715355772</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1559715355773</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Added logic for importing from SIMS">
+      <created>1559715452388</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1559715452388</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Started adding tests">
+      <created>1559891772938</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1559891772939</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Started adding year function to timetable">
+      <created>1560246109378</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1560246109378</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Added unit tests for refactored helper functions.">
+      <created>1560318502858</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1560318502858</updated>
+    </task>
+    <task id="LOCAL-00138" summary="Timetable is now compatible with multiple academic years!">
+      <created>1560332235515</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1560332235515</updated>
+    </task>
+    <task id="LOCAL-00139" summary="Timetable is now compatible with multiple academic years!">
+      <created>1560388105604</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1560388105605</updated>
+    </task>
+    <task id="LOCAL-00140" summary="Made academic structures display their names in str()">
+      <created>1560391567884</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1560391567885</updated>
+    </task>
+    <task id="LOCAL-00141" summary="Started work on being able to search for and copy lessons from another classgroup.">
+      <created>1561366160832</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1561366160832</updated>
+    </task>
+    <task id="LOCAL-00142" summary="Treeview javascript now fully working">
+      <created>1565689271329</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1565689271329</updated>
+    </task>
+    <task id="LOCAL-00143" summary="Corrected static root">
+      <created>1565931837387</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1565931837387</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Corrected static root">
+      <created>1565932002521</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932002522</updated>
+    </task>
+    <task id="LOCAL-00145" summary="Corrected allowed hosts">
+      <created>1565932333308</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932333308</updated>
+    </task>
+    <task id="LOCAL-00146" summary="Corrected allowed hosts">
+      <created>1565932405592</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932405592</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Corrected allowed hosts">
+      <created>1565932482456</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932482456</updated>
+    </task>
+    <task id="LOCAL-00148" summary="Corrected allowed hosts">
+      <created>1565933778359</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933778359</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="Test__ - 2019.05.17 at 15h 54m 15s.xml">
-      <configuration name="Test: " configurationId="DjangoTestsConfigurationType" />
-    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1000,66 +666,6 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="777" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18901454" />
-      <window_info id="Structure" order="1" weight="0.24959612" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="0" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32554746" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.85783523" visible="true" weight="0.3240876" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.73182553" weight="0.39562044" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4983845" weight="0.32739726" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.26817447" side_tool="true" weight="0.3958904" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.48869145" weight="0.32739726" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69386107" weight="0.3270073" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6898223" weight="0.35182482" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.3240876" />
-      <window_info anchor="bottom" id="Thumbnails" order="14" weight="0.32991204" />
-      <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32876712" />
-      <window_info anchor="bottom" id="Database Changes" order="16" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.32925338" />
-      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
-      <window_info anchor="right" id="SciView" order="5" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17932148" />
-      <window_info id="Structure" order="1" weight="0.24959612" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="0" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info active="true" anchor="bottom" id="Find" order="2" visible="true" weight="0.32554746" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.85783523" weight="0.3240876" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.73182553" visible="true" weight="0.39562044" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4983845" weight="0.32739726" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.26817447" side_tool="true" weight="0.3958904" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.48869145" weight="0.32739726" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.69386107" weight="0.3270073" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6898223" weight="0.35182482" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="manage.py@OSD" order="13" sideWeight="0.45799676" weight="0.3240876" />
-      <window_info anchor="bottom" id="Thumbnails" order="14" weight="0.32991204" />
-      <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32876712" />
-      <window_info anchor="bottom" id="Database Changes" order="16" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.32925338" />
-      <window_info anchor="right" id="Database" order="4" weight="0.32956383" />
-      <window_info anchor="right" id="SciView" order="5" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1080,44 +686,18 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Refactored lesson resource icon generation" />
-    <MESSAGE value="Bugfix for importing students" />
-    <MESSAGE value="Corrected broken font-awesome links" />
-    <MESSAGE value="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting." />
-    <MESSAGE value="Refactoring and bugfix for calculating average student ratings." />
-    <MESSAGE value="Made autocomplete for syllabus points case-insensitive" />
-    <MESSAGE value="Added ability to see resources" />
-    <MESSAGE value="Modified SyllabusTopic to show syllabus name, allowing easier editing in Admin interface.&#10;Started ensuring that suspensions work for non whole-school, non all-day suspensions." />
-    <MESSAGE value="Minor bugfix" />
-    <MESSAGE value="Fix for lesson deletion and sequencing" />
     <MESSAGE value="resource links now open in new window" />
     <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
     <MESSAGE value="Added the ability to move and insert lessons" />
@@ -1133,65 +713,42 @@
     <MESSAGE value="Adding signals to save resources with their lessons' spec points." />
     <MESSAGE value="Lessons can now be added, with resource, without the use of the admin console." />
     <MESSAGE value="Updated migrations to correctly convert TutorGroups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated migrations to correctly convert TutorGroups" />
+    <MESSAGE value="Added logic for importing from SIMS" />
+    <MESSAGE value="Started adding tests" />
+    <MESSAGE value="Started adding year function to timetable" />
+    <MESSAGE value="Added unit tests for refactored helper functions." />
+    <MESSAGE value="Timetable is now compatible with multiple academic years!" />
+    <MESSAGE value="Made academic structures display their names in str()" />
+    <MESSAGE value="Started work on being able to search for and copy lessons from another classgroup." />
+    <MESSAGE value="Treeview javascript now fully working" />
+    <MESSAGE value="Corrected static root" />
+    <MESSAGE value="Corrected allowed hosts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected allowed hosts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/osd/decorators.py</url>
           <line>75</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/osd/decorators.py</url>
           <line>76</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/osd/decorators.py</url>
           <line>77</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/journal/views.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/journal/forms.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/school/functions/adddata.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/school/views.py</url>
-          <line>154</line>
-          <option name="timeStamp" value="100" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/timetable/models.py</url>
-          <line>516</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/timetable/models.py</url>
-          <line>498</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tracker/signals.py</url>
-          <line>31</line>
-          <option name="timeStamp" value="110" />
+          <url>file://$PROJECT_DIR$/tracker/autocomplete.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <breakpoints-dialog>
-        <breakpoints-dialog />
-      </breakpoints-dialog>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -1203,6 +760,7 @@
     <watches-manager>
       <configuration name="Python.DjangoServer">
         <watch expression="current_date" language="Python" />
+        <watch expression="lesson" />
       </configuration>
     </watches-manager>
   </component>
@@ -1214,324 +772,5 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/timetable/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="76" column="81" selection-start-line="76" selection-start-column="81" selection-end-line="76" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/radar_chart_kpi_pair.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-918" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views.py" />
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/radar_chart_pastoral_group.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/school_overview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="88" selection-start-line="22" selection-start-column="88" selection-end-line="22" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/migrations/0022_auto_20190319_1025.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14610">
-          <caret line="986" column="14" selection-start-line="986" selection-start-column="14" selection-end-line="986" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/signals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6030">
-          <caret line="412" column="29" selection-start-line="412" selection-start-column="29" selection-end-line="412" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timetable/signals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/radar_chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="61" column="76" selection-start-line="61" selection-start-column="76" selection-end-line="61" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/secret_beta.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/secret.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/functions/adddata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3315">
-          <caret line="225" column="46" selection-start-line="225" selection-start-column="46" selection-end-line="225" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/Untitled spreadsheet - Core.csv">
-      <provider selected="true" editor-type-id="csv-text-editor" />
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="88" column="72" selection-start-line="88" selection-start-column="55" selection-end-line="88" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="71" column="10" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views/students.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/exam_scores.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/templates/tracker/cohort_std_data_vs_tgt_plotly.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/static/tracker/exam_mark_entry.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2445">
-          <caret line="165" column="8" selection-start-line="165" selection-start-column="8" selection-end-line="165" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views/teachers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/signals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/migrations/0002_auto_20190308_1414.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/beta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/test">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/secret_dev.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/exambuilder/tests.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/beta-update.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-799">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="221" column="35" lean-forward="true" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/views/common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="680" lean-forward="true" selection-start-line="663" selection-end-line="680" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/django-test/lib/python3.6/site-packages/django/db/models/query.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="301" selection-start-line="301" selection-end-line="301" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0019_auto_20190411_1125.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0018_auto_20190411_0906.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0017_auto_20190411_0900.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="32" column="40" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0016_classgroup_academic_position.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0015_auto_20190411_0850.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0014_auto_20190319_1357.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0013_auto_20190319_1357.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0012_auto_20190319_1349.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0010_auto_20190319_1234.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school/migrations/0011_tutorgroup_pastoral_link.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osd/settings/dev.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tracker/static/css/tracker.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="107" column="16" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
   </component>
 </project>

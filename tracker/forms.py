@@ -2,7 +2,7 @@ from django import forms
 from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
-from mptt.forms import TreeNodeChoiceField
+from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
 
@@ -77,3 +77,29 @@ class MPTTSyllabusForm(forms.Form):
 
     parent = TreeNodeChoiceField(queryset=MPTTSyllabus.objects.all(), required=False)
 
+
+class CustomModelChoiceIterator(forms.models.ModelChoiceIterator):
+    def choice(self, obj):
+        return (self.field.prepare_value(obj),
+                self.field.label_from_instance(obj), obj)
+
+
+class CustomModelChoiceField(TreeNodeMultipleChoiceField):
+    level_indicator = ""
+
+    def _get_level_indicator(self, obj):
+        return ""
+
+    def _get_choices(self):
+        if hasattr(self, '_choices'):
+            return self._choices
+        return CustomModelChoiceIterator(self)
+    choices = property(_get_choices,
+                       TreeNodeMultipleChoiceField._set_choices)
+
+
+class mpttSyllabusPointSelect(forms.Form):
+
+    points = CustomModelChoiceField(queryset=MPTTSyllabus.objects.all(),
+                                    widget=forms.CheckboxSelectMultiple,
+                                    level_indicator="")
