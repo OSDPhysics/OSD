@@ -1,0 +1,45 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+ <h1>Edit Lesson</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Edit A Lesson
+                        </h2>
+<form method="post">
+    {% csrf_token %}
+                        {{ lesson_form.lesson_title | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.description | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.requirements | as_crispy_field:"bootstrap"  }}
+Search for syllabus points within:
+                        {{ parent_form | crispy  }}
+                        {{ lesson_form.mptt_syllabus_points | as_crispy_field:"bootstrap"  }}
+
+<p>
+                        {% for resource in  lesson.resources.all %}
+                        {{ resource.editable_icon | safe }}
+                        {% endfor %}
+</p>
+    <button type="submit" class="btn btn-primary" name="add_resource">Add Lesson Resource</button>
+    <button type="submit" class="btn btn-primary" name="save">Save</button>
+</form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+{{ lesson_form.media }}
+{% endblock script %}

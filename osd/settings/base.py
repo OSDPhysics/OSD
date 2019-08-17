@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import datetime
+from django.contrib import messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,8 +44,12 @@ INSTALLED_APPS = [
     'journal',
     'ckeditor',
     'dynamic_formsets',
-    'debug_toolbar',
+    #'debug_toolbar',
     'django.contrib.admin',
+    'social_django',
+    'jchart',
+    'crispy_forms',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'osd.urls'
@@ -71,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # for social-auth
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -107,6 +114,29 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Added for social-ath
+# see https://fosstack.com/how-to-add-google-authentication-in-django/
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# See https://python-social-auth.readthedocs.io/en/latest/use_cases.html#associate-users-by-email
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -133,12 +163,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_CONFIGS = {
     'default': {
+        'width': '75%',
+        'height': 100,
 
     },
     'large': {
         'toolbar': 'full',
         # 'extraPlugins': 'autogrow',
         'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
+        'width': '75%',
+        'height': 100,
 
     },
 
@@ -146,7 +180,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
         'removeButtons': 'Save,Source,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,Textarea,TextField,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Outdent,Indent,Blockquote,CreateDiv,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Unlink,Image,Flash,HorizontalRule,Iframe,PageBreak,ShowBlocks,Maximize,About',
 
-        'width': 500,
+        'width': '100%',
 
         'height': 100,
 
@@ -156,6 +190,10 @@ CKEDITOR_CONFIGS = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# For error messages in bootstrap:
+
+
 
 CALENDAR_START_MONDAY_DAY = 20
 CALENDAR_START_MONTH = 8
@@ -167,3 +205,9 @@ CALENDAR_END_YEAR = 2019
 
 CALENDAR_START_DATE = datetime.date(CALENDAR_START_YEAR, CALENDAR_START_MONTH, CALENDAR_START_MONDAY_DAY)
 CALENDAR_END_DATE = datetime.date(CALENDAR_END_YEAR, CALENDAR_END_MONTH, CALENDAR_END_MONDAY_DAY)
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

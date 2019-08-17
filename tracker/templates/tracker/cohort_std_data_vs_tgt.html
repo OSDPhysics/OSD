@@ -1,0 +1,31 @@
+{% extends 'tracker/base.html' %}
+
+
+{% block content %}
+
+<div class="card card-lg-12 flex">
+                    <div class="card-body" >
+ <h1>Standadised Overview for {{student }}</h1>
+
+                        <h2 class="card-title text-center">
+                            Standardised Data
+                        </h2>
+
+
+                        <div class="col">
+                        {% include 'tracker/radar_chart_target_vs_current.html' %}</div>
+
+                    </div>
+
+
+
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+{% endblock script %}

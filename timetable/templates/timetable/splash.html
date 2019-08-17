@@ -1,5 +1,7 @@
 {% extends 'tracker/base.html' %}
-
+{% block subtitle %}
+    Timetable
+{% endblock subtitle %}
 {% block content %}
  <h1>Your Timetable</h1>
  <div class="container">
@@ -13,6 +15,12 @@
                             Timetable for {{ teacher }} week commencing {{ start_day }}
                         </h2>
                         <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher.pk last_week %}" role="button"><<</a>
+                        <div align="centre">
+                            <form method="post">
+                                {% csrf_token %}
+
+                            </form>
+                        </div>
                         <div class="btn-group float-right mt-2" role="group">
                             <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher.pk next_week %}" role="button">>></a>
                         </div>
@@ -32,7 +40,7 @@
 
                                     {# display the day number first #}
                                         {% if forloop.first %}
-                                        >{{ period }}
+                                        >{{ period | safe }}
 
                                         {# Check if it's a free #}
 
@@ -47,7 +55,7 @@
                                         {% elif period.lessonslot %}
                                         >
                                           <a href="{% url 'timetable:class_lesson_list' period.lessonslot.classgroup.pk %}">{{ period.lessonslot.classgroup }}</a><br>
-                                            <strong><a href="/admin/timetable/lesson/{{ period.pk }}/change/">{{ period.lesson_title }}</a></strong><br>
+                                            <strong><a href="{% url 'timetable:edit_lesson' period.pk %}">{{ period.lesson_title }}</a></strong><br>
                                             {{ period.description }}<br>
                                             {% if period.requirements %}
                                             <strong>Order:</strong> {{ period.requirements }}

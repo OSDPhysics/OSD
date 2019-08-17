@@ -1,10 +1,12 @@
 from django.db import models, IntegrityError
+from django.shortcuts import reverse
 from school.models import ClassGroup, Teacher
-from tracker.models import SyllabusPoint, Syllabus
+from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from osd.settings.base import CALENDAR_START_DATE, CALENDAR_END_DATE
 from django.db import transaction
 from django.contrib import messages
-
+from django.db.models import Max
+from mptt.models import TreeManyToManyField
 from django.db.models import Max
 
 # from .functions import *
@@ -194,9 +196,10 @@ class Lesson(models.Model):
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
+    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus, blank=True)
 
     class Meta:
-        unique_together = ( ("lessonslot", "date"),
+        unique_together = (("lessonslot", "date"),
                            ("classgroup", "sequence"))
 
     def __str__(self):
@@ -334,31 +337,39 @@ class Lesson(models.Model):
 
     def delete(self, *args, **kwargs):
         # We've removed a lesson, so we need to decerement all the following lessons
-        following_lessons = Lesson.objects.filter(classgroup=self.classgroup, sequence__gt=self.sequence)
+        following_lessons = Lesson.objects.filter(classgroup=self.classgroup, sequence__gt=self.sequence).order_by(
+            'sequence')
         # Avoid integrity error:
-        self.sequence = 1000
-        self.save()
-        for lesson in following_lessons:
-            lesson.sequence = lesson.sequence - 1
+        # Find max sequence
+        max = following_lessons.aggregate(Max('sequence'))
+
+        if max['sequence__max'] is not None:
+            self.sequence = max['sequence__max'] + 1
+            self.save()
+            for lesson in following_lessons:
+                lesson.sequence = lesson.sequence - 1
+                lesson.save()
         super().delete(*args, **kwargs)
 
 
-
-
 class LessonResources(models.Model):
-    lesson = models.ForeignKey(Lesson, blank=False, null=False, on_delete=models.CASCADE)
-    resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=False, blank=False)
+    lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.SET_NULL)
+    resource_type = models.CharField(max_length=100, choices=RESOURCE_TYPES, null=True, blank=False)
     resource_name = models.CharField(max_length=100, null=True, blank=False)
-    link = models.URLField(blank=True, null=True)
-    students_can_view_before = models.BooleanField()
-    students_can_view_after = models.BooleanField()
+    link = models.URLField(blank=False, null=True)
+    students_can_view_before = models.BooleanField(default=False)
+    students_can_view_after = models.BooleanField(default=False)
+    available_to_all_classgroups = models.BooleanField(default=False)
+    syllabus_points = models.ManyToManyField(SyllabusPoint, blank=True)
+    mptt_syllabus_points = TreeManyToManyField(MPTTSyllabus)
 
     def __str__(self):
         return self.resource_name
 
-    def icon(self):
-        string = "<a href=" + str(self.link)
-        string = string + ' data-toggle="tooltip" data-placement="top" title="'
+    def editable_icon(self):
+        """Link to the form to edit a resource """
+        string = "<a href=" + str(reverse('timetable:edit_lesson_resource', args=[self.lesson.pk, self.pk]))
+        string = string + ' target="_blank" data-toggle="tooltip" data-placement="top" title="'
         string = string + (str(self.resource_name))
         string = string + '">'
 
@@ -381,6 +392,51 @@ class LessonResources(models.Model):
 
         return string
 
+    def icon(self):
+        """ Icon link to the resource itself"""
+
+        string = "<a href=" + str(self.link)
+        string = string + ' target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" title="'
+        string = string + (str(self.resource_name))
+        string = string + '">'
+
+        if self.resource_type == "Presentation":
+            string = string + "<i class='fas fa-desktop'>"
+
+        elif self.resource_type == "Web Page":
+            string = string + "<i class='fas fa-tablet-alt'>"
+
+        elif self.resource_type == "Worksheet":
+            string = string + '<i class="fas fa-newspaper">'
+
+        elif self.resource_type == "Test":
+            string = string + "<i class='fas fa-pencil-ruler'></i>"
+
+        else:
+            string = string + '<i class="fas fa-question-circle">'
+
+        string = string + "</i></a>"
+
+        return string
+
+    def student_viewable(self):
+        """ Return True if students should be able to see this resource """
+        if self.students_can_view_before:
+            return True
+
+        elif self.students_can_view_after:
+            if self.lesson.date >= datetime.date.today():
+                return True
+
+        else:
+            return False
+
+    def set_syllabus_points(self):
+        if self.lesson:
+            points = self.lesson.mptt_syllabus_points.all().order_by('pk')
+            for point in points:
+                self.mptt_syllabus_points.add(point)
+
 
 
 class LessonSuspension(models.Model):
@@ -395,6 +451,7 @@ class LessonSuspension(models.Model):
     def save(self, *args, **kwargs):
         """When we save, we need to update the dates of all affected lessons. """
         super(LessonSuspension, self).save(*args, **kwargs)
+
         affected_lessons = Lesson.objects.filter(date=self.date)
         for lesson in affected_lessons:
             classgroup = lesson.classgroup
@@ -403,7 +460,7 @@ class LessonSuspension(models.Model):
         return self
 
     def __str__(self):
-        return str(self.date) + " " + self.reason
+        return str(self.date)   +   " " + self.reason
 
 
 def get_monday_date_from_weekno(week_number):
@@ -498,18 +555,16 @@ def check_suspension(date, period, classgroup):
 
 
 def set_classgroups_lesson_dates(classgroup):
-
     # slots must be ordered for it to work - weirdly this doesn't happen on local!
     slots = TimetabledLesson.objects.filter(classgroup=classgroup).order_by('lesson_slot')
 
-
-    total_slots = slots.count() - 1 # index 0
+    total_slots = slots.count() - 1  # index 0
 
     current_week = 0
     current_slot = 0
     current_lesson = 0
 
-    message = False # Used to return a warning message if lessons overshoot end date
+    message = False  # Used to return a warning message if lessons overshoot end date
 
     def next_lesson(current_slot, current_week, reset=False):
         if current_slot == total_slots:
@@ -558,18 +613,19 @@ def set_classgroups_lesson_dates(classgroup):
                 # Check if a lesson already exists that meets all these criteria:
 
                 try:
-                    with transaction.atomic(): # Needed to prevent an error as per https://stackoverflow.com/questions/32205220/cant-execute-queries-until-end-of-atomic-block-in-my-data-migration-on-django-1?rq=1
+                    with transaction.atomic():  # Needed to prevent an error as per https://stackoverflow.com/questions/32205220/cant-execute-queries-until-end-of-atomic-block-in-my-data-migration-on-django-1?rq=1
 
                         lesson.save()  # Will fail if a lesson already has same date and slot
 
                 except IntegrityError:
                     # All lessons above <current_sequence> must be incremented
-                    clashing_lessons = Lesson.objects.filter(sequence__gte=current_lesson, classgroup=classgroup).order_by('sequence').reverse()
+                    clashing_lessons = Lesson.objects.filter(sequence__gte=current_lesson,
+                                                             classgroup=classgroup).order_by('sequence').reverse()
                     # Must be in reverse order so we don't cause further integrity errors
                     # Note that we don't need to worry about setting correct slots here, as they are about to be re-set
                     for clashing_lesson in clashing_lessons:
 
-                        clashing_lesson.sequence = clashing_lesson.sequence + 1
+                        # clashing_lesson.sequence = clashing_lesson.sequence + 1
                         # This date thing is a horrid hack, but we're about to set a correct date,
                         # and we need to make sure we don't cause further integrity errors
 
@@ -590,9 +646,9 @@ def set_classgroups_lesson_dates(classgroup):
     next_lesson(current_week, current_slot, True)
 
     # clean up any lessons beyond end date
-    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE)
+    overshot_lessons = Lesson.objects.filter(date__gte=CALENDAR_END_DATE, classgroup=lesson.classgroup)
     for lesson in overshot_lessons:
-        if not lesson.lesson_title: # only delete unwritten lessons
+        if not lesson.lesson_title:  # only delete unwritten lessons
             lesson.delete()
 
         else:

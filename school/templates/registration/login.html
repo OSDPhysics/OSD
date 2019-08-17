@@ -32,6 +32,11 @@
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 
+    OR
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+
+
+
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 

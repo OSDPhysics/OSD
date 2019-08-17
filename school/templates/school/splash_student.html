@@ -15,6 +15,8 @@
 
                         </h2>
                         You have learned {{ dataset.classgroup.percentage_topics_taught }}% of all the content of this course
+                    <h2>Class Timetable</h2>
+                    <a href="{% url 'timetable:class_lesson_list' dataset.classgroup.pk %}">Click here to see your class' lessons</a>
                         <h3>Recent Assessments</h3>
                         <table class="table">
                             <tr>
@@ -37,16 +39,16 @@
                         <table class="table">
                             <tr>
                                 <td>Topic</td>
-                                <td>Rating</td>
+                                <td>Rating /5</td>
                             </tr>
-                                {% for topic, rating in dataset.topics %}
+                                {% for topic, rating, chart in dataset.topics %}
                                 <tr {% if rating >= 4 %} class="table-success"
                                 {% elif rating >= 3 %} class = "table-info"
                                 {% elif rating >= 2 %} class="table-warning"
                                 {% elif rating < 2 %} class="table-danger"
                             {% endif %}>
                                     <td><a href="{% url 'tracker:student_topic_overview' topic.pk student.pk %}">{{ topic }}</a></td>
-                                    <td>{{ rating }}</td>
+                                    <td>{{ rating }}{{ chart.as_html }}</td>
 
                                 </tr>
                                 {% endfor %}

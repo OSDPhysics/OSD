@@ -21,26 +21,29 @@
                                 <td>Description</td>
                                 <td>Requirements</td>
                                 <td>Resources</td>
-                                <td>Move / copy</td>
+                                <td>Actions</td>
                             </tr>
                             </thead>
                             {% for lesson in lessons %}
                                 <tr>
                                 <td>{{ lesson.date }}</td>
                                 <td>{{ lesson.sequence }}</td>
-                                    <td><a href="/admin/timetable/lesson/{{ lesson.pk }}/change">{{ lesson.lesson_title }}</a></td>
+                                    <td><a href="{% url 'timetable:edit_lesson' lesson.pk %}">{{ lesson.lesson_title }}</a></td>
                                 <td>{{ lesson.description }}</td>
                                 <td>{{ lesson.requirements }}</td>
                                 <td>{% for resource in lesson.resources %}
-                                    <p><a href="{{ resource.link }}" target='_blank'>{{ resource.resource_type }}</a></p>
+                                    <a href="{{ resource.link }}" target='_blank'>{{ resource.icon |safe }}</a>
                                     {% endfor %}
 
-                                <td><a href=""><i class="fas fa-arrow-right"></i>
-
-                                    </a><a href="{% url 'timetable:copy_lesson' lesson.pk %}"><i class="fas fa-copy"></i>
+                                <td>
+                                    <a href="{% url 'timetable:copy_lesson' lesson.pk %}"><i class="fas fa-copy"></i>
 
 </a>
                                     <a href="{% url 'timetable:delete_lesson' lesson.pk classgroup.pk %}"><i class="fas fa-trash"></i></a>
+                                    <a href="{% url 'timetable:insert_lesson' lesson.pk %}"><i class="far fa-calendar-plus"></i></a>
+                                    <a href="{% url 'timetable:move_lesson_up' lesson.pk %}"><i class="fas fa-arrow-up"></i></a>
+                                    <a href="{% url 'timetable:move_lesson_down' lesson.pk %}"><i class="fas fa-arrow-down"></i></a>
+
                                 </td>
                                 </tr>
                             {% endfor %}

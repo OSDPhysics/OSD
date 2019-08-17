@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
 from .models import *
 from tracker.forms import SetQuestions
 # Register your models here.
@@ -42,3 +43,12 @@ admin.site.register(Exam, ExamInLine)
 admin.site.register(Mark)
 admin.site.register(CSVDoc)
 admin.site.register(Sitting)
+admin.site.register(StudentPointRating)
+admin.site.register(MPTTSyllabus, MPTTModelAdmin)
+admin.site.register(MPTTRating)
+admin.site.register(StandardisedData, MPTTModelAdmin)
+admin.site.register(StandardisedResult)
+admin.site.register(KPIPair)
+
+#admin.site.register(PastStandardisedResult)
+#admin.site.register(StandardisedTarget)

@@ -41,6 +41,8 @@
     <p>If you want to delete a question, set its order to 0 - that will delete it.</p>
     <form method="post">
         {% csrf_token %}
+    Search syllabus points below:
+        {{ parent_form }}
         <table class="table table-striped">
             {{ qform.management_form }}
             {{ qform.non_form_errors.as_ul }}

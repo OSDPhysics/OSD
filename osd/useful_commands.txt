@@ -1,3 +1,0 @@
-To dump the database in a way that can it can be loaded into a fresh (blank) database:
-./manage.py p
-

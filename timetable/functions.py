@@ -132,3 +132,14 @@ def set_classgroups_lesson_dates(classgroup):
                 current_slot, current_week = next_lesson(current_slot, current_week)
                 lesson.save(date_to_set=date)
                 break  # End loop and get next lesson
+
+
+def set_initial_current_calculated():
+    classgroups = ClassGroup.objects.all()
+    for classgroup in classgroups:
+        students = classgroup.students().all()
+        syllabus = classgroup.syllabustaught.all()
+        points = SyllabusPoint.objects.filter(topic__syllabus__classgroup=classgroup)
+        for student in students:
+            for point in points:
+                point.calculate_student_rating(student)

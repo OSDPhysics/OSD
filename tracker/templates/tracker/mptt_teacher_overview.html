@@ -1,0 +1,82 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}
+{{ teacher.title }} {{ teacher.user.last_name }}'s Dashboard
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col xl">
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="card-title text-center">
+                        Classes taught by {{ teacher.title }} {{ teacher.user.first_name }} {{ teacher.user.last_name }} ({{teacher.staffcode }})
+                    </h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Classgroup</td>
+                            <td>Syllabus(s) Taught</td>
+                            <td>Current Average Rating</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in classgroup_data %}
+                        <tr>
+                            <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ row.0 }}</a><br> {% endfor %} </td>
+                            <td>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a><br> {% endfor %} </td>
+                            <td>{% for data in row.2 %}
+                                {%  include 'tracker/progressbar.html' %}
+
+                                Average Rating: {{ data.rating }}<br>
+
+                                {% endfor %}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col xl">
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Assessments</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Assessment</th>
+                            <th>Date</th>
+                            <th>Average Score</th>
+                            <th>Topic Performance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for sitting in sittings %}
+                            <tr>
+                                <td><a href="{% url 'tracker:classgroup_ratings' sitting.classgroup.pk sitting.classgroup.syllabustaught.all.0.pk %}">{{ sitting.classgroup }}</a></td>
+                                <td><a href="{% url 'tracker:sitting_detail' sitting.pk %}">{{ sitting.exam }}</a></td>
+                            <td>{{ sitting.datesat }}</td>
+                            <td>{{ sitting.class_average_score_str }}</td>
+                            <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

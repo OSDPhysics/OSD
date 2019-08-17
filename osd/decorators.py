@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from school.models import Student, Teacher
+from school.models import Student, Teacher, ClassGroup
 from django.contrib.auth.models import User
 
 
@@ -37,9 +37,27 @@ def teacher_or_own_only(function):
         if request.user.groups.filter(name='Teachers').exists():
             return function(request, *args, **kwargs)
 
-        # TODO: this is broken!
+        # TODO: check this works
         requested_student = Student.objects.get(pk=kwargs['pk'])
-        if request.user.pk == requested_student:
+        if request.user == requested_student.user:
+            return function(request, *args, **kwargs)
+
+        else:
+            raise PermissionDenied
+
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+
+
+def teacher_or_own_classgroup(function):
+    def wrap(request, *args, **kwargs):
+
+        if request.user.groups.filter(name='Teachers').exists():
+            return function(request, *args, **kwargs)
+
+        student = Student.objects.get(user=request.user)
+        if student.classgroups.filter(pk=kwargs['classgroup_pk']):
             return function(request, *args, **kwargs)
 
         else:

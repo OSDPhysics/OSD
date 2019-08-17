@@ -1,22 +1,29 @@
 from django import forms
 from dal import autocomplete
-from tracker.models import SyllabusPoint, Syllabus
+from django.forms.widgets import CheckboxSelectMultiple
+from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from school.models import ClassGroup
+from mptt.forms import TreeNodeMultipleChoiceField
 
-from timetable.models import Lesson
+from timetable.models import Lesson, LessonResources
 
 
 class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = ["lesson_title", 'date', 'sequence', 'status', 'syllabus', 'syllabus_points_covered', 'description', 'requirements', 'lessonslot']
+        fields = ["lesson_title",  'syllabus', 'description', 'requirements', 'syllabus_points_covered', 'mptt_syllabus_points']
+
+        # widgets = {
+        #     'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
+        #                                                                   url='tracker:syllabus-autocomplete2',
+        #                                                                   forward=('syllabus',))
+        # }
 
         widgets = {
-            'syllabus_points_covered': autocomplete.ModelSelect2Multiple(
-                                                                          url='tracker:syllabus-autocomplete2',
-                                                                          forward=('syllabus',))
-        }
+             'mptt_syllabus_points': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
+                                                                       forward=('parent', ))
+         }
 
     class Media:
         js = (
@@ -36,3 +43,37 @@ class LessonCopyForm(forms.Form):
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
         )
+
+
+class LessonResourceForm(forms.ModelForm):
+    """ Resource linked to a particular lesson """
+    class Meta:
+        model = LessonResources
+        fields = {'resource_type',
+                  'resource_name',
+                  'link',
+                  'students_can_view_before',
+                  'students_can_view_after',
+                  'available_to_all_classgroups',
+                  }
+
+
+class ResourceNoLessonForm(forms.Form):
+
+    """ Resource that can be viewed by all students, not linked to a lesson """
+
+    class Meta:
+        model = LessonResources
+        fields = {'resource_type',
+                  'resource_name',
+                  'link',
+                  }
+
+class AddLessonSuspensions(forms.Form):
+
+    reason = forms.CharField(max_length=100, required=True)
+    all_classgroups = ClassGroup.objects.all()
+    start_date = forms.DateField(label='Start date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
+    end_date = forms.DateField(label = 'End date', widget=forms.SelectDateWidget(years=(2018, 2019, 2020)))
+    whole_school = forms.BooleanField(label = 'Whole school?', required=False)
+    classgroups = forms.ModelMultipleChoiceField(widget=autocomplete.ModelSelect2Multiple(url='tracker:classgroups-autocomplete'), queryset=all_classgroups, required=False)

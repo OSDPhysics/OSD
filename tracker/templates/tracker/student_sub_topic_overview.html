@@ -13,21 +13,21 @@
                             <thead>
                             <tr>
                                 <td>Syllabus Point</td>
-                                <td>Average rating</td>
+                                <td>Average rating /5</td>
                                 <td>Assessments</td>
                                 <td>Lessons</td>
                                 <td>Resources</td>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for syllabus_point, rating, assessments, lessons, resources in point_data %}
-                            <tr {% if rating >= 4 %} class="table-success"
-                                {% elif rating >= 3 %} class = "table-info"
-                                {% elif rating >= 2 %} class="table-warning"
-                                {% elif rating < 2 %} class="table-danger"
+                            {% for syllabus_point, rating, assessments, lessons, resources, chart in point_data %}
+                            <tr {% if rating.rating >= 4 %} class="table-success"
+                                {% elif rating.rating >= 3 %} class = "table-info"
+                                {% elif rating.rating >= 2 %} class="table-warning"
+                                {% elif rating.rating < 2 %} class="table-danger"
                             {% endif %}>
                             <td>{{ syllabus_point }}</td>
-                            <td>{{ rating }}</td>
+                            <td>{{ rating.rating }}</td>
                             <td>{% if assessments %}
                                <a href="{% url 'tracker:small_assessment_list' syllabus_point.pk student.pk %}"><i class="fas fa-check-circle"></i>
 
@@ -38,10 +38,13 @@
 </td>
                             <td>
                                 {% for lesson in lessons %}
+                                    {% if lesson.pk %}
                                     <a href="{% url 'timetable:lesson_details' lesson.pk %}">{{ lesson }}</a><br>
+                                    {% endif %}
                                 {% endfor %}
                             </td>
-                            <td>{% for resource in resources %}{{ resource.icon|safe }}{% endfor %}</td>
+                            <td>{% for resource in resources %}
+                                {% if resource.icon %}{{ resource.icon|safe }}{% endif %}{% endfor %}</td>
                             </tr>
 
                             {% endfor %}

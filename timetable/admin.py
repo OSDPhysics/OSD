@@ -6,12 +6,16 @@ from timetable.forms import LessonForm
 
 class ResourcesInLine(admin.TabularInline):
     model = LessonResources
+    exclude = ('syllabus_points',)
+
+    exclude = ('syllabus_points',)
 
 class LessonAdmin(admin.ModelAdmin):
     form = LessonForm
     inlines = [
         ResourcesInLine,
     ]
+
 
 admin.site.register(LessonSlot)
 admin.site.register(TimetabledLesson)

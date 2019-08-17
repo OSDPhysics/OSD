@@ -1,62 +1,78 @@
 {% extends 'tracker/base.html' %}
 {% load staticfiles %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}Set exam scores{% endblock title %}
 {% block description %}
-    Editing the scores for {{ student}} of test {{ sitting.exam }} on {{ sitting.datesat }}.
+    Editing the scores for {{ student }} of test {{ sitting.exam }} on {{ sitting.datesat }}.
 {% endblock description %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-<form method="post">
-{% csrf_token %}
-{{ formset.management_form }}
-{{ formset.media }}
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <td>Question</td>
-            <td>Maximum score</td>
-            <td class="col-md-1">Score</td>
-            <td>Syllabus Points</td>
-            <td>Notes</td>
-        </tr>
-        </thead>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {{ formset.media }}
+        <div>
+            {% for question, form in data %}
+                <div class="card" id="q_{{ forloop.counter }}">
 
-        <tbody>
-        {% for question, form in data %}
-            <tr>
-            <td>{{ question }}</td>
-            <td>{{ question.maxscore }}</td>
-            <td {% if form.errors %}class="danger"{% endif %}>
-                {{ form.score }}{{ form.errors }}
-                {% for field in form.hidden_fields %}
-                    {{ field }}
-                {% endfor %}
-            </td>
-            <td>
-                {% for point in question.syllabuspoint.all %}
-                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" title="{{ point.syllabusText }}">{{ point.topic }}{{ point.number }}</button>
-                    {% endfor %}
-             </td>
+                    <h2 class="card-title">
+                        Question {{ question }}
+                    </h2>
+                    <div class="alert alert-danger score-warning" role="alert">
+                        You shouldn't see this warning.
+                    </div>
+                    <div class="card-body row exam-entry-row">
 
-            <td>
-                {{ form.notes }}
-            </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-<button type="submit">Submit</button>
-</form>
+                        <div class="max_score" hidden='true'>{{ question.maxscore }}</div>
+                        {% for error in form.score.errors %}
+                            <p class="warn" style="color: red"><strong>{{ error }}</strong></p>
+                        {% endfor %}
 
-    {% endblock content %}
+                        <div class="col-xs-1 mark-entry">
+
+                            {{ form.score }}
+
+                        </div>
+
+                        <div class="col-xs-1" max={{ question.maxscore }}>
+                            / {{ question.maxscore }}
+                        </div>
+
+                        <div class="col-xs-auto">
+                            {% for point in question.MPTTsyllabuspoint.all %}
+                                <button type="button" class="btn btn-info btn-xs" data-toggle="tooltip"
+                                        data-placement="top" title="{{ point.text }}">{{ point.parent.text }}</button>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {{ form.notes }}
+                        </div>
+                        <div class="hidden">
+                            {% for field in form.hidden_fields %}
+                                {{ field }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            <button class="btn-primary last-button" type="submit">Save</button>
+        </div>
+    </form>
+
+{% endblock content %}
 
 {% block script %}
     {# for tooltips #}
     <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
-
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script type="text/javascript" src="{% static "tracker/exam_mark_entry.js" %}"></script>
 {% endblock script %}
