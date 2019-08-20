@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
-      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -311,34 +311,7 @@
       <updated>1525734200755</updated>
       <workItem from="1565668778093" duration="352000" />
       <workItem from="1565685689147" duration="15147000" />
-    </task>
-    <task id="LOCAL-00100" summary="Minor bugfix">
-      <created>1536887259809</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1536887259809</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Minor bugfix">
-      <created>1536888552397</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1536888552397</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Refactored lesson resource icon generation">
-      <created>1536894245955</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1536894245955</updated>
-    </task>
-    <task id="LOCAL-00103" summary="Bugfix for importing students">
-      <created>1537231662148</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1537231662149</updated>
+      <workItem from="1566184411222" duration="876000" />
     </task>
     <task id="LOCAL-00104" summary="Bugfix for importing students">
       <created>1537233449228</created>
@@ -655,7 +628,35 @@
       <option name="project" value="LOCAL" />
       <updated>1565933778359</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="Corrected allowed hosts">
+      <created>1565935125138</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1565935125139</updated>
+    </task>
+    <task id="LOCAL-00150" summary="Corrected allowed hosts">
+      <created>1565935224495</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1565935224495</updated>
+    </task>
+    <task id="LOCAL-00151" summary="Corrected allowed hosts">
+      <created>1565935595163</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1565935595163</updated>
+    </task>
+    <task id="LOCAL-00152" summary="Corrected css for list styling in mptt list">
+      <created>1565935782717</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1565935782718</updated>
+    </task>
+    <option name="localTasksCounter" value="153" />
     <servers />
   </component>
   <component name="TodoView">
@@ -698,7 +699,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="resource links now open in new window" />
     <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
     <MESSAGE value="Added the ability to move and insert lessons" />
     <MESSAGE value="Attempt at bugfix for unique_error when moving a lesson up" />
@@ -723,7 +723,8 @@
     <MESSAGE value="Treeview javascript now fully working" />
     <MESSAGE value="Corrected static root" />
     <MESSAGE value="Corrected allowed hosts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected allowed hosts" />
+    <MESSAGE value="Corrected css for list styling in mptt list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected css for list styling in mptt list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
