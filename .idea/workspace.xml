@@ -4,8 +4,12 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osd/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +84,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="beta" />
+        <entry key="$PROJECT_DIR$" value="JWR" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -291,11 +295,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Django tests.Test: timetable.tests" />
         <item itemvalue="Django tests.Test: tracker.tests.SyllabusCheck" />
         <item itemvalue="Django tests.Test: timetable.tests.TimetabledLessonTestCase" />
-        <item itemvalue="Django tests.Test: school.tests.ClassGroupTestCase" />
         <item itemvalue="Django tests.Test: timetable.tests.GetMondayDateFromWeekNoTestCase" />
+        <item itemvalue="Django tests.Test: timetable.tests" />
+        <item itemvalue="Django tests.Test: school.tests.ClassGroupTestCase" />
       </list>
     </recent_temporary>
   </component>
@@ -312,20 +316,7 @@
       <workItem from="1565668778093" duration="352000" />
       <workItem from="1565685689147" duration="15147000" />
       <workItem from="1566184411222" duration="876000" />
-    </task>
-    <task id="LOCAL-00104" summary="Bugfix for importing students">
-      <created>1537233449228</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1537233449228</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Bugfix for importing students">
-      <created>1537233513011</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1537233513011</updated>
+      <workItem from="1566275751926" duration="3243000" />
     </task>
     <task id="LOCAL-00106" summary="Corrected broken font-awesome links">
       <created>1537247592176</created>
@@ -656,7 +647,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565935782718</updated>
     </task>
-    <option name="localTasksCounter" value="153" />
+    <task id="LOCAL-00153" summary="Corrected typo in lesson resource form">
+      <created>1566275964287</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1566275964288</updated>
+    </task>
+    <task id="LOCAL-00154" summary="Rollover stage 2 createdc">
+      <created>1566284057022</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1566284057022</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
     <servers />
   </component>
   <component name="TodoView">
@@ -699,8 +704,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
-    <MESSAGE value="Added the ability to move and insert lessons" />
     <MESSAGE value="Attempt at bugfix for unique_error when moving a lesson up" />
     <MESSAGE value="Changed beta version to use pycharm and fixed moving and adding lessons" />
     <MESSAGE value="Created views to allow students to see their class' lessons lists (restricted to student-viewable resources, and no lesson orders)." />
@@ -724,7 +727,9 @@
     <MESSAGE value="Corrected static root" />
     <MESSAGE value="Corrected allowed hosts" />
     <MESSAGE value="Corrected css for list styling in mptt list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected css for list styling in mptt list" />
+    <MESSAGE value="Corrected typo in lesson resource form" />
+    <MESSAGE value="Rollover stage 2 createdc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rollover stage 2 createdc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

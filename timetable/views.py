@@ -244,11 +244,11 @@ def get_lesson_from_date(classgroup, date):
 
 
 @teacher_only
-def class_lesson_check(request, classgroup_pk, year):
+def class_lesson_check(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 
-    message = set_classgroups_lesson_dates(classgroup, year)
+    message = set_classgroups_lesson_dates(classgroup)
 
     if message:
         messages.add_message(request, messages.WARNING, message)
