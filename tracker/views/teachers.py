@@ -71,7 +71,7 @@ def examDetails(request, pk):
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
     setquestionsformset = modelformset_factory(Question, form=SetQuestions, extra=10)
-    parent_form = mpttSyllabusPointSelect()
+    parent_form = MPTTSyllabusForm()
     if request.method == 'POST':
         qform = setquestionsformset(request.POST)
 
@@ -122,7 +122,8 @@ def examDetails(request, pk):
                                                              'sittings': sittings,
                                                              'questions': questions,
                                                              'qform': qform,
-                                                             'parent_form': parent_form})
+                                                             'parent_form': parent_form
+                                                               })
 
 
 @teacher_only

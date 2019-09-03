@@ -42,7 +42,7 @@ class SetQuestions(forms.ModelForm):
         fields = ['qorder', 'qnumber', 'maxscore', 'MPTTsyllabuspoint', 'exam']
         widgets = {
             'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
-                                                               forward=['points'],
+                                                               forward=['parent'],
                                                                ),
             'exam': forms.HiddenInput()
         }
