@@ -135,7 +135,7 @@ def teacher_tt(request, teacher_pk, week_number, year):
     weekgrid = generate_week_grid(teacher, week_number, year)
 
     return render(request,
-                  'timetable/splash.html',
+                  'timetable/splash2.html',
                   {'weekgrid': weekgrid,
                    'start_day': start_date,
                    'next_week': next_week,
@@ -410,3 +410,32 @@ def create_multiple_lesson_suspensions(request):
         return redirect(reverse('timetable:teacher_splash'))
 
     return render(request, 'timetable/create_multiple_day_suspensions.html', {'suspension_form': suspension_form})
+
+
+def new_teacher_tt(request, teacher_pk, week_number, year):
+    teacher = Teacher.objects.get(pk=teacher_pk)
+    start_date = get_monday_date_from_weekno(week_number, year)
+    next_week, next_year = get_next_tt_week_year(week_number, year)
+
+    last_week, last_year = get_previous_tt_week_year(week_number, year)
+
+    teachers_classgroups = ClassGroup.objects.filter(groupteacher=teacher)
+
+
+    lessons = Lesson.objects.filter(date__gte=start_date,
+                                            date__lt=next_week,
+                                            lessonslot__classgroup__groupteacher=teacher).order_by('date', 'lessonslot.period')
+
+    suspensions = LessonSuspension.objects.filter(date__gte=start_date,
+                                                  date__lt=next_week)
+
+# def new_weekgrid(lessons=Lesson.objects.none(), suspensions=LessonSuspension.objects.none(), teacher_classgroups=ClassGroup.objects.none())
+#
+#     days = []
+#     for day in DAYS:
+#         day_dictionary = {'day': day}
+#         periods = []
+#         for period in PERIODS:
+#             lesson = lessons.filter(lessonslot=period)
+#             if lesson.count():
+

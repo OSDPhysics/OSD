@@ -36,7 +36,7 @@ RESOURCE_TYPES = (
     ('Test', 'Test'),
     ('Mark Scheme', 'Mark Scheme'),
     ('Web Page', 'Web Page'),
-
+    ('Google Drive', 'Google Drive'),
 )
 
 
@@ -193,6 +193,10 @@ class Lesson(models.Model):
     lesson_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
+    homework = models.TextField(null=True, blank=True)
+    homework_due = models.DateField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
+
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
@@ -351,6 +355,14 @@ class Lesson(models.Model):
                 lesson.save()
         super().delete(*args, **kwargs)
 
+    def homework_due_lessons(self):
+        lessons_w_homework_due = Lesson.objects.filter(homework_due=self.date)
+        if lessons_w_homework_due.count():
+            return lessons_w_homework_due
+
+        else:
+            return False
+
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.SET_NULL)
@@ -383,7 +395,10 @@ class LessonResources(models.Model):
             string = string + '<i class="fas fa-newspaper">'
 
         elif self.resource_type == "Test":
-            string = string + "<i class='fas fa-pencil-ruler'></i>"
+            string = string + "<i class='fas fa-pencil-ruler'>"
+
+        elif self.resource_type == "Google Drive":
+            string = string + '<i class="fab fa-google-drive">'
 
         else:
             string = string + '<i class="fas fa-question-circle">'
@@ -391,6 +406,7 @@ class LessonResources(models.Model):
         string = string + "</i></a>"
 
         return string
+
 
     def icon(self):
         """ Icon link to the resource itself"""
@@ -411,6 +427,9 @@ class LessonResources(models.Model):
 
         elif self.resource_type == "Test":
             string = string + "<i class='fas fa-pencil-ruler'></i>"
+
+        elif self.resource_type == "Google Drive":
+            string = string + '<i class="fab fa-google-drive">'
 
         else:
             string = string + '<i class="fas fa-question-circle">'
