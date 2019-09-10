@@ -18,6 +18,10 @@
                         {{ lesson_form.lesson_title | as_crispy_field:"bootstrap"  }}
                         {{ lesson_form.description | as_crispy_field:"bootstrap"  }}
                         {{ lesson_form.requirements | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.homework | as_crispy_field:"bootstrap"  }}
+                        {{ lesson_form.homework_due | as_crispy_field:"bootstrap"  }}
+
+
 <ul class="mptt_tree">
     {% for value, label, point in lesson_form.mptt_syllabus_points.field.choices %}
 

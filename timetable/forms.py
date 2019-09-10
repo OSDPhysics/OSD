@@ -10,12 +10,12 @@ from timetable.models import Lesson, LessonResources
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
-        fields = ["lesson_title", 'syllabus', 'description', 'requirements', 'syllabus_points_covered',
+        fields = ["lesson_title", 'syllabus', 'description', 'requirements', 'homework', 'homework_due','syllabus_points_covered',
                   'mptt_syllabus_points']
 
-        # widgets = {
-        #     'mptt_syllabus_points': forms.CheckboxSelectMultiple(),
-        # }
+        widgets = {
+            'homework_due': forms.TextInput(attrs={'type': 'date'},)
+        }
 
         field_classes = {'mptt_syllabus_points': CustomModelChoiceField}
 

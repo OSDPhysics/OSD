@@ -350,6 +350,14 @@ def edit_lesson(request, lesson_pk):
         if lesson_form.is_valid():
             lesson_form.save()
             messages.add_message(request, messages.SUCCESS, 'Lesson saved')
+
+            # check homework is set for a lesson date:
+            if lesson_form.cleaned_data['homework_due']:
+                if not Lesson.objects.filter(date=lesson_form.cleaned_data['homework_due'],
+                                             classgroup=lesson.classgroup).count():
+                    messages.add_message(request, messages.WARNING,
+                                         "Homework set for a date on which you don't teach this class.")
+
             # redirect depending on whether we're adding a resource or saving:
             if 'add_resource' in request.POST:
                 resource = LessonResources.objects.create(lesson=lesson)

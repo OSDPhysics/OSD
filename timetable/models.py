@@ -308,23 +308,6 @@ class Lesson(models.Model):
                     lesson.save
 
     # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         # This code only happens if the objects is
-    #         # not in the database yet. Otherwise it would
-    #         # have pk
-    #
-    #         # As this is a new object, we need to set the sequence to the highest value we know...
-    #         self.classgroup = self.lessonslot.classgroup
-    #         max_sequence = Lesson.objects.filter(classgroup=self.classgroup).aggregate(Max("sequence"))
-    #         if max_sequence['sequence__max'] is None:
-    #             self.sequence = 0
-    #         else:
-    #             self.sequence = max_sequence['sequence__max'] + 1
-    #         super(Lesson, self).save(*args, **kwargs)
-    #         set_classgroups_lesson_dates(self.classgroup)
-    #         return self
-    #
-    #     """Make sure we set all dates correctly. """
     #
     #     super(Lesson, self).save(*args, **kwargs)
     #
@@ -356,7 +339,7 @@ class Lesson(models.Model):
         super().delete(*args, **kwargs)
 
     def homework_due_lessons(self):
-        lessons_w_homework_due = Lesson.objects.filter(homework_due=self.date)
+        lessons_w_homework_due = Lesson.objects.filter(homework_due=self.date, classgroup=self.classgroup)
         if lessons_w_homework_due.count():
             return lessons_w_homework_due
 
@@ -474,7 +457,7 @@ class LessonSuspension(models.Model):
         for lesson in affected_lessons:
             classgroup = lesson.classgroup
             year = get_year_from_date(self.date)
-            set_classgroups_lesson_dates(classgroup, year)
+            set_classgroups_lesson_dates(classgroup)
 
         return self
 
