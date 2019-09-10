@@ -4,7 +4,8 @@ from .secret import *
 DEBUG = True
 
 ALLOWED_HOSTS = [
-                 'greenpen.net'
+                 'greenpen.net',
+                 'prod.greenpen.net',
 ]
 
 SECURE_SSL_REDIRECT = False
