@@ -145,6 +145,17 @@ def teacher_tt(request, teacher_pk, week_number, year):
                    'teacher': teacher,
                    'year': year})
 
+@teacher_only
+def next_week(request):
+    teacher = Teacher.objects.get(user=request.user)
+    today = datetime.date.today()
+    from .models import get_year_from_date
+    year = get_year_from_date(today)
+    week_number = get_weekno_from_date(today, year) + 1
+
+    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number, year]))
+
+
 
 @teacher_or_own_classgroup
 def class_lesson_list(request, classgroup_pk):
