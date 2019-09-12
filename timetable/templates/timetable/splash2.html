@@ -59,7 +59,7 @@
                                           {% endif %}
                                           </td>
                                       <td>{% for resource in period.resources %}
-                                                {{ resource.editable_icon | safe }}
+                                                {{ resource.icon | safe }}
                                             {% endfor %}</td>
                                   {% elif period.reason %}
                                   <td colspan="6" class="table-danger" align="center">{{ period.reason}} </td>
