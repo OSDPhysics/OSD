@@ -74,7 +74,8 @@ def addstudent(newstudent):
 
     # Add student to CLASS GROUP (NOT USER GROUP)
     newclassgroupname = newstudent['classgroup']
-    newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname)
+    newclassgroup = ClassGroup.objects.get(groupname=newclassgroupname,
+                                           archived=False)
     student.classgroups.add(newclassgroup)
 
     return student
