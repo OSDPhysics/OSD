@@ -9,18 +9,23 @@ def processstudent(path):
     with open(path, newline='') as csvfile:
         students = csv.reader(csvfile, delimiter=',', quotechar='|')
         newstudents = []  # list of all the newly-created students
+        rowcount = 0
         for row in students:
-            newstudent = {'last_name': row[0],
-                          'first_name': row[1],
-                          'tutorgroup': row[2],
-                          'Gender': row[3],
-                          'email': row[4],
-                          'username': row[5],
-                          'studentid': row[6],
-                          'password': row[7],
-                          'classgroup': row[8]}
+            if rowcount == 0:
+                rowcount = rowcount +1
+                continue
+            else:
+                newstudent = {'last_name': row[0],
+                              'first_name': row[1],
+                              'tutorgroup': row[2],
+                              'Gender': row[3],
+                              'email': row[4],
+                              'username': row[5],
+                              'studentid': row[5],
+                              'classgroup': row[6]}
 
-            newstudents.append(addstudent(newstudent))
+                newstudents.append(addstudent(newstudent))
+                rowcount = rowcount +1
 
         return newstudents
 
@@ -49,7 +54,6 @@ def addstudent(newstudent):
     if created:
 
         # New user won't have a password yet
-        newuser.set_password(newstudent['password'])
         newuser.email = newstudent['email']
         newuser.first_name = newstudent['first_name']
         newuser.last_name = newstudent['last_name']

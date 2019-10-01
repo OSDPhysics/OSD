@@ -1,6 +1,12 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
+    {% load static %}
+    <h1>Upload Student Details</h1>
+    <p>Use this form to upload deatails of your students.
+        To start, download the template <a href="{% static 'school/GreenPen Import Template.csv' %}">here</a>. Edit this template using <strong>Microsfot Excel</strong>so that it includes your student's details.
+    You should save this as a .csv file. To do this, click file --> Save as --> And change the type to 'comma seperated values (.csv).
+    You can then upload it here.</p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
       {{ csvform.as_p }}

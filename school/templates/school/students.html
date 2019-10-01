@@ -20,17 +20,18 @@
 
                         {% for student in students%}
                         <tr>
-                            <td><a href="{% url 'student_detail' pk=student.pk %}">{{student.user.first_name}}</a></td>
+                            <td><a href="{% url 'tracker:student_ratings' student.pk 1%}">{{student.user.first_name}}</a></td>
                             <td>{{student.user.last_name}}</td>
                             <td>
-                                {{student.classgroups.all|join:", " }}
+                                {% for group in student.classgroups.all %}
+                                    <a href="{% url 'tracker:classgroup_ratings' group.pk 1%}">{{ group }}</a>
+                                {% endfor %}
                             </td>
                         </tr>
                         {% endfor %}
                 </table>
 
             <div class="well">
-                <a href="{% url 'new_student' %}">Add new student</a>
             </div>
 
         </div>

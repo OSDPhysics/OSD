@@ -105,7 +105,7 @@ def logout_view(request):
 
 
 # Add students in bulk from CSV
-@admin_only
+@teacher_only
 def import_students(request):
     # Deal with getting a CSV file
 
