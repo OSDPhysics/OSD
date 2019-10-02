@@ -73,4 +73,6 @@ urlpatterns = [
     path('cohort_standardised/<int:cohort_pk>', teachers.cohort_standardised_data_vs_target, name='cohort_std_data_vs_tgt'),
 
     path('wsst/<int:pastoral_pk>/<int:academic_pk>/' , teachers.school_standardised_data_vs_target, name='school_standardised_data_vs_target'),
+
+    path('testing/mpttselect/', teachers.mpttselect, name='mpttselect')
 ]

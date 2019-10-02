@@ -5,6 +5,7 @@ from django.apps import apps
 from numpy import average
 from itertools import chain
 from mptt.models import TreeManyToManyField, MPTTModel, TreeForeignKey, TreeOneToOneField
+from osd.settings.base import ACADEMIC_YEARS
 
 
 # Remove before starting server - this is to help PyCharm auto syntax completion!
@@ -49,10 +50,14 @@ class ClassGroup(models.Model):
     mptt_syllabustaught = TreeManyToManyField('tracker.MPTTSyllabus')
     archived = models.BooleanField(blank=True, default=False)
     academic_position = TreeForeignKey('school.AcademicStructure', null=True, on_delete=models.SET_NULL)
+    year_taught = models.IntegerField(null=False, blank=False)
+    rollover_classgroup = models.ForeignKey('school.ClassGroup', blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
-        return self.groupname
+
+        return self.groupname + " " +\
+               ACADEMIC_YEARS[self.year_taught]
 
     def assessments(self):
 
@@ -200,7 +205,8 @@ class Student(models.Model):
     academic_tutorgroup = TreeForeignKey('school.PastoralStructure', on_delete=models.SET_NULL, null=True, blank=True)
     learning_support = models.CharField(max_length=5, choices=LS_TYPES, blank=True, null=True)
     eal = models.BooleanField(blank=False, null=False, default=False)
-
+    dob = models.DateField(blank=True, null=True)
+    SIMS_name = models.CharField(blank=True, null=True, max_length=200)
 
     def __str__(self):
         space = ' '
@@ -208,8 +214,10 @@ class Student(models.Model):
         # fullname = 'temporary'
         return fullname
 
-
-
+    def age(self):
+        if self.dob:
+            import datetime
+            return datetime.date.today() - self.dob
 
 # For CSV Imports:
 
@@ -249,6 +257,9 @@ class AcademicStructure(MPTTModel):
     kpis = models.ManyToManyField('tracker.StandardisedData', blank=True)
     classgroups = models.ManyToManyField(ClassGroup, blank=True)
     kpi_pairs = models.ManyToManyField('tracker.KPIPair', blank=True)
+
+    def __str__(self):
+        return self.name
 
     def all_leaders(self):
         superiors = self.get_ancestors(include_self=True)

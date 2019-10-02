@@ -107,3 +107,47 @@ th.rotate > div {
     position: fixed;
     z-index: 200;
 }
+
+/* Taken from W3Schools: https://www.w3schools.com/howto/howto_js_treeview.asp */
+.mptt_tree {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
+
+.has-children{
+    list-style-type: none;
+}
+
+.no-children{
+    list-style-type: none;
+}

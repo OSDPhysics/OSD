@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import pytz
 from school.models import Student, ClassGroup, PastoralStructure, AcademicStructure
 import numpy
 from django.db.models import Sum, Avg, F
@@ -558,6 +560,7 @@ class SyllabusPoint(models.Model):
 class Exam(models.Model):
     name = models.CharField(max_length=100)
     syllabus = models.ManyToManyField(Syllabus)
+    root_syllabus = models.ForeignKey('MPTTSyllabus', blank=False, null=True, on_delete=models.SET_NULL)
     weighting = models.FloatField(default=1, blank=False, null=False)
 
     def __str__(self):
@@ -569,7 +572,7 @@ class Exam(models.Model):
     def topics_tested(self):
         questions = Question.objects.filter(exam=self)
         topics = SyllabusTopic.objects.filter(syllabussubtopic__syllabuspoint__question__in=questions).distinct()
-
+        topics = MPTTSyllabus.objects.filter(question__in=questions)
         return topics
 
 
@@ -645,7 +648,7 @@ class Sitting(models.Model):
 
         topic_ratings = []
         for topic in topics:
-            questions = Question.objects.filter(syllabuspoint__topic=topic, exam=self.exam)
+            questions = Question.objects.filter(MPTTsyllabuspoint__in=topic.get_descendants(include_self=True), exam=self.exam)
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
@@ -918,14 +921,31 @@ class MPTTSyllabus(MPTTModel):
 
     def group_ratings_data(self, students):
         rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total = self.calculate_group_rating(students=students)
+        self_assessment = self.group_most_recent_self_rating(students)
         data = {'rating': rating,
                 'zero_to_one': zero_to_one,
                 'one_to_two': one_to_two,
                 'two_to_three': two_to_three,
                 'three_to_four': three_to_four,
                 'four_to_five': four_to_five,
-                'total': total}
+                'total': total,
+                'self_assessment': self_assessment}
         return data
+
+    def group_most_recent_self_rating(self, students):
+        ratings = MPTTManualRating.objects.filter(student__in=students,
+                                                  syllabus=self)
+        if ratings:
+            return ratings.order_by('-created')[0]
+        else:
+            children = self.get_descendants()
+            ratings = MPTTManualRating.objects.filter(student__in=students,
+                                                      syllabus__in=children)
+            if ratings:
+                return ratings.aggregate(average=Avg('rating'))['average']
+            else:
+                return 0
+
 
 class MPTTRating(models.Model):
     syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
@@ -944,6 +964,17 @@ class MPTTRating(models.Model):
     created = models.DateTimeField(blank=False, null=False, default=datetime.now)
     reason = models.CharField(blank=False, null=False, default="Assessment", max_length=100)
     assessment = models.ManyToManyField(Sitting)
+
+    def __str__(self):
+        return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"
+
+
+class MPTTManualRating(models.Model):
+    syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, null=False, blank=False, on_delete=models.CASCADE)
+    rating = models.FloatField(null=True, blank=True)
+    created = models.DateTimeField(blank=False, null=False, default=datetime.now)
+    reason = models.CharField(blank=False, null=False, default="Student Assessment", max_length=100)
 
     def __str__(self):
         return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"

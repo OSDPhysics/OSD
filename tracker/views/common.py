@@ -530,8 +530,11 @@ def student_ratings(request, student_pk, syllabus_pk):
     if syllabus.get_children()[0].get_descendant_count() != 0:
         # We are not at the bottom, so no journal, and let's show assessments:
 
-        assessments = Sitting.objects.filter(classgroup__student=student, classgroup__in=classgroups).order_by(
-            'datesat').reverse()
+        assessments = Sitting.objects.filter(classgroup__student=student,
+                                             exam__question__MPTTsyllabuspoint__in=syllabus.get_descendants(include_self=True))\
+            .order_by('datesat')\
+            .reverse().\
+            distinct()
         assessment_data = []
         for assessment in assessments:
             row = []

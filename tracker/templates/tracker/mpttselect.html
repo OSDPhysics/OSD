@@ -1,0 +1,66 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+ <h1>GENERAL TITLE</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                        MPTT SELECT TESt
+                        </h2>
+                    <ul class="mptt_tree">
+                            {% for value, label, point in form.points.field.choices %}
+                            {% if not point.is_leaf_node %}
+                                    <li class="no-children">
+                                    <input type="checkbox" name="{{ value }}" class="syllabus-checkbox">
+                                    <span class="caret">
+                                    <label for="{{ value }}"></label>{{ label }}
+                                    </span>
+                                    <ul class="has-children nested">
+
+                            {% else %}
+                                    <li>
+                                    <span class="no-children">
+                                    <input type="checkbox" name="{{ value }}" class="syllabus-checkbox">
+                                    <label for="{{ value }}"></label>{{ label }}</span>
+                                    </li>
+
+                                    {% if not point.get_next_sibling.pk %}
+                                        </li></ul>
+                                        {% if not point.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                            {% if not point.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                            {% if not point.parent.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                                {% if not point.parent.parent.parent.parent.get_next_sibling.pk %}
+                                            </li></ul>
+                                        {% endif %}
+                                                {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                            {% endif %}
+                    {% endfor %}
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+{% load static %}
+    <script src="{% static "tracker/collapse_list_view.js" %}"></script>
+{% endblock script %}

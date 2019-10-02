@@ -1,0 +1,91 @@
+{% extends 'tracker/base.html' %}
+{% block subtitle %}
+    Timetable
+{% endblock subtitle %}
+{% block content %}
+ <h1>Your Timetable</h1>
+ <div class="container">
+        <div class="row">
+            <div class="col xl">
+
+
+                <div class="card card-md">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            Timetable for {{ teacher }} week commencing {{ start_day }}
+                        </h2>
+                        <a class="btn btn-primary" align="left" href="{% url 'timetable:teacher_tt' teacher.pk last_week last_year %}" role="button"><<</a>
+                        <div align="centre">
+                            <form method="post">
+                                {% csrf_token %}
+
+                            </form>
+                        </div>
+                        <div class="btn-group float-right mt-2" role="group">
+                            <a class="btn btn-primary" align="right" href="{% url 'timetable:teacher_tt' teacher.pk next_week next_year %}" role="button">>></a>
+                        </div>
+                        {% for day in weekgrid %}
+                            <h3>{{ day.0 | safe }}</h3>
+
+                         <table class="table table-bordered">
+                             <thead>
+                             <tr>
+                                 <td>Period</td>
+                                 <td>Description</td>
+                                 <td>Requirements</td>
+                                 <td>Homework to set</td>
+                                 <td>Homework due</td>
+                                 <td>Resources</td>
+                             </tr>
+                             </thead>
+                             {% for period in day %}
+                                 {% if forloop.first %}
+
+
+                                 {% else %}
+                              <tr>
+                                  {% if period.sequence %}
+                                      <td>
+                                                <b><a href="{% url 'timetable:class_lesson_list' period.lessonslot.classgroup.pk%}">{{ period.lessonslot.classgroup }}</b><br>
+                                          <a href="{% url 'timetable:edit_lesson' period.pk%}">{{ period.lesson_title }}</a>
+                                      </td>
+                                      <td>{{ period.description }}</td>
+                                      <td>{{ period.requirements }}</td>
+                                      <td>{{ period.homework }}</td>
+                                      <td>{% if period.homework_due_lessons %}
+                                          {% for lesson in period.homework_due_lessons %}
+                                            {{ lesson.homework }}<br>
+                                          {% endfor %}
+                                          {% endif %}
+                                          </td>
+                                      <td>{% for resource in period.resources %}
+                                                {{ resource.icon | safe }}
+                                            {% endfor %}</td>
+                                  {% elif period.reason %}
+                                  <td colspan="6" class="table-danger" align="center">{{ period.reason}} </td>
+                                  {% else %}
+                                  <td colspan="6" class="table-success" align="center">Free</td>
+                                  {% endif %}
+
+
+                              </tr>
+                                 {% endif %}
+                             {% endfor %}
+                        </table>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+{% endblock script %}

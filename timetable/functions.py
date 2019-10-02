@@ -1,78 +1,57 @@
-from timetable.models import *
 import datetime
+from osd.settings.base import CALENDAR_END_DATE, CALENDAR_START_DATE, CALENDAR_TOTAL_WEEKS
 
-
-def get_monday_date_from_weekno(week_number):
-    start_date = CALENDAR_START_DATE + datetime.timedelta(weeks=week_number)
+def get_monday_date_from_weekno(week_number, year):
+    start_date = CALENDAR_START_DATE[year] + datetime.timedelta(weeks=week_number)
     return start_date
 
 
-def generate_week_grid(teacher, week_number):
-    start_date = get_monday_date_from_weekno(week_number)
-    next_week = week_number + 1
-    if week_number is not 0:
-        last_week = week_number - 1
+def get_weekno_from_date(date, year):
+
+    start_year = CALENDAR_START_DATE[year].isocalendar()[0]
+    date_year = date.isocalendar()[0]
+
+    # Find week of the year
+
+    date_week = datetime.datetime.now().isocalendar()[1]
+    start_week = CALENDAR_START_DATE[year].isocalendar()[1]
+    week_number = date_week - start_week
+
+    # This is to default to 0 before the school year starts.
+    if week_number < 0:
+        if start_year == date_year:
+            return 0
+        # This is necessary for school years which span calendar years.
+        else:
+            last_day_of_year = datetime.date(start_year, 12, 30)
+            last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
+            final_timetable_week = last_week_of_year - start_week
+
+            return final_timetable_week + date_week
+
     else:
-        last_week = 0
+        return date_week - start_week
 
-    current_date = start_date
-    weekgrid = []
-    for day in DAYS:
 
-        # Check if the day is suspended.
-        suspensions = LessonSuspension.objects.filter(date=current_date)
-        if suspensions.exists():
-            # There is at least one suspension on this day
-            if suspensions.filter(whole_school=True).exists():
-                if suspensions.filter(all_day=True).exists():
-                    # Get the first suspension TODO: add constraints so there's only one
-                    suspension = suspensions.filter(all_day=True)[0]
+def get_next_tt_week_year(week, year):
+    week = week + 1
+    if get_monday_date_from_weekno(week, year) < CALENDAR_END_DATE[year]:
+        return week, year
+    else:
+        return 0, year + 1
 
-                    # fill the day row with the suspension objects
-                    weekgrid.append([day[0], suspension, suspension, suspension, suspension])
-                    current_date = current_date + datetime.timedelta(days=1)
-                    continue
 
-        dayrow = [day[0]]
-
-        for period in PERIODS:
-            # Check if that period is whole-school suspended:
-            check = suspensions.filter(period=period[0]).filter(whole_school=True)
-            if check.exists():
-                dayrow.append(check[0])  # See above: May like to change to a get.
-                current_date = current_date + datetime.timedelta(days=1)
-                continue
-
-            try:
-
-                # Check the timetable to see if the lesson actually exists
-                timetabled_lesson = TimetabledLesson.objects.get(lesson_slot__day=day[0],
-                                                                 classgroup__groupteacher=teacher,
-                                                                 lesson_slot__period=period[0])
-            except TimetabledLesson.DoesNotExist:
-                dayrow.append("Free")
-                timetabled_lesson = "Free"
-
-            if timetabled_lesson != "Free":
-                check = suspensions.filter(period=period[0], classgroups=timetabled_lesson.classgroup)
-                if check.exists():
-                    dayrow.append(check)
-                    continue
-
-                else:
-                    lesson, created = Lesson.objects.get(lessonslot=timetabled_lesson,
-                                                         date=current_date,
-                                                         classgroup=timetabled_lesson.classgroup)
-                    dayrow.append(lesson)
-
-        weekgrid.append(dayrow)
-        current_date = current_date + datetime.timedelta(days=1)
-
-    return weekgrid
+def get_previous_tt_week_year(week, year):
+    week = week - 1
+    if get_monday_date_from_weekno(week, year) > CALENDAR_START_DATE[year]:
+        return week, year
+    else:
+        return int(CALENDAR_TOTAL_WEEKS[year - 1]), year - 1
 
 
 def check_suspension(date, period, classgroup):
     # Check if the whole school is suspended that day:
+    from timetable.models import LessonSuspension
     day_suspensions = LessonSuspension.objects.filter(date=date)
     suspensions = day_suspensions.filter(whole_school=True, all_day=True).count()
     if suspensions:
@@ -94,6 +73,7 @@ def check_suspension(date, period, classgroup):
 
 
 def set_classgroups_lesson_dates(classgroup):
+    from timetable.models import Lesson, TimetabledLesson
     lessons = Lesson.objects.filter(classgroup=classgroup).order_by("sequence")
 
     slots = TimetabledLesson.objects.filter(classgroup=classgroup)
@@ -135,6 +115,8 @@ def set_classgroups_lesson_dates(classgroup):
 
 
 def set_initial_current_calculated():
+    from school.models import ClassGroup
+    from tracker.models import SyllabusPoint
     classgroups = ClassGroup.objects.all()
     for classgroup in classgroups:
         students = classgroup.students().all()
