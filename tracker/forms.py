@@ -2,6 +2,7 @@ from django import forms
 from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
+from school.models import Teacher
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
@@ -60,10 +61,14 @@ class SyllabusPoint(forms.ModelForm):
         model = SyllabusPoint
         fields = ['topic', 'sub_topic', 'number', 'syllabusText']
 
+
 class NewSittingForm(forms.Form):
 
-    classgroup = forms.ModelChoiceField(ClassGroup.objects.all(),
-                                        widget=autocomplete.ModelSelect2(url='tracker:classgroups-autocomplete'))
+    teacher = forms.ModelChoiceField(Teacher.objects.all(),)
+    classgroups = ClassGroup.objects.all()
+    classgroup = forms.ModelChoiceField(classgroups,
+                                        widget=autocomplete.ModelSelect2(url='tracker:classgroups-autocomplete',
+                                                                         forward=["teacher"]))
     date = forms.DateField(widget=forms.SelectDateWidget)
 
 

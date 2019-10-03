@@ -148,13 +148,19 @@ def sitting_detail(request, pk):
 
 
 @teacher_only
-def new_sitting(request, exampk):
+def new_sitting(request, exampk, ):
 
     exam = Exam.objects.get(pk=exampk)
     questions = Question.objects.filter(exam=exam)
-    sittingform = NewSittingForm()
+
+    requesting_teacher = Teacher.objects.get(user=request.user)
+    currentdate = datetime.today()
+    sittingform = NewSittingForm(initial={"teacher":requesting_teacher,
+                                          "date":currentdate, })
+
     if request.method == 'POST':
         sittingform = NewSittingForm(request.POST)
+
         if sittingform.is_valid():
 
             classgroup = sittingform.cleaned_data['classgroup']

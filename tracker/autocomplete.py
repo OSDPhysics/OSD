@@ -1,6 +1,6 @@
 from dal import autocomplete
 from tracker.models import SyllabusPoint, Syllabus, Exam, MPTTSyllabus
-from school.models  import ClassGroup
+from school.models  import ClassGroup, Teacher
 from timetable.models import Lesson
 
 
@@ -68,8 +68,13 @@ class ClaassgroupAutocomplete(autocomplete.Select2QuerySetView):
             syllabus_pk = self.forwarded.get('parent', None)
             qs = qs.filter(mptt_syllabustaught__pk=syllabus_pk)
 
+        if self.forwarded.get('teacher', None):
+            teacher_pk = self.forwarded.get('teacher', None)
+            teacher = Teacher.objects.get(pk=teacher_pk)
+            qs = qs.filter(groupteacher=teacher)
+
         if not self.forwarded.get('include_archived', None):
-            qs.filter(archived=False)
+            qs = qs.filter(archived=False)
 
         if self.q:
             qs = qs.filter(groupname__icontains=self.q)
