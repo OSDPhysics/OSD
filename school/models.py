@@ -70,7 +70,10 @@ class ClassGroup(models.Model):
 
         latest_assessment = apps.get_model(app_label='tracker', model_name='Sitting')
 
-        return latest_assessment.objects.filter(classgroup=self).order_by('datesat').reverse()
+        if latest_assessment.objects.filter(classgroup=self).order_by('datesat').count():
+            return latest_assessment.objects.filter(classgroup=self).order_by('datesat').reverse()[0]
+        else:
+            return False
 
 
     def topics(self):

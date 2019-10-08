@@ -2,7 +2,7 @@
 
 {% block title %}
     <div class="container">
-    {{ teacher.title }} {{ teacher.user.last_name }}'s Dashboard NEW NEW NEW
+    {{ teacher.title }} {{ teacher.user.last_name }}'s Dashboard
     </div>
 {% endblock title %}
 
@@ -11,21 +11,25 @@
 <div class="container">
     <div class="row">
         {% for row in classgroup_data %}
-            <div class="col-sm-3">
-                    <div class="card">
-                        <h4 class="card-title" align="center">{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ row.0 }}</a> {% endfor %}</h4>
-                        <h6>{% for syllabus in row.1 %}<a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a> {% endfor %}</h6>
-                        {% for data in row.2 %}
-                            {%  include 'tracker/progressbar.html' %}
-                            <p class="card-text" align="right"><small class="text-muted">Average Rating: {{ data.rating }}</small></p>
-                        {% endfor %}
-                        {% for sitting in row.3 %}
-                            <p class="card-text">Most recent assessment:</p>
-                            <a href="{% url 'tracker:sitting_detail' sitting.pk %}"> {{ sitting.exam }}</a>
-                            <p class="card-text" align="right"><small class="text-muted">Date: {{ sitting.datesat }}</small></p>
-                            <p class="card-text" align="right"><small class="text-muted">Average score: {{ sitting.class_average_score_str }}</small></p>
-                        {% endfor %} <br>
-                    </div>
+            <div class="col-sm-3 py-2">
+                <div class="card card-body h-100">
+                    {% for syllabus in row.1 %}
+                        <h4 class="card-title" align="center"><a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ row.0 }}</a> </h4>
+                    {% endfor %}
+                    {% for syllabus in row.1 %}
+                        <h6><a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a></h6>
+                    {% endfor %}
+                    {% for data in row.2 %}
+                        {%  include 'tracker/progressbar.html' %}
+                        <p class="card-text" align="right"><small class="text-muted">Average Rating: {{ data.rating }}</small></p>
+                    {% endfor %}
+                    {% if row.0.latest_assessment.pk %}
+                        <p class="card-text">Most recent assessment:</p>
+                        <a href="{% url 'tracker:sitting_detail' row.0.latest_assessment.pk %}"> {{ row.0.latest_assessment.exam }}</a>
+                        <p class="card-text" align="right"><small class="text-muted">Date: {{ row.0.latest_assessment.datesat }}</small></p>
+                        <p class="card-text" align="right"><small class="text-muted">Average score: {{ row.0.latest_assessment.class_average_score_str }}</small></p>
+                    {% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>
