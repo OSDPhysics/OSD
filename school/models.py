@@ -66,6 +66,13 @@ class ClassGroup(models.Model):
 
         return sitting_model.objects.filter(classgroup=self).order_by('-datesat')
 
+    def latest_assessment(self):
+
+        latest_assessment = apps.get_model(app_label='tracker', model_name='Sitting')
+
+        return latest_assessment.objects.filter(classgroup=self).order_by('datesat').reverse()
+
+
     def topics(self):
         # Avoid a circular import
         SyllabusTopic = apps.get_model(app_label='tracker', model_name='SyllabusTopic')

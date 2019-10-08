@@ -37,7 +37,19 @@ th.rotate > div {
 
 .journalRating {
     background-color: #d6f5fd;
+}
 
+.card{
+    border-color: black;
+}
+
+.card.p{
+    margin-bottom: 0;
+}
+
+.card-title {
+    background-color: #dedede;
+    alignment: center;
 }
 
 .flex {
@@ -53,7 +65,7 @@ th.rotate > div {
     flex-wrap: wrap;
     width: 100%;
     align-items: flex-start;
-    border: 1px
+    border: 10px;
 }
 
 .column {
@@ -61,6 +73,10 @@ th.rotate > div {
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
+}
+
+div.col-sm-3 {
+    padding: 10px;
 }
 
 .contact-form-cntr {
@@ -151,3 +167,5 @@ th.rotate > div {
 .no-children{
     list-style-type: none;
 }
+
+.container [class^=col-]
