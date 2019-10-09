@@ -139,7 +139,11 @@ def sitting_detail(request, pk):
         total = Mark.objects.filter(sitting=sitting).filter(student=student).aggregate(Sum('score'))
         scores.append(total['score__sum'])
         studnet_total = total['score__sum']
-        percentage = studnet_total / exam_total *100
+        if studnet_total:
+            percentage = studnet_total / exam_total *100
+
+        else:
+            percentage = False
         percentages.append(percentage)
 
     data = list(zip(students, scores, percentages))
