@@ -567,13 +567,27 @@ class Exam(models.Model):
         return self.name
 
     def max_score(self):
-        return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))
+        return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))['maxscore__sum']
 
     def topics_tested(self):
         questions = Question.objects.filter(exam=self)
         topics = SyllabusTopic.objects.filter(syllabussubtopic__syllabuspoint__question__in=questions).distinct()
         topics = MPTTSyllabus.objects.filter(question__in=questions)
         return topics
+
+    def coverage_check(self, points_to_check):
+        """ Takes a queryset of syllabus points and checks each one to see if it appears in this test"""
+        points = []
+        # load once to save memory
+        self_points = self.topics_tested()
+        for point in points_to_check:
+            row = {'point': point,
+                   'tested': False}
+            if point in self_points:
+                row['tested'] = True
+            points.append(row)
+
+        return points
 
 
 class Question(models.Model):
@@ -615,7 +629,7 @@ class Sitting(models.Model):
         return round(numpy.average(scores))
 
     def class_average_score_str(self):
-        return str(self.class_average_score_int()) + '/' + str(self.exam.max_score()['maxscore__sum'])
+        return str(self.class_average_score_int()) + '/' + str(self.exam.max_score())
 
     def __str__(self):
         return self.exam.name + " " + self.classgroup.groupname

@@ -1,11 +1,12 @@
 from .base import *
-from .secret import *
+from .secret_prod import *
 
 DEBUG = True
 
 ALLOWED_HOSTS = [
                  'greenpen.net',
                  'prod.greenpen.net',
+                'localhost'
 ]
 
 SECURE_SSL_REDIRECT = False
