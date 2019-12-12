@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osd/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osd/settings/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/dev.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,6 +80,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="joerow &lt;joerow@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="JWR" />
@@ -129,23 +132,29 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/templates/tracker" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/tracker" />
-      <recent name="$PROJECT_DIR$/registration/templates/registration" />
-      <recent name="$PROJECT_DIR$/registration/templates" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
       <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
       <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/osd/settings" />
       <recent name="$PROJECT_DIR$/school/templates/school" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/tracker" />
+      <recent name="$PROJECT_DIR$/registration/templates/registration" />
+      <recent name="$PROJECT_DIR$/registration/templates" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -303,6 +312,9 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -317,27 +329,16 @@
       <workItem from="1565685689147" duration="15147000" />
       <workItem from="1566184411222" duration="876000" />
       <workItem from="1566275751926" duration="3243000" />
-    </task>
-    <task id="LOCAL-00106" summary="Corrected broken font-awesome links">
-      <created>1537247592176</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1537247592176</updated>
-    </task>
-    <task id="LOCAL-00107" summary="Added ability to see resources">
-      <created>1537406161495</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1537406161495</updated>
-    </task>
-    <task id="LOCAL-00108" summary="Added ability to see resources">
-      <created>1537494816990</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1537494816990</updated>
+      <workItem from="1570081744443" duration="4363000" />
+      <workItem from="1570245568550" duration="8958000" />
+      <workItem from="1570412810424" duration="3134000" />
+      <workItem from="1570434747701" duration="4311000" />
+      <workItem from="1570493639640" duration="5030000" />
+      <workItem from="1570508194043" duration="4150000" />
+      <workItem from="1570585613154" duration="1580000" />
+      <workItem from="1570612042714" duration="929000" />
+      <workItem from="1576115499353" duration="232000" />
+      <workItem from="1576115799666" duration="521000" />
     </task>
     <task id="LOCAL-00109" summary="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting.">
       <created>1537836924522</created>
@@ -661,7 +662,28 @@
       <option name="project" value="LOCAL" />
       <updated>1566284057022</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="The form to add a new sitting now only shows classes belonging to the teacher selected in the first field.">
+      <created>1570089479956</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1570089479956</updated>
+    </task>
+    <task id="LOCAL-00156" summary="Teacher overview page has classgroups by cards and shows the most recent assessment.">
+      <created>1570508526625</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1570508526625</updated>
+    </task>
+    <task id="LOCAL-00157" summary="CSS corrections to stretch each row to the same size.">
+      <created>1570518433539</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1570518433539</updated>
+    </task>
+    <option name="localTasksCounter" value="158" />
     <servers />
   </component>
   <component name="TodoView">
@@ -704,9 +726,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Attempt at bugfix for unique_error when moving a lesson up" />
-    <MESSAGE value="Changed beta version to use pycharm and fixed moving and adding lessons" />
-    <MESSAGE value="Created views to allow students to see their class' lessons lists (restricted to student-viewable resources, and no lesson orders)." />
     <MESSAGE value="Added link to show favicon" />
     <MESSAGE value="Ratings are now calculated and stored to allow for comparision over time, and to speed calculation" />
     <MESSAGE value="Corrected the path for favicon" />
@@ -729,7 +748,10 @@
     <MESSAGE value="Corrected css for list styling in mptt list" />
     <MESSAGE value="Corrected typo in lesson resource form" />
     <MESSAGE value="Rollover stage 2 createdc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rollover stage 2 createdc" />
+    <MESSAGE value="The form to add a new sitting now only shows classes belonging to the teacher selected in the first field." />
+    <MESSAGE value="Teacher overview page has classgroups by cards and shows the most recent assessment." />
+    <MESSAGE value="CSS corrections to stretch each row to the same size." />
+    <option name="LAST_COMMIT_MESSAGE" value="CSS corrections to stretch each row to the same size." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -748,11 +770,6 @@
           <url>file://$PROJECT_DIR$/osd/decorators.py</url>
           <line>77</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tracker/autocomplete.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -5,3 +5,4 @@ osd/wsgi.py
 .idea/
 osd/settings/secret.py
 osd/settings/secret_beta.py
+/venv/
