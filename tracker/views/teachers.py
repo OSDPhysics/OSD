@@ -11,6 +11,7 @@ import datetime
 from tracker.models import *
 import os
 
+from django.forms import ModelMultipleChoiceField
 from django.shortcuts import render, redirect, get_object_or_404
 from tracker.forms import *
 from osd.decorators import *
@@ -559,7 +560,6 @@ def dashboard(request,
                                                                           'pass_data': pass_data})
 
 
-@admin_only
 def mpttselect(request):
-    form = mpttSyllabusPointSelect()
+    form = TestModelForm()
     return render(request, 'tracker/mpttselect.html', {'form': form})
