@@ -3,8 +3,9 @@ from dal import autocomplete
 from django.forms.widgets import CheckboxSelectMultiple
 from tracker.models import SyllabusPoint, Syllabus, MPTTSyllabus
 from school.models import ClassGroup
-from tracker.forms import CustomModelChoiceField
+from tracker.forms import MPTTSelectField
 from timetable.models import Lesson, LessonResources
+from tracker.widgets import TreeSelectMultiple
 
 
 class LessonForm(forms.ModelForm):
@@ -14,10 +15,11 @@ class LessonForm(forms.ModelForm):
                   'mptt_syllabus_points']
 
         widgets = {
-            'homework_due': forms.TextInput(attrs={'type': 'date'},)
+            'homework_due': forms.TextInput(attrs={'type': 'date'},),
+            #'mptt_syllabus_points': TreeSelectMultiple()
         }
 
-        field_classes = {'mptt_syllabus_points': CustomModelChoiceField}
+        field_classes = {'mptt_syllabus_points': MPTTSelectField}
 
     class Media:
         js = (

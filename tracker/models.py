@@ -879,6 +879,7 @@ class MPTTSyllabus(MPTTModel):
     related_sub_topic = models.ForeignKey(SyllabusSubTopic, on_delete=models.SET_NULL, blank=True, null=True)
     related_point = models.ForeignKey(SyllabusPoint, on_delete=models.SET_NULL, blank=True, null=True)
 
+
     class MPTTMeta:
         order_insertion_by = ['number', 'text']
 

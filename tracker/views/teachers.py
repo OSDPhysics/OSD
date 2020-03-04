@@ -72,7 +72,7 @@ def examDetails(request, pk):
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
     setquestionsformset = modelformset_factory(Question, form=SetQuestions, extra=10)
-    parent_form = MPTTSyllabusForm()
+    parent_form = MPTTModelChoiceTree()
     if request.method == 'POST':
         qform = setquestionsformset(request.POST)
 
@@ -561,5 +561,5 @@ def dashboard(request,
 
 
 def mpttselect(request):
-    form = TestModelForm()
+    form = MPTTModelMultipleChoiceTree()
     return render(request, 'tracker/mpttselect.html', {'form': form})

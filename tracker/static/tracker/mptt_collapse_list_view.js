@@ -3,7 +3,7 @@ var i;
 
 for (i = 0; i < toggler.length; i++) {
   toggler[i].addEventListener("click", function() {
-    this.parentElement.nextElementSibling.classList.toggle("nested");
+    $(this).siblings().filter('ul')[0].classList.toggle("nested");
     this.classList.toggle("caret-down");
   });
 }
@@ -13,7 +13,7 @@ var j;
 
 for (j=0; j < points.length; j++) {
     points[j].addEventListener("click", function () {
-      var child_points = this.parentElement.nextElementSibling.getElementsByTagName("input");
+      var child_points = this.parentElement.getElementsByTagName("input");
       var l;
 
       // When we check a box, check all children
@@ -43,22 +43,9 @@ for (j=0; j < points.length; j++) {
               child_points[l].checked = false;
               child_points[l].classList.remove("checked")
               }
-      setIndeterminate()
-      }
 
-      // Set parents to indeterminate when activating a box
-      if (this.checked === true) {
-          var parents = $(this).parent().parents();
-          var checkboxes = parents.filter('li');
-          var m;
-          for (m = 0; m < checkboxes.length; m++) {
-              var boxes = checkboxes[m].children[0];
-              boxes.indeterminate = true;
-          }
-
-      // clear the indeterminates if all children are also checkedd
-          setIndeterminate()
       }
+      setIndeterminate();
     });
 }
 
@@ -69,7 +56,7 @@ function setIndeterminate() {
         var current_box = checkboxes[p];
 
         if(current_box.checked) {
-            current_box.classList.remove("nested");
+            current_box.classList.add("checked");
             continue;
         }
 
@@ -104,6 +91,39 @@ function setIndeterminate() {
 
 }
 
+function initial_classes() {
+    let checkboxes = document.getElementsByClassName("syllabus-checkbox");
+    let p;
+    for (p = 0; p < checkboxes.length; p++) {
+        let current_box = checkboxes[p];
+
+        if (current_box.checked) {
+            current_box.classList.add("checked");
+            current_box.classList.remove("nested")
+        }
+
+    }
+}
+
+function initial_nested() {
+    let uls = document.getElementsByClassName('has-children')
+
+    let p;
+    for (p = 0; p < uls.length; p++) {
+        let ul = uls[p];
+
+        if(ul.getElementsByTagName('input')[0].indeterminate === true) {
+            ul.classList.remove('nested');
+        }
+
+        if(ul.getElementsByTagName('input')[0].checked === true) {
+            ul.classList.remove('nested');
+        }
+
+    }
+}
 window.onload = function(){
+    initial_classes();
     setIndeterminate();
+    initial_nested();
 }

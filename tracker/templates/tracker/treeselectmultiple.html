@@ -1,6 +1,6 @@
 {% with id=widget.attrs.id %}
 
-    <ul class="mptt_tree"
+    <ul class="mptt_tree has-children"
         {% if id %}
           id="{{ id }}"
         {% endif %}
@@ -18,13 +18,13 @@
 
           {% endif %}
           {% for option in options %}
-            <li {% if option.has_children %}class="has-children"{% endif %}>{% include option.template_name with widget=option %}
-            </li>
+              <li {% if option.has_children %}class="has-children"{% endif %} level="{{ option.level }}">{% include option.template_name with widget=option %}{% if not option.has_children %}</li>{% endif %}
+
           {% if option.has_children %}
-              <ul class="has-children nested">
+              <ul class="has-children nested" level="{{ option.level }}">
           {% elif option.tags_to_close %}
               {% for tag in option.tags_to_close %}
-                  </ul>
+                  </ul></li>
               {% endfor %}
            {% endif %}
           {% endfor %}

@@ -2,6 +2,7 @@ from django import forms
 from dal import autocomplete
 from django.forms import modelformset_factory
 from .models import *
+from .widgets import TreeSelectMultiple, TreeSelect
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
 from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
@@ -99,43 +100,20 @@ class CustomModelChoiceField(TreeNodeMultipleChoiceField):
                        TreeNodeMultipleChoiceField._set_choices)
 
 
-
-class TreeSelectMultiple(forms.CheckboxSelectMultiple):
-    template_name = 'tracker/treeselectmultiple.html'
-    option_template_name = 'tracker/treecheckbox.html'
-
-    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
-        initial_dict = super().create_option(name, value, label, selected, index, subindex, attrs)
-
-        related_mptt_item = self.choices.queryset.get(pk=initial_dict['value'])
-        initial_dict['has_children'] = not related_mptt_item.is_leaf_node()
-
-        def check_if_needs_closing(item_to_check):
-            if not item_to_check.get_next_sibling():
-                return True
-            return False
-        tags_to_close = []
-
-        while True:
-            if not check_if_needs_closing(related_mptt_item):
-                break
-
-            else:
-                if related_mptt_item.is_child_node():
-                    related_mptt_item = related_mptt_item.parent
-                    tags_to_close.append('close')
-                else:
-                    break
-        # Check if parent was last item
-
-        initial_dict['tags_to_close'] = tags_to_close
-        return initial_dict
-
-        # Calculate number of items to close
-
-
-class TestModelForm(forms.Form):
+class MPTTModelMultipleChoiceTree(forms.Form):
 
     points = TreeNodeMultipleChoiceField(queryset=MPTTSyllabus.objects.all(),
                                          widget=TreeSelectMultiple(attrs={'class': "syllabus-checkbox"}),
                                          level_indicator='')
+
+
+class MPTTSelectField(TreeNodeMultipleChoiceField):
+    widget = TreeSelectMultiple(attrs={'class': "syllabus-checkbox"})
+    def _get_level_indicator(self, obj):
+        return ''
+
+
+class MPTTModelChoiceTree(forms.Form):
+    points = TreeNodeChoiceField(queryset=MPTTSyllabus.objects.all(),
+                                 widget=TreeSelect(attrs={'class': 'syllabus-checkbox'}))
+
