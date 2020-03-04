@@ -7,9 +7,7 @@
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osd/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/static/tracker/mptt_collapse_list_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/tracker/mptt_collapse_list_view.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +82,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="JWR" />
+        <entry key="$PROJECT_DIR$" value="prod" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -128,24 +126,24 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/templates/tracker" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/static/tracker" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tracker/static/tracker" />
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
+      <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/osd/settings" />
-      <recent name="$PROJECT_DIR$/school/templates/school" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -317,13 +315,8 @@
       <workItem from="1565685689147" duration="15147000" />
       <workItem from="1566184411222" duration="876000" />
       <workItem from="1566275751926" duration="3243000" />
-    </task>
-    <task id="LOCAL-00106" summary="Corrected broken font-awesome links">
-      <created>1537247592176</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1537247592176</updated>
+      <workItem from="1583193164885" duration="25119000" />
+      <workItem from="1583225587902" duration="2130000" />
     </task>
     <task id="LOCAL-00107" summary="Added ability to see resources">
       <created>1537406161495</created>
@@ -661,7 +654,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566284057022</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="Created a custom widget for django-mptt">
+      <created>1583225643240</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1583225643241</updated>
+    </task>
+    <option name="localTasksCounter" value="156" />
     <servers />
   </component>
   <component name="TodoView">
@@ -704,7 +704,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Attempt at bugfix for unique_error when moving a lesson up" />
     <MESSAGE value="Changed beta version to use pycharm and fixed moving and adding lessons" />
     <MESSAGE value="Created views to allow students to see their class' lessons lists (restricted to student-viewable resources, and no lesson orders)." />
     <MESSAGE value="Added link to show favicon" />
@@ -729,7 +728,8 @@
     <MESSAGE value="Corrected css for list styling in mptt list" />
     <MESSAGE value="Corrected typo in lesson resource form" />
     <MESSAGE value="Rollover stage 2 createdc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rollover stage 2 createdc" />
+    <MESSAGE value="Created a custom widget for django-mptt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a custom widget for django-mptt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -763,20 +763,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Python.DjangoServer">
-        <watch expression="current_date" language="Python" />
-        <watch expression="lesson" />
-      </configuration>
-    </watches-manager>
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="watch">
-      <expression>
-        <expression-string>current_date</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
   </component>
 </project>

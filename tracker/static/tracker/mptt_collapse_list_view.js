@@ -13,8 +13,7 @@ var j;
 
 for (j=0; j < points.length; j++) {
     points[j].addEventListener("click", function () {
-      var parent = this.parentElement.parentElement;
-      var child_points = parent.getElementsByTagName("input");
+      var child_points = this.parentElement.nextElementSibling.getElementsByTagName("input");
       var l;
 
       // When we check a box, check all children
