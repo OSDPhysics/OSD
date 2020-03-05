@@ -45,8 +45,8 @@ class MPTTSyllabusAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = MPTTSyllabus.objects.all()
 
-        if self.forwarded.get('parent', None):
-            parent_pk = self.forwarded.get('parent', None)
+        if self.forwarded.get('points', None):
+            parent_pk = self.forwarded.get('points', None)
             parent = MPTTSyllabus.objects.get(pk=parent_pk)
             qs = parent.get_descendants()
 
