@@ -4,13 +4,9 @@
 {% block title %}Exam Details{% endblock title %}
 {% block description %}These are the details of the exam {{ exam.name }}.{% endblock description %}
 
-
-
 {% block content %}
 
-
-
-
+<div class="row">
     <h4>Sittings</h4>
     <table class="table table-striped">
         <thead>
@@ -33,16 +29,21 @@
     </table>
 
                 <a href="{% url 'tracker:new_sitting' exam.pk %}" class="btn btn-primary">Add Sitting</a>
-
-
+</div>
+<div class="row">
+<form method="post">
     <h2>Questions</h2>
 
     <p>You can use this from to create questions for your exam. If you need to re-order questions, then you can use up to two decimal places. E.g., if you want to add a question after question 4, order is 4.1. When you save the form, it will re-order them to whole numbers.</p>
     <p>If you want to delete a question, set its order to 0 - that will delete it.</p>
-    <form method="post">
+    <div class="row">
+    <div class="col-md-5">
+
         {% csrf_token %}
     Search syllabus points below:
         {{ parent_form }}
+    </div>
+    <div class="col-md-7">
         <table class="table table-striped">
             {{ qform.management_form }}
             {{ qform.non_form_errors.as_ul }}
@@ -72,11 +73,13 @@
                         {% endfor %}
                     </tr>
                 {% endfor %}
-            </table>
+            </table><button type="submit" class="btn btn-primary">Save</button>
+</div>
 
-            <button type="submit" class="btn btn-primary">Save</button>
-    </form>
 
+
+    </div></form>
+</div>
 {% endblock content %}
 
 {% block script %}

@@ -8,6 +8,8 @@ from django.forms import formset_factory
 from searchableselect.widgets import SearchableSelect
 
 
+
+
 class CSVDetailsForm(forms.Form):
     topic = forms.ModelChoiceField(label='Topic', queryset=SyllabusTopic.objects.all())
 
@@ -42,12 +44,11 @@ class SetQuestions(forms.ModelForm):
         model = Question
         fields = ['qorder', 'qnumber', 'maxscore', 'MPTTsyllabuspoint', 'exam']
         widgets = {
-            'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
+             'MPTTsyllabuspoint': autocomplete.ModelSelect2Multiple(url='tracker:mptt_syllabus_autocomplete',
                                                                forward=['points'],
                                                                ),
             'exam': forms.HiddenInput()
         }
-
 
     class Media:
         js = (
@@ -107,13 +108,20 @@ class MPTTModelMultipleChoiceTree(forms.Form):
                                          level_indicator='')
 
 
-class MPTTSelectField(TreeNodeMultipleChoiceField):
+class MPTTSelectMultipleField(TreeNodeMultipleChoiceField):
     widget = TreeSelectMultiple(attrs={'class': "syllabus-checkbox"})
     def _get_level_indicator(self, obj):
         return ''
 
 
+class MPTTSelectField(MPTTSelectMultipleField):
+    widget = TreeSelect(attrs={'class': "syllabus-checkbox"})
+
+
 class MPTTModelChoiceTree(forms.Form):
     points = TreeNodeChoiceField(queryset=MPTTSyllabus.objects.all(),
-                                 widget=TreeSelect(attrs={'class': 'syllabus-checkbox'}))
+                                 widget=TreeSelect(attrs={'class': 'syllabus-checkbox'}),
+                                 level_indicator='')
 
+    def _get_level_indicator(self, obj):
+        return ''

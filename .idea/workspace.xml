@@ -4,10 +4,12 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected javascript for selecting elements.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osd/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/static/tracker/mptt_collapse_list_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/tracker/mptt_collapse_list_view.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/treeselectmultiple.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/treeselectmultiple.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -128,22 +130,22 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/static/tracker" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/tracker/static/tracker" />
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
-      <recent name="$PROJECT_DIR$/osd/settings" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tracker/static/tracker" />
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
+      <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -316,28 +318,8 @@
       <workItem from="1566184411222" duration="876000" />
       <workItem from="1566275751926" duration="3243000" />
       <workItem from="1583193164885" duration="25119000" />
-      <workItem from="1583225587902" duration="2130000" />
-    </task>
-    <task id="LOCAL-00107" summary="Added ability to see resources">
-      <created>1537406161495</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1537406161495</updated>
-    </task>
-    <task id="LOCAL-00108" summary="Added ability to see resources">
-      <created>1537494816990</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1537494816990</updated>
-    </task>
-    <task id="LOCAL-00109" summary="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting.">
-      <created>1537836924522</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1537836924522</updated>
+      <workItem from="1583225587902" duration="18513000" />
+      <workItem from="1583387327253" duration="1653000" />
     </task>
     <task id="LOCAL-00110" summary="Refactoring and bugfix for calculating average student ratings.">
       <created>1537839901867</created>
@@ -661,7 +643,28 @@
       <option name="project" value="LOCAL" />
       <updated>1583225643241</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="Corrected javascript for selecting elements.">
+      <created>1583280766600</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1583280766600</updated>
+    </task>
+    <task id="LOCAL-00157" summary="Some headway on drilldown in radio">
+      <created>1583315262912</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1583315262912</updated>
+    </task>
+    <task id="LOCAL-00158" summary="Updated forwarded values for treee checkbox select.">
+      <created>1583387555981</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1583387555982</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TodoView">
@@ -704,9 +707,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Changed beta version to use pycharm and fixed moving and adding lessons" />
-    <MESSAGE value="Created views to allow students to see their class' lessons lists (restricted to student-viewable resources, and no lesson orders)." />
-    <MESSAGE value="Added link to show favicon" />
     <MESSAGE value="Ratings are now calculated and stored to allow for comparision over time, and to speed calculation" />
     <MESSAGE value="Corrected the path for favicon" />
     <MESSAGE value="Created the a completion checking tracker, which allows teachers to see how much of the course they have taught to each classgroup." />
@@ -729,7 +729,10 @@
     <MESSAGE value="Corrected typo in lesson resource form" />
     <MESSAGE value="Rollover stage 2 createdc" />
     <MESSAGE value="Created a custom widget for django-mptt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a custom widget for django-mptt" />
+    <MESSAGE value="Corrected javascript for selecting elements." />
+    <MESSAGE value="Some headway on drilldown in radio" />
+    <MESSAGE value="Updated forwarded values for treee checkbox select." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated forwarded values for treee checkbox select." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
