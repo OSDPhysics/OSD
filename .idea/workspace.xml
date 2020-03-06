@@ -4,12 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected javascript for selecting elements.">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Updated exams entry form to make uses of tree syllabus select.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timetable/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/static/css/tracker.css" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/css/tracker.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/treeselectmultiple.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/treeselectmultiple.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -319,14 +318,7 @@
       <workItem from="1566275751926" duration="3243000" />
       <workItem from="1583193164885" duration="25119000" />
       <workItem from="1583225587902" duration="18513000" />
-      <workItem from="1583387327253" duration="1653000" />
-    </task>
-    <task id="LOCAL-00110" summary="Refactoring and bugfix for calculating average student ratings.">
-      <created>1537839901867</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1537839901867</updated>
+      <workItem from="1583387327253" duration="6004000" />
     </task>
     <task id="LOCAL-00111" summary="Added ability to see resources">
       <created>1537852309120</created>
@@ -664,7 +656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583387555982</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="Updated exams entry form to make uses of tree syllabus select.">
+      <created>1583389185804</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1583389185804</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TodoView">
@@ -707,7 +706,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Ratings are now calculated and stored to allow for comparision over time, and to speed calculation" />
     <MESSAGE value="Corrected the path for favicon" />
     <MESSAGE value="Created the a completion checking tracker, which allows teachers to see how much of the course they have taught to each classgroup." />
     <MESSAGE value="Added error messages so that students can see when they have made an error on the input_marks page" />
@@ -732,7 +730,8 @@
     <MESSAGE value="Corrected javascript for selecting elements." />
     <MESSAGE value="Some headway on drilldown in radio" />
     <MESSAGE value="Updated forwarded values for treee checkbox select." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated forwarded values for treee checkbox select." />
+    <MESSAGE value="Updated exams entry form to make uses of tree syllabus select." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated exams entry form to make uses of tree syllabus select." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
