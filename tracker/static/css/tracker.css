@@ -151,3 +151,39 @@ th.rotate > div {
 .no-children{
     list-style-type: none;
 }
+
+/* dal bootstrap css fix */
+.select2-container {
+    width: 100% !important;
+    min-width: 10em !important;
+}
+/* django-addanother bootstrap css fix */
+.related-widget-wrapper{
+    padding-right: 16px;
+    position: relative;
+}
+.related-widget-wrapper-link{
+    position: absolute;
+    top: 3px;
+    right: 0px;
+}
+.select2-selection--single {
+  height: 100% !important;
+}
+.select2-selection__rendered{
+  word-wrap: break-word !important;
+  text-overflow: inherit !important;
+  white-space: normal !important;
+}
+
+
+
+.mptt-radio-search {
+  flex-basis: 40%;
+}
+
+.right {
+
+  height: 100vh;
+  overflow: auto;
+}

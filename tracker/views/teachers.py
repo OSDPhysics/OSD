@@ -11,6 +11,7 @@ import datetime
 from tracker.models import *
 import os
 
+from django.forms import ModelMultipleChoiceField
 from django.shortcuts import render, redirect, get_object_or_404
 from tracker.forms import *
 from osd.decorators import *
@@ -71,7 +72,7 @@ def examDetails(request, pk):
     sittings = Sitting.objects.filter(exam=exam)
     questions = Question.objects.filter(exam=exam)
     setquestionsformset = modelformset_factory(Question, form=SetQuestions, extra=10)
-    parent_form = MPTTSyllabusForm()
+    parent_form = MPTTModelChoiceTree()
     if request.method == 'POST':
         qform = setquestionsformset(request.POST)
 
@@ -122,7 +123,8 @@ def examDetails(request, pk):
                                                              'sittings': sittings,
                                                              'questions': questions,
                                                              'qform': qform,
-                                                             'parent_form': parent_form})
+                                                             'parent_form': parent_form
+                                                               })
 
 
 @teacher_only
@@ -132,11 +134,20 @@ def sitting_detail(request, pk):
 
     # collect total scores for this test
     scores = []
+    percentages = []
+    exam_total = sitting.exam.max_score()
     for student in students:
         total = Mark.objects.filter(sitting=sitting).filter(student=student).aggregate(Sum('score'))
         scores.append(total['score__sum'])
+        studnet_total = total['score__sum']
+        if studnet_total:
+            percentage = studnet_total / exam_total *100
 
-    data = list(zip(students, scores))
+        else:
+            percentage = False
+        percentages.append(percentage)
+
+    data = list(zip(students, scores, percentages))
 
     # Get the topic ratings:
     topic_data = sitting.class_topic_performance()
@@ -549,7 +560,6 @@ def dashboard(request,
                                                                           'pass_data': pass_data})
 
 
-@admin_only
 def mpttselect(request):
-    form = mpttSyllabusPointSelect()
+    form = MPTTModelMultipleChoiceTree()
     return render(request, 'tracker/mpttselect.html', {'form': form})

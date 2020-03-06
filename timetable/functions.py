@@ -23,8 +23,9 @@ def get_weekno_from_date(date, year):
             return 0
         # This is necessary for school years which span calendar years.
         else:
-            last_day_of_year = datetime.date(start_year, 12, 30)
-            last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
+            last_day_of_year = datetime.date(start_year, 12, 24)
+            #last_week_of_year = last_day_of_year.isocalendar()[1] # Sometimes there are 53 weeks in a year
+            last_week_of_year = 52 # Not sure if this is correct or the previous should be used
             final_timetable_week = last_week_of_year - start_week
 
             return final_timetable_week + date_week

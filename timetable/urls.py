@@ -5,6 +5,7 @@ app_name = "timetable"
 
 urlpatterns = [
     path('', views.teacher_splash, name='teacher_splash'),
+    path('next', views.next_week, name='next_week'),
     path('<int:teacher_pk>/<int:week_number>/<int:year>', views.teacher_tt, name='teacher_tt'),
     path('class/<int:classgroup_pk>', views.class_lesson_list, name='class_lesson_list'),
     path('class/<int:classgroup_pk>/check', views.class_lesson_check, name='class_lesson_check'),

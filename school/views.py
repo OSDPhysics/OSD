@@ -11,6 +11,7 @@ from tracker.charts import StudentSubTopicGraph
 from osd.decorators import *
 from tracker.models import Sitting, SyllabusTopic, MPTTSyllabus
 
+
 from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
 logger = logging.getLogger(__name__)
@@ -105,7 +106,7 @@ def logout_view(request):
 
 
 # Add students in bulk from CSV
-@admin_only
+@teacher_only
 def import_students(request):
     # Deal with getting a CSV file
 

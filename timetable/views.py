@@ -135,7 +135,7 @@ def teacher_tt(request, teacher_pk, week_number, year):
     weekgrid = generate_week_grid(teacher, week_number, year)
 
     return render(request,
-                  'timetable/splash.html',
+                  'timetable/splash2.html',
                   {'weekgrid': weekgrid,
                    'start_day': start_date,
                    'next_week': next_week,
@@ -144,6 +144,17 @@ def teacher_tt(request, teacher_pk, week_number, year):
                    'last_year': last_year,
                    'teacher': teacher,
                    'year': year})
+
+@teacher_only
+def next_week(request):
+    teacher = Teacher.objects.get(user=request.user)
+    today = datetime.date.today()
+    from .models import get_year_from_date
+    year = get_year_from_date(today)
+    week_number = get_weekno_from_date(today, year) + 1
+
+    return redirect(reverse('timetable:teacher_tt', args=[teacher.pk, week_number, year]))
+
 
 
 @teacher_or_own_classgroup
@@ -244,11 +255,11 @@ def get_lesson_from_date(classgroup, date):
 
 
 @teacher_only
-def class_lesson_check(request, classgroup_pk, year):
+def class_lesson_check(request, classgroup_pk):
     classgroup = ClassGroup.objects.get(pk=classgroup_pk)
     # re-order all the lessons
 
-    message = set_classgroups_lesson_dates(classgroup, year)
+    message = set_classgroups_lesson_dates(classgroup)
 
     if message:
         messages.add_message(request, messages.WARNING, message)
@@ -350,6 +361,14 @@ def edit_lesson(request, lesson_pk):
         if lesson_form.is_valid():
             lesson_form.save()
             messages.add_message(request, messages.SUCCESS, 'Lesson saved')
+
+            # check homework is set for a lesson date:
+            if lesson_form.cleaned_data['homework_due']:
+                if not Lesson.objects.filter(date=lesson_form.cleaned_data['homework_due'],
+                                             classgroup=lesson.classgroup).count():
+                    messages.add_message(request, messages.WARNING,
+                                         "Homework set for a date on which you don't teach this class.")
+
             # redirect depending on whether we're adding a resource or saving:
             if 'add_resource' in request.POST:
                 resource = LessonResources.objects.create(lesson=lesson)
@@ -410,3 +429,32 @@ def create_multiple_lesson_suspensions(request):
         return redirect(reverse('timetable:teacher_splash'))
 
     return render(request, 'timetable/create_multiple_day_suspensions.html', {'suspension_form': suspension_form})
+
+
+def new_teacher_tt(request, teacher_pk, week_number, year):
+    teacher = Teacher.objects.get(pk=teacher_pk)
+    start_date = get_monday_date_from_weekno(week_number, year)
+    next_week, next_year = get_next_tt_week_year(week_number, year)
+
+    last_week, last_year = get_previous_tt_week_year(week_number, year)
+
+    teachers_classgroups = ClassGroup.objects.filter(groupteacher=teacher)
+
+
+    lessons = Lesson.objects.filter(date__gte=start_date,
+                                            date__lt=next_week,
+                                            lessonslot__classgroup__groupteacher=teacher).order_by('date', 'lessonslot.period')
+
+    suspensions = LessonSuspension.objects.filter(date__gte=start_date,
+                                                  date__lt=next_week)
+
+# def new_weekgrid(lessons=Lesson.objects.none(), suspensions=LessonSuspension.objects.none(), teacher_classgroups=ClassGroup.objects.none())
+#
+#     days = []
+#     for day in DAYS:
+#         day_dictionary = {'day': day}
+#         periods = []
+#         for period in PERIODS:
+#             lesson = lessons.filter(lessonslot=period)
+#             if lesson.count():
+

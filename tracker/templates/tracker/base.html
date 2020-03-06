@@ -41,9 +41,11 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Teacher Resources</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'timetable:teacher_splash' %}">Timetable</a>
+                        <a class="dropdown-item" href="{% url 'timetable:next_week' %}">Next Week's timetable</a>
                         <a class="dropdown-item" href="{% url 'tracker:new_test' %}">Add an exam</a>
-                        <a class="dropdown-item" href="{% url 'timetable:create_multiple_lesson_suspensions' %}">Suspend
-                            multiple days</a>
+                        <a class="dropdown-item" href="{% url 'tracker:listExams' %}">Show all exams</a>
+                        <a class="dropdown-item" href="{% url 'school:import_students' %}">Import Students</a>
+
                     </div>
                 </li>
             {% endif %}
@@ -57,7 +59,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/admin">Admin Console</a>
                         <a class="dropdown-item" href="{% url 'school:school' %}">Whole school</a>
-
+                        <a class="dropdown-item" href="{% url 'timetable:create_multiple_lesson_suspensions' %}">Suspend
+                            multiple days</a>
 
                         <a class="dropdown-item" href="{% url 'tracker:school_standardised_data_vs_target' 18 12 %}">Y5
                             WSST Overview</a

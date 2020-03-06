@@ -36,7 +36,7 @@ RESOURCE_TYPES = (
     ('Test', 'Test'),
     ('Mark Scheme', 'Mark Scheme'),
     ('Web Page', 'Web Page'),
-
+    ('Google Drive', 'Google Drive'),
 )
 
 
@@ -193,6 +193,10 @@ class Lesson(models.Model):
     lesson_title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     requirements = models.TextField(null=True, blank=True)
+    homework = models.TextField(null=True, blank=True)
+    homework_due = models.DateField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
+
     sequence = models.IntegerField(null=False, blank=True)
     date = models.DateField(null=True, blank=True)
     syllabus = models.ForeignKey(Syllabus, blank=True, null=True, on_delete=models.SET_NULL)
@@ -304,23 +308,6 @@ class Lesson(models.Model):
                     lesson.save
 
     # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         # This code only happens if the objects is
-    #         # not in the database yet. Otherwise it would
-    #         # have pk
-    #
-    #         # As this is a new object, we need to set the sequence to the highest value we know...
-    #         self.classgroup = self.lessonslot.classgroup
-    #         max_sequence = Lesson.objects.filter(classgroup=self.classgroup).aggregate(Max("sequence"))
-    #         if max_sequence['sequence__max'] is None:
-    #             self.sequence = 0
-    #         else:
-    #             self.sequence = max_sequence['sequence__max'] + 1
-    #         super(Lesson, self).save(*args, **kwargs)
-    #         set_classgroups_lesson_dates(self.classgroup)
-    #         return self
-    #
-    #     """Make sure we set all dates correctly. """
     #
     #     super(Lesson, self).save(*args, **kwargs)
     #
@@ -350,6 +337,14 @@ class Lesson(models.Model):
                 lesson.sequence = lesson.sequence - 1
                 lesson.save()
         super().delete(*args, **kwargs)
+
+    def homework_due_lessons(self):
+        lessons_w_homework_due = Lesson.objects.filter(homework_due=self.date, classgroup=self.classgroup)
+        if lessons_w_homework_due.count():
+            return lessons_w_homework_due
+
+        else:
+            return False
 
 
 class LessonResources(models.Model):
@@ -383,7 +378,10 @@ class LessonResources(models.Model):
             string = string + '<i class="fas fa-newspaper">'
 
         elif self.resource_type == "Test":
-            string = string + "<i class='fas fa-pencil-ruler'></i>"
+            string = string + "<i class='fas fa-pencil-ruler'>"
+
+        elif self.resource_type == "Google Drive":
+            string = string + '<i class="fab fa-google-drive">'
 
         else:
             string = string + '<i class="fas fa-question-circle">'
@@ -391,6 +389,7 @@ class LessonResources(models.Model):
         string = string + "</i></a>"
 
         return string
+
 
     def icon(self):
         """ Icon link to the resource itself"""
@@ -411,6 +410,9 @@ class LessonResources(models.Model):
 
         elif self.resource_type == "Test":
             string = string + "<i class='fas fa-pencil-ruler'></i>"
+
+        elif self.resource_type == "Google Drive":
+            string = string + '<i class="fab fa-google-drive">'
 
         else:
             string = string + '<i class="fas fa-question-circle">'
@@ -455,7 +457,7 @@ class LessonSuspension(models.Model):
         for lesson in affected_lessons:
             classgroup = lesson.classgroup
             year = get_year_from_date(self.date)
-            set_classgroups_lesson_dates(classgroup, year)
+            set_classgroups_lesson_dates(classgroup)
 
         return self
 

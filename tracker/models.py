@@ -15,7 +15,6 @@ from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField, TreeManager
 
 
-
 # Create your models here.
 
 
@@ -185,7 +184,7 @@ class SyllabusTopic(models.Model):
     def studentSubTopicData(self, student):
         sub_topics = SyllabusSubTopic.objects.filter(topic=self)
         classgroup = ClassGroup.objects.filter(student=student,
-                                            syllabustaught__syllabustopic=self,
+                                               syllabustaught__syllabustopic=self,
                                                archived=False)
         ratings = []
         assessments = []
@@ -284,6 +283,7 @@ class SyllabusTopic(models.Model):
 
     def mptt_equivalent(self):
         return MPTTSyllabus.objects.get(related_topic=self)
+
 
 class SyllabusSubTopic(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
@@ -431,6 +431,7 @@ class SyllabusSubTopic(models.Model):
     def mptt_equivalent(self):
         return MPTTSyllabus.objects.get(related_sub_topic=self)
 
+
 class SyllabusPoint(models.Model):
     topic = models.ForeignKey(SyllabusTopic, on_delete=models.CASCADE)
     sub_topic = models.ForeignKey(SyllabusSubTopic, on_delete=models.CASCADE, null=True)
@@ -551,7 +552,7 @@ class SyllabusPoint(models.Model):
         ''' Find the rating for a group of students '''
         marks = Mark.objects.filter(student__in=students, question__syllabuspoint=self)
         average = marks.aggregate(Avg('percent'))
-        return round(average*5, 1)
+        return round(average * 5, 1)
 
     def mptt_weighted_rating(self, students):
         marks = Mark.objects.filter(student__in=students, question__syllabuspoint=self)
@@ -560,19 +561,34 @@ class SyllabusPoint(models.Model):
 class Exam(models.Model):
     name = models.CharField(max_length=100)
     syllabus = models.ManyToManyField(Syllabus)
+    root_syllabus = models.ForeignKey('MPTTSyllabus', blank=False, null=True, on_delete=models.SET_NULL)
     weighting = models.FloatField(default=1, blank=False, null=False)
 
     def __str__(self):
         return self.name
 
     def max_score(self):
-        return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))
+        return Question.objects.filter(exam=self).aggregate(Sum('maxscore'))['maxscore__sum']
 
     def topics_tested(self):
         questions = Question.objects.filter(exam=self)
         topics = SyllabusTopic.objects.filter(syllabussubtopic__syllabuspoint__question__in=questions).distinct()
-
+        topics = MPTTSyllabus.objects.filter(question__in=questions)
         return topics
+
+    def coverage_check(self, points_to_check):
+        """ Takes a queryset of syllabus points and checks each one to see if it appears in this test"""
+        points = []
+        # load once to save memory
+        self_points = self.topics_tested()
+        for point in points_to_check:
+            row = {'point': point,
+                   'tested': False}
+            if point in self_points:
+                row['tested'] = True
+            points.append(row)
+
+        return points
 
 
 class Question(models.Model):
@@ -614,7 +630,7 @@ class Sitting(models.Model):
         return round(numpy.average(scores))
 
     def class_average_score_str(self):
-        return str(self.class_average_score_int()) + '/' + str(self.exam.max_score()['maxscore__sum'])
+        return str(self.class_average_score_int()) + '/' + str(self.exam.max_score())
 
     def __str__(self):
         return self.exam.name + " " + self.classgroup.groupname
@@ -647,7 +663,8 @@ class Sitting(models.Model):
 
         topic_ratings = []
         for topic in topics:
-            questions = Question.objects.filter(syllabuspoint__topic=topic, exam=self.exam)
+            questions = Question.objects.filter(MPTTsyllabuspoint__in=topic.get_descendants(include_self=True),
+                                                exam=self.exam)
             markset = Mark.objects.filter(question__in=questions, student__in=self.students())
             topic_ratings.append(mark_queryset_to_rating(markset))
 
@@ -659,26 +676,31 @@ class Sitting(models.Model):
         # clever trick to switch Bool
         self.openForStudentRecording = not self.openForStudentRecording
 
-
     def create_ratings(self):
         single_points = MPTTSyllabus.objects.filter(question__exam__sitting=self)
 
         points = MPTTSyllabus.objects.get_queryset_ancestors(queryset=single_points, include_self=True)
         for student in self.students():
             for point in points:
-                rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total_contributions = point.calculate_student_rating(student, eff_date=self.datesat)
+                rating, zero_to_one, one_to_two, two_to_three, three_to_four, \
+                four_to_five, total_contributions = point.calculate_student_rating(student, eff_date=self.datesat)
                 if not rating:
                     # Rating will be Null if no points exist yet.
                     continue
                 # Check if we've done a rating including this sitting before
                 # (This would occur if we've updated a mark)
-                ratings = MPTTRating.objects.filter(student=student, assessment=self, syllabus=point)
+                ratings = MPTTRating.objects.filter(student=student,
+                                                    syllabus=point,
+                                                    created=self.datesat)
                 if ratings.count() > 0:
                     # The rating has already been done; so we're just updating it.
                     rating_instance = ratings[0]
                 else:
-                    rating_instance = MPTTRating.objects.create(student=student, created=self.datesat, syllabus=point)
-                    rating_instance.assessment.add(self)
+                    rating_instance = MPTTRating.objects.create(student=student,
+                                                                created=self.datesat,
+                                                                syllabus=point)
+
+                rating_instance.assessment.add(self)
 
                 rating_instance.rating = rating
                 rating_instance.zero_to_one = zero_to_one
@@ -713,7 +735,6 @@ class Mark(models.Model):
         return str(self.question.exam) + ' ' + str(self.student) + ' ' + str(self.question) + '(' + str(
             self.score) + ')'
 
-
     def calculate_percentage(self):
 
         if self.score:
@@ -728,7 +749,7 @@ class Mark(models.Model):
         if self.score:
             weighting = self.question.weighting * self.question.exam.weighting
             weighted_score = weighting * self.score
-            weighted_percent = round(weighted_score/self.calculate_weighted_max() * 100, 0)
+            weighted_percent = round(weighted_score / self.calculate_weighted_max() * 100, 0)
         else:
             weighted_percent = None
         return weighted_percent
@@ -844,6 +865,7 @@ def set_current_student_stopic_ratings():
             point.calculate_student_rating(student)
         print("Last point for student:", student)
 
+
 # There are the models required for django MPTT:
 
 
@@ -856,6 +878,7 @@ class MPTTSyllabus(MPTTModel):
     related_topic = models.ForeignKey(SyllabusTopic, on_delete=models.SET_NULL, blank=True, null=True)
     related_sub_topic = models.ForeignKey(SyllabusSubTopic, on_delete=models.SET_NULL, blank=True, null=True)
     related_point = models.ForeignKey(SyllabusPoint, on_delete=models.SET_NULL, blank=True, null=True)
+
 
     class MPTTMeta:
         order_insertion_by = ['number', 'text']
@@ -873,7 +896,8 @@ class MPTTSyllabus(MPTTModel):
 
     def calculate_student_rating(self, student, eff_date=datetime.today()):
         points = self.get_descendants(include_self=True)
-        marks = Mark.objects.filter(question__MPTTsyllabuspoint__in=points, student=student, sitting__datesat__lte=eff_date, score__isnull=False)
+        marks = Mark.objects.filter(question__MPTTsyllabuspoint__in=points, student=student,
+                                    sitting__datesat__lte=eff_date, score__isnull=False)
 
         if marks.count() == 0:
             return None, None, None, None, None, None, None
@@ -919,15 +943,33 @@ class MPTTSyllabus(MPTTModel):
         return rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total_contributions
 
     def group_ratings_data(self, students):
-        rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total = self.calculate_group_rating(students=students)
+        rating, zero_to_one, one_to_two, two_to_three, three_to_four, four_to_five, total = self.calculate_group_rating(
+            students=students)
+        self_assessment = self.group_most_recent_self_rating(students)
         data = {'rating': rating,
                 'zero_to_one': zero_to_one,
                 'one_to_two': one_to_two,
                 'two_to_three': two_to_three,
                 'three_to_four': three_to_four,
                 'four_to_five': four_to_five,
-                'total': total}
+                'total': total,
+                'self_assessment': self_assessment}
         return data
+
+    def group_most_recent_self_rating(self, students):
+        ratings = MPTTManualRating.objects.filter(student__in=students,
+                                                  syllabus=self)
+        if ratings:
+            return ratings.order_by('-created')[0]
+        else:
+            children = self.get_descendants()
+            ratings = MPTTManualRating.objects.filter(student__in=students,
+                                                      syllabus__in=children)
+            if ratings:
+                return ratings.aggregate(average=Avg('rating'))['average']
+            else:
+                return 0
+
 
 class MPTTRating(models.Model):
     syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
@@ -951,8 +993,18 @@ class MPTTRating(models.Model):
         return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"
 
 
-class StandardisedData(MPTTModel):
+class MPTTManualRating(models.Model):
+    syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, null=False, blank=False, on_delete=models.CASCADE)
+    rating = models.FloatField(null=True, blank=True)
+    created = models.DateTimeField(blank=False, null=False, default=datetime.now)
+    reason = models.CharField(blank=False, null=False, default="Student Assessment", max_length=100)
 
+    def __str__(self):
+        return str(self.syllabus) + ": " + str(self.student) + str(self.created) + "(" + str(self.rating) + ")"
+
+
+class StandardisedData(MPTTModel):
     name = models.CharField(max_length=50)
     max_value = models.DecimalField(max_digits=5, decimal_places=1)
     min_value = models.DecimalField(max_digits=5, decimal_places=1)
@@ -965,7 +1017,7 @@ class StandardisedData(MPTTModel):
 
     def cohort_average_residual(self, cohort):
         residuals = StandardisedResult.objects.filter(student__in=cohort,
-                                                    standardised_data=self)
+                                                      standardised_data=self)
         average = residuals.aggregate(average=Avg('residual'))
         return average['average']
 
@@ -974,7 +1026,6 @@ class StandardisedData(MPTTModel):
                                                     standardised_data=self)
         average = results.aggregate(average=Avg('result'))
         return average['average']
-
 
     def cohort_average_target(self, cohort):
         results = StandardisedResult.objects.filter(student__in=cohort,
@@ -1056,7 +1107,6 @@ class StandardisedResult(models.Model):
         if self.residual:
             return self.residual / float(self.standardised_data.max_value)
 
-
     def find_missing_result_or_target(self):
         # Check if this is a result in the kpi_pairs:
         pairs = KPIPair.objects.filter(student_result=self.standardised_data)
@@ -1064,13 +1114,11 @@ class StandardisedResult(models.Model):
             # Now get the target
             result_target = pair.sudent_target
             if StandardisedResult.objects.filter(student=self.student,
-                                                         standardised_data=result_target).exists():
-
+                                                 standardised_data=result_target).exists():
                 target_data = StandardisedResult.objects.get(student=self.student,
-                                                         standardised_data=result_target)
+                                                             standardised_data=result_target)
 
                 return target_data.result
-
 
 
 class PastStandardisedResult(models.Model):
@@ -1092,7 +1140,6 @@ class KPIPair(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
 
     def calculate_residual(self, student):
-
         difference = self.student_taget - self.student_result
         normalised_difference = difference / self.student_result.standar
 

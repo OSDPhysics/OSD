@@ -19,10 +19,11 @@
                             <tr>
                                 <td>Student</td>
                                 <td>Score</td>
+                                <td>Percentage</td>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for student, score in data %}
+                            {% for student, score, percentage in data %}
                                 <tr>
                                     <td>{% if sitting.openForStudentRecording %}
                                         <a href="{% url 'tracker:input_marks' sitting.pk student.pk %}"
@@ -30,6 +31,7 @@
                                         href="{% url 'tracker:student_sitting_summary' sitting.pk student.pk %}"
                                     {% endif %}>{{ student }}</a></td>
                                     <td>{{ score }}</td>
+                                    <td>{{ percentage }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
