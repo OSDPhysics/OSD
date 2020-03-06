@@ -175,3 +175,15 @@ th.rotate > div {
   text-overflow: inherit !important;
   white-space: normal !important;
 }
+
+
+
+.mptt-radio-search {
+  flex-basis: 40%;
+}
+
+.right {
+
+  height: 100vh;
+  overflow: auto;
+}

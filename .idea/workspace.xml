@@ -4,9 +4,8 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Updated exams entry form to make uses of tree syllabus select.">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Updated css to improve select2 rendering">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tracker/static/css/tracker.css" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/css/tracker.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" afterDir="false" />
     </list>
@@ -83,7 +82,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="prod" />
+        <entry key="$PROJECT_DIR$" value="widget_test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -318,14 +317,8 @@
       <workItem from="1566275751926" duration="3243000" />
       <workItem from="1583193164885" duration="25119000" />
       <workItem from="1583225587902" duration="18513000" />
-      <workItem from="1583387327253" duration="6004000" />
-    </task>
-    <task id="LOCAL-00111" summary="Added ability to see resources">
-      <created>1537852309120</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1537852309142</updated>
+      <workItem from="1583387327253" duration="6581000" />
+      <workItem from="1583468367688" duration="290000" />
     </task>
     <task id="LOCAL-00112" summary="Made autocomplete for syllabus points case-insensitive">
       <created>1537853176204</created>
@@ -663,7 +656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583389185804</updated>
     </task>
-    <option name="localTasksCounter" value="160" />
+    <task id="LOCAL-00160" summary="Updated css to improve select2 rendering">
+      <created>1583467560661</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1583467560661</updated>
+    </task>
+    <option name="localTasksCounter" value="161" />
     <servers />
   </component>
   <component name="TodoView">
@@ -706,7 +706,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Corrected the path for favicon" />
     <MESSAGE value="Created the a completion checking tracker, which allows teachers to see how much of the course they have taught to each classgroup." />
     <MESSAGE value="Added error messages so that students can see when they have made an error on the input_marks page" />
     <MESSAGE value="Navbar UI enhancements; removed disabled items, added 'add test' option, changed login link to go straight to Google Auth." />
@@ -731,7 +730,8 @@
     <MESSAGE value="Some headway on drilldown in radio" />
     <MESSAGE value="Updated forwarded values for treee checkbox select." />
     <MESSAGE value="Updated exams entry form to make uses of tree syllabus select." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated exams entry form to make uses of tree syllabus select." />
+    <MESSAGE value="Updated css to improve select2 rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated css to improve select2 rendering" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -765,5 +765,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Python.DjangoServer">
+        <watch expression="current_date" language="Python" />
+        <watch expression="lesson" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
