@@ -1,4 +1,4 @@
-from tracker.models import MPTTSyllabus, Syllabus, Examlevel, Question, Mark, Sitting
+from tracker.models import MPTTSyllabus, Syllabus, Examlevel, Question, Mark, Sitting, MPTTRating
 from journal.models import StudentJournalEntry
 from timetable.models import Lesson, LessonResources
 from school.models import ClassGroup
@@ -119,3 +119,12 @@ def convert_journal_entries():
         equivalent = MPTTSyllabus.objects.get(related_sub_topic=entry.syllabus_sub_topic, related_point__isnull=True)
         entry.mptt_syllabus = equivalent
         entry.save()
+
+
+def recalculate_sitting_ratings():
+    print("Deleting all MPTTRatings")
+    MPTTRating.objects.all().delete()
+    print("Now creating student ratings")
+    for sitting in Sitting.objects.all():
+        print("Currently on: " + str(sitting))
+        sitting.create_ratings()

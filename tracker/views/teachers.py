@@ -133,11 +133,20 @@ def sitting_detail(request, pk):
 
     # collect total scores for this test
     scores = []
+    percentages = []
+    exam_total = sitting.exam.max_score()
     for student in students:
         total = Mark.objects.filter(sitting=sitting).filter(student=student).aggregate(Sum('score'))
         scores.append(total['score__sum'])
+        studnet_total = total['score__sum']
+        if studnet_total:
+            percentage = studnet_total / exam_total *100
 
-    data = list(zip(students, scores))
+        else:
+            percentage = False
+        percentages.append(percentage)
+
+    data = list(zip(students, scores, percentages))
 
     # Get the topic ratings:
     topic_data = sitting.class_topic_performance()

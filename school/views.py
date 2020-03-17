@@ -11,6 +11,7 @@ from tracker.charts import StudentSubTopicGraph
 from osd.decorators import *
 from tracker.models import Sitting, SyllabusTopic, MPTTSyllabus
 
+
 from osd.decorators import admin_only, teacher_or_own_only, teacher_only
 
 logger = logging.getLogger(__name__)
