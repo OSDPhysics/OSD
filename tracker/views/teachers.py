@@ -425,7 +425,7 @@ def classgroup_ratings(request, classgroup_pk, syllabus_pk):
         # We are at the bottom of a row:
         sub_topic_data = [[syllabus, syllabus.group_ratings_data(students)], ]
 
-    return render(request, 'tracker/classgroup_ratings_mptt.html', {'classgroup': classgroup,
+    return render(request, 'tracker/classgroup_ratings_mptt2.html', {'classgroup': classgroup,
                                                                     'syllabus': syllabus,
                                                                     'students': students,
                                                                     'student_data': student_data,

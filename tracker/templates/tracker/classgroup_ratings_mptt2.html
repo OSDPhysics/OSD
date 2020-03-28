@@ -1,13 +1,15 @@
 {% extends 'tracker/base.html' %}
 {% block subtitle %}{{classgroup}}{% endblock subtitle %}
+
+
 {% block content %}
- <h1>Data for class {{ classgroup }} studying {{ syllabus }}</h1>
+ <h1>{{ classgroup }}'s data for {{ syllabus }}</h1>
     {% if parent %}
     <a class="btn btn-primary" href="{% url 'tracker:classgroup_ratings' classgroup.pk parent.pk %}" role="button"><< {{ parent }}</a>
     {% endif %}
  <div class="container">
         <div class="row">
-            <div class="col md">classgroup_ratings_mptt.html
+            <div class="col md">
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
