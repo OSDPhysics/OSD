@@ -376,7 +376,6 @@ def new_teacher_overview(request, teacher_pk):
                classgroup__archived=False).\
         order_by('datesat').reverse()
 
-
     return render(request, "tracker/mptt_teacher_overviewV2.html", {'teacher': teacher,
                                                                   'classgroups': classgroups,
                                                                   'sittings': sittings,

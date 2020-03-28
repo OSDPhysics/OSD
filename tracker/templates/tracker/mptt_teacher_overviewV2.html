@@ -1,10 +1,13 @@
 {% extends 'tracker/base.html' %}
 
 {% block title %}
-    <div class="container">
-    {{ teacher.title }} {{ teacher.user.last_name }}'s Dashboard
-    </div>
 {% endblock title %}
+
+{% block description %}
+    <div class="container">
+     Dashboard
+    </div>
+{% endblock description %}
 
 {% block content %}
 
@@ -28,6 +31,8 @@
                         <a href="{% url 'tracker:sitting_detail' row.0.latest_assessment.pk %}"> {{ row.0.latest_assessment.exam }}</a>
                         <p class="card-text" align="right"><small class="text-muted">Date: {{ row.0.latest_assessment.datesat }}</small></p>
                         <p class="card-text" align="right"><small class="text-muted">Average score: {{ row.0.latest_assessment.class_average_score_str }}</small></p>
+                    {% else %}
+                        <p class="card-text">No assessment data.</p>
                     {% endif %}
                 </div>
             </div>

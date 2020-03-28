@@ -1,0 +1,106 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}
+{% endblock title %}
+
+{% block description %}
+    <div class="container">
+     NEW COLLAPSABLE Dashboard
+    </div>
+{% endblock description %}
+
+{% block content %}
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+</style>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        {% for row in classgroup_data %}
+            {% for syllabus in row.1 %}
+            <button class="accordion">{{ syllabus }}</button>
+            <div class="panel">
+                        <h6><a href="{% url 'tracker:classgroup_ratings' row.0.pk syllabus.pk %}">{{ syllabus }}</a></h6>
+                    {% endfor %}
+                    {% for data in row.2 %}
+                        {%  include 'tracker/progressbar.html' %}
+                        <small class="text-muted">Average Rating: {{ data.rating }}</small>
+                    {% endfor %}
+                    {% if row.0.latest_assessment.pk %}
+                        <p>Most recent assessment:</p>
+                        <a href="{% url 'tracker:sitting_detail' row.0.latest_assessment.pk %}"> {{ row.0.latest_assessment.exam }}</a>
+                        <small class="text-muted">Date: {{ row.0.latest_assessment.datesat }}</small>
+                        <small class="text-muted">Average score: {{ row.0.latest_assessment.class_average_score_str }}</small>
+                    {% else %}
+                        <p class="card-text">No assessment data.</p>
+                    {% endif %}
+            </div>
+        {% endfor %}
+
+<button class="accordion">Section 2</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<button class="accordion">Section 3</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+    </div>
+</div>
+</body>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
+{% endblock script %}

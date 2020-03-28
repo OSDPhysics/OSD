@@ -11,7 +11,6 @@ app_name = "tracker"
 urlpatterns = [
     path('', common.splash, name='splash'),
     path('splash/<int:teacher_pk>', teachers.new_teacher_overview, name='new_teacher_overview'),
-
     path('<int:student_pk>/', common.student_profile, name='student_profile'),
 
     path('syllabus', teachers.list_syllabuses, name='syllabuses'),

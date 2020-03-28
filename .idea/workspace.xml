@@ -4,11 +4,15 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
-      <change beforePath="$PROJECT_DIR$/.idea/OSD.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OSD.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="changed to use the correct dev DB">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osd/settings/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/dev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/add_questions.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/add_questions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/mptt_teacher_overviewV2.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/mptt_teacher_overviewV2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker/views/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/views/teachers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +78,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -147,7 +151,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Django/Jinja2 Template" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -348,21 +352,11 @@
       <workItem from="1579526088682" duration="2061000" />
       <workItem from="1579662975259" duration="1325000" />
       <workItem from="1579675858339" duration="339000" />
-      <workItem from="1579676442995" duration="4234000" />
-    </task>
-    <task id="LOCAL-00109" summary="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting.">
-      <created>1537836924522</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1537836924522</updated>
-    </task>
-    <task id="LOCAL-00110" summary="Refactoring and bugfix for calculating average student ratings.">
-      <created>1537839901867</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1537839901867</updated>
+      <workItem from="1579676442995" duration="4590000" />
+      <workItem from="1581333934055" duration="247000" />
+      <workItem from="1584148195166" duration="2173000" />
+      <workItem from="1584789086069" duration="3712000" />
+      <workItem from="1585372937382" duration="13562000" />
     </task>
     <task id="LOCAL-00111" summary="Added ability to see resources">
       <created>1537852309120</created>
@@ -693,7 +687,21 @@
       <option name="project" value="LOCAL" />
       <updated>1570518433539</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary="changed to use the correct dev DB">
+      <created>1579681680483</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1579681680484</updated>
+    </task>
+    <task id="LOCAL-00159" summary="changed to use the correct dev DB">
+      <created>1584407742946</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1584407742947</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TodoView">
@@ -736,7 +744,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Added link to show favicon" />
     <MESSAGE value="Ratings are now calculated and stored to allow for comparision over time, and to speed calculation" />
     <MESSAGE value="Corrected the path for favicon" />
     <MESSAGE value="Created the a completion checking tracker, which allows teachers to see how much of the course they have taught to each classgroup." />
@@ -761,82 +768,96 @@
     <MESSAGE value="The form to add a new sitting now only shows classes belonging to the teacher selected in the first field." />
     <MESSAGE value="Teacher overview page has classgroups by cards and shows the most recent assessment." />
     <MESSAGE value="CSS corrections to stretch each row to the same size." />
-    <option name="LAST_COMMIT_MESSAGE" value="CSS corrections to stretch each row to the same size." />
+    <MESSAGE value="changed to use the correct dev DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed to use the correct dev DB" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="166" y="42" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579679335623">
+    <state x="166" y="42" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584791978405">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state x="104" y="40" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.709@0.23.1280.709" timestamp="1576234919843" />
-    <state x="166" y="42" key="#com.intellij.execution.impl.EditConfigurationsDialog/68.23.1212.777@68.23.1212.777" timestamp="1579679335623" />
-    <state x="306" y="23" key="CommitChangelistDialog2" timestamp="1579678907679">
+    <state x="166" y="42" key="#com.intellij.execution.impl.EditConfigurationsDialog/68.23.1212.777@68.23.1212.777" timestamp="1584791978405" />
+    <state x="412" y="165" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585388816854">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state x="251" y="23" key="CommitChangelistDialog2/0.23.1280.709@0.23.1280.709" timestamp="1576235470648" />
-    <state x="306" y="23" key="CommitChangelistDialog2/68.23.1212.777@68.23.1212.777" timestamp="1579678907679" />
-    <state width="585" height="245" key="GridCell.Tab.0.bottom" timestamp="1579681560804">
+    <state x="412" y="165" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/68.23.1212.777@68.23.1212.777" timestamp="1585388816854" />
+    <state x="303" y="23" width="745" height="777" key="CommitChangelistDialog2" timestamp="1585373651078">
+      <screen x="64" y="23" width="1216" height="777" />
+    </state>
+    <state x="303" y="23" key="CommitChangelistDialog2/64.23.1216.777@64.23.1216.777" timestamp="1585373651078" />
+    <state x="306" y="23" width="745" height="777" key="CommitChangelistDialog2/68.23.1212.777@68.23.1212.777" timestamp="1584407742651" />
+    <state width="1170" height="193" key="GridCell.Tab.0.bottom" timestamp="1585388794657">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.0.bottom/68.23.1212.777@68.23.1212.777" timestamp="1579681560804" />
-    <state width="585" height="245" key="GridCell.Tab.0.center" timestamp="1579681560802">
+    <state width="585" height="184" key="GridCell.Tab.0.bottom/64.23.1216.777@64.23.1216.777" timestamp="1585373889602" />
+    <state width="585" height="184" key="GridCell.Tab.0.bottom/67.23.1213.777@67.23.1213.777" timestamp="1585384117140" />
+    <state width="1170" height="193" key="GridCell.Tab.0.bottom/68.23.1212.777@68.23.1212.777" timestamp="1585388794657" />
+    <state width="1170" height="193" key="GridCell.Tab.0.center" timestamp="1585388794656">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.0.center/68.23.1212.777@68.23.1212.777" timestamp="1579681560802" />
-    <state width="585" height="245" key="GridCell.Tab.0.left" timestamp="1579681560802">
+    <state width="585" height="184" key="GridCell.Tab.0.center/64.23.1216.777@64.23.1216.777" timestamp="1585373889600" />
+    <state width="585" height="184" key="GridCell.Tab.0.center/67.23.1213.777@67.23.1213.777" timestamp="1585384117139" />
+    <state width="1170" height="193" key="GridCell.Tab.0.center/68.23.1212.777@68.23.1212.777" timestamp="1585388794656" />
+    <state width="1170" height="193" key="GridCell.Tab.0.left" timestamp="1585388794655">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.0.left/68.23.1212.777@68.23.1212.777" timestamp="1579681560802" />
-    <state width="585" height="245" key="GridCell.Tab.0.right" timestamp="1579681560803">
+    <state width="585" height="184" key="GridCell.Tab.0.left/64.23.1216.777@64.23.1216.777" timestamp="1585373889599" />
+    <state width="585" height="184" key="GridCell.Tab.0.left/67.23.1213.777@67.23.1213.777" timestamp="1585384117139" />
+    <state width="1170" height="193" key="GridCell.Tab.0.left/68.23.1212.777@68.23.1212.777" timestamp="1585388794655" />
+    <state width="1170" height="193" key="GridCell.Tab.0.right" timestamp="1585388794656">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.0.right/68.23.1212.777@68.23.1212.777" timestamp="1579681560803" />
-    <state width="585" height="245" key="GridCell.Tab.1.bottom" timestamp="1579681560806">
+    <state width="585" height="184" key="GridCell.Tab.0.right/64.23.1216.777@64.23.1216.777" timestamp="1585373889601" />
+    <state width="585" height="184" key="GridCell.Tab.0.right/67.23.1213.777@67.23.1213.777" timestamp="1585384117140" />
+    <state width="1170" height="193" key="GridCell.Tab.0.right/68.23.1212.777@68.23.1212.777" timestamp="1585388794656" />
+    <state width="949" height="245" key="GridCell.Tab.1.bottom" timestamp="1584952865996">
+      <screen x="67" y="23" width="1213" height="777" />
+    </state>
+    <state width="949" height="245" key="GridCell.Tab.1.bottom/67.23.1213.777@67.23.1213.777" timestamp="1584952865996" />
+    <state width="949" height="245" key="GridCell.Tab.1.bottom/68.23.1212.777@68.23.1212.777" timestamp="1584791521847" />
+    <state width="949" height="245" key="GridCell.Tab.1.center" timestamp="1584952865995">
+      <screen x="67" y="23" width="1213" height="777" />
+    </state>
+    <state width="949" height="245" key="GridCell.Tab.1.center/67.23.1213.777@67.23.1213.777" timestamp="1584952865995" />
+    <state width="949" height="245" key="GridCell.Tab.1.center/68.23.1212.777@68.23.1212.777" timestamp="1584791521846" />
+    <state width="949" height="245" key="GridCell.Tab.1.left" timestamp="1584952865995">
+      <screen x="67" y="23" width="1213" height="777" />
+    </state>
+    <state width="949" height="245" key="GridCell.Tab.1.left/67.23.1213.777@67.23.1213.777" timestamp="1584952865995" />
+    <state width="949" height="245" key="GridCell.Tab.1.left/68.23.1212.777@68.23.1212.777" timestamp="1584791521846" />
+    <state width="949" height="245" key="GridCell.Tab.1.right" timestamp="1584952865996">
+      <screen x="67" y="23" width="1213" height="777" />
+    </state>
+    <state width="949" height="245" key="GridCell.Tab.1.right/67.23.1213.777@67.23.1213.777" timestamp="1584952865996" />
+    <state width="949" height="245" key="GridCell.Tab.1.right/68.23.1212.777@68.23.1212.777" timestamp="1584791521847" />
+    <state x="387" y="134" key="MultipleFileMergeDialog" timestamp="1584407672884">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.1.bottom/68.23.1212.777@68.23.1212.777" timestamp="1579681560806" />
-    <state width="585" height="245" key="GridCell.Tab.1.center" timestamp="1579681560805">
+    <state x="387" y="134" key="MultipleFileMergeDialog/68.23.1212.777@68.23.1212.777" timestamp="1584407672884" />
+    <state x="209" y="23" width="982" height="709" key="SettingsEditor" timestamp="1585388733084">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.1.center/68.23.1212.777@68.23.1212.777" timestamp="1579681560805" />
-    <state width="585" height="245" key="GridCell.Tab.1.left" timestamp="1579681560804">
+    <state x="209" y="23" key="SettingsEditor/68.23.1212.777@68.23.1212.777" timestamp="1585388733084" />
+    <state x="367" y="228" key="com.intellij.ide.util.TipDialog" timestamp="1585372939190">
+      <screen x="64" y="23" width="1216" height="777" />
+    </state>
+    <state x="367" y="228" key="com.intellij.ide.util.TipDialog/64.23.1216.777@64.23.1216.777" timestamp="1585372939190" />
+    <state x="370" y="228" key="com.intellij.ide.util.TipDialog/68.23.1212.777@68.23.1212.777" timestamp="1584789134368" />
+    <state x="463" y="335" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584407840234">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.1.left/68.23.1212.777@68.23.1212.777" timestamp="1579681560804" />
-    <state width="585" height="245" key="GridCell.Tab.1.right" timestamp="1579681560805">
+    <state x="463" y="335" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/68.23.1212.777@68.23.1212.777" timestamp="1584407840234" />
+    <state x="226" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1584789634765">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state width="585" height="245" key="GridCell.Tab.1.right/68.23.1212.777@68.23.1212.777" timestamp="1579681560805" />
-    <state x="387" y="134" key="MultipleFileMergeDialog" timestamp="1579681447582">
-      <screen x="68" y="23" width="1212" height="777" />
-    </state>
-    <state x="387" y="134" key="MultipleFileMergeDialog/68.23.1212.777@68.23.1212.777" timestamp="1579681447582" />
-    <state x="209" y="23" width="982" height="709" key="SettingsEditor" timestamp="1579680402153">
-      <screen x="68" y="23" width="1212" height="777" />
-    </state>
-    <state x="149" y="23" width="982" height="709" key="SettingsEditor/0.23.1280.709@0.23.1280.709" timestamp="1576235336347" />
-    <state x="209" y="23" key="SettingsEditor/68.23.1212.777@68.23.1212.777" timestamp="1579680402153" />
-    <state x="370" y="228" key="com.intellij.ide.util.TipDialog" timestamp="1579676442252">
-      <screen x="68" y="23" width="1212" height="777" />
-    </state>
-    <state x="319" y="210" key="com.intellij.ide.util.TipDialog/0.23.1280.709@0.23.1280.709" timestamp="1576234848641" />
-    <state x="370" y="228" key="com.intellij.ide.util.TipDialog/68.23.1212.777@68.23.1212.777" timestamp="1579676442252" />
-    <state x="463" y="335" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579679095119">
-      <screen x="68" y="23" width="1212" height="777" />
-    </state>
-    <state x="463" y="335" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/68.23.1212.777@68.23.1212.777" timestamp="1579679095119" />
-    <state x="226" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1579680755130">
-      <screen x="68" y="23" width="1212" height="777" />
-    </state>
-    <state x="226" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/68.23.1212.777@68.23.1212.777" timestamp="1579680755130" />
+    <state x="226" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/68.23.1212.777@68.23.1212.777" timestamp="1584789634765" />
     <state x="340" y="47" width="667" height="729" key="find.popup" timestamp="1579663302120">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
     <state x="340" y="47" width="667" height="729" key="find.popup/68.23.1212.777@68.23.1212.777" timestamp="1579663302120" />
-    <state x="442" y="104" key="git4idea.branch.GitSmartOperationDialog" timestamp="1579681444621">
+    <state x="442" y="104" key="git4idea.branch.GitSmartOperationDialog" timestamp="1584407670262">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
-    <state x="395" y="97" key="git4idea.branch.GitSmartOperationDialog/0.23.1280.709@0.23.1280.709" timestamp="1576234981818" />
-    <state x="442" y="104" key="git4idea.branch.GitSmartOperationDialog/68.23.1212.777@68.23.1212.777" timestamp="1579681444621" />
+    <state x="442" y="104" key="git4idea.branch.GitSmartOperationDialog/68.23.1212.777@68.23.1212.777" timestamp="1584407670262" />
     <state x="404" y="256" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1579526288193">
       <screen x="68" y="23" width="1212" height="777" />
     </state>
@@ -859,16 +880,6 @@
           <url>file://$PROJECT_DIR$/osd/decorators.py</url>
           <line>77</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tracker/views/teachers.py</url>
-          <line>370</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tracker/views/teachers.py</url>
-          <line>348</line>
-          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
