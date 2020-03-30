@@ -4,10 +4,8 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Updated css to improve select2 rendering">
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/static/css/tracker.css" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/static/css/tracker.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/tracker/templates/tracker/exam_details.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,20 +14,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_MPTTSyllabusTestCase.coverage" NAME="Test: tracker.tests.MPTTSyllabusTestCase Coverage Results" MODIFIED="1559874661072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck_test_get_siblings.coverage" NAME="Test: tracker.tests.SyllabusCheck.test_get_siblings Coverage Results" MODIFIED="1559878732328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1561363184525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__tracker.coverage" NAME="Test: tracker Coverage Results" MODIFIED="1559874393874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__school_tests_ClassGroupTestCase.coverage" NAME="Test: school.tests.ClassGroupTestCase Coverage Results" MODIFIED="1561360833659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__school_tests_TeacherTestCase_test_correct_display_name.coverage" NAME="Test: school.tests.TeacherTestCase.test_correct_display_name Coverage Results" MODIFIED="1559872563852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__school.coverage" NAME="Test: school Coverage Results" MODIFIED="1559871601778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck_test_correct_display_name.coverage" NAME="Test: tracker.tests.SyllabusCheck.test_correct_display_name Coverage Results" MODIFIED="1559878659339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__tracker_tests_SyllabusCheck.coverage" NAME="Test: tracker.tests.SyllabusCheck Coverage Results" MODIFIED="1561362616209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__timetable.coverage" NAME="Test: timetable Coverage Results" MODIFIED="1560320979500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests_TimetabledLessonTestCase.coverage" NAME="Test: timetable.tests.TimetabledLessonTestCase Coverage Results" MODIFIED="1561362182169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/OSD$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1558079653912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/OSD$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1552878229951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests_GetMondayDateFromWeekNoTestCase.coverage" NAME="Test: timetable.tests.GetMondayDateFromWeekNoTestCase Coverage Results" MODIFIED="1560925625629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/OSD$Test__timetable_tests.coverage" NAME="Test: timetable.tests Coverage Results" MODIFIED="1561363215798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -65,10 +51,8 @@
     </expand>
     <select />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="OSD" is-module-sdk="true">
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-    <option name="myUseModuleSdk" value="true" />
-    <option name="myModuleName" value="OSD" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -82,10 +66,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="widget_test" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -93,7 +78,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectId" id="1PM0g0pISccgXWMJbsqR9QhVfdU" />
+  <component name="ProjectId" id="1YsieK65KIXCTp4qL1CX7EqwXge" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -118,31 +103,30 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="Data for class&#9;null&#9;null&#10;student_profile&#9;null&#9;null&#10;ckedi&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/static/ckeditor&#10;base.html&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/tracker/templates/tracker/base.html" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/timetable/templates/timetable/confirm_delete.html&#10;student_profile&#9;null&#9;null&#10;ckedi&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/static/ckeditor&#10;base.html&#9;FILE&#9;file:///Users/wright.j/PycharmProjects/OSD/tracker/templates/tracker/base.html" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tracker/static/tracker" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
       <recent name="$PROJECT_DIR$/timetable" />
+      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
+      <recent name="$PROJECT_DIR$/osd/settings" />
+      <recent name="$PROJECT_DIR$/school/templates/school" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tracker" />
       <recent name="$PROJECT_DIR$/registration/templates/registration" />
       <recent name="$PROJECT_DIR$/registration/templates" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/tracker/static/tracker" />
-      <recent name="$PROJECT_DIR$/tracker/templates/tracker" />
-      <recent name="$PROJECT_DIR$/timetable/templates/timetable" />
-      <recent name="$PROJECT_DIR$/timetable" />
       <recent name="$PROJECT_DIR$/osd/settings" />
     </key>
   </component>
@@ -158,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Django server.Dev Server">
+  <component name="RunManager">
     <configuration name="Test: school.tests.ClassGroupTestCase" type="DjangoTestsConfigurationType" temporary="true">
       <module name="OSD" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -259,16 +243,16 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Dev Server" type="Python.DjangoServer" factoryName="Django server">
+    <configuration name="OSD" type="Python.DjangoServer" factoryName="Django server">
       <module name="OSD" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="osd.settings.dev" />
+        <env name="DJANGO_SETTINGS_MODULE" value="osd.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -284,7 +268,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django server.Dev Server" />
+      <item itemvalue="Django server.OSD" />
       <item itemvalue="Django tests.Test: school.tests.ClassGroupTestCase" />
       <item itemvalue="Django tests.Test: timetable.tests" />
       <item itemvalue="Django tests.Test: timetable.tests.GetMondayDateFromWeekNoTestCase" />
@@ -311,14 +295,197 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
-      <workItem from="1565668778093" duration="352000" />
-      <workItem from="1565685689147" duration="15147000" />
-      <workItem from="1566184411222" duration="876000" />
-      <workItem from="1566275751926" duration="3243000" />
-      <workItem from="1583193164885" duration="25119000" />
-      <workItem from="1583225587902" duration="18513000" />
-      <workItem from="1583387327253" duration="6581000" />
-      <workItem from="1583468367688" duration="290000" />
+      <workItem from="1583737800521" duration="1651000" />
+      <workItem from="1585528161582" duration="1281000" />
+    </task>
+    <task id="LOCAL-00085" summary="Refactored icon generating function">
+      <created>1535961844920</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1535961844920</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1535965922769</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1535965922769</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536137958865</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1536137958865</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536224951169</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1536224951169</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Started playing with a better method of allocating lesson dates etc">
+      <created>1536310405173</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1536310405173</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Timetabling beta release">
+      <created>1536740312389</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1536740312390</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Timetabling beta release">
+      <created>1536741861731</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1536741861731</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Timetabling beta release">
+      <created>1536743214236</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743214236</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Timetabling beta release">
+      <created>1536743613876</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743613876</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Timetabling beta release">
+      <created>1536743876561</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1536743876561</updated>
+    </task>
+    <task id="LOCAL-00095" summary="temp bugbix">
+      <created>1536744785554</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744785554</updated>
+    </task>
+    <task id="LOCAL-00096" summary="temp bugbix">
+      <created>1536744973284</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1536744973284</updated>
+    </task>
+    <task id="LOCAL-00097" summary="temp bugbix">
+      <created>1536745125082</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1536745125082</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Begin working on copy lessons">
+      <created>1536808076668</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1536808076668</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Lessons can now be copied. TODO: work around copying onto an existing lesson.">
+      <created>1536829547737</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1536829547737</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Minor bugfix">
+      <created>1536887259809</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1536887259809</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Minor bugfix">
+      <created>1536888552397</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1536888552397</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Refactored lesson resource icon generation">
+      <created>1536894245955</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1536894245955</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Bugfix for importing students">
+      <created>1537231662148</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1537231662149</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Bugfix for importing students">
+      <created>1537233449228</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1537233449228</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Bugfix for importing students">
+      <created>1537233513011</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1537233513011</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Corrected broken font-awesome links">
+      <created>1537247592176</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1537247592176</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Added ability to see resources">
+      <created>1537406161495</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1537406161495</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Added ability to see resources">
+      <created>1537494816990</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1537494816990</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting.">
+      <created>1537836924522</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1537836924522</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Refactoring and bugfix for calculating average student ratings.">
+      <created>1537839901867</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1537839901867</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Added ability to see resources">
+      <created>1537852309120</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1537852309142</updated>
     </task>
     <task id="LOCAL-00112" summary="Made autocomplete for syllabus points case-insensitive">
       <created>1537853176204</created>
@@ -467,203 +634,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554942926055</updated>
     </task>
-    <task id="LOCAL-00133" summary="Updated migrations to correctly convert TutorGroups">
-      <created>1559715355772</created>
+    <task id="LOCAL-00133" summary="Enhancements to timetables; now shows lesson in tittle and allows user to go directly to next lesson.">
+      <created>1585530257800</created>
       <option name="number" value="00133" />
       <option name="presentableId" value="LOCAL-00133" />
       <option name="project" value="LOCAL" />
-      <updated>1559715355773</updated>
+      <updated>1585530257801</updated>
     </task>
-    <task id="LOCAL-00134" summary="Added logic for importing from SIMS">
-      <created>1559715452388</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1559715452388</updated>
-    </task>
-    <task id="LOCAL-00135" summary="Started adding tests">
-      <created>1559891772938</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1559891772939</updated>
-    </task>
-    <task id="LOCAL-00136" summary="Started adding year function to timetable">
-      <created>1560246109378</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1560246109378</updated>
-    </task>
-    <task id="LOCAL-00137" summary="Added unit tests for refactored helper functions.">
-      <created>1560318502858</created>
-      <option name="number" value="00137" />
-      <option name="presentableId" value="LOCAL-00137" />
-      <option name="project" value="LOCAL" />
-      <updated>1560318502858</updated>
-    </task>
-    <task id="LOCAL-00138" summary="Timetable is now compatible with multiple academic years!">
-      <created>1560332235515</created>
-      <option name="number" value="00138" />
-      <option name="presentableId" value="LOCAL-00138" />
-      <option name="project" value="LOCAL" />
-      <updated>1560332235515</updated>
-    </task>
-    <task id="LOCAL-00139" summary="Timetable is now compatible with multiple academic years!">
-      <created>1560388105604</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1560388105605</updated>
-    </task>
-    <task id="LOCAL-00140" summary="Made academic structures display their names in str()">
-      <created>1560391567884</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1560391567885</updated>
-    </task>
-    <task id="LOCAL-00141" summary="Started work on being able to search for and copy lessons from another classgroup.">
-      <created>1561366160832</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1561366160832</updated>
-    </task>
-    <task id="LOCAL-00142" summary="Treeview javascript now fully working">
-      <created>1565689271329</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1565689271329</updated>
-    </task>
-    <task id="LOCAL-00143" summary="Corrected static root">
-      <created>1565931837387</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1565931837387</updated>
-    </task>
-    <task id="LOCAL-00144" summary="Corrected static root">
-      <created>1565932002521</created>
-      <option name="number" value="00144" />
-      <option name="presentableId" value="LOCAL-00144" />
-      <option name="project" value="LOCAL" />
-      <updated>1565932002522</updated>
-    </task>
-    <task id="LOCAL-00145" summary="Corrected allowed hosts">
-      <created>1565932333308</created>
-      <option name="number" value="00145" />
-      <option name="presentableId" value="LOCAL-00145" />
-      <option name="project" value="LOCAL" />
-      <updated>1565932333308</updated>
-    </task>
-    <task id="LOCAL-00146" summary="Corrected allowed hosts">
-      <created>1565932405592</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1565932405592</updated>
-    </task>
-    <task id="LOCAL-00147" summary="Corrected allowed hosts">
-      <created>1565932482456</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1565932482456</updated>
-    </task>
-    <task id="LOCAL-00148" summary="Corrected allowed hosts">
-      <created>1565933778359</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1565933778359</updated>
-    </task>
-    <task id="LOCAL-00149" summary="Corrected allowed hosts">
-      <created>1565935125138</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1565935125139</updated>
-    </task>
-    <task id="LOCAL-00150" summary="Corrected allowed hosts">
-      <created>1565935224495</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1565935224495</updated>
-    </task>
-    <task id="LOCAL-00151" summary="Corrected allowed hosts">
-      <created>1565935595163</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1565935595163</updated>
-    </task>
-    <task id="LOCAL-00152" summary="Corrected css for list styling in mptt list">
-      <created>1565935782717</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1565935782718</updated>
-    </task>
-    <task id="LOCAL-00153" summary="Corrected typo in lesson resource form">
-      <created>1566275964287</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1566275964288</updated>
-    </task>
-    <task id="LOCAL-00154" summary="Rollover stage 2 createdc">
-      <created>1566284057022</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1566284057022</updated>
-    </task>
-    <task id="LOCAL-00155" summary="Created a custom widget for django-mptt">
-      <created>1583225643240</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1583225643241</updated>
-    </task>
-    <task id="LOCAL-00156" summary="Corrected javascript for selecting elements.">
-      <created>1583280766600</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1583280766600</updated>
-    </task>
-    <task id="LOCAL-00157" summary="Some headway on drilldown in radio">
-      <created>1583315262912</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1583315262912</updated>
-    </task>
-    <task id="LOCAL-00158" summary="Updated forwarded values for treee checkbox select.">
-      <created>1583387555981</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1583387555982</updated>
-    </task>
-    <task id="LOCAL-00159" summary="Updated exams entry form to make uses of tree syllabus select.">
-      <created>1583389185804</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1583389185804</updated>
-    </task>
-    <task id="LOCAL-00160" summary="Updated css to improve select2 rendering">
-      <created>1583467560661</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1583467560661</updated>
-    </task>
-    <option name="localTasksCounter" value="161" />
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TodoView">
@@ -706,32 +684,32 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
+    <MESSAGE value="Bugfix for importing students" />
+    <MESSAGE value="Corrected broken font-awesome links" />
+    <MESSAGE value="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting." />
+    <MESSAGE value="Refactoring and bugfix for calculating average student ratings." />
+    <MESSAGE value="Made autocomplete for syllabus points case-insensitive" />
+    <MESSAGE value="Added ability to see resources" />
+    <MESSAGE value="Modified SyllabusTopic to show syllabus name, allowing easier editing in Admin interface.&#10;Started ensuring that suspensions work for non whole-school, non all-day suspensions." />
+    <MESSAGE value="Minor bugfix" />
+    <MESSAGE value="Fix for lesson deletion and sequencing" />
+    <MESSAGE value="resource links now open in new window" />
+    <MESSAGE value="Updated student overview pages to show that the ratings are out of five." />
+    <MESSAGE value="Added the ability to move and insert lessons" />
+    <MESSAGE value="Attempt at bugfix for unique_error when moving a lesson up" />
+    <MESSAGE value="Changed beta version to use pycharm and fixed moving and adding lessons" />
+    <MESSAGE value="Created views to allow students to see their class' lessons lists (restricted to student-viewable resources, and no lesson orders)." />
+    <MESSAGE value="Added link to show favicon" />
+    <MESSAGE value="Ratings are now calculated and stored to allow for comparision over time, and to speed calculation" />
+    <MESSAGE value="Corrected the path for favicon" />
     <MESSAGE value="Created the a completion checking tracker, which allows teachers to see how much of the course they have taught to each classgroup." />
     <MESSAGE value="Added error messages so that students can see when they have made an error on the input_marks page" />
     <MESSAGE value="Navbar UI enhancements; removed disabled items, added 'add test' option, changed login link to go straight to Google Auth." />
     <MESSAGE value="Adding signals to save resources with their lessons' spec points." />
     <MESSAGE value="Lessons can now be added, with resource, without the use of the admin console." />
     <MESSAGE value="Updated migrations to correctly convert TutorGroups" />
-    <MESSAGE value="Added logic for importing from SIMS" />
-    <MESSAGE value="Started adding tests" />
-    <MESSAGE value="Started adding year function to timetable" />
-    <MESSAGE value="Added unit tests for refactored helper functions." />
-    <MESSAGE value="Timetable is now compatible with multiple academic years!" />
-    <MESSAGE value="Made academic structures display their names in str()" />
-    <MESSAGE value="Started work on being able to search for and copy lessons from another classgroup." />
-    <MESSAGE value="Treeview javascript now fully working" />
-    <MESSAGE value="Corrected static root" />
-    <MESSAGE value="Corrected allowed hosts" />
-    <MESSAGE value="Corrected css for list styling in mptt list" />
-    <MESSAGE value="Corrected typo in lesson resource form" />
-    <MESSAGE value="Rollover stage 2 createdc" />
-    <MESSAGE value="Created a custom widget for django-mptt" />
-    <MESSAGE value="Corrected javascript for selecting elements." />
-    <MESSAGE value="Some headway on drilldown in radio" />
-    <MESSAGE value="Updated forwarded values for treee checkbox select." />
-    <MESSAGE value="Updated exams entry form to make uses of tree syllabus select." />
-    <MESSAGE value="Updated css to improve select2 rendering" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated css to improve select2 rendering" />
+    <MESSAGE value="Enhancements to timetables; now shows lesson in tittle and allows user to go directly to next lesson." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhancements to timetables; now shows lesson in tittle and allows user to go directly to next lesson." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -771,5 +749,14 @@
         <watch expression="lesson" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>current_date</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
 </project>

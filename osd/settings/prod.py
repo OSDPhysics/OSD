@@ -5,6 +5,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['www.greenpen.net',
                  'prod.greenpen.net',
+                 'greenpen.net',
 ]
 
 SECURE_SSL_REDIRECT = True
