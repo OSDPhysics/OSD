@@ -4,8 +4,8 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected typo in lesson resource form">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
+      <change beforePath="$PROJECT_DIR$/osd/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/prod.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -296,21 +296,7 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
       <workItem from="1583737800521" duration="1651000" />
-      <workItem from="1585528161582" duration="1281000" />
-    </task>
-    <task id="LOCAL-00085" summary="Refactored icon generating function">
-      <created>1535961844920</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1535961844920</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1535965922769</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1535965922769</updated>
+      <workItem from="1585528161582" duration="1558000" />
     </task>
     <task id="LOCAL-00087" summary="Started playing with a better method of allocating lesson dates etc">
       <created>1536137958865</created>
@@ -641,7 +627,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585530257801</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="Corrected allowed hosts">
+      <created>1585530427012</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1585530427013</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Corrected allowed hosts">
+      <created>1585530593070</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1585530593070</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TodoView">
@@ -684,7 +684,6 @@
       <path value="$PROJECT_DIR$/venv/src/django-generic-m2m" />
       <path value="$PROJECT_DIR$/venv/src/django-nested-admin" />
     </ignored-roots>
-    <MESSAGE value="Bugfix for importing students" />
     <MESSAGE value="Corrected broken font-awesome links" />
     <MESSAGE value="Bugfixes for redirect after new sitting, few database unique constraints, changed sitting report to only show topic ratings from that particular sitting." />
     <MESSAGE value="Refactoring and bugfix for calculating average student ratings." />
@@ -709,7 +708,8 @@
     <MESSAGE value="Lessons can now be added, with resource, without the use of the admin console." />
     <MESSAGE value="Updated migrations to correctly convert TutorGroups" />
     <MESSAGE value="Enhancements to timetables; now shows lesson in tittle and allows user to go directly to next lesson." />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhancements to timetables; now shows lesson in tittle and allows user to go directly to next lesson." />
+    <MESSAGE value="Corrected allowed hosts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected allowed hosts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
