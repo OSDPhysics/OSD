@@ -346,6 +346,10 @@ class Lesson(models.Model):
         else:
             return False
 
+    def next_in_order(self):
+        return Lesson.objects.get(classgroup=self.classgroup,
+                                  sequence=self.sequence + 1)
+
 
 class LessonResources(models.Model):
     lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.SET_NULL)

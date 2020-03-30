@@ -374,6 +374,12 @@ def edit_lesson(request, lesson_pk):
                 resource = LessonResources.objects.create(lesson=lesson)
                 return redirect(reverse('timetable:edit_lesson_resource', args=[lesson_pk, resource.pk]))
 
+            if 'next_lesson' in request.POST:
+                return redirect(reverse('timetable:edit_lesson', args=[lesson.next_in_order().pk]))
+
+            if 'classgroup_lessons' in request.POST:
+                return redirect(reverse('timetable:class_lesson_list', args=[lesson.classgroup.pk]))
+
 
         else:
             messages.add_message(request, messages.ERROR, 'Please correct the errors below')

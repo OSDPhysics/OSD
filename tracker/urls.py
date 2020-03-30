@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 # from tracker import views
 
-from tracker.views import common, students, teachers
+from tracker.views import common, students, teachers, api
 
 app_name = "tracker"
 
@@ -74,5 +74,6 @@ urlpatterns = [
 
     path('wsst/<int:pastoral_pk>/<int:academic_pk>/' , teachers.school_standardised_data_vs_target, name='school_standardised_data_vs_target'),
 
-    path('testing/mpttselect/', teachers.mpttselect, name='mpttselect')
+    path('testing/mpttselect/', teachers.mpttselect, name='mpttselect'),
+    path('api/syllabus/<int:parent_pk>', api.MPTTSyllabusJson, name='syllabus_children_api')
 ]

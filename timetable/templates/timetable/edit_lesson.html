@@ -11,7 +11,7 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="card-title text-center">
-                            Edit A Lesson
+                            Editing {{ lesson.classgroup }}'s lesson on {{ lesson.date }}
                         </h2>
 <form method="post">
     {% csrf_token %}
@@ -32,6 +32,9 @@
 </p>
     <button type="submit" class="btn btn-primary" name="add_resource">Add Lesson Resource</button>
     <button type="submit" class="btn btn-primary" name="save">Save</button>
+    <button type="submit" class="btn btn-primary" name="next_lesson">Save and go to next day</button>
+    <button type="submit" class="btn btn-primary" name="classgroup_lessons">Save and go to group's lessons</button>
+
 </form>
                     </div>
                 </div>
