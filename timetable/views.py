@@ -380,6 +380,9 @@ def edit_lesson(request, lesson_pk):
             if 'classgroup_lessons' in request.POST:
                 return redirect(reverse('timetable:class_lesson_list', args=[lesson.classgroup.pk]))
 
+            if 'rtn_tt' in request.POST:
+                return redirect(reverse('timetable:teacher_splash'))
+
 
         else:
             messages.add_message(request, messages.ERROR, 'Please correct the errors below')

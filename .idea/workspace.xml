@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63d0f009-2ade-43c3-8d3e-2e553081d52c" name="Default" comment="Corrected allowed hosts">
-      <change beforePath="$PROJECT_DIR$/osd/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/osd/settings/prod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/templates/timetable/edit_lesson.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timetable/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/timetable/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -296,21 +297,7 @@
       <option name="presentableId" value="Default" />
       <updated>1525734200755</updated>
       <workItem from="1583737800521" duration="1651000" />
-      <workItem from="1585528161582" duration="1558000" />
-    </task>
-    <task id="LOCAL-00087" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1536137958865</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1536137958865</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Started playing with a better method of allocating lesson dates etc">
-      <created>1536224951169</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1536224951169</updated>
+      <workItem from="1585528161582" duration="1832000" />
     </task>
     <task id="LOCAL-00089" summary="Started playing with a better method of allocating lesson dates etc">
       <created>1536310405173</created>
@@ -641,7 +628,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585530593070</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="Corrected allowed hosts">
+      <created>1585530722518</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1585530722518</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Corrected allowed hosts">
+      <created>1585530781675</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1585530781675</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TodoView">
