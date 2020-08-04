@@ -1,5 +1,5 @@
 from django.test import TestCase
-from tracker.models import MPTTSyllabus
+from tracker.models import MPTTSyllabus, KnowledgeOrganiser
 # Create your tests here.
 
 def createSimpleSyllabus():
@@ -9,6 +9,7 @@ def createSimpleSyllabus():
                                             parent=top)
     sibling_child, created = MPTTSyllabus.objects.get_or_create(text='S2: First Child',
                                                 parent=sibling)
+
 
 
 class SyllabusCheck(TestCase):
@@ -34,3 +35,11 @@ class SyllabusCheck(TestCase):
 
     def test_calculate_ratings(self):
         pass
+
+    def test_knowledge_check(self):
+        """ Check we get knowledge checks required """
+        top = MPTTSyllabus.objects.get(text='S1: Top Level')
+        organiser = KnowledgeOrganiser.objects.create(syllabus_point=top,
+                                                      question="Sample q",
+                                                      teacher_answer="Sample a")
+        self.assertQuerysetEqual(top.knowledge_organiser, map(repr, organiser))

@@ -18,5 +18,11 @@ urlpatterns = [
     path('class/', views.classes, name='classes'),
     path('class/<int:class_pk>', views.class_details, name='class_details'),
     path('class/<int:student_pk>/<int:class_pk>', views.student_class_overview, name='student_class_overview'),
+    path('exportstudents', views.export_students, name='export_students'),
+    path('exportclasses', views.export_teaching_groups, name='export_teaching_groups'),
+    path('exportsyllabus', views.export_syllabus, name='export_syllabus'),
+    path('exportqs', views.export_questions),
+    path('exportsittings', views.export_sittings),
+    path('exportmarks', views.export_marks),
     path('', views.school, name='school'),
 ]

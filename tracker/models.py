@@ -11,6 +11,7 @@ from django.utils import timezone
 from .charts import StudentSubTopicGraph
 import pytz
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField, TreeManager
 
@@ -970,6 +971,9 @@ class MPTTSyllabus(MPTTModel):
             else:
                 return 0
 
+    def knowledge_organiser(self):
+        return KnowledgeOrganiser.objects.filter(syllabus_point=self)
+
 
 class MPTTRating(models.Model):
     syllabus = TreeForeignKey(MPTTSyllabus, null=False, blank=False, on_delete=models.CASCADE)
@@ -1145,3 +1149,16 @@ class KPIPair(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class KnowledgeOrganiser(models.Model):
+    syllabus_point = models.ForeignKey(MPTTSyllabus, blank=False, null=False, on_delete=models.CASCADE)
+    question = models.TextField(blank=False, null=False)
+    teacher_answer = models.TextField(blank=False, null=False)
+    created_by = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
+
+
+
+class StudentKnowledgeNotes(models.Model):
+    knowledge_organiser = models.ForeignKey(KnowledgeOrganiser, blank=False, null=False, on_delete=models.CASCADE)
+
