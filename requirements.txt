@@ -60,6 +60,6 @@ social-auth-core==3.1.0
 splinter==0.10.0
 sqlparse==0.3.0
 tenacity==5.0.3
-urllib3==1.24.1
+urllib3==1.24.2
 wget==3.2
 whitenoise==4.1.2
