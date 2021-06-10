@@ -5,7 +5,7 @@ chardet==3.0.4
 Click==7.0
 coverage==4.5.3
 defusedxml==0.5.0
-Django==2.2.4
+Django==2.2.24
 django-archive==0.1.5
 django-autocomplete-light==3.3.2
 django-ckeditor==5.6.1
