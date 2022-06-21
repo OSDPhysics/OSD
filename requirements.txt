@@ -30,7 +30,7 @@ idna==2.8
 jdcal==1.4
 mock==2.0.0
 more-itertools==6.0.0
-numpy==1.16.2
+numpy==1.22.0
 oauthlib==3.0.1
 openpyxl==2.6.1
 packaging==19.0
